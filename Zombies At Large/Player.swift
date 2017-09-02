@@ -12,28 +12,74 @@ import SpriteKit
 
 class Player: SKSpriteNode{
     
-    var playerType: PlayerType
     
-    var appliedUnitVector: CGVector{
+    enum Orientation{
+        case up,down,left,right
         
-        let xUnitVector = cos(compassDirection.zRotation)
-        let yUnitVector = sin(compassDirection.zRotation)
-        
-        return CGVector(dx: xUnitVector, dy: yUnitVector)
-    }
-    
-    var compassDirection: CompassDirection{
-        didSet{
-            
-            guard oldValue != compassDirection else { return }
-            
-            run(SKAction.rotate(toAngle: CGFloat(compassDirection.zRotation), duration: 0.10))
-           
+        func getOppositeOrientation() -> Orientation{
+            switch self {
+            case .up:
+                return .down
+            case .down:
+                return .up
+            case .left:
+                return .right
+            case .right:
+                return .left
+
             }
         }
+        
+        func getAdjacentCounterClockwiseOrientation() -> Orientation{
+            switch self {
+            case .up:
+                return .left
+            case .down:
+                return .right
+            case .left:
+                return .down
+            case .right:
+                return .up
+                
+            }
+            
+        }
+        
+        func getAdjacentClockwiseOrientation() -> Orientation{
+            switch self {
+            case .up:
+                return .right
+            case .down:
+                return .left
+            case .left:
+                return .up
+            case .right:
+                return .down
+                
+            }
+            
+        }
+    }
+    
+    var playerType: PlayerType
+    
+    private var appliedUnitVector: CGVector{
+        
+        switch currentOrientation {
+        case .up:
+            return CGVector(dx: 0.00, dy: 1.00)
+        case .down:
+            return CGVector(dx: 0.00, dy: -1.00)
+        case .left:
+            return CGVector(dx: -1.00, dy: 0.0)
+        case .right:
+            return CGVector(dx: 1.00, dy: 0.0)
+        }
+       
+    }
     
     
-    /**
+    
     var currentOrientation: Orientation{
         didSet{
             
@@ -41,32 +87,21 @@ class Player: SKSpriteNode{
             
             print("The player orientation has changed")
             
-            var newRotationAngle: Double
+            var angleOfRotaiton: Double = 0.00
             
-            switch currentOrientation {
-            case .down:
-                print("The player orientation has changed to down")
-                newRotationAngle = oldValue == .left  ?  Double.pi*3/2 : -Double.pi/2
-                break
-            case .up:
-                print("The player orientation has changed to up")
-                newRotationAngle = Double.pi/2
-                break
-            case .left:
-                print("The player orientation has changed to left")
-                newRotationAngle = oldValue == .down ? -Double.pi : Double.pi
-                break
-            case .right:
-                print("The player orientation has changed to right")
-                newRotationAngle = 0.00
-                break
+            if(oldValue == currentOrientation.getOppositeOrientation()){
+                angleOfRotaiton = Double.pi
+            } else if (oldValue == currentOrientation.getAdjacentClockwiseOrientation()){
+                angleOfRotaiton = Double.pi/2
+            } else if (oldValue == currentOrientation.getAdjacentCounterClockwiseOrientation()){
+                angleOfRotaiton = -Double.pi/2
             }
             
-            run(SKAction.rotate(toAngle: CGFloat(newRotationAngle), duration: 0.10))
+            run(SKAction.rotate(byAngle: CGFloat(angleOfRotaiton), duration: 0.30))
         }
      
      }
- **/
+ 
     
  
     
@@ -90,7 +125,7 @@ class Player: SKSpriteNode{
         let defaultPlayerType = PlayerType(rawValue: "manBlue")!
         
         self.playerType = defaultPlayerType
-        self.compassDirection = .east
+        self.currentOrientation = .right
         
         let texture = texture ?? defaultPlayerType.getTexture(textureType: .gun)
         
@@ -99,7 +134,7 @@ class Player: SKSpriteNode{
         self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.linearDamping = 1.00
+        self.physicsBody?.linearDamping = 2.00
         self.physicsBody?.angularDamping = 0.00
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)

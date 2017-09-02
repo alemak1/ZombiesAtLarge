@@ -154,9 +154,9 @@
 			children = (
 				BD3961D21F598B290060CDB4 /* Sad Town.mp3 */,
 				BD3961D51F598B470060CDB4 /* Sad Descent.mp3 */,
-				BD3961D11F598ADF0060CDB4 /* Polka Train.mp3 */,
 				BD3961D31F598B310060CDB4 /* Space Cadet.mp3 */,
 				BD3961D41F598B370060CDB4 /* Night at the Beach.mp3 */,
+				BD3961D11F598ADF0060CDB4 /* Polka Train.mp3 */,
 			);
 			path = BackgroundMusic;
 			sourceTree = "<group>";
