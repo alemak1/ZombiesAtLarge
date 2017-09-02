@@ -27,46 +27,18 @@ class Player: SKSpriteNode{
             
             guard oldValue != compassDirection else { return }
             
-            run(SKAction.rotate(toAngle: CGFloat(compassDirection.zRotation), duration: 0.10))
+            let rotation = ((compassDirection.zRotation - oldValue.zRotation) <= CGFloat.pi) && (compassDirection.zRotation > oldValue.zRotation)  ? (compassDirection.zRotation - oldValue.zRotation) : -(oldValue.zRotation - compassDirection.zRotation)
+            
+            print("Old zRotation is \(oldValue)")
+            print("New zRotation is \(zRotation)")
+            
+            run(SKAction.rotate(byAngle: CGFloat(rotation), duration: 0.10))
            
             }
         }
     
     
-    /**
-    var currentOrientation: Orientation{
-        didSet{
-            
-            guard oldValue != currentOrientation else { return }
-            
-            print("The player orientation has changed")
-            
-            var newRotationAngle: Double
-            
-            switch currentOrientation {
-            case .down:
-                print("The player orientation has changed to down")
-                newRotationAngle = oldValue == .left  ?  Double.pi*3/2 : -Double.pi/2
-                break
-            case .up:
-                print("The player orientation has changed to up")
-                newRotationAngle = Double.pi/2
-                break
-            case .left:
-                print("The player orientation has changed to left")
-                newRotationAngle = oldValue == .down ? -Double.pi : Double.pi
-                break
-            case .right:
-                print("The player orientation has changed to right")
-                newRotationAngle = 0.00
-                break
-            }
-            
-            run(SKAction.rotate(toAngle: CGFloat(newRotationAngle), duration: 0.10))
-        }
-     
-     }
- **/
+    
     
  
     
@@ -99,7 +71,7 @@ class Player: SKSpriteNode{
         self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.linearDamping = 1.00
+        self.physicsBody?.linearDamping = 1.50
         self.physicsBody?.angularDamping = 0.00
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)

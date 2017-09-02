@@ -90,44 +90,29 @@ class GameScene: SKScene {
                         print("Adjusting player rotation...")
                     
                         let controlPos = touch.location(in: node)
+                    
+                    var zRotation: CGFloat = 0.00
+                    
+                    if(controlPos.x > 0){
                         
-                        let zRotation = tan(controlPos.y/controlPos.x)
+                        zRotation = (controlPos.y > 0) ? atan(controlPos.y/controlPos.x) : (2*CGFloat.pi + (atan(controlPos.y/controlPos.x)))
+                       
+                    } else {
                         
-                        player.compassDirection = CompassDirection(zRotation: zRotation)
-                        
+                        zRotation = (controlPos.y > 0) ? (CGFloat.pi + atan(controlPos.y/controlPos.x)) : (atan(controlPos.y/controlPos.x) + CGFloat.pi)
                         
                     }
                     
-                    /**
-                    if node.name == "up"{
-                        print("You touched the up button")
-                        player.currentOrientation = .up
-                        player.applyMovementImpulse(withMagnitudeOf: 0.5)
-
+                    print("The zRotation is: \(zRotation)")
+                    
+                    if(zRotation <= CGFloat.pi*2){
+                            player.compassDirection = CompassDirection(zRotation: zRotation)
+                            player.applyMovementImpulse(withMagnitudeOf: 1.0)
+                        }
+                    
                     }
                     
-                    if node.name == "down"{
-                        print("You touched the down button")
-                        player.currentOrientation = .down
-                        player.applyMovementImpulse(withMagnitudeOf: 0.5)
-
-                    }
-                    
-                    if node.name == "right"{
-                        print("You touched the right button")
-                        player.currentOrientation = .right
-                        player.applyMovementImpulse(withMagnitudeOf: 0.5)
-
-                    }
-                    
-                    if node.name == "left"{
-                        print("You touched the left button")
-                        player.currentOrientation = .left
-                        player.applyMovementImpulse(withMagnitudeOf: 0.5)
-
-
-                    }
-                  **/
+ 
                     
            
                     
@@ -176,6 +161,7 @@ class GameScene: SKScene {
 
         self.controlButton = controlButton
         
+        controlButton.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         controlButton.position = position
         controlButton.move(toParent: overlayNode)
         
