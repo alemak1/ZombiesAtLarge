@@ -75,65 +75,7 @@ class GameScene: SKScene {
         
         print("Screen touched at position x: \(overlayNodeLocation.x), y: \(overlayNodeLocation.y)")
     
-        if buttonsAreLoaded{
-            
-            print("Buttons have been loaded already...")
-            
-            if controlButton.contains(overlayNodeLocation){
-                print("You touched the control button...")
-            }
-            
-            for node in self.overlayNode.nodes(at: overlayNodeLocation){
-                
-                if node.name == "ControlButton", let node = node as? SKSpriteNode{
-                
-                        print("Adjusting player rotation...")
-                    
-                        let controlPos = touch.location(in: node)
-                        
-                        let zRotation = tan(controlPos.y/controlPos.x)
-                        
-                        player.compassDirection = CompassDirection(zRotation: zRotation)
-                        
-                        
-                    }
-                    
-                    /**
-                    if node.name == "up"{
-                        print("You touched the up button")
-                        player.currentOrientation = .up
-                        player.applyMovementImpulse(withMagnitudeOf: 0.5)
-
-                    }
-                    
-                    if node.name == "down"{
-                        print("You touched the down button")
-                        player.currentOrientation = .down
-                        player.applyMovementImpulse(withMagnitudeOf: 0.5)
-
-                    }
-                    
-                    if node.name == "right"{
-                        print("You touched the right button")
-                        player.currentOrientation = .right
-                        player.applyMovementImpulse(withMagnitudeOf: 0.5)
-
-                    }
-                    
-                    if node.name == "left"{
-                        print("You touched the left button")
-                        player.currentOrientation = .left
-                        player.applyMovementImpulse(withMagnitudeOf: 0.5)
-
-
-                    }
-                  **/
-                    
-           
-                    
-                    
-                }
-            }
+        
             
       }
         
