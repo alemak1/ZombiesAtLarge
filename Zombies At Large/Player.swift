@@ -27,8 +27,14 @@ class Player: SKSpriteNode{
             
             guard oldValue != compassDirection else { return }
             
-            run(SKAction.rotate(toAngle: CGFloat(compassDirection.zRotation), duration: 0.10))
-           
+            let rotation = ((compassDirection.zRotation - oldValue.zRotation) <= CGFloat.pi) && (compassDirection.zRotation > oldValue.zRotation)  ? (compassDirection.zRotation - oldValue.zRotation) : -(oldValue.zRotation - compassDirection.zRotation)
+            
+            print("Old zRotation is \(oldValue)")
+            print("New zRotation is \(zRotation)")
+            
+            run(SKAction.rotate(byAngle: CGFloat(rotation), duration: 0.10))
+            
+
             }
         }
     

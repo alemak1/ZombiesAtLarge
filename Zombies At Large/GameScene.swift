@@ -86,22 +86,27 @@ class GameScene: SKScene {
         if(xDelta > 0){
             
             if(yDelta > 0){
-                
+                zRotation = atan(absDeltaY/absDeltaX)
             } else {
-                
+                zRotation = 2*CGFloat.pi - atan(absDeltaY/absDeltaX)
             }
             
         } else {
             
             if(yDelta > 0){
                 
+                zRotation = CGFloat.pi - atan(absDeltaY/absDeltaX)
+
             } else {
-                
+                zRotation = CGFloat.pi + atan(absDeltaY/absDeltaX)
+
             }
         }
         
         if(zRotation <= CGFloat.pi*2){
             
+            player.compassDirection = CompassDirection(zRotation: zRotation)
+        
         }
             
       }
