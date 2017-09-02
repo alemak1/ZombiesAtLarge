@@ -71,11 +71,38 @@ class GameScene: SKScene {
         print("You touched the screen")
         
         
-        let overlayNodeLocation = touch.location(in: overlayNode)
+        let touchLocation = touch.location(in: self)
         
-        print("Screen touched at position x: \(overlayNodeLocation.x), y: \(overlayNodeLocation.y)")
+        print("Screen touched at position x: \(touchLocation.x), y: \(touchLocation.y)")
     
+        let xDelta = (touchLocation.x - player.position.x)
+        let yDelta = (touchLocation.y - player.position.y)
         
+        let absDeltaX = abs(xDelta)
+        let absDeltaY = abs(yDelta)
+        
+        var zRotation: CGFloat = 0.00
+        
+        if(xDelta > 0){
+            
+            if(yDelta > 0){
+                
+            } else {
+                
+            }
+            
+        } else {
+            
+            if(yDelta > 0){
+                
+            } else {
+                
+            }
+        }
+        
+        if(zRotation <= CGFloat.pi*2){
+            
+        }
             
       }
         
