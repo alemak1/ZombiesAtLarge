@@ -13,5 +13,7 @@ enum ColliderType: UInt32{
     case Wall = 0b1
     case Zombie = 0b10
     case PlayerProximity = 0b1000
+    case PlayerBullet = 0b10000
+    case ZombieBullet = 0b100000
 }
 

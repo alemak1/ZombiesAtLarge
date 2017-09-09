@@ -16,6 +16,8 @@ class Player: SKSpriteNode{
     
     private var playerProximity: SKSpriteNode!
     
+    private var bulletInTransit = false
+    
     let playFiringSound = SKAction.playSoundFileNamed("laser1", waitForCompletion: true)
     
     var appliedUnitVector: CGVector{
@@ -124,7 +126,9 @@ class Player: SKSpriteNode{
         
         self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
         self.physicsBody?.categoryBitMask = ColliderType.Player.rawValue
-        self.physicsBody?.collisionBitMask = ColliderType.Wall.rawValue
+        self.physicsBody?.collisionBitMask = ColliderType.Wall.rawValue | ColliderType.ZombieBullet.rawValue
+        self.physicsBody?.contactTestBitMask = ColliderType.ZombieBullet.rawValue
+        
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.isDynamic = true
         self.physicsBody?.allowsRotation = false
@@ -151,72 +155,83 @@ class Player: SKSpriteNode{
     
     public func fireBullet(){
         
+        guard !bulletInTransit else { return }
+        
+        let bullet = getBullet()
+        let gunfire = getGunfire()
+        
+        let bulletMagnitude = CGFloat(10.00)
+        
+        let cgVector = CGVector(dx: bulletMagnitude*self.appliedUnitVector.dx, dy: bulletMagnitude*self.appliedUnitVector.dy)
+        
+        
+        self.run(SKAction.sequence([
+            SKAction.run {
+                
+                self.bulletInTransit = true
+                
+                self.addChild(bullet)
+                self.addChild(gunfire)
+                
+                bullet.physicsBody?.applyImpulse(cgVector)
+
+
+            },
+            
+            SKAction.sequence([
+                SKAction.wait(forDuration: 0.05),
+                SKAction.run { gunfire.removeFromParent()
+                self.bulletInTransit = false
+
+                }
+                ]),
+            
+         self.playFiringSound,
+         
+         SKAction.run {
+            bullet.removeFromParent()
+            }
+
+            ]))
+                print("Gun fired!")
+    }
+    
+    /** Helper function to generate gunfire **/
+    
+    private func getGunfire() -> SKSpriteNode{
+        
         let playerWidth = size.width
         let playerHeight = size.height
         
+        let gunfire = SKSpriteNode(imageNamed: "bullet_fire2")
+        gunfire.position = CGPoint(x: playerWidth*0.43, y: -playerHeight*0.17)
+        
+        return gunfire
+    }
+    
+    /** Helper function to generate fired bullets **/
+    
+    private func getBullet() -> SKSpriteNode{
+        
+        let playerWidth = size.width
+        let playerHeight = size.height
+        
+
         let bulletTexture = SKTexture(imageNamed: "bullet_fire1")
         let bullet = SKSpriteNode(texture: bulletTexture)
         
         bullet.physicsBody = SKPhysicsBody(texture: bulletTexture, size: bulletTexture.size())
         bullet.physicsBody?.affectedByGravity = false
-        bullet.physicsBody?.linearDamping = 0.00
+        bullet.physicsBody?.allowsRotation = false
+        bullet.physicsBody?.linearDamping = 0.50
+        bullet.physicsBody?.categoryBitMask = ColliderType.PlayerBullet.rawValue
+        bullet.physicsBody?.collisionBitMask = ColliderType.Zombie.rawValue
+        bullet.physicsBody?.contactTestBitMask = ColliderType.Zombie.rawValue
         
         bullet.position = CGPoint(x: playerWidth*0.43, y: -playerHeight*0.17)
         
-        self.run(SKAction.run {
-            self.addChild(bullet)
-
-        }, completion: {
-            
-            self.run(SKAction.sequence([
-                SKAction.run {
-                
-                let bulletMagnitude = CGFloat(10.00)
-                
-                let cgVector = CGVector(dx: bulletMagnitude*self.appliedUnitVector.dx, dy: bulletMagnitude*self.appliedUnitVector.dy)
-                
-                bullet.physicsBody?.applyImpulse(cgVector)
-                
-            },
-                SKAction.sequence([
-            SKAction.wait(forDuration: 1.0),
-            SKAction.run { bullet.removeFromParent() }
-                    ])
-                ]))
-        })
-        
-        
- 
-        let fireBullet = SKSpriteNode(imageNamed: "bullet_fire2")
-        fireBullet.position = CGPoint(x: playerWidth*0.43, y: -playerHeight*0.17)
-        
-        
-        self.run(SKAction.run {
-            
-            self.addChild(fireBullet)
-
-            }, completion: {
-                
-                self.run(SKAction.sequence([
-                    SKAction.wait(forDuration: 0.10),
-                    SKAction.run {
-                        fireBullet.removeFromParent()
-                    }
-                    ]), completion: {
-            
-                    self.run(self.playFiringSound)
-
-                })
-            
-            
-        })
-        
-        
-      
-       
-        print("Gun fired!")
+        return bullet
     }
-    
     
     /** Updates the player proximity node so that it is aligned with player's current position; player proximity node is used to check for nearby zombies; adding it as a child node results in slower performance **/
     

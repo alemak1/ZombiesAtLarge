@@ -61,6 +61,8 @@ class Zombie: SKSpriteNode{
     
     private var zombieType: ZombieType!
     
+    var bulletInTransit = false
+    
     private var currentMode: ZombieMode = .Latent{
         didSet{
             guard oldValue != currentMode else { return }
@@ -177,74 +179,87 @@ class Zombie: SKSpriteNode{
     
     public func fireBullet(){
         
-        let zombieWidth = size.width
-        let zombieHeight = size.height
+        guard !bulletInTransit else { return }
+        
+        let bullet = getBullet()
+        let gunfire = getGunfire()
+        
+        let bulletMagnitude = CGFloat(10.00)
+        
+        let cgVector = CGVector(dx: bulletMagnitude*self.appliedUnitVector.dx, dy: bulletMagnitude*self.appliedUnitVector.dy)
+        
+        
+        self.run(SKAction.sequence([
+            SKAction.setTexture(self.zombieType.getShootTexture()),
+            
+            SKAction.run {
+                
+                self.bulletInTransit = true
+                
+                self.addChild(bullet)
+                self.addChild(gunfire)
+                
+                bullet.physicsBody?.applyImpulse(cgVector)
+                
+                
+            },
+            
+            SKAction.sequence([
+                SKAction.wait(forDuration: 0.05),
+                SKAction.run { gunfire.removeFromParent()
+                    self.bulletInTransit = false
+                    
+                }
+                ]),
+            
+            self.playFiringSound,
+            
+            SKAction.run {
+                bullet.removeFromParent()
+            },
+            
+            SKAction.setTexture(self.zombieType.getAttackTexture())
+            
+            ]))
+        
+        
+        print("Gun fired by zombie!")
+    }
+    
+    
+    private func getGunfire() -> SKSpriteNode{
+        
+        let spriteWidth = size.width
+        let spriteHeight = size.height
+        
+        let gunfire = SKSpriteNode(imageNamed: "bullet_fire2")
+        gunfire.position = CGPoint(x: spriteWidth*0.43, y: -spriteHeight*0.17)
+        
+        return gunfire
+    }
+    
+    private func getBullet() -> SKSpriteNode{
+        
+        let spriteWidth = size.width
+        let spriteHeight = size.height
+        
         
         let bulletTexture = SKTexture(imageNamed: "bullet_fire1")
         let bullet = SKSpriteNode(texture: bulletTexture)
         
         bullet.physicsBody = SKPhysicsBody(texture: bulletTexture, size: bulletTexture.size())
         bullet.physicsBody?.affectedByGravity = false
-        bullet.physicsBody?.linearDamping = 0.00
+        bullet.physicsBody?.allowsRotation = false
+        bullet.physicsBody?.linearDamping = 0.50
+        bullet.physicsBody?.categoryBitMask = ColliderType.ZombieBullet.rawValue
+        bullet.physicsBody?.collisionBitMask = ColliderType.Player.rawValue
+        bullet.physicsBody?.contactTestBitMask = ColliderType.Player.rawValue
         
-        bullet.position = CGPoint(x: zombieWidth*0.43, y: -zombieHeight*0.17)
+        bullet.position = CGPoint(x: spriteWidth*0.43, y: -spriteHeight*0.17)
         
-        self.run(SKAction.run {
-            self.addChild(bullet)
-            
-            self.run(SKAction.setTexture(self.zombieType.getShootTexture()))
-            
-            }, completion: {
-                
-                self.run(SKAction.sequence([
-                    SKAction.run {
-                        
-                        let bulletMagnitude = CGFloat(10.00)
-                        
-                        let cgVector = CGVector(dx: bulletMagnitude*self.appliedUnitVector.dx, dy: bulletMagnitude*self.appliedUnitVector.dy)
-                        
-                        bullet.physicsBody?.applyImpulse(cgVector)
-                        
-                    },
-                    SKAction.sequence([
-                        SKAction.wait(forDuration: 1.0),
-                        SKAction.run { bullet.removeFromParent() }
-                        ])
-                    ]))
-        })
-        
-        
-        
-        let fireBullet = SKSpriteNode(imageNamed: "bullet_fire2")
-        fireBullet.position = CGPoint(x: zombieWidth*0.43, y: -zombieHeight*0.17)
-        
-        
-        self.run(SKAction.run {
-            
-            self.addChild(fireBullet)
-            
-            }, completion: {
-                
-                self.run(SKAction.sequence([
-                    SKAction.wait(forDuration: 0.10),
-                    SKAction.run {
-                        fireBullet.removeFromParent()
-                    }
-                    ]), completion: {
-                        
-                        self.run(SKAction.setTexture(self.zombieType.getShootTexture()))
-                        self.run(self.playFiringSound)
-
-                })
-                
-                
-        })
-        
-        
-        
-        
-        print("Gun fired by zombie!")
+        return bullet
     }
+
     
     
 }
