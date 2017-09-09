@@ -27,6 +27,7 @@
 		BDE1250C1F6390CE0092E561 /* Zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE1250B1F6390CE0092E561 /* Zombie.swift */; };
 		BDE1250E1F639FFA0092E561 /* ZombieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE1250D1F639FFA0092E561 /* ZombieManager.swift */; };
 		BDE125501F63C99D0092E561 /* laser7.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDE1254F1F63C9980092E561 /* laser7.wav */; };
+		BDE125521F63E1E00092E561 /* Shooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE125511F63E1E00092E561 /* Shooter.swift */; };
 		BDFC53261F5A7CEE00289716 /* CompassDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFC53251F5A7CEE00289716 /* CompassDirection.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		BDE1250B1F6390CE0092E561 /* Zombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zombie.swift; sourceTree = "<group>"; };
 		BDE1250D1F639FFA0092E561 /* ZombieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieManager.swift; sourceTree = "<group>"; };
 		BDE1254F1F63C9980092E561 /* laser7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser7.wav; sourceTree = "<group>"; };
+		BDE125511F63E1E00092E561 /* Shooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shooter.swift; sourceTree = "<group>"; };
 		BDFC53251F5A7CEE00289716 /* CompassDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassDirection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,6 +151,7 @@
 				BD14D87D1F60151E00E19F21 /* ColliderType.swift */,
 				BDE1250B1F6390CE0092E561 /* Zombie.swift */,
 				BDE1250D1F639FFA0092E561 /* ZombieManager.swift */,
+				BDE125511F63E1E00092E561 /* Shooter.swift */,
 			);
 			path = "Zombies At Large";
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				BD39619F1F5970940060CDB4 /* GameViewController.swift in Sources */,
 				BDFC53261F5A7CEE00289716 /* CompassDirection.swift in Sources */,
 				BD3961971F5970940060CDB4 /* AppDelegate.swift in Sources */,
+				BDE125521F63E1E00092E561 /* Shooter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

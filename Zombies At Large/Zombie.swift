@@ -50,7 +50,7 @@ enum ZombieType: String{
     }
 }
 
-class Zombie: SKSpriteNode{
+class Zombie: Shooter{
     
     
     enum ZombieMode{
@@ -61,7 +61,16 @@ class Zombie: SKSpriteNode{
     
     private var zombieType: ZombieType!
     
-    var bulletInTransit = false
+    override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
+        
+        return {(bulletPB: inout SKPhysicsBody) in
+            
+            bulletPB.categoryBitMask = ColliderType.ZombieBullet.rawValue
+            bulletPB.collisionBitMask = ColliderType.Player.rawValue
+            bulletPB.contactTestBitMask = ColliderType.Player.rawValue
+            
+        }
+    }
     
     private var currentMode: ZombieMode = .Latent{
         didSet{
@@ -80,7 +89,11 @@ class Zombie: SKSpriteNode{
         }
     }
     
-    let playFiringSound = SKAction.playSoundFileNamed("laser7", waitForCompletion: true)
+    
+    override var playFiringSound: SKAction
+        {
+        return SKAction.playSoundFileNamed("laser7", waitForCompletion: true)
+    }
 
     private var shootInterval = 3.00
     private var lastUpdateTime = 0.00
@@ -166,7 +179,7 @@ class Zombie: SKSpriteNode{
     }
     
     
-    var appliedUnitVector: CGVector{
+    override var appliedUnitVector: CGVector{
         get{
             
             let unitX = cos(zRotation)
@@ -177,89 +190,38 @@ class Zombie: SKSpriteNode{
         }
     }
     
+    
+    
     public func fireBullet(){
         
-        guard !bulletInTransit else { return }
-        
-        let bullet = getBullet()
-        let gunfire = getGunfire()
-        
-        let bulletMagnitude = CGFloat(10.00)
-        
-        let cgVector = CGVector(dx: bulletMagnitude*self.appliedUnitVector.dx, dy: bulletMagnitude*self.appliedUnitVector.dy)
-        
-        
-        self.run(SKAction.sequence([
-            SKAction.setTexture(self.zombieType.getShootTexture()),
+        super.fireBullet(withPrefireHandler: {
             
-            SKAction.run {
-                
-                self.bulletInTransit = true
-                
-                self.addChild(bullet)
-                self.addChild(gunfire)
-                
-                bullet.physicsBody?.applyImpulse(cgVector)
-                
-                
-            },
+            self.run(SKAction.setTexture(self.zombieType.getShootTexture()))
             
-            SKAction.sequence([
-                SKAction.wait(forDuration: 0.05),
-                SKAction.run { gunfire.removeFromParent()
-                    self.bulletInTransit = false
-                    
-                }
-                ]),
+        }, andWithPostfireHandler: {
             
-            self.playFiringSound,
-            
-            SKAction.run {
-                bullet.removeFromParent()
-            },
-            
-            SKAction.setTexture(self.zombieType.getAttackTexture())
-            
-            ]))
+            self.run(SKAction.setTexture(self.zombieType.getAttackTexture()))
+        })
         
-        
-        print("Gun fired by zombie!")
     }
+
     
     
-    private func getGunfire() -> SKSpriteNode{
-        
-        let spriteWidth = size.width
-        let spriteHeight = size.height
-        
-        let gunfire = SKSpriteNode(imageNamed: "bullet_fire2")
-        gunfire.position = CGPoint(x: spriteWidth*0.43, y: -spriteHeight*0.17)
-        
-        return gunfire
-    }
     
-    private func getBullet() -> SKSpriteNode{
+    /**
+    override func getBullet() -> SKSpriteNode{
         
-        let spriteWidth = size.width
-        let spriteHeight = size.height
+        let bullet = super.getBullet()
         
-        
-        let bulletTexture = SKTexture(imageNamed: "bullet_fire1")
-        let bullet = SKSpriteNode(texture: bulletTexture)
-        
-        bullet.physicsBody = SKPhysicsBody(texture: bulletTexture, size: bulletTexture.size())
-        bullet.physicsBody?.affectedByGravity = false
-        bullet.physicsBody?.allowsRotation = false
-        bullet.physicsBody?.linearDamping = 0.50
+    
         bullet.physicsBody?.categoryBitMask = ColliderType.ZombieBullet.rawValue
         bullet.physicsBody?.collisionBitMask = ColliderType.Player.rawValue
         bullet.physicsBody?.contactTestBitMask = ColliderType.Player.rawValue
-        
-        bullet.position = CGPoint(x: spriteWidth*0.43, y: -spriteHeight*0.17)
+ 
         
         return bullet
     }
-
+     **/
     
     
 }
