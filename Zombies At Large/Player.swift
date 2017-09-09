@@ -12,7 +12,11 @@ import SpriteKit
 
 class Player: SKSpriteNode{
     
-    var playerType: PlayerType
+    private var playerType: PlayerType
+    
+    private var playerProximity: SKSpriteNode!
+    
+    let playFiringSound = SKAction.playSoundFileNamed("laser1", waitForCompletion: true)
     
     var appliedUnitVector: CGVector{
         
@@ -81,6 +85,8 @@ class Player: SKSpriteNode{
         
         self.xScale *= scale
         self.yScale *= scale
+        
+        
     }
     
     convenience init(playerType: PlayerType){
@@ -88,6 +94,20 @@ class Player: SKSpriteNode{
         let playerTexture = playerType.getTexture(textureType: .gun)
         
         self.init(texture: playerTexture, color: .clear, size: playerTexture.size())
+        
+        let proximitySize = CGSize(width: self.size.width*5, height: self.size.height*5)
+        
+        playerProximity = SKSpriteNode(texture: nil, color:.clear, size: proximitySize)
+        
+        playerProximity.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        playerProximity.position = self.position
+        playerProximity.name = "playerProximity"
+        playerProximity.physicsBody = SKPhysicsBody(circleOfRadius: 5*proximitySize.width)
+        playerProximity.physicsBody?.categoryBitMask = ColliderType.PlayerProximity.rawValue
+        playerProximity.physicsBody?.collisionBitMask = 00
+        playerProximity.physicsBody?.contactTestBitMask = ColliderType.Zombie.rawValue
+        
+    
        
     }
     
@@ -103,8 +123,11 @@ class Player: SKSpriteNode{
         super.init(texture: texture, color: color, size: size)
         
         self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
+        self.physicsBody?.categoryBitMask = ColliderType.Player.rawValue
+        self.physicsBody?.collisionBitMask = ColliderType.Wall.rawValue
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.isDynamic = true
+        self.physicsBody?.allowsRotation = false
         self.physicsBody?.linearDamping = 1.00
         self.physicsBody?.angularDamping = 0.00
         
@@ -123,6 +146,96 @@ class Player: SKSpriteNode{
         let dy = self.appliedUnitVector.dy*forceUnits
         
         self.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
+    }
+    
+    
+    public func fireBullet(){
+        
+        let playerWidth = size.width
+        let playerHeight = size.height
+        
+        let bulletTexture = SKTexture(imageNamed: "bullet_fire1")
+        let bullet = SKSpriteNode(texture: bulletTexture)
+        
+        bullet.physicsBody = SKPhysicsBody(texture: bulletTexture, size: bulletTexture.size())
+        bullet.physicsBody?.affectedByGravity = false
+        bullet.physicsBody?.linearDamping = 0.00
+        
+        bullet.position = CGPoint(x: playerWidth*0.43, y: -playerHeight*0.17)
+        
+        self.run(SKAction.run {
+            self.addChild(bullet)
+
+        }, completion: {
+            
+            self.run(SKAction.sequence([
+                SKAction.run {
+                
+                let bulletMagnitude = CGFloat(10.00)
+                
+                let cgVector = CGVector(dx: bulletMagnitude*self.appliedUnitVector.dx, dy: bulletMagnitude*self.appliedUnitVector.dy)
+                
+                bullet.physicsBody?.applyImpulse(cgVector)
+                
+            },
+                SKAction.sequence([
+            SKAction.wait(forDuration: 1.0),
+            SKAction.run { bullet.removeFromParent() }
+                    ])
+                ]))
+        })
+        
+        
+ 
+        let fireBullet = SKSpriteNode(imageNamed: "bullet_fire2")
+        fireBullet.position = CGPoint(x: playerWidth*0.43, y: -playerHeight*0.17)
+        
+        
+        self.run(SKAction.run {
+            
+            self.addChild(fireBullet)
+
+            }, completion: {
+                
+                self.run(SKAction.sequence([
+                    SKAction.wait(forDuration: 0.10),
+                    SKAction.run {
+                        fireBullet.removeFromParent()
+                    }
+                    ]), completion: {
+            
+                    self.run(self.playFiringSound)
+
+                })
+            
+            
+        })
+        
+        
+      
+       
+        print("Gun fired!")
+    }
+    
+    
+    /** Updates the player proximity node so that it is aligned with player's current position; player proximity node is used to check for nearby zombies; adding it as a child node results in slower performance **/
+    
+    public func updatePlayerProximity(){
+        self.playerProximity.position = position
+       
+    }
+    
+    
+    /** Helper function that provides access to the player proximity node, which is used by the zombie manager to detect presence of zombies in close proximity to the player **/
+    
+    public func getPlayerProximityNode() -> SKSpriteNode{
+        
+        return playerProximity
+        
+    }
+    
+    public func checkProximityOf(anotherPoint point: CGPoint) -> Bool{
+        return playerProximity.contains(point)
     }
     
 }

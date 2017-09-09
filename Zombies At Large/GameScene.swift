@@ -6,16 +6,32 @@
 //  Copyright © 2017 Aleksander Makedonski. All rights reserved.
 //
 
+/**
+
+ The player must collect potions, which in turn remove all of the distortions and filters from a photo, restoring the photo to its original state;  each photo is wrapped in its own sprite node, which in turn is parented by an SKEffectNode; 
+ **/
+
+
 import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
     
     var player: Player!
+    var playerProximity: SKSpriteNode!
     
-    /** **/
+    /** Node Layers **/
     
     var overlayNode: SKNode!
+    var worldNode: SKNode!
+    var mainCameraNode: SKCameraNode!
+    
+    /** Tile Backgrounds **/
+    
+    var grassTileMap: SKTileMapNode!
+    var blackCorridorTileMap: SKTileMapNode!
+    var woodFloorTileMap: SKTileMapNode!
+    
     
     /** Control buttons **/
     
@@ -28,53 +44,129 @@ class GameScene: SKScene {
     var downButton: SKSpriteNode!
      **/
     
+    var fireButton: SKNode!
+    
     private var buttonsAreLoaded: Bool = false
     
     
    var bgNode: SKAudioNode!
     
+    
+    var mainZombie: Zombie!
+    var zombieManager: ZombieManager!
+ 
+    var frameCount: TimeInterval = 0.00
+    var lastUpdateTime: TimeInterval = 0.00
+    
     override func didMove(to view: SKView) {
        
+        self.physicsWorld.contactDelegate = self
+        self.physicsWorld.gravity = CGVector(dx: 0.00, dy: 0.00)
+    
+        
+        
         self.backgroundColor = SKColor.cyan
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.overlayNode = SKNode()
+        self.overlayNode.zPosition = 10
         self.overlayNode.position = CGPoint(x: 0.00, y: 0.00)
         addChild(overlayNode)
         
-        player = Player(playerType: .hitman1, scale: 1.50)
-        player.position = CGPoint(x: 0.00, y: 0.00)
-        self.addChild(player)
+        self.worldNode = SKNode()
+        worldNode.zPosition = 5
+        worldNode.position = CGPoint(x: 0.00, y: 0.00)
+        worldNode.name = "world"
+        addChild(worldNode)
         
+      
+
         let xPosControls = UIScreen.main.bounds.width*0.3
         let yPosControls = -UIScreen.main.bounds.height*0.3
         
+        player = Player(playerType: .hitman1, scale: 1.50)
+        player.position = CGPoint(x: 0.00, y: 0.00)
+        player.zPosition = 6
+        
+        
+        
+        worldNode.addChild(player)
+        
+        self.mainCameraNode = SKCameraNode()
+        
+        /**
+        let distanceRange = SKRange(constantValue: 0.00)
+        let distanceConstraint = SKConstraint.distance(distanceRange, to: player.position)
+        
+        let orientationRange = SKRange(lowerLimit: 0.00, upperLimit: CGFloat.pi*2.00)
+        let orientationConstraint = SKConstraint.orient(to: player.position, offset: orientationRange)
+        
+        mainCameraNode.constraints = [orientationConstraint,distanceConstraint]
+        **/
+        
+        self.camera = self.mainCameraNode
+        
+        
+        mainZombie = Zombie(zombieType: .zombie1)
+        mainZombie.position = CGPoint(x: player.position.x, y: player.position.y + 300)
+        worldNode.addChild(mainZombie)
+        
+        zombieManager = ZombieManager(withPlayer: player, andWithLatentZombies: [mainZombie])
+        
+      
+        
+        
+        loadFireButton()
         loadControls(atPosition: CGPoint(x: xPosControls, y: yPosControls))
+        loadBackground()
+        
+
+        
+       /**
+        if let pictureFrame = SKScene(fileNamed: "user_interface")?.childNode(withName: "pictureFrame") as? SKSpriteNode{
+            
+            pictureFrame.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            pictureFrame.position = CGPoint(x: player.position.x-100, y: player.position.y-100)
+            
+            
+            let busTexture = SKTexture(image: #imageLiteral(resourceName: "bus_blue"))
+            let busSprite = SKSpriteNode(texture: busTexture)
+            busSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            
+            var scale = CGFloat(0.20)
+            
+            scale = pictureFrame.size.height/busTexture.size().height
+            print("The scale for the bus is \(scale)")
+            
+            pictureFrame.addChild(busSprite)
+            pictureFrame.move(toParent: self)
+            busSprite.position = CGPoint(x: 0.00, y: 0.00)
+            busSprite.setScale(scale)
+
+        }
+         **/
+        
+      
     }
     
     
-    func touchDown(atPoint pos : CGPoint) {
    
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-       
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-    
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
        
         guard let touch = touches.first else { return }
         
-        print("You touched the screen")
-        
         
         let touchLocation = touch.location(in: self)
         
-        print("Screen touched at position x: \(touchLocation.x), y: \(touchLocation.y)")
+        let fireButtonShape = fireButton as! SKShapeNode
+        
+        if fireButtonShape.contains(touchLocation){
     
+            player.fireBullet()
+            return;
+            
+        }
+        
         let xDelta = (touchLocation.x - player.position.x)
         let yDelta = (touchLocation.y - player.position.y)
         
@@ -106,33 +198,74 @@ class GameScene: SKScene {
         if(zRotation <= CGFloat.pi*2){
             
             player.compassDirection = CompassDirection(zRotation: zRotation)
+            player.applyMovementImpulse(withMagnitudeOf: 5.00)
         
         }
             
       }
-        
     
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        
-    }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-    }
-    
-    
+   
+   
+  
     
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
+        if(lastUpdateTime == 0){
+            lastUpdateTime = currentTime;
+        }
+    
+        frameCount = currentTime - lastUpdateTime;
+        
+        zombieManager.checkForZombiesInPlayerProximity()
+        zombieManager.update(withFrameCount: frameCount)
+        
+        
+        lastUpdateTime = currentTime
+        
+        
+        
+        }
+    
+
+    override func didSimulatePhysics() {
+        player.updatePlayerProximity()
+        self.mainCameraNode.position = player.position
+        
+        
+        zombieManager.constrainActiveZombiesToPlayer()
+
     }
     
+    override func didEvaluateActions() {
+        
+    }
+    
+    func loadFireButton(){
+        
+        fireButton = SKShapeNode(circleOfRadius: 40.00)
+        
+        let fireButtonShape = fireButton as! SKShapeNode
+        fireButtonShape.fillColor = SKColor.red
+        fireButtonShape.strokeColor = SKColor.blue
+        fireButtonShape.lineWidth = 1.50
+        
+        fireButtonShape.name = "fireButton"
+        
+        fireButtonShape.move(toParent: overlayNode)
+        
+        /** Set the position of the fire button **/
+        
+        let xPos = -UIScreen.main.bounds.width*0.45
+        let yPos = -UIScreen.main.bounds.height*0.34
+        
+        fireButtonShape.position = CGPoint(x: xPos, y: yPos)
+        
+        
+    }
     
     func loadControls(atPosition position: CGPoint){
         
@@ -155,8 +288,116 @@ class GameScene: SKScene {
         
         buttonsAreLoaded = true
     }
+    
+    func loadBackground(){
+        
+        
+        guard let grass = SKScene(fileNamed: "backgrounds")?.childNode(withName: "grass") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        
+        grassTileMap = grass
+        
+        grassTileMap.position = CGPoint(x: 0.00, y: 0.00)
+        
+        grassTileMap.move(toParent: self)
+ 
+        
+        guard let blackCorridors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "blackcorridors") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        
+        
+        blackCorridorTileMap = blackCorridors
+       
+        /**
+        var physicsBodies = [SKPhysicsBody]()
+        
+        for row in 0...blackCorridors.numberOfRows{
+            for col in 0...blackCorridors.numberOfColumns{
+                
+                guard blackCorridorTileMap.tileDefinition(atColumn: col, row: row) != nil else { break }
+                
+            
+                        print("Adding another physics body....")
+                
+                    let tileHeight = blackCorridors.tileSize.height
+                    let tileWidth = blackCorridors.tileSize.width
+                
+                        let tileCenter = blackCorridors.centerOfTile(atColumn: col, row: row)
+                        let tileSize = CGSize(width: tileWidth, height: tileHeight)
+                    
+                       let tilePB = SKPhysicsBody(rectangleOf: tileSize, center: tileCenter)
+                    
+                        tilePB.categoryBitMask = ColliderType.Wall.rawValue
+                        tilePB.collisionBitMask = ColliderType.Player.rawValue
+                        tilePB.affectedByGravity = false
+                
+                    
+                        physicsBodies.append(tilePB)
+                
+                
+            }
+        }
+        
+        **/
+        
+        blackCorridorTileMap.position = CGPoint(x: 0.00, y: 0.00)
+       // blackCorridorTileMap.physicsBody = SKPhysicsBody(bodies: physicsBodies)
+        
+        
+       blackCorridorTileMap.move(toParent: self)
+        
+        guard let woodFloors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "woodfloor") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        
+        woodFloors.position = CGPoint(x: 0.00, y: 0.00)
+        
+        woodFloorTileMap = woodFloors
+        
+        woodFloorTileMap.move(toParent: self)
+        
+    }
 
 }
+
+extension GameScene: SKPhysicsContactDelegate{
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+        print("Contact between bodies has ended")
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        print("Contact was made between two bodies")
+        
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        var otherBody: SKPhysicsBody
+        
+        if((bodyA.categoryBitMask & ColliderType.PlayerProximity.rawValue) == 1){
+            otherBody = bodyB
+        } else {
+            otherBody = bodyA
+        }
+    
+        switch otherBody.categoryBitMask {
+        case ColliderType.Zombie.rawValue:
+                let zombie = otherBody.node as! Zombie
+                zombie.activateZombie()
+                print("Zombie has been activated")
+            break
+        default:
+            print("No contact logic implemented")
+        }
+    }
+}
+
         /**
         guard let controlSet = user_interface.childNode(withName: "ControlSet_flatDark") else {
             fatalError("Error: Control Buttons from user_interface SKScene file either could not be found or failed to load")
@@ -183,52 +424,6 @@ class GameScene: SKScene {
 
     
 
-/**
-    func addSwipeGestureRecognizers(){
-        
-        var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
-        swipeRight.direction = .right
-        self.view?.addGestureRecognizer(swipeRight)
-        
-        var swipeLeft = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
-        swipeLeft.direction = .left
-        self.view?.addGestureRecognizer(swipeLeft)
-        
-        var swipeDown = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
-        swipeLeft.direction = .down
-        self.view?.addGestureRecognizer(swipeDown)
-        
-        var swipeUp = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
-        swipeLeft.direction = .up
-        self.view?.addGestureRecognizer(swipeUp)
-
-        
-        
-    }
-    
-    func respondToSwipeGesture(gesture: UIGestureRecognizer){
-        
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer{
-            
-            switch swipeGesture.direction{
-
-            case UISwipeGestureRecognizerDirection.right:
-    
-                break
-            case UISwipeGestureRecognizerDirection.left:
-                break
-            case UISwipeGestureRecognizerDirection.down:
-                break
-            case UISwipeGestureRecognizerDirection.up:
-                break
-            default:
-                break;
-            }
-            
-        }
- 
-     **/
-        
 
     
 
