@@ -310,42 +310,48 @@ class GameScene: SKScene {
         }
         
         
-        blackCorridorTileMap = blackCorridors
        
-        /**
-        var physicsBodies = [SKPhysicsBody]()
+    
         
         for row in 0...blackCorridors.numberOfRows{
             for col in 0...blackCorridors.numberOfColumns{
                 
-                guard blackCorridorTileMap.tileDefinition(atColumn: col, row: row) != nil else { break }
+                let tileDef = blackCorridors.tileDefinition(atColumn: col, row: row)
                 
-            
-                        print("Adding another physics body....")
+                let hasPhysicsBody = tileDef?.userData?["hasPB"] as? Bool
                 
+                if(hasPhysicsBody ?? false){
+                        print("Adding another physics body for left edge....")
+                
+                
+                    
                     let tileHeight = blackCorridors.tileSize.height
                     let tileWidth = blackCorridors.tileSize.width
                 
-                        let tileCenter = blackCorridors.centerOfTile(atColumn: col, row: row)
-                        let tileSize = CGSize(width: tileWidth, height: tileHeight)
+                    let tileCenter = blackCorridors.centerOfTile(atColumn: col, row: row)
+                    let tileSize = CGSize(width: tileWidth, height: tileHeight)
+                    let cgRect = CGRect(origin: tileCenter, size: tileSize)
                     
-                       let tilePB = SKPhysicsBody(rectangleOf: tileSize, center: tileCenter)
+                    let pbNode = SKNode()
+                   let tilePB = SKPhysicsBody(rectangleOf: tileSize, center: tileCenter)
                     
-                        tilePB.categoryBitMask = ColliderType.Wall.rawValue
-                        tilePB.collisionBitMask = ColliderType.Player.rawValue
-                        tilePB.affectedByGravity = false
+                    tilePB.categoryBitMask = ColliderType.Wall.rawValue
+                    tilePB.collisionBitMask = ColliderType.Player.rawValue | ColliderType.Zombie.rawValue
+                    tilePB.affectedByGravity = false
+                    pbNode.physicsBody = tilePB
+                    
+                    blackCorridors.addChild(pbNode)
                 
                     
-                        physicsBodies.append(tilePB)
                 
-                
+                }
             }
         }
         
-        **/
         
+        blackCorridorTileMap = blackCorridors
+
         blackCorridorTileMap.position = CGPoint(x: 0.00, y: 0.00)
-       // blackCorridorTileMap.physicsBody = SKPhysicsBody(bodies: physicsBodies)
         
         
        blackCorridorTileMap.move(toParent: self)

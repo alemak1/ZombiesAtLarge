@@ -140,7 +140,7 @@ class Player: Shooter{
         self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
         self.physicsBody?.categoryBitMask = ColliderType.Player.rawValue
         self.physicsBody?.collisionBitMask = ColliderType.Wall.rawValue | ColliderType.ZombieBullet.rawValue
-        self.physicsBody?.contactTestBitMask = ColliderType.ZombieBullet.rawValue
+        self.physicsBody?.contactTestBitMask = ColliderType.ZombieBullet.rawValue | ColliderType.Wall.rawValue
         
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.isDynamic = true
