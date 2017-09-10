@@ -120,6 +120,27 @@ class GameScene: SKScene {
         loadBackground()
         
 
+ 
+        let randomCollectibleType = CollectibleType.getRandomCollectibleType()
+        
+        print("Random collectible obtained with following information: \(randomCollectibleType.description())")
+        
+        let randomCollectible = Collectible(collectibleType: randomCollectibleType, scale: 0.50)
+        
+        randomCollectible.position = CGPoint.zero
+        
+        self.worldNode.addChild(randomCollectible)
+        
+        let anotherRandomCollectibleType = CollectibleType.getRandomCollectibleType()
+        
+        print("Random collectible obtained with following information: \(anotherRandomCollectibleType.description())")
+
+        let anotherRandomCollectible = anotherRandomCollectibleType.getCollectible(withScale: 0.5)
+        
+        anotherRandomCollectible.position = CGPoint(x: 100.0, y: 100.0)
+        
+        self.worldNode.addChild(anotherRandomCollectible)
+    
         
        /**
         if let pictureFrame = SKScene(fileNamed: "user_interface")?.childNode(withName: "pictureFrame") as? SKSpriteNode{

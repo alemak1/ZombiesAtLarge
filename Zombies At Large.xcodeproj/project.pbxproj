@@ -23,6 +23,9 @@
 		BD5143281F62EB3C00294559 /* laser1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD5143261F62E7E600294559 /* laser1.wav */; };
 		BD6378971F5FA8C60057BFD6 /* basicBackground.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD6378961F5FA8C60057BFD6 /* basicBackground.sks */; };
 		BD6378991F5FAA670057BFD6 /* backgrounds.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD6378981F5FAA670057BFD6 /* backgrounds.sks */; };
+		BD7865571F6544090071A14F /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7865561F6544090071A14F /* Collectible.swift */; };
+		BD7865591F6546620071A14F /* CollectibleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7865581F6546620071A14F /* CollectibleType.swift */; };
+		BD78655B1F65483D0071A14F /* ImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78655A1F65483D0071A14F /* ImageContainer.swift */; };
 		BDB259D41F62CA5100CDB8B9 /* Potion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB259D31F62CA5100CDB8B9 /* Potion.swift */; };
 		BDE1250C1F6390CE0092E561 /* Zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE1250B1F6390CE0092E561 /* Zombie.swift */; };
 		BDE1250E1F639FFA0092E561 /* ZombieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE1250D1F639FFA0092E561 /* ZombieManager.swift */; };
@@ -76,6 +79,9 @@
 		BD5143261F62E7E600294559 /* laser1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser1.wav; sourceTree = "<group>"; };
 		BD6378961F5FA8C60057BFD6 /* basicBackground.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = basicBackground.sks; sourceTree = "<group>"; };
 		BD6378981F5FAA670057BFD6 /* backgrounds.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = backgrounds.sks; sourceTree = "<group>"; };
+		BD7865561F6544090071A14F /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
+		BD7865581F6546620071A14F /* CollectibleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleType.swift; sourceTree = "<group>"; };
+		BD78655A1F65483D0071A14F /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
 		BDB259D31F62CA5100CDB8B9 /* Potion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Potion.swift; sourceTree = "<group>"; };
 		BDE1250B1F6390CE0092E561 /* Zombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zombie.swift; sourceTree = "<group>"; };
 		BDE1250D1F639FFA0092E561 /* ZombieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieManager.swift; sourceTree = "<group>"; };
@@ -152,6 +158,9 @@
 				BDE1250B1F6390CE0092E561 /* Zombie.swift */,
 				BDE1250D1F639FFA0092E561 /* ZombieManager.swift */,
 				BDE125511F63E1E00092E561 /* Shooter.swift */,
+				BD7865561F6544090071A14F /* Collectible.swift */,
+				BD7865581F6546620071A14F /* CollectibleType.swift */,
+				BD78655A1F65483D0071A14F /* ImageContainer.swift */,
 			);
 			path = "Zombies At Large";
 			sourceTree = "<group>";
@@ -338,6 +347,8 @@
 			files = (
 				BDB259D41F62CA5100CDB8B9 /* Potion.swift in Sources */,
 				BD14D87E1F60151E00E19F21 /* ColliderType.swift in Sources */,
+				BD7865591F6546620071A14F /* CollectibleType.swift in Sources */,
+				BD7865571F6544090071A14F /* Collectible.swift in Sources */,
 				BD3961CD1F5971340060CDB4 /* PlayerType.swift in Sources */,
 				BDE1250E1F639FFA0092E561 /* ZombieManager.swift in Sources */,
 				BDE1250C1F6390CE0092E561 /* Zombie.swift in Sources */,
@@ -347,6 +358,7 @@
 				BDFC53261F5A7CEE00289716 /* CompassDirection.swift in Sources */,
 				BD3961971F5970940060CDB4 /* AppDelegate.swift in Sources */,
 				BDE125521F63E1E00092E561 /* Shooter.swift in Sources */,
+				BD78655B1F65483D0071A14F /* ImageContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
