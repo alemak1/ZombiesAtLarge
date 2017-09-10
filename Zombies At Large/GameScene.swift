@@ -20,6 +20,8 @@ class GameScene: SKScene {
     var player: Player!
     var playerProximity: SKSpriteNode!
     
+    var tank: Tank!
+    
     /** Node Layers **/
     
     var overlayNode: SKNode!
@@ -87,6 +89,10 @@ class GameScene: SKScene {
         player.position = CGPoint(x: 0.00, y: 0.00)
         player.zPosition = 6
         
+    
+        tank = Tank(tankColor: .Beige)
+        tank.position = CGPoint(x: 150, y: -100)
+        worldNode.addChild(tank)
         
         
         worldNode.addChild(player)
@@ -187,6 +193,48 @@ class GameScene: SKScene {
             return;
             
         }
+        /** Applied to tank gun turret **/
+        
+        
+        let overlayNodeLocation = touch.location(in: overlayNode)
+        
+        
+        
+        for node in self.overlayNode.nodes(at: overlayNodeLocation){
+            
+            if node.name == "ControlButton", let node = node as? SKSpriteNode{
+                
+                print("Adjusting player rotation...")
+                
+                let controlPos = touch.location(in: node)
+                
+                var zRotation: CGFloat = 0.00
+                
+                if(controlPos.x > 0){
+                    
+                    zRotation = (controlPos.y > 0) ? atan(controlPos.y/controlPos.x) : (2*CGFloat.pi + (atan(controlPos.y/controlPos.x)))
+                    
+                } else {
+                    
+                    zRotation = (controlPos.y > 0) ? (CGFloat.pi + atan(controlPos.y/controlPos.x)) : (atan(controlPos.y/controlPos.x) + CGFloat.pi)
+                    
+                }
+                
+                print("The zRotation is: \(zRotation)")
+                
+                if(zRotation <= CGFloat.pi*2){
+                    //rotate barrel by zRotation
+                    
+                    tank.rotateBarrel(byRotation: zRotation)
+                    
+                    
+                }
+                
+                return;
+            }
+            
+            
+        }
         
         let xDelta = (touchLocation.x - player.position.x)
         let yDelta = (touchLocation.y - player.position.y)
@@ -218,12 +266,17 @@ class GameScene: SKScene {
         
         if(zRotation <= CGFloat.pi*2){
             
-            player.compassDirection = CompassDirection(zRotation: zRotation)
-            player.applyMovementImpulse(withMagnitudeOf: 5.00)
+            tank.compassDirection = CompassDirection(zRotation: zRotation)
+            tank.applyMovementImpulse(withMagnitudeOf: 5.00)
         
         }
-            
-      }
+        
+        
+        
+      
+       
+        
+    }
     
     
     
