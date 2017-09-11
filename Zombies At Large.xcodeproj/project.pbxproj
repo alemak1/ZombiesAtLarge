@@ -33,6 +33,14 @@
 		BDE1250E1F639FFA0092E561 /* ZombieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE1250D1F639FFA0092E561 /* ZombieManager.swift */; };
 		BDE125501F63C99D0092E561 /* laser7.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDE1254F1F63C9980092E561 /* laser7.wav */; };
 		BDE125521F63E1E00092E561 /* Shooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE125511F63E1E00092E561 /* Shooter.swift */; };
+		BDE9FB031F668C690056B66E /* CollectibleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB021F668C690056B66E /* CollectibleManager.swift */; };
+		BDE9FB051F66A1980056B66E /* CollectibleSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB041F66A1980056B66E /* CollectibleSprite.swift */; };
+		BDE9FB071F66A64A0056B66E /* FilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB061F66A64A0056B66E /* FilterConfiguration.swift */; };
+		BDE9FB091F66B12C0056B66E /* ImageFilterObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB081F66B12C0056B66E /* ImageFilterObject.swift */; };
+		BDE9FB0B1F66B24E0056B66E /* ImageSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB0A1F66B24E0056B66E /* ImageSprite.swift */; };
+		BDE9FB0D1F66B55F0056B66E /* CustomFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB0C1F66B55F0056B66E /* CustomFilters.swift */; };
+		BDE9FB0F1F66BCC80056B66E /* CameraObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */; };
+		BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB101F66BCED0056B66E /* CameraSprite.swift */; };
 		BDFC53261F5A7CEE00289716 /* CompassDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFC53251F5A7CEE00289716 /* CompassDirection.swift */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +99,14 @@
 		BDE1250D1F639FFA0092E561 /* ZombieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieManager.swift; sourceTree = "<group>"; };
 		BDE1254F1F63C9980092E561 /* laser7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser7.wav; sourceTree = "<group>"; };
 		BDE125511F63E1E00092E561 /* Shooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shooter.swift; sourceTree = "<group>"; };
+		BDE9FB021F668C690056B66E /* CollectibleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleManager.swift; sourceTree = "<group>"; };
+		BDE9FB041F66A1980056B66E /* CollectibleSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleSprite.swift; sourceTree = "<group>"; };
+		BDE9FB061F66A64A0056B66E /* FilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterConfiguration.swift; sourceTree = "<group>"; };
+		BDE9FB081F66B12C0056B66E /* ImageFilterObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilterObject.swift; sourceTree = "<group>"; };
+		BDE9FB0A1F66B24E0056B66E /* ImageSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSprite.swift; sourceTree = "<group>"; };
+		BDE9FB0C1F66B55F0056B66E /* CustomFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilters.swift; sourceTree = "<group>"; };
+		BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraObject.swift; sourceTree = "<group>"; };
+		BDE9FB101F66BCED0056B66E /* CameraSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSprite.swift; sourceTree = "<group>"; };
 		BDFC53251F5A7CEE00289716 /* CompassDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassDirection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,10 +179,18 @@
 				BDE1250D1F639FFA0092E561 /* ZombieManager.swift */,
 				BDE125511F63E1E00092E561 /* Shooter.swift */,
 				BD7865561F6544090071A14F /* Collectible.swift */,
+				BDE9FB041F66A1980056B66E /* CollectibleSprite.swift */,
 				BD7865581F6546620071A14F /* CollectibleType.swift */,
 				BD78655A1F65483D0071A14F /* ImageContainer.swift */,
 				BD78655C1F6562DF0071A14F /* Tank.swift */,
 				BD78655E1F65769C0071A14F /* BarrelNode.swift */,
+				BDE9FB021F668C690056B66E /* CollectibleManager.swift */,
+				BDE9FB061F66A64A0056B66E /* FilterConfiguration.swift */,
+				BDE9FB081F66B12C0056B66E /* ImageFilterObject.swift */,
+				BDE9FB0A1F66B24E0056B66E /* ImageSprite.swift */,
+				BDE9FB0C1F66B55F0056B66E /* CustomFilters.swift */,
+				BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */,
+				BDE9FB101F66BCED0056B66E /* CameraSprite.swift */,
 			);
 			path = "Zombies At Large";
 			sourceTree = "<group>";
@@ -351,20 +375,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE9FB071F66A64A0056B66E /* FilterConfiguration.swift in Sources */,
+				BDE9FB0B1F66B24E0056B66E /* ImageSprite.swift in Sources */,
+				BDE9FB091F66B12C0056B66E /* ImageFilterObject.swift in Sources */,
 				BDB259D41F62CA5100CDB8B9 /* Potion.swift in Sources */,
 				BD14D87E1F60151E00E19F21 /* ColliderType.swift in Sources */,
 				BD7865591F6546620071A14F /* CollectibleType.swift in Sources */,
+				BDE9FB0D1F66B55F0056B66E /* CustomFilters.swift in Sources */,
 				BD7865571F6544090071A14F /* Collectible.swift in Sources */,
 				BD3961CD1F5971340060CDB4 /* PlayerType.swift in Sources */,
 				BDE1250E1F639FFA0092E561 /* ZombieManager.swift in Sources */,
 				BDE1250C1F6390CE0092E561 /* Zombie.swift in Sources */,
 				BD78655D1F6562DF0071A14F /* Tank.swift in Sources */,
+				BDE9FB031F668C690056B66E /* CollectibleManager.swift in Sources */,
+				BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */,
 				BD3961CB1F5970BD0060CDB4 /* Player.swift in Sources */,
 				BD78655F1F65769C0071A14F /* BarrelNode.swift in Sources */,
 				BD39619D1F5970940060CDB4 /* GameScene.swift in Sources */,
+				BDE9FB0F1F66BCC80056B66E /* CameraObject.swift in Sources */,
 				BD39619F1F5970940060CDB4 /* GameViewController.swift in Sources */,
 				BDFC53261F5A7CEE00289716 /* CompassDirection.swift in Sources */,
 				BD3961971F5970940060CDB4 /* AppDelegate.swift in Sources */,
+				BDE9FB051F66A1980056B66E /* CollectibleSprite.swift in Sources */,
 				BDE125521F63E1E00092E561 /* Shooter.swift in Sources */,
 				BD78655B1F65483D0071A14F /* ImageContainer.swift in Sources */,
 			);

@@ -9,6 +9,8 @@
 import Foundation
 import SpriteKit
 
+/** All collectibles have the follow attributes in comon: monetary value, mass (in grams), percent metal content; the player has a limited carrying capacity and cannot add items in excess of that carrying capacity; some items are required to complete specific missions, while others are generally available throughout the game **/
+
 enum CollectibleType: Int{
     case PowerDrill = 1
     case PaintBrush = 11
@@ -83,7 +85,7 @@ enum CollectibleType: Int{
         return SKTexture(imageNamed: finalStr)
     }
     
-    public func getMonetaryValue() -> Double{
+    public func getMonetaryUnitValue() -> Double{
         
         switch self{
             case .Clipboard:
@@ -124,15 +126,53 @@ enum CollectibleType: Int{
         }
     }
     
+    public func getUnitMass() -> Double{
+        switch self{
+        case .PowerDrill:
+            return 1633.00
+        case .FeatherPen:
+            return 2.5
+        case .FountainPenBlue:
+            return 5.8
+        case .FountainPenRed:
+            return 5.8
+        case .Clipboard:
+            return 10.00
+        case .CD:
+            return 16.44
+        default:
+            return 0.00
     
-    public func getCollectible(withScale scale: CGFloat = 1.00) -> Collectible{
+        }
+    }
+    
+    
+    public func getPercentMetalContentPerUnit() -> Double{
         
-        return Collectible(collectibleType: self, scale: scale)
+        switch self {
+        case .PowerDrill:
+            return 0.90
+        default:
+            return 0.00
+        }
+    }
+    
+    
+    public func getCollectibleSprite(withScale scale: CGFloat = 1.00) -> CollectibleSprite{
+        
+        return CollectibleSprite(collectibleType: self, scale: scale)
+        
+    }
+    
+    public func getCollectible() -> Collectible{
+        
+        return Collectible(withCollectibleType: self)
+        
     }
     
     func description() -> String{
         
-        return "Collectible with name \(self.getCollectibleName()) and monetary value of \(self.getMonetaryValue()) units"
+        return "Collectible with name \(self.getCollectibleName()) and a unit monetary value of \(self.getMonetaryUnitValue()) units, and also a unit mass of \(self.getUnitMass()) and percent metal content for unit of \(self.getPercentMetalContentPerUnit())"
     }
     
     

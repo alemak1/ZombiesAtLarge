@@ -10,40 +10,51 @@ import Foundation
 import SpriteKit
 
 
-class Collectible: SKSpriteNode{
+class Collectible: Equatable, Hashable{
     
     private var collectibleType: CollectibleType!
+    private var totalQuantity: Int = 1
     
-    convenience init(collectibleType: CollectibleType,scale: CGFloat = 1.00) {
+    
+    init(withCollectibleType someCollectibleType: CollectibleType){
         
-        let texture = collectibleType.getTexture()
+        self.collectibleType = someCollectibleType
         
-        self.init(texture: texture, color: .clear, size: texture.size())
-        
-        self.collectibleType = collectibleType
-        
-        self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        self.physicsBody?.categoryBitMask = ColliderType.Collectible.rawValue
-        self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.isDynamic = false
-        
-        self.xScale *= scale
-        self.yScale *= scale 
+    }
+    
 
+    public func getCollectibleMetalContent() -> Double{
+        return collectibleType.getPercentMetalContentPerUnit()*getCollectibleMass()
     }
     
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: texture, color: color, size: size)
+    public func getCollectibleMonetaryValue() -> Double{
+        return self.collectibleType.getMonetaryUnitValue()*Double(self.totalQuantity)
+    }
+    
+    public func getCollectibleMass() -> Double{
+        return self.collectibleType.getUnitMass()*Double(self.totalQuantity)
+    }
+    
+    public func getQuantityOfCollectible() -> Int{
+        return self.totalQuantity
+    }
+    
+    public func changeQuantityTo(newQuantity: Int){
+        self.totalQuantity = newQuantity
+    }
+    
+    
+    static func == (lhs: Collectible, rhs: Collectible) -> Bool{
         
+        return lhs.collectibleType.rawValue == rhs.collectibleType.rawValue
         
     }
+    /** Each collectible item is unique;  override hashValue so that the collectible can be inserted into a set such that only one collectible of a given collectible type can be present in the collectible manager at a given time **/
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    var hashValue: Int{
+        
+        return self.collectibleType.rawValue
     }
     
-    public func getMonetaryValue() -> Double{
-        return self.collectibleType.getMonetaryValue()
-    }
     
 }
