@@ -189,7 +189,7 @@ class GameScene: SKScene {
         
         if fireButtonShape.contains(touchLocation){
     
-            player.fireBullet()
+            tank.fireBullet()
             return;
             
         }

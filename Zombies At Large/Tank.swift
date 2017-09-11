@@ -39,14 +39,11 @@ class Tank: SKSpriteNode{
     
     var barrelNode: BarrelNode!
     
+    var tankColor: TankColor!
     
-     var playFiringSound: SKAction
-    {
-        return SKAction.playSoundFileNamed("laser1", waitForCompletion: true)
-    }
+   
     
-    
-     var appliedUnitVector: CGVector{
+  var appliedUnitVector: CGVector{
         
         let xUnitVector = cos(compassDirection.zRotation)
         let yUnitVector = sin(compassDirection.zRotation)
@@ -79,15 +76,24 @@ class Tank: SKSpriteNode{
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.categoryBitMask = ColliderType.Player.rawValue
+        self.physicsBody?.collisionBitMask = ~ColliderType.Player.rawValue
+        self.physicsBody?.contactTestBitMask = ~ColliderType.Player.rawValue
         self.physicsBody?.linearDamping = 1.00
         self.physicsBody?.angularDamping = 1.00
         
         barrelNode = BarrelNode(tankColor: tankColor)
         addChild(barrelNode)
         
+        self.tankColor = tankColor
+
+        
     }
     
     public func rotateBarrel(byRotation zRotation: CGFloat){
+        
+        //TODO: correct the zRotation of the barrelNode
+        
+        print("The zRotation of the barrelnode is \(zRotation-compassDirection.zRotation)")
         
         barrelNode.compassDirection = CompassDirection(zRotation: zRotation-compassDirection.zRotation)
         
@@ -114,5 +120,13 @@ class Tank: SKSpriteNode{
         self.compassDirection = .north
 
         super.init(coder: aDecoder)
+        
     }
+
+    
+    public func fireBullet(){
+        
+        self.barrelNode.fireBullet()
+    }
+    
 }

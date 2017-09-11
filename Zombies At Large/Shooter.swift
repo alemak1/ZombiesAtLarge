@@ -21,6 +21,17 @@ class Shooter: SKSpriteNode{
         return CGVector.zero
     }
     
+    var gunfireSourceFile: String{
+        
+        return "bullet_fire2"
+    }
+    
+    var bulletSourceFile: String{
+        return "bullet_fire1"
+    }
+    
+    /** For demonstration only **/
+    
     var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
         return nil
     }
@@ -98,7 +109,7 @@ class Shooter: SKSpriteNode{
         let spriteWidth = size.width
         let spriteHeight = size.height
         
-        let gunfire = SKSpriteNode(imageNamed: "bullet_fire2")
+        let gunfire = SKSpriteNode(imageNamed: self.gunfireSourceFile)
         gunfire.position = CGPoint(x: spriteWidth*0.43, y: -spriteHeight*0.17)
         
         return gunfire
@@ -110,7 +121,7 @@ class Shooter: SKSpriteNode{
         let spriteHeight = size.height
         
         
-        let bulletTexture = SKTexture(imageNamed: "bullet_fire1")
+        let bulletTexture = SKTexture(imageNamed: self.bulletSourceFile)
         let bullet = SKSpriteNode(texture: bulletTexture)
         
         bullet.physicsBody = SKPhysicsBody(texture: bulletTexture, size: bulletTexture.size())
