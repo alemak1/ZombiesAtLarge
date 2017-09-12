@@ -20,9 +20,9 @@ class Player: Shooter{
         
         return {(bulletPB: inout SKPhysicsBody) in
             
-            bulletPB.categoryBitMask = ColliderType.PlayerBullet.rawValue
-            bulletPB.collisionBitMask = ColliderType.Zombie.rawValue
-            bulletPB.contactTestBitMask = ColliderType.Zombie.rawValue
+            bulletPB.categoryBitMask = ColliderType.PlayerBullets.categoryMask
+            bulletPB.collisionBitMask = ColliderType.PlayerBullets.collisionMask
+            bulletPB.contactTestBitMask = ColliderType.PlayerBullets.contactMask
             
         }
     }
@@ -115,10 +115,11 @@ class Player: Shooter{
         playerProximity.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         playerProximity.position = self.position
         playerProximity.name = "playerProximity"
+        
         playerProximity.physicsBody = SKPhysicsBody(circleOfRadius: 5*proximitySize.width)
-        playerProximity.physicsBody?.categoryBitMask = ColliderType.PlayerProximity.rawValue
-        playerProximity.physicsBody?.collisionBitMask = 00
-        playerProximity.physicsBody?.contactTestBitMask = ColliderType.Zombie.rawValue
+        playerProximity.physicsBody?.categoryBitMask = ColliderType.PlayerProximity.categoryMask
+        playerProximity.physicsBody?.collisionBitMask = ColliderType.PlayerProximity.collisionMask
+        playerProximity.physicsBody?.contactTestBitMask = ColliderType.PlayerProximity.contactMask
         
     
        
@@ -136,9 +137,9 @@ class Player: Shooter{
         super.init(texture: texture, color: color, size: size)
         
         self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        self.physicsBody?.categoryBitMask = ColliderType.Player.rawValue
-        self.physicsBody?.collisionBitMask = ColliderType.Wall.rawValue | ColliderType.ZombieBullet.rawValue
-        self.physicsBody?.contactTestBitMask = ColliderType.ZombieBullet.rawValue | ColliderType.Wall.rawValue
+        self.physicsBody?.categoryBitMask = ColliderType.Player.categoryMask
+        self.physicsBody?.collisionBitMask = ColliderType.Player.collisionMask
+        self.physicsBody?.contactTestBitMask = ColliderType.Player.contactMask
         
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.isDynamic = true

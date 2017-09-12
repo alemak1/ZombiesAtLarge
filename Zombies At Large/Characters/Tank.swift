@@ -38,9 +38,8 @@ enum TankColor: String{
 class Tank: SKSpriteNode{
     
     var barrelNode: BarrelNode!
-    
     var tankColor: TankColor!
-    
+    var isEnemy: Bool!
    
     
   var appliedUnitVector: CGVector{
@@ -66,7 +65,7 @@ class Tank: SKSpriteNode{
         }
     }
     
-    convenience init(tankColor: TankColor, scale: CGFloat = 1.00) {
+    convenience init(tankColor: TankColor, scale: CGFloat = 1.00, isEnemy: Bool = false) {
         
         let texture = tankColor.getTankTexture()
         
@@ -75,13 +74,23 @@ class Tank: SKSpriteNode{
         self.physicsBody = SKPhysicsBody(rectangleOf: texture.size())
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.allowsRotation = false
-        self.physicsBody?.categoryBitMask = ColliderType.Player.rawValue
-        self.physicsBody?.collisionBitMask = ~ColliderType.Player.rawValue
-        self.physicsBody?.contactTestBitMask = ~ColliderType.Player.rawValue
+        
+        self.isEnemy = isEnemy
+        
+        if(isEnemy){
+            self.physicsBody?.categoryBitMask = ColliderType.Enemy.categoryMask
+            self.physicsBody?.collisionBitMask = ColliderType.Enemy.collisionMask
+            self.physicsBody?.contactTestBitMask = ColliderType.Enemy.contactMask
+        } else {
+            self.physicsBody?.categoryBitMask = ColliderType.Player.categoryMask
+            self.physicsBody?.collisionBitMask = ColliderType.Player.collisionMask
+            self.physicsBody?.contactTestBitMask = ColliderType.Player.contactMask
+        }
+     
         self.physicsBody?.linearDamping = 1.00
         self.physicsBody?.angularDamping = 1.00
         
-        barrelNode = BarrelNode(tankColor: tankColor)
+        barrelNode = BarrelNode(tankColor: tankColor, isEnemy: isEnemy)
         addChild(barrelNode)
         
         self.tankColor = tankColor

@@ -22,7 +22,9 @@ class CollectibleSprite: SKSpriteNode{
      self.collectibleType = collectibleType
      
      self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-     self.physicsBody?.categoryBitMask = ColliderType.Collectible.rawValue
+     self.physicsBody?.categoryBitMask = ColliderType.Collectible.categoryMask
+    self.physicsBody?.collisionBitMask = ColliderType.Collectible.collisionMask
+    self.physicsBody?.contactTestBitMask = ColliderType.Collectible.contactMask
      self.physicsBody?.affectedByGravity = false
      self.physicsBody?.isDynamic = false
      

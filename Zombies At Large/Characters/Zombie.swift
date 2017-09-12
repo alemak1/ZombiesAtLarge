@@ -65,9 +65,9 @@ class Zombie: Shooter{
         
         return {(bulletPB: inout SKPhysicsBody) in
             
-            bulletPB.categoryBitMask = ColliderType.ZombieBullet.rawValue
-            bulletPB.collisionBitMask = ColliderType.Player.rawValue
-            bulletPB.contactTestBitMask = ColliderType.Player.rawValue
+            bulletPB.categoryBitMask = ColliderType.EnemyBullets.categoryMask
+            bulletPB.collisionBitMask = ColliderType.EnemyBullets.collisionMask
+            bulletPB.contactTestBitMask = ColliderType.EnemyBullets.contactMask
             
         }
     }
@@ -111,9 +111,9 @@ class Zombie: Shooter{
         self.physicsBody = SKPhysicsBody(texture: defaultTexture, size: defaultTexture.size())
         physicsBody?.affectedByGravity = false
         physicsBody?.linearDamping = 1.00
-        physicsBody?.categoryBitMask = ColliderType.Zombie.rawValue
-        physicsBody?.collisionBitMask = ColliderType.Player.rawValue | ColliderType.Wall.rawValue
-        physicsBody?.contactTestBitMask = ColliderType.PlayerProximity.rawValue
+        physicsBody?.categoryBitMask = ColliderType.Enemy.categoryMask
+        physicsBody?.collisionBitMask = ColliderType.Enemy.collisionMask
+        physicsBody?.contactTestBitMask = ColliderType.Enemy.contactMask
         
         self.zombieType = zombieType
         self.xScale *= scale
@@ -138,6 +138,16 @@ class Zombie: Shooter{
         let orientationConstraint = SKConstraint.orient(to: position, offset: orientationRange)
         
         self.constraints = [distanceConstraint,orientationConstraint]
+        
+        
+    }
+    
+    func constrainOrientation(toPosition position: CGPoint, andWithLowerOrientationLimit lowerOrientationLimit: CGFloat = 0.00, andWithUpperOrientationLimit upperOrientationLimit: CGFloat = 0.00){
+        
+        let orientationRange = SKRange(lowerLimit: lowerOrientationLimit, upperLimit: upperOrientationLimit)
+        let orientationConstraint = SKConstraint.orient(to: position, offset: orientationRange)
+        
+        self.constraints = [orientationConstraint]
         
         
     }

@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		BD14D87E1F60151E00E19F21 /* ColliderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD14D87D1F60151E00E19F21 /* ColliderType.swift */; };
+		BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD395A781F66FF0200684AB9 /* OilCan.swift */; };
+		BD395A7F1F67078D00684AB9 /* explosion1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A7E1F67078500684AB9 /* explosion1.wav */; };
+		BD395A801F67079000684AB9 /* explosion2.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A7D1F67078500684AB9 /* explosion2.wav */; };
+		BD395A811F67079300684AB9 /* explosion3.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A7A1F67078500684AB9 /* explosion3.wav */; };
+		BD395A821F67079700684AB9 /* explosion4.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A7C1F67078500684AB9 /* explosion4.wav */; };
+		BD395A831F67079A00684AB9 /* explosion5.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A7B1F67078500684AB9 /* explosion5.wav */; };
+		BD395A861F6707AB00684AB9 /* killHer.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A851F6707A500684AB9 /* killHer.wav */; };
+		BD395A871F6707AE00684AB9 /* killHim.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A841F6707A500684AB9 /* killHim.wav */; };
 		BD3961971F5970940060CDB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3961961F5970940060CDB4 /* AppDelegate.swift */; };
 		BD39619B1F5970940060CDB4 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD39619A1F5970940060CDB4 /* Actions.sks */; };
 		BD39619D1F5970940060CDB4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39619C1F5970940060CDB4 /* GameScene.swift */; };
@@ -63,6 +71,14 @@
 
 /* Begin PBXFileReference section */
 		BD14D87D1F60151E00E19F21 /* ColliderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderType.swift; sourceTree = "<group>"; };
+		BD395A781F66FF0200684AB9 /* OilCan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OilCan.swift; sourceTree = "<group>"; };
+		BD395A7A1F67078500684AB9 /* explosion3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion3.wav; sourceTree = "<group>"; };
+		BD395A7B1F67078500684AB9 /* explosion5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion5.wav; sourceTree = "<group>"; };
+		BD395A7C1F67078500684AB9 /* explosion4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion4.wav; sourceTree = "<group>"; };
+		BD395A7D1F67078500684AB9 /* explosion2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion2.wav; sourceTree = "<group>"; };
+		BD395A7E1F67078500684AB9 /* explosion1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion1.wav; sourceTree = "<group>"; };
+		BD395A841F6707A500684AB9 /* killHim.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = killHim.wav; sourceTree = "<group>"; };
+		BD395A851F6707A500684AB9 /* killHer.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = killHer.wav; sourceTree = "<group>"; };
 		BD3961931F5970940060CDB4 /* Zombies At Large.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zombies At Large.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD3961961F5970940060CDB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD39619A1F5970940060CDB4 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -158,6 +174,10 @@
 		BD3961951F5970940060CDB4 /* Zombies At Large */ = {
 			isa = PBXGroup;
 			children = (
+				BD5899311F67FC2C00A13DD2 /* OtherGameObjects */,
+				BD5899301F67FBEF00A13DD2 /* Collectibles */,
+				BD58992F1F67FBE400A13DD2 /* GameUtils */,
+				BD58992E1F67FBC600A13DD2 /* Characters */,
 				BD5143271F62E7F300294559 /* Sounds */,
 				BD3961D01F598A940060CDB4 /* BackgroundMusic */,
 				BD3961961F5970940060CDB4 /* AppDelegate.swift */,
@@ -170,27 +190,7 @@
 				BD6378981F5FAA670057BFD6 /* backgrounds.sks */,
 				BD3961A51F5970940060CDB4 /* LaunchScreen.storyboard */,
 				BD3961A81F5970940060CDB4 /* Info.plist */,
-				BD3961CA1F5970BD0060CDB4 /* Player.swift */,
-				BD3961CC1F5971340060CDB4 /* PlayerType.swift */,
-				BDFC53251F5A7CEE00289716 /* CompassDirection.swift */,
 				BD6378961F5FA8C60057BFD6 /* basicBackground.sks */,
-				BD14D87D1F60151E00E19F21 /* ColliderType.swift */,
-				BDE1250B1F6390CE0092E561 /* Zombie.swift */,
-				BDE1250D1F639FFA0092E561 /* ZombieManager.swift */,
-				BDE125511F63E1E00092E561 /* Shooter.swift */,
-				BD7865561F6544090071A14F /* Collectible.swift */,
-				BDE9FB041F66A1980056B66E /* CollectibleSprite.swift */,
-				BD7865581F6546620071A14F /* CollectibleType.swift */,
-				BD78655A1F65483D0071A14F /* ImageContainer.swift */,
-				BD78655C1F6562DF0071A14F /* Tank.swift */,
-				BD78655E1F65769C0071A14F /* BarrelNode.swift */,
-				BDE9FB021F668C690056B66E /* CollectibleManager.swift */,
-				BDE9FB061F66A64A0056B66E /* FilterConfiguration.swift */,
-				BDE9FB081F66B12C0056B66E /* ImageFilterObject.swift */,
-				BDE9FB0A1F66B24E0056B66E /* ImageSprite.swift */,
-				BDE9FB0C1F66B55F0056B66E /* CustomFilters.swift */,
-				BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */,
-				BDE9FB101F66BCED0056B66E /* CameraSprite.swift */,
 			);
 			path = "Zombies At Large";
 			sourceTree = "<group>";
@@ -229,10 +229,66 @@
 		BD5143271F62E7F300294559 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				BD395A851F6707A500684AB9 /* killHer.wav */,
+				BD395A841F6707A500684AB9 /* killHim.wav */,
+				BD395A7E1F67078500684AB9 /* explosion1.wav */,
+				BD395A7D1F67078500684AB9 /* explosion2.wav */,
+				BD395A7A1F67078500684AB9 /* explosion3.wav */,
+				BD395A7C1F67078500684AB9 /* explosion4.wav */,
+				BD395A7B1F67078500684AB9 /* explosion5.wav */,
 				BD5143261F62E7E600294559 /* laser1.wav */,
 				BDE1254F1F63C9980092E561 /* laser7.wav */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		BD58992E1F67FBC600A13DD2 /* Characters */ = {
+			isa = PBXGroup;
+			children = (
+				BD78655C1F6562DF0071A14F /* Tank.swift */,
+				BD78655E1F65769C0071A14F /* BarrelNode.swift */,
+				BDE1250D1F639FFA0092E561 /* ZombieManager.swift */,
+				BDE1250B1F6390CE0092E561 /* Zombie.swift */,
+				BDE125511F63E1E00092E561 /* Shooter.swift */,
+				BD3961CA1F5970BD0060CDB4 /* Player.swift */,
+				BD3961CC1F5971340060CDB4 /* PlayerType.swift */,
+			);
+			path = Characters;
+			sourceTree = "<group>";
+		};
+		BD58992F1F67FBE400A13DD2 /* GameUtils */ = {
+			isa = PBXGroup;
+			children = (
+				BDFC53251F5A7CEE00289716 /* CompassDirection.swift */,
+				BD14D87D1F60151E00E19F21 /* ColliderType.swift */,
+			);
+			path = GameUtils;
+			sourceTree = "<group>";
+		};
+		BD5899301F67FBEF00A13DD2 /* Collectibles */ = {
+			isa = PBXGroup;
+			children = (
+				BD78655A1F65483D0071A14F /* ImageContainer.swift */,
+				BDE9FB021F668C690056B66E /* CollectibleManager.swift */,
+				BDE9FB061F66A64A0056B66E /* FilterConfiguration.swift */,
+				BDE9FB081F66B12C0056B66E /* ImageFilterObject.swift */,
+				BDE9FB0A1F66B24E0056B66E /* ImageSprite.swift */,
+				BDE9FB0C1F66B55F0056B66E /* CustomFilters.swift */,
+				BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */,
+				BDE9FB101F66BCED0056B66E /* CameraSprite.swift */,
+				BD7865561F6544090071A14F /* Collectible.swift */,
+				BDE9FB041F66A1980056B66E /* CollectibleSprite.swift */,
+				BD7865581F6546620071A14F /* CollectibleType.swift */,
+			);
+			path = Collectibles;
+			sourceTree = "<group>";
+		};
+		BD5899311F67FC2C00A13DD2 /* OtherGameObjects */ = {
+			isa = PBXGroup;
+			children = (
+				BD395A781F66FF0200684AB9 /* OilCan.swift */,
+			);
+			path = OtherGameObjects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,14 +398,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD395A821F67079700684AB9 /* explosion4.wav in Resources */,
+				BD395A871F6707AE00684AB9 /* killHim.wav in Resources */,
 				BD6378991F5FAA670057BFD6 /* backgrounds.sks in Resources */,
 				BD3961A21F5970940060CDB4 /* Main.storyboard in Resources */,
 				BD3961A41F5970940060CDB4 /* Assets.xcassets in Resources */,
 				BD6378971F5FA8C60057BFD6 /* basicBackground.sks in Resources */,
+				BD395A7F1F67078D00684AB9 /* explosion1.wav in Resources */,
+				BD395A801F67079000684AB9 /* explosion2.wav in Resources */,
 				BD3961A71F5970940060CDB4 /* LaunchScreen.storyboard in Resources */,
+				BD395A861F6707AB00684AB9 /* killHer.wav in Resources */,
 				BD3961CF1F59785C0060CDB4 /* user_interface.sks in Resources */,
 				BD5143281F62EB3C00294559 /* laser1.wav in Resources */,
 				BD39619B1F5970940060CDB4 /* Actions.sks in Resources */,
+				BD395A811F67079300684AB9 /* explosion3.wav in Resources */,
+				BD395A831F67079A00684AB9 /* explosion5.wav in Resources */,
 				BDE125501F63C99D0092E561 /* laser7.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,6 +443,7 @@
 				BDE9FB091F66B12C0056B66E /* ImageFilterObject.swift in Sources */,
 				BDB259D41F62CA5100CDB8B9 /* Potion.swift in Sources */,
 				BD14D87E1F60151E00E19F21 /* ColliderType.swift in Sources */,
+				BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */,
 				BD7865591F6546620071A14F /* CollectibleType.swift in Sources */,
 				BDE9FB0D1F66B55F0056B66E /* CustomFilters.swift in Sources */,
 				BD7865571F6544090071A14F /* Collectible.swift in Sources */,

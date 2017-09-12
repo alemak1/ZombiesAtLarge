@@ -14,6 +14,7 @@ class BarrelNode: Shooter{
     
     
     var tankColor: TankColor!
+    var isEnemy: Bool!
     
     override var playFiringSound: SKAction
     {
@@ -74,7 +75,7 @@ class BarrelNode: Shooter{
         return CGVector(dx: xUnitVector, dy: yUnitVector)
     }
     
-    convenience init(tankColor: TankColor) {
+    convenience init(tankColor: TankColor, isEnemy: Bool = false) {
         
         let barrelTexture = tankColor.getBarrelTexture()
         
@@ -84,6 +85,7 @@ class BarrelNode: Shooter{
         self.anchorPoint = CGPoint(x: 0, y: 0.5)
         
         self.tankColor = tankColor
+        self.isEnemy = isEnemy
     }
     
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
@@ -116,9 +118,17 @@ class BarrelNode: Shooter{
         
         bullet.position = CGPoint(x: self.size.width*0.90, y: 0.00)
         
-        bullet.physicsBody?.categoryBitMask = ColliderType.PlayerBullet.rawValue
-        bullet.physicsBody?.collisionBitMask = ColliderType.Zombie.rawValue | ~ColliderType.Player.rawValue
-        bullet.physicsBody?.contactTestBitMask = ColliderType.Zombie.rawValue | ~ColliderType.Player.rawValue
+      
+        
+        if(isEnemy){
+            bullet.physicsBody?.categoryBitMask = ColliderType.EnemyBullets.categoryMask
+            bullet.physicsBody?.collisionBitMask = ColliderType.EnemyBullets.collisionMask
+            bullet.physicsBody?.contactTestBitMask = ColliderType.EnemyBullets.contactMask
+        } else {
+            bullet.physicsBody?.categoryBitMask = ColliderType.PlayerBullets.categoryMask
+            bullet.physicsBody?.collisionBitMask = ColliderType.PlayerBullets.collisionMask
+            bullet.physicsBody?.contactTestBitMask = ColliderType.PlayerBullets.contactMask
+        }
         
         return bullet
     }
