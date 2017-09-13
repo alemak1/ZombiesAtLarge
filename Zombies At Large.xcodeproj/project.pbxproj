@@ -40,6 +40,7 @@
 		BD3A516E1F69331A00B01850 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A516D1F69331A00B01850 /* Avatar.swift */; };
 		BD3A51701F693C6500B01850 /* NonplayerCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */; };
 		BD3A51721F693DA800B01850 /* UIPanelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */; };
+		BD4529E01F695946000166A4 /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4529DF1F695946000166A4 /* GameLevel.swift */; };
 		BD5143281F62EB3C00294559 /* laser1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD5143261F62E7E600294559 /* laser1.wav */; };
 		BD5C86011F68C7B000D6E0BF /* ColliderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C86001F68C7B000D6E0BF /* ColliderConfiguration.swift */; };
 		BD6378971F5FA8C60057BFD6 /* basicBackground.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD6378961F5FA8C60057BFD6 /* basicBackground.sks */; };
@@ -127,6 +128,7 @@
 		BD3A516D1F69331A00B01850 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonplayerCharacterType.swift; sourceTree = "<group>"; };
 		BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanelGenerator.swift; sourceTree = "<group>"; };
+		BD4529DF1F695946000166A4 /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 		BD5143261F62E7E600294559 /* laser1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser1.wav; sourceTree = "<group>"; };
 		BD5C86001F68C7B000D6E0BF /* ColliderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderConfiguration.swift; sourceTree = "<group>"; };
 		BD6378961F5FA8C60057BFD6 /* basicBackground.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = basicBackground.sks; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				BD5C86001F68C7B000D6E0BF /* ColliderConfiguration.swift */,
 				BD3A51651F69122500B01850 /* ImageManager.swift */,
 				BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */,
+				BD4529DF1F695946000166A4 /* GameLevel.swift */,
 			);
 			path = GameUtils;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				BDE9FB051F66A1980056B66E /* CollectibleSprite.swift in Sources */,
 				BDE125521F63E1E00092E561 /* Shooter.swift in Sources */,
 				BD3A51701F693C6500B01850 /* NonplayerCharacterType.swift in Sources */,
+				BD4529E01F695946000166A4 /* GameLevel.swift in Sources */,
 				BD78655B1F65483D0071A14F /* ImageContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

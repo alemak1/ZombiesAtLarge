@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zombies At Large/GameScene.swift"
-            timestampString = "526976295.895107"
+            timestampString = "526997239.855953"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "329"
             endingLineNumber = "329"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadControls(atPosition:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

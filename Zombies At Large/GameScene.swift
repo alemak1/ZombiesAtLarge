@@ -368,23 +368,6 @@ class GameScene: SKScene {
                     
                 }
                 
-                /**
-                let zombieProbability = tileDef?.userData?["zombieProbability"] as? Int
-                
-                /** Get a random number from 0 to 4 **/
-                
-                let randomNum = Int(arc4random_uniform(5))
-                
-                if(randomNum == zombieProbability){
-                    let zombiePos = grass.centerOfTile(atColumn: col, row: row)
-                    
-                    let newZombie = Zombie(zombieType: .zombie1)
-                    newZombie.position = zombiePos
-                    newZombie.move(toParent: worldNode)
-                    zombieManager.addLatentZombie(zombie: newZombie)
-                    
-                }
-             **/
                 
             }
         }
@@ -458,6 +441,35 @@ class GameScene: SKScene {
         }
         
         woodFloors.position = CGPoint(x: 0.00, y: 0.00)
+        
+        
+        
+        let woodRows = woodFloors.numberOfRows
+        let woodCols = woodFloors.numberOfColumns
+        
+        for row in 1...woodRows{
+            for col in 1...woodCols{
+                
+                let tileDef = woodFloors.tileDefinition(atColumn: col, row: row)
+                
+                let hasCollectible = tileDef?.userData?["hasCollectible"] as? Bool
+                
+                if(hasCollectible ?? false){
+                    let collectiblePos = woodFloors.centerOfTile(atColumn: col, row: row)
+                    
+                    let randomCollectibleType = CollectibleType.getRandomCollectibleType()
+                    
+                    let randomCollectibleSprite = CollectibleSprite(collectibleType: randomCollectibleType, scale: 0.50)
+                    
+                    randomCollectibleSprite.position = collectiblePos
+                    randomCollectibleSprite.zPosition = 10
+                    randomCollectibleSprite.move(toParent: self)
+                    
+                }
+                
+                
+            }
+        }
         
         woodFloorTileMap = woodFloors
         
