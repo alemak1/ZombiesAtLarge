@@ -11,7 +11,7 @@ import SpriteKit
 
 class UIPanelGenerator{
     
-    static func getMissionPanelWith(missionTitle: String, missionSubtitle: String, bodyText1: String, bodyText2: String, bodyText3: String, bodyText4: String, bodyText5: String) -> SKNode?{
+    static func GetMissionPanelWith(missionTitle: String, missionSubtitle: String, bodyText1: String, bodyText2: String, bodyText3: String, bodyText4: String, bodyText5: String) -> SKNode?{
         
         guard let missionPanel = SKScene(fileNamed: "user_interface")?.childNode(withName: "MissionPrompt") else { return nil }
         
@@ -19,23 +19,24 @@ class UIPanelGenerator{
         
         if let headerTitleLabel = headerPanel.childNode(withName: "MissionTitle") as? SKLabelNode{
             
+            headerTitleLabel.text = missionTitle
             
         }
         
         if let headerSubtitleLabel = headerPanel.childNode(withName: "MissionSubtitle") as? SKLabelNode{
             
-            
+            headerSubtitleLabel.text = missionSubtitle
         }
         
         guard let bodyPanel = missionPanel.childNode(withName: "MissionBody")  else { return nil }
         
-        if let text1_label = headerPanel.childNode(withName: "text1") as? SKLabelNode{
+        if let text1_label = bodyPanel.childNode(withName: "text1") as? SKLabelNode{
             
             text1_label.text = bodyText1
             
         }
         
-        if let text2_label = headerPanel.childNode(withName: "text2") as? SKLabelNode{
+        if let text2_label = bodyPanel.childNode(withName: "text2") as? SKLabelNode{
             
             text2_label.text = bodyText2
 
@@ -65,9 +66,9 @@ class UIPanelGenerator{
      
     }
     
-    static func getDialoguePrompt(forAvatar avatar: Avatar, withName name: String,andWithText1 text1: String? = nil,andWithText2 text2: String? = nil, andWithText3 text3: String? = nil, andWithText4 text4: String? = nil) -> SKSpriteNode?{
+    static func GetDialoguePrompt(forAvatar avatar: Avatar, withName name: String,andWithText1 text1: String? = nil,andWithText2 text2: String? = nil, andWithText3 text3: String? = nil, andWithText4 text4: String? = nil) -> SKSpriteNode?{
         
-        guard let dialoguePrompt = getDialoguePrompt(forAvatar: avatar) else { return nil }
+        guard let dialoguePrompt = GetDialoguePrompt(forAvatar: avatar) else { return nil }
         
         if let nameLabel = dialoguePrompt.childNode(withName: "name") as? SKLabelNode{
             nameLabel.text = name
@@ -99,7 +100,7 @@ class UIPanelGenerator{
         return dialoguePrompt
     }
     
-    private static func getDialoguePrompt(forAvatar avatar: Avatar) -> SKSpriteNode?{
+    private static func GetDialoguePrompt(forAvatar avatar: Avatar) -> SKSpriteNode?{
         
         
         switch avatar {
@@ -118,5 +119,58 @@ class UIPanelGenerator{
         default:
             return nil
         }
+    }
+    
+    
+    static func GetInventorySummaryNode(withTotalUniqueItems uniqueItems: Int, withTotalItems totalItems: Int, withTotalMass totalMass: Double, withTotalMetalContent metalContent: Double, withMonetaryValue monetaryValue: Double, withCarryingCapacity carryingCapacity: Double) -> SKSpriteNode?{
+        
+        if let inventorySummary = SKScene(fileNamed: "user_interface")?.childNode(withName: "InventorySummary"){
+            
+            
+            
+            if let uniqueItemsLabel = inventorySummary.childNode(withName: "totalUniqueItemsLabel") as? SKLabelNode{
+                
+                uniqueItemsLabel.horizontalAlignmentMode = .center
+                uniqueItemsLabel.text = "Number of Unique Items:\(uniqueItems)"
+            }
+            
+            if let totalItemsLabel = inventorySummary.childNode(withName: "totalItemsLabel") as? SKLabelNode{
+                
+                totalItemsLabel.horizontalAlignmentMode = .center
+                totalItemsLabel.text = "Total Number of Items: \(totalItems)"
+            }
+            
+            
+            if let metalContentLabel = inventorySummary.childNode(withName: "totalMetalContentLabel") as? SKLabelNode{
+                
+                metalContentLabel.horizontalAlignmentMode = .center
+                metalContentLabel.text = "Total Metal Content: \(metalContent)"
+                
+            }
+            
+            if let monetaryValueLabel = inventorySummary.childNode(withName: "totalMonetaryValueLabel") as? SKLabelNode{
+                
+                monetaryValueLabel.horizontalAlignmentMode = .center
+                monetaryValueLabel.text = "Total Monetary Value: \(monetaryValue)"
+            }
+            
+            if let totalMassLabel = inventorySummary.childNode(withName: "totalMassLabel") as? SKLabelNode{
+                
+                totalMassLabel.horizontalAlignmentMode = .center
+                totalMassLabel.text = "Total Mass: \(totalMass)"
+                
+            }
+            
+            if let totalCarryingCapacityLabel = inventorySummary.childNode(withName: "totalCarryingCapacityLabel") as? SKLabelNode{
+                
+                totalCarryingCapacityLabel.horizontalAlignmentMode = .center
+                totalCarryingCapacityLabel.text = "Total Carrying Capacity: \(carryingCapacity)"
+                
+            }
+            
+            return inventorySummary as? SKSpriteNode
+        }
+        
+        return nil
     }
 }

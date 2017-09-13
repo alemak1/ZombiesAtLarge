@@ -73,13 +73,12 @@ class GameScene: SKScene {
         self.overlayNode.position = CGPoint(x: 0.00, y: 0.00)
         addChild(overlayNode)
         
+        
         self.worldNode = SKNode()
         worldNode.zPosition = 5
         worldNode.position = CGPoint(x: 0.00, y: 0.00)
         worldNode.name = "world"
         addChild(worldNode)
-        
-      
 
         let xPosControls = UIScreen.main.bounds.width*0.3
         let yPosControls = -UIScreen.main.bounds.height*0.3
@@ -87,95 +86,21 @@ class GameScene: SKScene {
         player = Player(playerType: .hitman1, scale: 1.50)
         player.position = CGPoint(x: 0.00, y: 0.00)
         player.zPosition = 6
-        
-        
-        
         worldNode.addChild(player)
         
         self.mainCameraNode = SKCameraNode()
-        
-        /**
-        let distanceRange = SKRange(constantValue: 0.00)
-        let distanceConstraint = SKConstraint.distance(distanceRange, to: player.position)
-        
-        let orientationRange = SKRange(lowerLimit: 0.00, upperLimit: CGFloat.pi*2.00)
-        let orientationConstraint = SKConstraint.orient(to: player.position, offset: orientationRange)
-        
-        mainCameraNode.constraints = [orientationConstraint,distanceConstraint]
-        **/
-        
-        self.camera = self.mainCameraNode
-        
-        
-        /**
-        mainZombie = Zombie(zombieType: .zombie1)
-        mainZombie.position = CGPoint(x: player.position.x, y: player.position.y + 300)
-        worldNode.addChild(mainZombie)
-        **/
+        self.camera = mainCameraNode
         
         zombieManager = ZombieManager(withPlayer: player, andWithLatentZombies: [])
         
-      
-        
-        
+
         loadFireButton()
         loadControls(atPosition: CGPoint(x: xPosControls, y: yPosControls))
         loadBackground()
-        
-
- 
-        let randomCollectibleType = CollectibleType.getRandomCollectibleType()
-        
-        print("Random collectible obtained with following information: \(randomCollectibleType.description())")
-        
-        let randomCollectible = CollectibleSprite(collectibleType: randomCollectibleType, scale: 0.50)
-        
-        randomCollectible.position = CGPoint(x: 100.0, y: -100.0)
-        
-        let microscope1 = CollectibleSprite(collectibleType: .Microscope)
-        microscope1.position = CGPoint(x: 150.0, y: -100.0)
-        self.worldNode.addChild(microscope1)
-        
-        let microscope2 = CollectibleSprite(collectibleType: .Microscope)
-        microscope2.position = CGPoint(x: 150.0, y: 150.0)
-        self.worldNode.addChild(microscope2)
-        
-        self.worldNode.addChild(randomCollectible)
-        
-        let anotherRandomCollectibleType = CollectibleType.getRandomCollectibleType()
-        
-        print("Random collectible obtained with following information: \(anotherRandomCollectibleType.description())")
-
-        let anotherRandomCollectible = anotherRandomCollectibleType.getCollectibleSprite(withScale: 0.5)
-        
-        anotherRandomCollectible.position = CGPoint(x: 100.0, y: 100.0)
-        
-        self.worldNode.addChild(anotherRandomCollectible)
     
+ 
+   
         
-       /**
-        if let pictureFrame = SKScene(fileNamed: "user_interface")?.childNode(withName: "pictureFrame") as? SKSpriteNode{
-            
-            pictureFrame.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            pictureFrame.position = CGPoint(x: player.position.x-100, y: player.position.y-100)
-            
-            
-            let busTexture = SKTexture(image: #imageLiteral(resourceName: "bus_blue"))
-            let busSprite = SKSpriteNode(texture: busTexture)
-            busSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            
-            var scale = CGFloat(0.20)
-            
-            scale = pictureFrame.size.height/busTexture.size().height
-            print("The scale for the bus is \(scale)")
-            
-            pictureFrame.addChild(busSprite)
-            pictureFrame.move(toParent: self)
-            busSprite.position = CGPoint(x: 0.00, y: 0.00)
-            busSprite.setScale(scale)
-
-        }
-         **/
         
       
     }
@@ -189,10 +114,11 @@ class GameScene: SKScene {
         
         
         let touchLocation = touch.location(in: self)
-        
+        let overlayNodeLocation = touch.location(in: overlayNode)
+
         let fireButtonShape = fireButton as! SKShapeNode
         
-        if fireButtonShape.contains(touchLocation){
+        if fireButtonShape.contains(overlayNodeLocation){
     
             player.fireBullet()
             return;
@@ -203,15 +129,8 @@ class GameScene: SKScene {
         /** Applied to tank gun turret **/
         
         
-        let overlayNodeLocation = touch.location(in: overlayNode)
-        
-        if let inventorySummaryNode = overlayNode.childNode(withName: "InventorySummary") as? SKSpriteNode, inventorySummaryNode.contains(overlayNodeLocation){
-            
-            inventorySummaryNode.removeFromParent()
-            
-        }
+       
     
-        
         let xDelta = (touchLocation.x - player.position.x)
         let yDelta = (touchLocation.y - player.position.y)
         
@@ -283,14 +202,25 @@ class GameScene: SKScene {
 
     override func didSimulatePhysics() {
         player.updatePlayerProximity()
-        self.mainCameraNode.position = player.position
         
+        self.mainCameraNode.position = player.position
+        overlayNode.position = self.mainCameraNode.position
         
         zombieManager.constrainActiveZombiesToPlayer()
 
     }
     
     override func didEvaluateActions() {
+        
+    }
+    
+    func centerOn(node: SKNode) {
+        
+        if let parentNode = node.parent,let cameraPositionInScene = node.scene?.convert(node.position, from: parentNode){
+            
+            parentNode.position = CGPoint(x: parentNode.position.x - cameraPositionInScene.x, y: parentNode.position.y - cameraPositionInScene.y)
+
+        }
         
     }
     
@@ -317,6 +247,8 @@ class GameScene: SKScene {
         
     }
     
+    //TODO: Refactor so that fire button and menu button are added via this function
+    
     func loadControls(atPosition position: CGPoint){
         
         /** Load the control set **/
@@ -326,15 +258,7 @@ class GameScene: SKScene {
         }
         
         
-        guard let controlButton = user_interface.childNode(withName: "RoundControl_flatDark")?.childNode(withName: "ControlButton") as? SKSpriteNode else {
-            fatalError("Error: Control Buttons from user_interface SKScene file either could not be found or failed to load")
-        }
-        
-
-        self.controlButton = controlButton
-        
-        controlButton.position = position
-        controlButton.move(toParent: overlayNode)
+       
         
         buttonsAreLoaded = true
     }
@@ -490,7 +414,7 @@ extension GameScene{
         let carryingCapacity = player.collectibleManager.getTotalCarryingCapacity()
         let totalMetalContent = player.collectibleManager.getTotalMetalContent()
         
-        guard let inventorySummaryNode = getInventorySummaryNode(withTotalUniqueItems: uniqueItems, withTotalItems: totalItems, withTotalMass: totalMass, withTotalMetalContent: totalMetalContent, withMonetaryValue: totalMonetaryValue, withCarryingCapacity: carryingCapacity) else { return }
+        guard let inventorySummaryNode = UIPanelGenerator.GetInventorySummaryNode(withTotalUniqueItems: uniqueItems, withTotalItems: totalItems, withTotalMass: totalMass, withTotalMetalContent: totalMetalContent, withMonetaryValue: totalMonetaryValue, withCarryingCapacity: carryingCapacity) else { return }
         
         inventorySummaryNode.position = position
         
@@ -499,57 +423,6 @@ extension GameScene{
         
     }
     
-    public func getInventorySummaryNode(withTotalUniqueItems uniqueItems: Int, withTotalItems totalItems: Int, withTotalMass totalMass: Double, withTotalMetalContent metalContent: Double, withMonetaryValue monetaryValue: Double, withCarryingCapacity carryingCapacity: Double) -> SKSpriteNode?{
-        
-        if let inventorySummary = SKScene(fileNamed: "user_interface")?.childNode(withName: "InventorySummary"){
-            
-            
-            
-            if let uniqueItemsLabel = inventorySummary.childNode(withName: "totalUniqueItemsLabel") as? SKLabelNode{
-                
-                uniqueItemsLabel.horizontalAlignmentMode = .center
-                uniqueItemsLabel.text = "Number of Unique Items:\(uniqueItems)"
-            }
-            
-            if let totalItemsLabel = inventorySummary.childNode(withName: "totalItemsLabel") as? SKLabelNode{
-                
-                totalItemsLabel.horizontalAlignmentMode = .center
-                totalItemsLabel.text = "Total Number of Items: \(totalItems)"
-            }
-            
-            
-            if let metalContentLabel = inventorySummary.childNode(withName: "totalMetalContentLabel") as? SKLabelNode{
-                
-                metalContentLabel.horizontalAlignmentMode = .center
-                metalContentLabel.text = "Total Metal Content: \(metalContent)"
-                
-            }
-            
-            if let monetaryValueLabel = inventorySummary.childNode(withName: "totalMonetaryValueLabel") as? SKLabelNode{
-                
-                monetaryValueLabel.horizontalAlignmentMode = .center
-                monetaryValueLabel.text = "Total Monetary Value: \(monetaryValue)"
-            }
-            
-            if let totalMassLabel = inventorySummary.childNode(withName: "totalMassLabel") as? SKLabelNode{
-                
-                totalMassLabel.horizontalAlignmentMode = .center
-                totalMassLabel.text = "Total Mass: \(totalMass)"
-                
-            }
-            
-            if let totalCarryingCapacityLabel = inventorySummary.childNode(withName: "totalCarryingCapacityLabel") as? SKLabelNode{
-                
-                totalCarryingCapacityLabel.horizontalAlignmentMode = .center
-                totalCarryingCapacityLabel.text = "Total Carrying Capacity: \(carryingCapacity)"
-                
-            }
-            
-            return inventorySummary as? SKSpriteNode
-        }
-        
-        return nil
-    }
 }
 
 extension GameScene: SKPhysicsContactDelegate{
@@ -580,16 +453,10 @@ extension GameScene: SKPhysicsContactDelegate{
                 let newCollectible = collectibleSprite.getCollectible()
                 
                 player.addCollectibleItem(newCollectible: newCollectible){
-                    newCollectible.showDescription()
+                    
                     self.player.playSoundForCollectibleContact()
-                    self.player.showCollectibleManagerDescription()
                     
-                    self.run(SKAction.run {
-                        
-                        self.showInventorySummaryForPlayer(atPosition: CGPoint.zero)
-                        
-                    })
-                    
+       
                     collectibleSprite.removeFromParent()
 
                 }
