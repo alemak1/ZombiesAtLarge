@@ -32,12 +32,20 @@ class CollectibleSprite: SKSpriteNode{
      self.yScale *= scale
      
      }
+    
+    
+    public func getCollectible() -> Collectible{
+        
+        return Collectible(withCollectibleType: self.collectibleType)
+    
+    }
      
      override init(texture: SKTexture?, color: UIColor, size: CGSize) {
      super.init(texture: texture, color: color, size: size)
      
      
      }
+    
      
      required init?(coder aDecoder: NSCoder) {
      fatalError("init(coder:) has not been implemented")

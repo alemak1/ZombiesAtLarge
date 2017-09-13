@@ -19,10 +19,14 @@ class Collectible: Equatable, Hashable{
     init(withCollectibleType someCollectibleType: CollectibleType){
         
         self.collectibleType = someCollectibleType
-        
+        self.totalQuantity = 1
     }
     
 
+    public func getCollectibleName() -> String{
+        return collectibleType.getCollectibleName()
+    }
+    
     public func getCollectibleMetalContent() -> Double{
         return collectibleType.getPercentMetalContentPerUnit()*getCollectibleMass()
     }
@@ -54,6 +58,17 @@ class Collectible: Equatable, Hashable{
     var hashValue: Int{
         
         return self.collectibleType.rawValue
+    }
+    
+    public func getDescriptionString() -> String{
+        
+        return "Collectible Information - Name: \(self.getCollectibleName()), Current Quantity: \(getQuantityOfCollectible()), Total Metal Content: \(getCollectibleMetalContent()), Total Mass: \(getCollectibleMass()), Total Monetary Value: \(getCollectibleMonetaryValue())"
+    }
+    
+    public func showDescription(){
+        
+        print(getDescriptionString())
+        
     }
     
     

@@ -43,11 +43,16 @@ class ZombieManager{
     }
     
     
+    func addLatentZombie(zombie: Zombie){
+        
+        self.latentZombies.append(zombie)
+        
+    }
+    
     /** Activates a given zombies and adds it to the list of currently active zombies **/
     
     func activateZombie(zombie: Zombie){
         
-        print("Activiating zombie....")
         
         zombie.activateZombie()
         activeZombies.append(zombie)
@@ -63,11 +68,9 @@ class ZombieManager{
         
         let nearbyZombies: [Zombie] = getZombiesAt(containingNode: player.getPlayerProximityNode())
         
-        print("The number of nearby zombies is: \(nearbyZombies.count)")
         
         if !nearbyZombies.isEmpty{
             
-            print("There are zombies nearby!")
             
             for zombie in nearbyZombies{
                 activateZombie(zombie: zombie)
@@ -79,7 +82,7 @@ class ZombieManager{
     
     func update(withFrameCount currentTime: TimeInterval){
         
-        self.frameCount = currentTime - lastUpdateTime
+       self.frameCount = currentTime - lastUpdateTime
         
         for zombie in activeZombies {
             
@@ -93,7 +96,8 @@ class ZombieManager{
     /** Helper function that gets an array of all the zombies that are within a given node **/
     
     private func getZombiesAt(containingNode node: SKSpriteNode) -> [Zombie]{
-        print("Testing for zombies in the playerProximityNode")
+        
+        
         return latentZombies.filter({ node.contains($0.position)})
 
     }

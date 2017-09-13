@@ -26,12 +26,16 @@ class Player: Shooter{
             
         }
     }
+
     
     override var playFiringSound: SKAction
     {
         return SKAction.playSoundFileNamed("laser1", waitForCompletion: true)
     }
     
+    var playCollectItemSound: SKAction{
+        return SKAction.playSoundFileNamed("coin5", waitForCompletion: false)
+    }
     
     override var appliedUnitVector: CGVector{
     
@@ -92,6 +96,7 @@ class Player: Shooter{
  **/
     
  
+    var collectibleManager = CollectibleManager()
     
     convenience init(playerType: PlayerType, scale: CGFloat){
         self.init(playerType: playerType)
@@ -165,6 +170,22 @@ class Player: Shooter{
     }
     
     
+    public func addCollectibleItem(newCollectible: Collectible, completionHandler:(() -> Void)? = nil){
+        
+        collectibleManager.addCollectibleItem(newCollectible: newCollectible, andWithQuantityOf: 1)
+    
+        if completionHandler != nil{
+            completionHandler!()
+        }
+        
+    }
+    
+    public func showCollectibleManagerDescription(){
+        
+        collectibleManager.showDescriptionForCollectibleManager()
+        
+    }
+    
     public func fireBullet(){
         
         super.fireBullet(withPrefireHandler: {}, andWithPostfireHandler: {})
@@ -195,6 +216,10 @@ class Player: Shooter{
     
     public func checkProximityOf(anotherPoint point: CGPoint) -> Bool{
         return playerProximity.contains(point)
+    }
+    
+    public func playSoundForCollectibleContact(){
+        run(self.playCollectItemSound)
     }
     
 }

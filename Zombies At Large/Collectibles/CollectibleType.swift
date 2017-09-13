@@ -121,6 +121,8 @@ enum CollectibleType: Int{
             return "Red Fountain Pen"
         case .Clipboard:
             return "Clipboard"
+        case .Microscope:
+            return "Microscope"
         default:
             return "Some Collecible Item"
         }
@@ -130,6 +132,8 @@ enum CollectibleType: Int{
         switch self{
         case .PowerDrill:
             return 1633.00
+        case .Microscope:
+            return 200.00
         case .FeatherPen:
             return 2.5
         case .FountainPenBlue:
@@ -152,6 +156,11 @@ enum CollectibleType: Int{
         switch self {
         case .PowerDrill:
             return 0.90
+        case .Microscope:
+            return 0.70
+        case .Clipboard:
+            return 0.10
+
         default:
             return 0.00
         }

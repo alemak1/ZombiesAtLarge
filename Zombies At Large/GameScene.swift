@@ -107,11 +107,13 @@ class GameScene: SKScene {
         self.camera = self.mainCameraNode
         
         
+        /**
         mainZombie = Zombie(zombieType: .zombie1)
         mainZombie.position = CGPoint(x: player.position.x, y: player.position.y + 300)
         worldNode.addChild(mainZombie)
+        **/
         
-        zombieManager = ZombieManager(withPlayer: player, andWithLatentZombies: [mainZombie])
+        zombieManager = ZombieManager(withPlayer: player, andWithLatentZombies: [])
         
       
         
@@ -128,7 +130,15 @@ class GameScene: SKScene {
         
         let randomCollectible = CollectibleSprite(collectibleType: randomCollectibleType, scale: 0.50)
         
-        randomCollectible.position = CGPoint.zero
+        randomCollectible.position = CGPoint(x: 100.0, y: -100.0)
+        
+        let microscope1 = CollectibleSprite(collectibleType: .Microscope)
+        microscope1.position = CGPoint(x: 150.0, y: -100.0)
+        self.worldNode.addChild(microscope1)
+        
+        let microscope2 = CollectibleSprite(collectibleType: .Microscope)
+        microscope2.position = CGPoint(x: 150.0, y: 150.0)
+        self.worldNode.addChild(microscope2)
         
         self.worldNode.addChild(randomCollectible)
         
@@ -188,12 +198,19 @@ class GameScene: SKScene {
             return;
             
         }
+        
+        
         /** Applied to tank gun turret **/
         
         
         let overlayNodeLocation = touch.location(in: overlayNode)
         
-        
+        if let inventorySummaryNode = overlayNode.childNode(withName: "InventorySummary") as? SKSpriteNode, inventorySummaryNode.contains(overlayNodeLocation){
+            
+            inventorySummaryNode.removeFromParent()
+            
+        }
+    
         
         let xDelta = (touchLocation.x - player.position.x)
         let yDelta = (touchLocation.y - player.position.y)
@@ -330,12 +347,55 @@ class GameScene: SKScene {
             fatalError("Error: tile backgrounds failed to load")
         }
         
+        
+        let grassRows = grass.numberOfRows
+        let grassCols = grass.numberOfColumns
+        
+        for row in 1...grassRows{
+            for col in 1...grassCols{
+                
+                let tileDef = grass.tileDefinition(atColumn: col, row: row)
+                
+                let hasZombie = tileDef?.userData?["hasZombie"] as? Bool
+                
+                if(hasZombie ?? false){
+                    let zombiePos = grass.centerOfTile(atColumn: col, row: row)
+                    
+                    let newZombie = Zombie(zombieType: .zombie1)
+                    newZombie.position = zombiePos
+                    newZombie.move(toParent: worldNode)
+                    zombieManager.addLatentZombie(zombie: newZombie)
+                    
+                }
+                
+                /**
+                let zombieProbability = tileDef?.userData?["zombieProbability"] as? Int
+                
+                /** Get a random number from 0 to 4 **/
+                
+                let randomNum = Int(arc4random_uniform(5))
+                
+                if(randomNum == zombieProbability){
+                    let zombiePos = grass.centerOfTile(atColumn: col, row: row)
+                    
+                    let newZombie = Zombie(zombieType: .zombie1)
+                    newZombie.position = zombiePos
+                    newZombie.move(toParent: worldNode)
+                    zombieManager.addLatentZombie(zombie: newZombie)
+                    
+                }
+             **/
+                
+            }
+        }
+        
         grassTileMap = grass
         
         grassTileMap.position = CGPoint(x: 0.00, y: 0.00)
         
         grassTileMap.move(toParent: self)
  
+        
         
         guard let blackCorridors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "blackcorridors") as? SKTileMapNode else {
             
@@ -353,6 +413,7 @@ class GameScene: SKScene {
                 
                 let hasPhysicsBody = tileDef?.userData?["hasPB"] as? Bool
                 
+                
                 if(hasPhysicsBody ?? false){
                         print("Adding another physics body for left edge....")
                 
@@ -368,8 +429,10 @@ class GameScene: SKScene {
                     let pbNode = SKNode()
                    let tilePB = SKPhysicsBody(rectangleOf: tileSize, center: tileCenter)
                     
-                    tilePB.categoryBitMask = ColliderType.Wall.rawValue
-                    tilePB.collisionBitMask = ColliderType.Player.rawValue | ColliderType.Zombie.rawValue
+                    tilePB.categoryBitMask = ColliderType.Obstacle.categoryMask
+                    tilePB.collisionBitMask = ColliderType.Obstacle.collisionMask
+                    tilePB.contactTestBitMask = ColliderType.Obstacle.contactMask
+                    
                     tilePB.affectedByGravity = false
                     pbNode.physicsBody = tilePB
                     
@@ -404,6 +467,79 @@ class GameScene: SKScene {
 
 }
 
+extension GameScene{
+    
+    public func showInventorySummaryForPlayer(atPosition position: CGPoint){
+        
+        let uniqueItems = player.collectibleManager.getTotalNumberOfUniqueItems()
+        let totalItems = player.collectibleManager.getTotalNumberOfAllItems()
+        let totalMass = player.collectibleManager.getTotalMassOfAllCollectibles()
+        let totalMonetaryValue = player.collectibleManager.getTotalMonetaryValueOfAllCollectibles()
+        let carryingCapacity = player.collectibleManager.getTotalCarryingCapacity()
+        let totalMetalContent = player.collectibleManager.getTotalMetalContent()
+        
+        guard let inventorySummaryNode = getInventorySummaryNode(withTotalUniqueItems: uniqueItems, withTotalItems: totalItems, withTotalMass: totalMass, withTotalMetalContent: totalMetalContent, withMonetaryValue: totalMonetaryValue, withCarryingCapacity: carryingCapacity) else { return }
+        
+        inventorySummaryNode.position = position
+        
+        inventorySummaryNode.move(toParent: overlayNode)
+        
+        
+    }
+    
+    public func getInventorySummaryNode(withTotalUniqueItems uniqueItems: Int, withTotalItems totalItems: Int, withTotalMass totalMass: Double, withTotalMetalContent metalContent: Double, withMonetaryValue monetaryValue: Double, withCarryingCapacity carryingCapacity: Double) -> SKSpriteNode?{
+        
+        if let inventorySummary = SKScene(fileNamed: "user_interface")?.childNode(withName: "InventorySummary"){
+            
+            
+            
+            if let uniqueItemsLabel = inventorySummary.childNode(withName: "totalUniqueItemsLabel") as? SKLabelNode{
+                
+                uniqueItemsLabel.horizontalAlignmentMode = .center
+                uniqueItemsLabel.text = "Number of Unique Items:\(uniqueItems)"
+            }
+            
+            if let totalItemsLabel = inventorySummary.childNode(withName: "totalItemsLabel") as? SKLabelNode{
+                
+                totalItemsLabel.horizontalAlignmentMode = .center
+                totalItemsLabel.text = "Total Number of Items: \(totalItems)"
+            }
+            
+            
+            if let metalContentLabel = inventorySummary.childNode(withName: "totalMetalContentLabel") as? SKLabelNode{
+                
+                metalContentLabel.horizontalAlignmentMode = .center
+                metalContentLabel.text = "Total Metal Content: \(metalContent)"
+                
+            }
+            
+            if let monetaryValueLabel = inventorySummary.childNode(withName: "totalMonetaryValueLabel") as? SKLabelNode{
+                
+                monetaryValueLabel.horizontalAlignmentMode = .center
+                monetaryValueLabel.text = "Total Monetary Value: \(monetaryValue)"
+            }
+            
+            if let totalMassLabel = inventorySummary.childNode(withName: "totalMassLabel") as? SKLabelNode{
+                
+                totalMassLabel.horizontalAlignmentMode = .center
+                totalMassLabel.text = "Total Mass: \(totalMass)"
+                
+            }
+            
+            if let totalCarryingCapacityLabel = inventorySummary.childNode(withName: "totalCarryingCapacityLabel") as? SKLabelNode{
+                
+                totalCarryingCapacityLabel.horizontalAlignmentMode = .center
+                totalCarryingCapacityLabel.text = "Total Carrying Capacity: \(carryingCapacity)"
+                
+            }
+            
+            return inventorySummary as? SKSpriteNode
+        }
+        
+        return nil
+    }
+}
+
 extension GameScene: SKPhysicsContactDelegate{
     
     func didEnd(_ contact: SKPhysicsContact) {
@@ -419,17 +555,39 @@ extension GameScene: SKPhysicsContactDelegate{
         
         var otherBody: SKPhysicsBody
         
-        if((bodyA.categoryBitMask & ColliderType.PlayerProximity.rawValue) == 1){
+        if((bodyA.categoryBitMask & ColliderType.Player.categoryMask) == 1){
             otherBody = bodyB
         } else {
             otherBody = bodyA
         }
     
         switch otherBody.categoryBitMask {
-        case ColliderType.Zombie.rawValue:
+        case ColliderType.Collectible.categoryMask:
+            if let collectibleSprite = otherBody.node as? CollectibleSprite{
+                
+                let newCollectible = collectibleSprite.getCollectible()
+                
+                player.addCollectibleItem(newCollectible: newCollectible){
+                    newCollectible.showDescription()
+                    self.player.playSoundForCollectibleContact()
+                    self.player.showCollectibleManagerDescription()
+                    
+                    self.run(SKAction.run {
+                        
+                        self.showInventorySummaryForPlayer(atPosition: CGPoint.zero)
+                        
+                    })
+                    
+                    collectibleSprite.removeFromParent()
+
+                }
+
+            }
+            /**
                 let zombie = otherBody.node as! Zombie
                 zombie.activateZombie()
                 print("Zombie has been activated")
+             **/
             break
         default:
             print("No contact logic implemented")

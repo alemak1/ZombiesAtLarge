@@ -12,7 +12,7 @@ import SpriteKit
 class CollectibleManager{
     
     var collectibles = Set<Collectible>()
-    var carryingCapacity: Double = 300.00
+    var carryingCapacity: Double = 1000.00
     
     
     init(){
@@ -20,16 +20,16 @@ class CollectibleManager{
     }
     
     
-    func addCollectibleItem(newCollectible collectible: Collectible, andWithQuantityOf quantity: Int = 1){
+    func addCollectibleItem(newCollectible: Collectible, andWithQuantityOf quantity: Int = 1){
         
-        if(self.getTotalMassOfAllCollectibles() + collectible.getCollectibleMass() > self.carryingCapacity){
+        if(self.getTotalMassOfAllCollectibles() + newCollectible.getCollectibleMass() > self.carryingCapacity){
             
             print("Failed to add item: player does not have the carrying capacity to add this item")
             return;
         }
         
         
-        if let existingCollectible = collectibles.remove(collectible){
+        if let existingCollectible = collectibles.remove(newCollectible){
             
             let originalQty = existingCollectible.getQuantityOfCollectible()
             
@@ -38,7 +38,7 @@ class CollectibleManager{
             collectibles.insert(existingCollectible)
             
         } else {
-            collectibles.insert(collectible)
+            collectibles.insert(newCollectible)
         }
         
         
@@ -82,8 +82,21 @@ class CollectibleManager{
         return self.collectibles.map({ return $0.getCollectibleMetalContent() }).reduce(0.00){$0+$1}
     }
     
-    func getTotalNumberOfItems() -> Int{
+    func getTotalNumberOfUniqueItems() -> Int{
         return collectibles.count
+    }
+    
+    func getTotalNumberOfAllItems() -> Int{
+        
+        let collectibleItemQuantities = collectibles.map({$0.getQuantityOfCollectible()})
+        
+        return collectibleItemQuantities.reduce(0){$0 + $1}
+        
+    }
+    
+    func getTotalCarryingCapacity() -> Double{
+        
+        return self.carryingCapacity
     }
     
     
@@ -92,5 +105,28 @@ class CollectibleManager{
         return getTotalMassOfAllCollectibles() > self.carryingCapacity
     }
     
+    
+    func showDescriptionForCollectibleManager(){
+        
+        let descriptionStrings: [String] = [
+            String("Total Number of All Items: \(getTotalNumberOfAllItems())"),
+            String("Total Number of Unique items: \(getTotalNumberOfUniqueItems())"),
+            String("Total Metal Content: \(getTotalMetalContent())"),
+            String("Total Mass: \(getTotalMassOfAllCollectibles())"),
+            String("Total Monetary Value: \(getTotalMonetaryValueOfAllCollectibles())")
+        ]
+        
+        let summaryString = descriptionStrings.reduce(""){$0 + "\n" + $1}
+        
+        print(summaryString)
+        
+    }
+    
+    func getDescriptionStringForCollectibleSpecs() -> String{
+        
+        return self.collectibles.map({$0.getDescriptionString()}).reduce(String("Information Summary for All Collectibles:")){$0 + "\n" + $1}
+        
+        
+    }
     
 }

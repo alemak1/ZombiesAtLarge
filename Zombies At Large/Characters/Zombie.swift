@@ -78,11 +78,14 @@ class Zombie: Shooter{
             
             switch currentMode {
             case .Latent:
+                self.frameCount = 0.00
                 run(SKAction.setTexture(zombieType.getDefaultTexture()))
             case .Following:
                 self.frameCount = 0.00
                 run(SKAction.setTexture(zombieType.getFollowTexture()))
             case .Attack:
+                self.shootingFrameCount = 0.00
+                self.frameCount = 0.00
                 run(SKAction.setTexture(zombieType.getAttackTexture()))
       
             }
@@ -95,9 +98,15 @@ class Zombie: Shooter{
         return SKAction.playSoundFileNamed("laser7", waitForCompletion: true)
     }
 
-    private var shootInterval = 3.00
+    /** Timer Related Variables: Zombie will be in attack mode for a period of time designated as attackInterval; During the attack interval, it will fire bullets at every shoot interval **/
+    
+    private var shootInterval = 1.00
+    private var attackInterval = 4.00
+    private var followInterval = 2.00
+    
     private var lastUpdateTime = 0.00
     private var frameCount = 0.00
+    private var shootingFrameCount = 0.000
     
     private var isActive = false
     
@@ -108,27 +117,26 @@ class Zombie: Shooter{
         
         self.init(texture: defaultTexture, color: .clear, size: defaultTexture.size())
         
-        self.physicsBody = SKPhysicsBody(texture: defaultTexture, size: defaultTexture.size())
-        physicsBody?.affectedByGravity = false
-        physicsBody?.linearDamping = 1.00
-        physicsBody?.categoryBitMask = ColliderType.Enemy.categoryMask
-        physicsBody?.collisionBitMask = ColliderType.Enemy.collisionMask
-        physicsBody?.contactTestBitMask = ColliderType.Enemy.contactMask
+        configurePhysicsProperties(withTexture: defaultTexture, andWithSize: defaultTexture.size())
         
         self.zombieType = zombieType
         self.xScale *= scale
         self.yScale *= scale
     }
     
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: texture, color: color, size: size)
+    /** Helper function for configuring physics properties during initializaiton  **/
+    
+    private func configurePhysicsProperties(withTexture texture: SKTexture, andWithSize size: CGSize){
+       
+        self.physicsBody = SKPhysicsBody(texture: texture, size: size)
+        physicsBody?.affectedByGravity = false
+        physicsBody?.linearDamping = 1.00
+        physicsBody?.categoryBitMask = ColliderType.Enemy.categoryMask
+        physicsBody?.collisionBitMask = ColliderType.Enemy.collisionMask
+        physicsBody?.contactTestBitMask = ColliderType.Enemy.contactMask
+        
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
+  
     func constrainTo(position: CGPoint, withLowerDistanceLimit lowerDistanceLimit: CGFloat = 0.00, andWithUpperDistanceLimit upperDistanceLimit: CGFloat = 500.0,andWithLowerOrientationLimit lowerOrientationLimit: CGFloat = 0.00, andWithUpperOrientationLimit upperOrientationLimit: CGFloat = 0.00){
         
         let distanceRange = SKRange(lowerLimit: lowerDistanceLimit, upperLimit: upperDistanceLimit)
@@ -159,20 +167,34 @@ class Zombie: Shooter{
         case .Latent:
             break
         case .Attack:
-            break
-        case .Following:
+            print("Zombie is currently in attack mode with framecount of \(frameCount)")
+            self.frameCount += deltaTime
+            self.shootingFrameCount += deltaTime
+
+            if(frameCount > attackInterval){
+                self.currentMode = .Following
+                self.frameCount = 0.00
+            }
             
+            if(shootingFrameCount > shootInterval){
+                fireBullet()
+                shootingFrameCount = 0
+            }
+            
+            
+        case .Following:
+            print("Zombie is currently in following mode with framecount of \(frameCount)")
+
             self.frameCount += deltaTime
             
-            print("Current frameCount for zombie is: \(self.frameCount)")
-            
-            if(frameCount > shootInterval){
-                fireBullet()
+            if(frameCount > followInterval){
+                
+                self.currentMode = .Attack
                 
                 self.frameCount = 0.00
             }
    
-        }
+        }   
         
     }
    
@@ -214,6 +236,7 @@ class Zombie: Shooter{
         })
         
     }
+    
 
     
     
@@ -232,6 +255,17 @@ class Zombie: Shooter{
         return bullet
     }
      **/
+    
+    
+    //MARK: ********* Designated and required initializers
+    
+    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
 }
