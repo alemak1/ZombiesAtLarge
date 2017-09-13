@@ -28,6 +28,7 @@ enum CollectibleType: Int{
     case FlaskRed = 107
     case FlaskGreen = 108
     case Microscope = 111
+    case Camera = 200
     
     
     static let allCollectibleTypes:[CollectibleType] = {

@@ -222,6 +222,13 @@ class Player: Shooter{
         run(self.playCollectItemSound)
     }
     
+    public func hasItem(ofType collectibleType: CollectibleType) -> Bool{
+        
+        let collectible = Collectible(withCollectibleType: collectibleType)
+        
+        return self.collectibleManager.hasItem(collectible: collectible)
+        
+    }
 }
 
 

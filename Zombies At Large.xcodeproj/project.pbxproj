@@ -33,6 +33,13 @@
 		BD39FCF81F68ED0F00209FFD /* coin1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF41F68ECEB00209FFD /* coin1.wav */; };
 		BD39FCF91F68ED1100209FFD /* coin3.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF21F68ECE900209FFD /* coin3.wav */; };
 		BD39FCFA1F68ED1400209FFD /* coin4.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF31F68ECE900209FFD /* coin4.wav */; };
+		BD3A51661F69122500B01850 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51651F69122500B01850 /* ImageManager.swift */; };
+		BD3A51681F692B7400B01850 /* NonplayerCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51671F692B7400B01850 /* NonplayerCharacter.swift */; };
+		BD3A516A1F692D5D00B01850 /* Talkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51691F692D5D00B01850 /* Talkable.swift */; };
+		BD3A516C1F692ED500B01850 /* PicturePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A516B1F692ED500B01850 /* PicturePerson.swift */; };
+		BD3A516E1F69331A00B01850 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A516D1F69331A00B01850 /* Avatar.swift */; };
+		BD3A51701F693C6500B01850 /* NonplayerCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */; };
+		BD3A51721F693DA800B01850 /* UIPanelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */; };
 		BD5143281F62EB3C00294559 /* laser1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD5143261F62E7E600294559 /* laser1.wav */; };
 		BD5C86011F68C7B000D6E0BF /* ColliderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C86001F68C7B000D6E0BF /* ColliderConfiguration.swift */; };
 		BD6378971F5FA8C60057BFD6 /* basicBackground.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD6378961F5FA8C60057BFD6 /* basicBackground.sks */; };
@@ -113,6 +120,13 @@
 		BD39FCF31F68ECE900209FFD /* coin4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin4.wav; sourceTree = "<group>"; };
 		BD39FCF41F68ECEB00209FFD /* coin1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin1.wav; sourceTree = "<group>"; };
 		BD39FCF51F68ED0200209FFD /* coin2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin2.wav; sourceTree = "<group>"; };
+		BD3A51651F69122500B01850 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		BD3A51671F692B7400B01850 /* NonplayerCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonplayerCharacter.swift; sourceTree = "<group>"; };
+		BD3A51691F692D5D00B01850 /* Talkable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Talkable.swift; sourceTree = "<group>"; };
+		BD3A516B1F692ED500B01850 /* PicturePerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturePerson.swift; sourceTree = "<group>"; };
+		BD3A516D1F69331A00B01850 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
+		BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonplayerCharacterType.swift; sourceTree = "<group>"; };
+		BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanelGenerator.swift; sourceTree = "<group>"; };
 		BD5143261F62E7E600294559 /* laser1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser1.wav; sourceTree = "<group>"; };
 		BD5C86001F68C7B000D6E0BF /* ColliderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderConfiguration.swift; sourceTree = "<group>"; };
 		BD6378961F5FA8C60057BFD6 /* basicBackground.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = basicBackground.sks; sourceTree = "<group>"; };
@@ -203,6 +217,7 @@
 				BD3961A51F5970940060CDB4 /* LaunchScreen.storyboard */,
 				BD3961A81F5970940060CDB4 /* Info.plist */,
 				BD6378961F5FA8C60057BFD6 /* basicBackground.sks */,
+				BD3A51691F692D5D00B01850 /* Talkable.swift */,
 			);
 			path = "Zombies At Large";
 			sourceTree = "<group>";
@@ -269,6 +284,10 @@
 				BDE125511F63E1E00092E561 /* Shooter.swift */,
 				BD3961CA1F5970BD0060CDB4 /* Player.swift */,
 				BD3961CC1F5971340060CDB4 /* PlayerType.swift */,
+				BD3A51671F692B7400B01850 /* NonplayerCharacter.swift */,
+				BD3A516B1F692ED500B01850 /* PicturePerson.swift */,
+				BD3A516D1F69331A00B01850 /* Avatar.swift */,
+				BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -279,6 +298,8 @@
 				BDFC53251F5A7CEE00289716 /* CompassDirection.swift */,
 				BD14D87D1F60151E00E19F21 /* ColliderType.swift */,
 				BD5C86001F68C7B000D6E0BF /* ColliderConfiguration.swift */,
+				BD3A51651F69122500B01850 /* ImageManager.swift */,
+				BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */,
 			);
 			path = GameUtils;
 			sourceTree = "<group>";
@@ -464,15 +485,21 @@
 				BDE9FB071F66A64A0056B66E /* FilterConfiguration.swift in Sources */,
 				BDE9FB0B1F66B24E0056B66E /* ImageSprite.swift in Sources */,
 				BDE9FB091F66B12C0056B66E /* ImageFilterObject.swift in Sources */,
+				BD3A51721F693DA800B01850 /* UIPanelGenerator.swift in Sources */,
+				BD3A51661F69122500B01850 /* ImageManager.swift in Sources */,
 				BDB259D41F62CA5100CDB8B9 /* Potion.swift in Sources */,
 				BD14D87E1F60151E00E19F21 /* ColliderType.swift in Sources */,
+				BD3A516E1F69331A00B01850 /* Avatar.swift in Sources */,
 				BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */,
 				BD7865591F6546620071A14F /* CollectibleType.swift in Sources */,
 				BDE9FB0D1F66B55F0056B66E /* CustomFilters.swift in Sources */,
 				BD7865571F6544090071A14F /* Collectible.swift in Sources */,
 				BD3961CD1F5971340060CDB4 /* PlayerType.swift in Sources */,
 				BDE1250E1F639FFA0092E561 /* ZombieManager.swift in Sources */,
+				BD3A516A1F692D5D00B01850 /* Talkable.swift in Sources */,
+				BD3A51681F692B7400B01850 /* NonplayerCharacter.swift in Sources */,
 				BDE1250C1F6390CE0092E561 /* Zombie.swift in Sources */,
+				BD3A516C1F692ED500B01850 /* PicturePerson.swift in Sources */,
 				BD78655D1F6562DF0071A14F /* Tank.swift in Sources */,
 				BDE9FB031F668C690056B66E /* CollectibleManager.swift in Sources */,
 				BD5C86011F68C7B000D6E0BF /* ColliderConfiguration.swift in Sources */,
@@ -486,6 +513,7 @@
 				BD3961971F5970940060CDB4 /* AppDelegate.swift in Sources */,
 				BDE9FB051F66A1980056B66E /* CollectibleSprite.swift in Sources */,
 				BDE125521F63E1E00092E561 /* Shooter.swift in Sources */,
+				BD3A51701F693C6500B01850 /* NonplayerCharacterType.swift in Sources */,
 				BD78655B1F65483D0071A14F /* ImageContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
