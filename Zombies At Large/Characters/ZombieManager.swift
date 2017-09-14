@@ -62,6 +62,7 @@ class ZombieManager{
     
     /** Checks for any latent zombies close to player; if zombies are within the player proximity zone, they are activated **/
     
+    /**
     func checkForZombiesInPlayerProximity(){
         
         guard let player = self.player else { return }
@@ -77,6 +78,7 @@ class ZombieManager{
             }
         }
     }
+    **/
     
     /** Update state for all zombies **/
     
@@ -95,7 +97,7 @@ class ZombieManager{
     
     /** Helper function that gets an array of all the zombies that are within a given node **/
     
-    private func getZombiesAt(containingNode node: SKSpriteNode) -> [Zombie]{
+    private func getZombiesAt(containingNode node: SKShapeNode) -> [Zombie]{
         
         
         return latentZombies.filter({ node.contains($0.position)})

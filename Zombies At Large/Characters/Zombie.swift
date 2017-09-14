@@ -61,6 +61,9 @@ class Zombie: Shooter{
     
     private var zombieType: ZombieType!
     
+    private var currentHealth: Int = 3
+    private var isDamaged: Bool = false
+    
     override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
         
         return {(bulletPB: inout SKPhysicsBody) in
@@ -101,7 +104,7 @@ class Zombie: Shooter{
     /** Timer Related Variables: Zombie will be in attack mode for a period of time designated as attackInterval; During the attack interval, it will fire bullets at every shoot interval **/
     
     private var shootInterval = 1.00
-    private var attackInterval = 4.00
+    private var attackInterval = 2.00
     private var followInterval = 2.00
     
     private var lastUpdateTime = 0.00
@@ -110,7 +113,7 @@ class Zombie: Shooter{
     
     private var isActive = false
     
-    convenience init(zombieType: ZombieType, scale: CGFloat = 1.00) {
+    convenience init(zombieType: ZombieType, scale: CGFloat = 1.00, startingHealth: Int = 3) {
         
         
         let defaultTexture = zombieType.getDefaultTexture()
@@ -120,6 +123,7 @@ class Zombie: Shooter{
         configurePhysicsProperties(withTexture: defaultTexture, andWithSize: defaultTexture.size())
         
         self.zombieType = zombieType
+        self.currentHealth = startingHealth
         self.xScale *= scale
         self.yScale *= scale
     }
@@ -167,7 +171,7 @@ class Zombie: Shooter{
         case .Latent:
             break
         case .Attack:
-            print("Zombie is currently in attack mode with framecount of \(frameCount)")
+           // print("Zombie is currently in attack mode with framecount of \(frameCount)")
             self.frameCount += deltaTime
             self.shootingFrameCount += deltaTime
 
@@ -183,7 +187,7 @@ class Zombie: Shooter{
             
             
         case .Following:
-            print("Zombie is currently in following mode with framecount of \(frameCount)")
+          //  print("Zombie is currently in following mode with framecount of \(frameCount)")
 
             self.frameCount += deltaTime
             
@@ -198,6 +202,99 @@ class Zombie: Shooter{
         
     }
    
+    
+    func takeHit(){
+        
+        switch self.currentHealth {
+        case 3:
+            takeDamage1()
+            break
+        case 2:
+            takeDamage2()
+            break
+        case 1:
+            takeDamage3()
+            break
+        case 0:
+            die()
+            break
+        default:
+            print("No logic implemented for health of \(self.currentHealth)")
+        }
+    }
+    
+    
+    private func takeDamage1(){
+        if(!isDamaged){
+            isDamaged = true
+            
+            run(SKAction.run {
+                
+                self.run(SKAction.colorize(with: SKColor.red, colorBlendFactor: 0.50, duration: 0.20))
+                self.currentHealth -= 1
+                }, completion: {
+                    
+                    self.isDamaged = false
+                    
+            })
+            
+        }
+    }
+    
+    
+    private func takeDamage2(){
+        if(!isDamaged){
+            isDamaged = true
+            
+            run(SKAction.run {
+                
+                self.run(SKAction.fadeAlpha(to: 0.60, duration: 0.30))
+                self.currentHealth -= 1
+                }, completion: {
+                    
+                    self.isDamaged = false
+                    
+            })
+            
+        }
+
+    }
+    
+    
+    private func takeDamage3(){
+        
+        if(!isDamaged){
+            isDamaged = true
+            
+            run(SKAction.run {
+                
+                self.run(SKAction.fadeAlpha(to: 0.30, duration: 0.30))
+                self.currentHealth -= 1
+                }, completion: {
+                    
+                    self.isDamaged = false
+                    
+            })
+            
+        }
+
+    }
+    
+    private func die(){
+        
+        run(SKAction.animate(with: [
+            SKTexture(image: #imageLiteral(resourceName: "regularExplosion01")),
+            SKTexture(image: #imageLiteral(resourceName: "regularExplosion02")),
+            SKTexture(image: #imageLiteral(resourceName: "regularExplosion03")),
+            SKTexture(image: #imageLiteral(resourceName: "regularExplosion04")),
+            SKTexture(image: #imageLiteral(resourceName: "regularExplosion05")),
+            SKTexture(image: #imageLiteral(resourceName: "regularExplosion06")),
+            SKTexture(image: #imageLiteral(resourceName: "regularExplosion08")),
+            ], timePerFrame: 0.20), completion: {
+                
+                self.removeFromParent()
+        })
+    }
     
     func hasBeenActivated() -> Bool{
         return isActive
@@ -223,6 +320,7 @@ class Zombie: Shooter{
     }
     
     
+
     
     public func fireBullet(){
         

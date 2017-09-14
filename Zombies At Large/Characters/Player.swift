@@ -14,7 +14,7 @@ class Player: Shooter{
     
     private var playerType: PlayerType
     
-    private var playerProximity: SKSpriteNode!
+    private var playerProximity: SKShapeNode!
     
     override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
         
@@ -113,22 +113,32 @@ class Player: Shooter{
         
         self.init(texture: playerTexture, color: .clear, size: playerTexture.size())
         
-        let proximitySize = CGSize(width: self.size.width*5, height: self.size.height*5)
         
-        playerProximity = SKSpriteNode(texture: nil, color:.clear, size: proximitySize)
+        playerProximity = SKShapeNode(circleOfRadius: 50.0)
+        addChild(playerProximity)
         
-        playerProximity.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         playerProximity.position = self.position
         playerProximity.name = "playerProximity"
         
-        playerProximity.physicsBody = SKPhysicsBody(circleOfRadius: 5*proximitySize.width)
-        playerProximity.physicsBody?.categoryBitMask = ColliderType.PlayerProximity.categoryMask
-        playerProximity.physicsBody?.collisionBitMask = ColliderType.PlayerProximity.collisionMask
-        playerProximity.physicsBody?.contactTestBitMask = ColliderType.PlayerProximity.contactMask
-        
     
+        let playerProximityPB = SKPhysicsBody(circleOfRadius: 50.0)
+        playerProximityPB.affectedByGravity = false
+        playerProximityPB.linearDamping = 0.00
+        playerProximityPB.isDynamic = false
+        playerProximityPB.allowsRotation = false
+        playerProximityPB.categoryBitMask = ColliderType.PlayerProximity.categoryMask
+        playerProximityPB.collisionBitMask = ColliderType.PlayerProximity.collisionMask
+        playerProximityPB.contactTestBitMask = ColliderType.PlayerProximity.contactMask
+        playerProximity.physicsBody = playerProximityPB
+        
+        let joint = SKPhysicsJointFixed()
+        joint.bodyA = physicsBody!
+        joint.bodyB = playerProximity.physicsBody!
+        
        
     }
+    
+    
     
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         
@@ -160,6 +170,8 @@ class Player: Shooter{
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+   
     
     func applyMovementImpulse(withMagnitudeOf forceUnits: CGFloat){
         
@@ -208,15 +220,15 @@ class Player: Shooter{
     
     /** Helper function that provides access to the player proximity node, which is used by the zombie manager to detect presence of zombies in close proximity to the player **/
     
-    public func getPlayerProximityNode() -> SKSpriteNode{
+    public func getPlayerProximityNode() -> SKShapeNode{
         
         return playerProximity
         
     }
     
-    public func checkProximityOf(anotherPoint point: CGPoint) -> Bool{
-        return playerProximity.contains(point)
-    }
+    //public func checkProximityOf(anotherPoint point: CGPoint) -> Bool{
+     //   return playerProximity.contains(point)
+   // }
     
     public func playSoundForCollectibleContact(){
         run(self.playCollectItemSound)

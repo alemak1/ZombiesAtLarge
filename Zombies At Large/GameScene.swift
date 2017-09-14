@@ -109,7 +109,7 @@ class GameScene: SKScene {
        
         initializeBasicNodeLayers()
 
-        loadMissionPanel()
+       // loadMissionPanel()
         
         loadPlayer()
         
@@ -187,6 +187,7 @@ class GameScene: SKScene {
         let touchLocation = touch.location(in: self)
         let overlayNodeLocation = touch.location(in: overlayNode)
 
+        
     
         if let missionPanel = self.missionPanel, missionPanel.contains(overlayNodeLocation){
 
@@ -194,19 +195,23 @@ class GameScene: SKScene {
             
             isPaused = false
             worldNode.isPaused = false
+            
+            return;
+            
         }
         
         
         
+        /**
         
         if self.menuOptionsPanel != nil{
             
-            if menuOptionsButton.contains(overlayNode){
+            if let touchedOverlayNode = overlayNode.nodes(at: overlayNodeLocation).first as? SKSpriteNode{
                 
-                menuOptionsPanel!.removeFromParent()
-                self.menuOptionsPanel = nil
-                isPaused = false
-                worldNode.isPaused = false
+                if touchedOverlayNode.name == "InventorySummary"{
+                    touchedOverlayNode.removeFromParent()
+                    
+                }
                 
             }
             
@@ -226,8 +231,8 @@ class GameScene: SKScene {
                 }
                 
                 
-                if(selectedNode.name == ""){
-                    
+                if(selectedNode.name == "InventorySummaryOption"){
+                    showInventorySummaryForPlayer(atPosition: player.position)
                 }
                 
                 if(selectedNode.name == ""){
@@ -237,12 +242,26 @@ class GameScene: SKScene {
         
             }
             
-        } else if menuOptionsButton.contains(overlayNodeLocation) {
-            
-            showMenuOptionsPanel()
-            
             
         }
+        
+        if menuOptionsButton.contains(overlayNodeLocation) {
+            
+            if(menuOptionsPanel == nil){
+                showMenuOptionsPanel()
+            } else {
+                
+                menuOptionsPanel!.removeFromParent()
+                menuOptionsPanel = nil
+                isPaused = false
+                worldNode.isPaused = false
+                
+            }
+            
+            
+        
+        }
+        **/
         
         let fireButtonShape = fireButton as! SKShapeNode
         
@@ -333,7 +352,7 @@ class GameScene: SKScene {
     
         frameCount = currentTime - lastUpdateTime;
         
-        zombieManager.checkForZombiesInPlayerProximity()
+       // zombieManager.checkForZombiesInPlayerProximity()
         zombieManager.update(withFrameCount: frameCount)
         
         
@@ -355,7 +374,8 @@ class GameScene: SKScene {
     }
     
     override func didEvaluateActions() {
-        
+        player.updatePlayerProximity()
+        player.getPlayerProximityNode().position = player.position
     }
     
     func centerOn(node: SKNode) {
@@ -373,8 +393,10 @@ class GameScene: SKScene {
         fireButton = SKShapeNode(circleOfRadius: 40.00)
         
         let fireButtonShape = fireButton as! SKShapeNode
-        fireButtonShape.fillColor = SKColor.red
-        fireButtonShape.strokeColor = SKColor.blue
+        fireButtonShape.fillColor = SKColor.cyan
+        fireButtonShape.strokeColor = SKColor.black
+        fireButtonShape.fillTexture = SKTexture(image: #imageLiteral(resourceName: "gun50"))
+        
         fireButtonShape.lineWidth = 1.50
         
         fireButtonShape.name = "fireButton"
@@ -383,8 +405,8 @@ class GameScene: SKScene {
         
         /** Set the position of the fire button **/
         
-        let xPos = -UIScreen.main.bounds.width*0.40
-        let yPos = -UIScreen.main.bounds.height*0.34
+        let xPos = -UIScreen.main.bounds.width*0.35
+        let yPos = -UIScreen.main.bounds.height*0.4
         
         fireButtonShape.position = CGPoint(x: xPos, y: yPos)
         
@@ -600,6 +622,7 @@ extension GameScene{
         guard let inventorySummaryNode = UIPanelGenerator.GetInventorySummaryNode(withTotalUniqueItems: uniqueItems, withTotalItems: totalItems, withTotalMass: totalMass, withTotalMetalContent: totalMetalContent, withMonetaryValue: totalMonetaryValue, withCarryingCapacity: carryingCapacity) else { return }
         
         inventorySummaryNode.position = position
+        inventorySummaryNode.zPosition = 30
         
         inventorySummaryNode.move(toParent: overlayNode)
         
@@ -621,17 +644,94 @@ extension GameScene: SKPhysicsContactDelegate{
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
         
-        var otherBody: SKPhysicsBody
+        var nonplayerProximityPB: SKPhysicsBody
+        
+        
+        if(bodyA.categoryBitMask & ColliderType.PlayerBullets.categoryMask == 1){
+            nonplayerProximityPB = bodyB
+        } else {
+            nonplayerProximityPB = bodyA
+        }
+        
+        switch nonplayerProximityPB.categoryBitMask {
+        case ColliderType.Enemy.categoryMask:
+            print("The player proximity contacted the zombie")
+            if let zombie = nonplayerProximityPB.node as? Zombie{
+                zombieManager.activateZombie(zombie: zombie)
+            }
+            break
+        default:
+            break
+        }
+        
+        var playerBulletPB: SKPhysicsBody
+        var nonPlayerBulletPB: SKPhysicsBody
+        
+        
+        if(bodyA.categoryBitMask & ColliderType.PlayerBullets.categoryMask == 1){
+            nonPlayerBulletPB = bodyB
+            playerBulletPB = bodyA
+        } else {
+            nonPlayerBulletPB = bodyA
+            playerBulletPB = bodyB
+        }
+        
+        switch nonPlayerBulletPB.categoryBitMask {
+        case ColliderType.Enemy.categoryMask:
+            print("Bullet hit zombie")
+            if let zombie = nonPlayerBulletPB.node as? Zombie, let playerBullet = playerBulletPB.node as? SKSpriteNode{
+                
+                zombie.takeHit()
+                self.run(SKAction.wait(forDuration: 0.05), completion: {
+                    playerBullet.removeFromParent()
+                })
+                
+            }
+        default:
+            print("No contact logic implemented")
+        }
+        
+        
+        var nonZombieBody: SKPhysicsBody
+        var zombieBody: SKPhysicsBody
+        
+        if(bodyA.categoryBitMask & ColliderType.Enemy.categoryMask == 1){
+            nonZombieBody = bodyB
+            zombieBody = bodyA
+        } else {
+            nonZombieBody = bodyA
+            zombieBody = bodyB
+        }
+        
+   
+        
+        switch nonZombieBody.categoryBitMask {
+        case ColliderType.PlayerBullets.categoryMask:
+            print("Zombie was hit by bullet")
+            if let zombieNode = zombieBody.node as? Zombie{
+                zombieNode.takeHit()
+            }
+            
+            break
+        case ColliderType.PlayerProximity.categoryMask:
+            print("The zombie has contacted the player proximitiy zone")
+            break
+        default:
+            print("No logic implemented for collision btwn zombie and entity of this type")
+        }
+        
+        var nonPlayerBody: SKPhysicsBody
         
         if((bodyA.categoryBitMask & ColliderType.Player.categoryMask) == 1){
-            otherBody = bodyB
+            nonPlayerBody = bodyB
         } else {
-            otherBody = bodyA
+            nonPlayerBody = bodyA
         }
+        
     
-        switch otherBody.categoryBitMask {
+        switch nonPlayerBody.categoryBitMask {
         case ColliderType.Collectible.categoryMask:
-            if let collectibleSprite = otherBody.node as? CollectibleSprite{
+            if let collectibleSprite = nonPlayerBody.node as? CollectibleSprite{
                 
                 let newCollectible = collectibleSprite.getCollectible()
                 
@@ -645,6 +745,7 @@ extension GameScene: SKPhysicsContactDelegate{
                 }
 
             }
+            break
             /**
                 let zombie = otherBody.node as! Zombie
                 zombie.activateZombie()
