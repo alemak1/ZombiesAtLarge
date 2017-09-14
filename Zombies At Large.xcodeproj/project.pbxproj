@@ -17,7 +17,6 @@
 		BD395A861F6707AB00684AB9 /* killHer.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A851F6707A500684AB9 /* killHer.wav */; };
 		BD395A871F6707AE00684AB9 /* killHim.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A841F6707A500684AB9 /* killHim.wav */; };
 		BD3961971F5970940060CDB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3961961F5970940060CDB4 /* AppDelegate.swift */; };
-		BD39619B1F5970940060CDB4 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD39619A1F5970940060CDB4 /* Actions.sks */; };
 		BD39619D1F5970940060CDB4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39619C1F5970940060CDB4 /* GameScene.swift */; };
 		BD39619F1F5970940060CDB4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39619E1F5970940060CDB4 /* GameViewController.swift */; };
 		BD3961A21F5970940060CDB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD3961A01F5970940060CDB4 /* Main.storyboard */; };
@@ -41,6 +40,8 @@
 		BD3A51701F693C6500B01850 /* NonplayerCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */; };
 		BD3A51721F693DA800B01850 /* UIPanelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */; };
 		BD4529E01F695946000166A4 /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4529DF1F695946000166A4 /* GameLevel.swift */; };
+		BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD47350F1F6AA5AC00D91819 /* MapLocation.swift */; };
+		BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */; };
 		BD5143281F62EB3C00294559 /* laser1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD5143261F62E7E600294559 /* laser1.wav */; };
 		BD5C86011F68C7B000D6E0BF /* ColliderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C86001F68C7B000D6E0BF /* ColliderConfiguration.swift */; };
 		BD6378971F5FA8C60057BFD6 /* basicBackground.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD6378961F5FA8C60057BFD6 /* basicBackground.sks */; };
@@ -63,6 +64,7 @@
 		BDE9FB0D1F66B55F0056B66E /* CustomFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB0C1F66B55F0056B66E /* CustomFilters.swift */; };
 		BDE9FB0F1F66BCC80056B66E /* CameraObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */; };
 		BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB101F66BCED0056B66E /* CameraSprite.swift */; };
+		BDEB6F5C1F698309000B3B22 /* Plan in Resources */ = {isa = PBXBuildFile; fileRef = BDEB6F5B1F698309000B3B22 /* Plan */; };
 		BDFC53261F5A7CEE00289716 /* CompassDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFC53251F5A7CEE00289716 /* CompassDirection.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,7 +97,6 @@
 		BD395A851F6707A500684AB9 /* killHer.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = killHer.wav; sourceTree = "<group>"; };
 		BD3961931F5970940060CDB4 /* Zombies At Large.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zombies At Large.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD3961961F5970940060CDB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BD39619A1F5970940060CDB4 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		BD39619C1F5970940060CDB4 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		BD39619E1F5970940060CDB4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		BD3961A11F5970940060CDB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -129,6 +130,8 @@
 		BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonplayerCharacterType.swift; sourceTree = "<group>"; };
 		BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanelGenerator.swift; sourceTree = "<group>"; };
 		BD4529DF1F695946000166A4 /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
+		BD47350F1F6AA5AC00D91819 /* MapLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
+		BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSprite.swift; sourceTree = "<group>"; };
 		BD5143261F62E7E600294559 /* laser1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser1.wav; sourceTree = "<group>"; };
 		BD5C86001F68C7B000D6E0BF /* ColliderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderConfiguration.swift; sourceTree = "<group>"; };
 		BD6378961F5FA8C60057BFD6 /* basicBackground.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = basicBackground.sks; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 		BDE9FB0C1F66B55F0056B66E /* CustomFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilters.swift; sourceTree = "<group>"; };
 		BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraObject.swift; sourceTree = "<group>"; };
 		BDE9FB101F66BCED0056B66E /* CameraSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSprite.swift; sourceTree = "<group>"; };
+		BDEB6F5B1F698309000B3B22 /* Plan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Plan; sourceTree = "<group>"; };
 		BDFC53251F5A7CEE00289716 /* CompassDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassDirection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,6 +206,7 @@
 		BD3961951F5970940060CDB4 /* Zombies At Large */ = {
 			isa = PBXGroup;
 			children = (
+				BD47350E1F6A8D0900D91819 /* SKSFiles */,
 				BD5899311F67FC2C00A13DD2 /* OtherGameObjects */,
 				BD5899301F67FBEF00A13DD2 /* Collectibles */,
 				BD58992F1F67FBE400A13DD2 /* GameUtils */,
@@ -209,17 +214,14 @@
 				BD5143271F62E7F300294559 /* Sounds */,
 				BD3961D01F598A940060CDB4 /* BackgroundMusic */,
 				BD3961961F5970940060CDB4 /* AppDelegate.swift */,
-				BD39619A1F5970940060CDB4 /* Actions.sks */,
 				BD39619C1F5970940060CDB4 /* GameScene.swift */,
-				BD3961CE1F59785C0060CDB4 /* user_interface.sks */,
 				BD39619E1F5970940060CDB4 /* GameViewController.swift */,
 				BD3961A01F5970940060CDB4 /* Main.storyboard */,
 				BD3961A31F5970940060CDB4 /* Assets.xcassets */,
-				BD6378981F5FAA670057BFD6 /* backgrounds.sks */,
 				BD3961A51F5970940060CDB4 /* LaunchScreen.storyboard */,
 				BD3961A81F5970940060CDB4 /* Info.plist */,
-				BD6378961F5FA8C60057BFD6 /* basicBackground.sks */,
 				BD3A51691F692D5D00B01850 /* Talkable.swift */,
+				BDEB6F5B1F698309000B3B22 /* Plan */,
 			);
 			path = "Zombies At Large";
 			sourceTree = "<group>";
@@ -253,6 +255,16 @@
 				BDB259D31F62CA5100CDB8B9 /* Potion.swift */,
 			);
 			path = BackgroundMusic;
+			sourceTree = "<group>";
+		};
+		BD47350E1F6A8D0900D91819 /* SKSFiles */ = {
+			isa = PBXGroup;
+			children = (
+				BD3961CE1F59785C0060CDB4 /* user_interface.sks */,
+				BD6378981F5FAA670057BFD6 /* backgrounds.sks */,
+				BD6378961F5FA8C60057BFD6 /* basicBackground.sks */,
+			);
+			path = SKSFiles;
 			sourceTree = "<group>";
 		};
 		BD5143271F62E7F300294559 /* Sounds */ = {
@@ -321,6 +333,8 @@
 				BD7865561F6544090071A14F /* Collectible.swift */,
 				BDE9FB041F66A1980056B66E /* CollectibleSprite.swift */,
 				BD7865581F6546620071A14F /* CollectibleType.swift */,
+				BD47350F1F6AA5AC00D91819 /* MapLocation.swift */,
+				BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */,
 			);
 			path = Collectibles;
 			sourceTree = "<group>";
@@ -457,8 +471,8 @@
 				BD395A861F6707AB00684AB9 /* killHer.wav in Resources */,
 				BD3961CF1F59785C0060CDB4 /* user_interface.sks in Resources */,
 				BD5143281F62EB3C00294559 /* laser1.wav in Resources */,
-				BD39619B1F5970940060CDB4 /* Actions.sks in Resources */,
 				BD395A811F67079300684AB9 /* explosion3.wav in Resources */,
+				BDEB6F5C1F698309000B3B22 /* Plan in Resources */,
 				BD395A831F67079A00684AB9 /* explosion5.wav in Resources */,
 				BDE125501F63C99D0092E561 /* laser7.wav in Resources */,
 			);
@@ -485,6 +499,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */,
 				BDE9FB071F66A64A0056B66E /* FilterConfiguration.swift in Sources */,
 				BDE9FB0B1F66B24E0056B66E /* ImageSprite.swift in Sources */,
 				BDE9FB091F66B12C0056B66E /* ImageFilterObject.swift in Sources */,
@@ -506,6 +521,7 @@
 				BD78655D1F6562DF0071A14F /* Tank.swift in Sources */,
 				BDE9FB031F668C690056B66E /* CollectibleManager.swift in Sources */,
 				BD5C86011F68C7B000D6E0BF /* ColliderConfiguration.swift in Sources */,
+				BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */,
 				BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */,
 				BD3961CB1F5970BD0060CDB4 /* Player.swift in Sources */,
 				BD78655F1F65769C0071A14F /* BarrelNode.swift in Sources */,

@@ -16,4 +16,42 @@ import Foundation
 enum GameLevel: Int{
     case Level1 = 1, Level2, Level3, Level4, Level5
     case Level6, Level7, Level8, Level9, Level10
+    
+    
+    func getMissionHeaderText() -> (title: String,subtitle: String){
+        switch self {
+        case .Level1:
+            return ("Mission 1:","Microscope Recovery")
+        default:
+            return (String(),String())
+        }
+    }
+    
+
+    
+    func getMissionBodyText() -> (String,String,String,String,String){
+        switch self {
+        case .Level1:
+            return ("Find all of",
+                    "the microscopes",
+                    "Help scientists",
+                    "find a cure for",
+                    "the Zombie virus."
+                    )
+            
+        default:
+            return (String(),String(),String(),String(),String())
+        }
+        
+    }
+    
+  
+    
+    
+  
+    
+    
+    
+    
+    
 }

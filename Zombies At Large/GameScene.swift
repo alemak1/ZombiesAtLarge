@@ -17,6 +17,19 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    
+    /** Current Level **/
+    
+    var currentGameLevel: GameLevel!
+    
+    lazy var requiredCollectibles: [CollectibleSprite] = {
+        
+        var requiredCollectibles = [CollectibleSprite]()
+
+        return requiredCollectibles
+        
+    }()
+    
     var player: Player!
     var playerProximity: SKSpriteNode!
     
@@ -26,6 +39,18 @@ class GameScene: SKScene {
     var overlayNode: SKNode!
     var worldNode: SKNode!
     var mainCameraNode: SKCameraNode!
+    
+    /** Mission Panel **/
+    
+    lazy var missionPanel: SKNode? = {
+        
+        print("Loading mission panel....")
+        
+        let missionPanel = UIPanelGenerator.GetMissionPanelFor(gameLevel: self.currentGameLevel)
+      
+        return missionPanel
+        
+    }()
     
     /** Tile Backgrounds **/
     
@@ -59,63 +84,114 @@ class GameScene: SKScene {
     var frameCount: TimeInterval = 0.00
     var lastUpdateTime: TimeInterval = 0.00
     
+    
+    /** ***************  GameScene Initializers **/
+    convenience init(currentGameLevel: GameLevel) {
+        self.init(size: UIScreen.main.bounds.size)
+        self.currentGameLevel = currentGameLevel
+
+    }
+    
+    override init(size: CGSize) {
+        super.init(size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
     override func didMove(to view: SKView) {
        
-        self.physicsWorld.contactDelegate = self
-        self.physicsWorld.gravity = CGVector(dx: 0.00, dy: 0.00)
-    
-        
-        
-        self.backgroundColor = SKColor.cyan
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.overlayNode = SKNode()
-        self.overlayNode.zPosition = 10
-        self.overlayNode.position = CGPoint(x: 0.00, y: 0.00)
-        addChild(overlayNode)
-        
-        
-        self.worldNode = SKNode()
-        worldNode.zPosition = 5
-        worldNode.position = CGPoint(x: 0.00, y: 0.00)
-        worldNode.name = "world"
-        addChild(worldNode)
+        initializeBasicNodeLayers()
 
-        let xPosControls = UIScreen.main.bounds.width*0.3
-        let yPosControls = -UIScreen.main.bounds.height*0.3
+        loadMissionPanel()
         
-        player = Player(playerType: .hitman1, scale: 1.50)
-        player.position = CGPoint(x: 0.00, y: 0.00)
-        player.zPosition = 6
-        worldNode.addChild(player)
+        loadPlayer()
+        
+     
         
         self.mainCameraNode = SKCameraNode()
         self.camera = mainCameraNode
         
         zombieManager = ZombieManager(withPlayer: player, andWithLatentZombies: [])
         
-
+        let xPosControls = UIScreen.main.bounds.width*0.3
+        let yPosControls = -UIScreen.main.bounds.height*0.3
+        
         loadFireButton()
         loadControls(atPosition: CGPoint(x: xPosControls, y: yPosControls))
         loadBackground()
-    
- 
-   
-        
-        
       
     }
     
     
-   
+    func initializeBasicNodeLayers(){
+        
+        self.physicsWorld.contactDelegate = self
+        self.physicsWorld.gravity = CGVector(dx: 0.00, dy: 0.00)
+        
+        self.backgroundColor = SKColor.cyan
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.overlayNode = SKNode()
+        self.overlayNode.zPosition = 20
+        self.overlayNode.position = CGPoint(x: 0.00, y: 0.00)
+        addChild(overlayNode)
+        
+        self.worldNode = SKNode()
+        worldNode.zPosition = 5
+        worldNode.position = CGPoint(x: 0.00, y: 0.00)
+        worldNode.name = "world"
+        addChild(worldNode)
+    }
+    
+    func loadMissionPanel(){
+    
+        
+        if let missionPanel = self.missionPanel{
+            
+            let yPos = UIScreen.main.bounds.size.height*0.10
+            
+            missionPanel.move(toParent: overlayNode)
+            missionPanel.position = CGPoint(x: 0.00, y: yPos)
+            missionPanel.zPosition = 20
+            
+            isPaused = true
+            
+        } else {
+            print("Error: Mission Panel failed to load")
+        }
+        
+    }
+    
+    func loadPlayer(){
+      
+        player = Player(playerType: .hitman1, scale: 1.50)
+        player.position = CGPoint(x: 0.00, y: 0.00)
+        player.zPosition = 5
+        worldNode.addChild(player)
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
        
+        
+    
         guard let touch = touches.first else { return }
         
         
         let touchLocation = touch.location(in: self)
         let overlayNodeLocation = touch.location(in: overlayNode)
 
+    
+        if let missionPanel = self.missionPanel, missionPanel.contains(overlayNodeLocation){
+
+            missionPanel.removeFromParent()
+            
+            isPaused = false
+            
+        }
+        
         let fireButtonShape = fireButton as! SKShapeNode
         
         if fireButtonShape.contains(overlayNodeLocation){
@@ -371,6 +447,22 @@ class GameScene: SKScene {
         let woodRows = woodFloors.numberOfRows
         let woodCols = woodFloors.numberOfColumns
         
+        var randomTileCoord = [(randomRow: Int,randomCol: Int)]()
+        
+        
+            for _ in 0..<5{
+                let randomRow = Int(arc4random_uniform(UInt32(woodRows)))
+                let randomCol = Int(arc4random_uniform(UInt32(woodCols)))
+                
+                randomTileCoord.append((randomRow: randomRow,randomCol: randomCol))
+                
+            }
+        
+        
+      
+        
+        
+        
         for row in 1...woodRows{
             for col in 1...woodCols{
                 
@@ -389,6 +481,20 @@ class GameScene: SKScene {
                     randomCollectibleSprite.zPosition = 10
                     randomCollectibleSprite.move(toParent: self)
                     
+                    for randomCoord in randomTileCoord{
+                        if randomCoord.randomRow == row && randomCoord.randomCol == col{
+                            
+                            let microscope = CollectibleSprite(collectibleType: .Microscope)
+                            
+                            microscope.position = collectiblePos
+                            microscope.zPosition = 10
+                            microscope.move(toParent: self)
+                            
+                            requiredCollectibles.append(microscope)
+                            
+                            
+                        }
+                    }
                 }
                 
                 

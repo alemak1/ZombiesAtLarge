@@ -1,0 +1,15 @@
+
+Use Hongbao for money units (instead of coins or monetary value)
+Use kuai/yuan for monetary units
+Use rice bowls for energy level
+
+Each level has a compass point that must be obtained in order to complete it
+Save Sun Wu Kong
+Sava Pandas
+Use Firecrackers as explosives
+Missing Characters - spell a word
+
+Continue to develop UIElements for Game Win, Game Loss, and Other Situations
+
+Make sure that zombies can collide with each other so that they don't overlap
+Instead of looping thru all zombies, try using collision detection to activate them

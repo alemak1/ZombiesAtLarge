@@ -11,11 +11,27 @@ import SpriteKit
 
 class UIPanelGenerator{
     
+    static func GetMissionPanelFor(gameLevel: GameLevel) -> SKNode?{
+        
+        print("Getting Mission Panel for Game Level \(gameLevel.rawValue)")
+        
+        return GetMissionPanelWith(missionTitle: gameLevel.getMissionHeaderText().title, missionSubtitle: gameLevel.getMissionHeaderText().subtitle, bodyText1: gameLevel.getMissionBodyText().0, bodyText2: gameLevel.getMissionBodyText().1, bodyText3: gameLevel.getMissionBodyText().2, bodyText4: gameLevel.getMissionBodyText().3, bodyText5: gameLevel.getMissionBodyText().4)
+    }
+    
     static func GetMissionPanelWith(missionTitle: String, missionSubtitle: String, bodyText1: String, bodyText2: String, bodyText3: String, bodyText4: String, bodyText5: String) -> SKNode?{
         
-        guard let missionPanel = SKScene(fileNamed: "user_interface")?.childNode(withName: "MissionPrompt") else { return nil }
+        guard let missionPanel = SKScene(fileNamed: "user_interface")?.childNode(withName: "MissionPrompt") else {
+            
+            print("Error: Unable to find MissionPrompt in user_interface file")
+            return nil
+            
+        }
         
-        guard let headerPanel = missionPanel.childNode(withName: "MissionTitle")  else { return nil }
+        guard let headerPanel = missionPanel.childNode(withName: "MissionHeader")  else {
+            print("Error: Unable to find MissionTitle in user_interface file")
+            return nil
+            
+        }
         
         if let headerTitleLabel = headerPanel.childNode(withName: "MissionTitle") as? SKLabelNode{
             
@@ -42,19 +58,19 @@ class UIPanelGenerator{
 
         }
         
-        if let text3_label = headerPanel.childNode(withName: "text3") as? SKLabelNode{
+        if let text3_label = bodyPanel.childNode(withName: "text3") as? SKLabelNode{
             
             text3_label.text = bodyText3
 
         }
         
-        if let text4_label = headerPanel.childNode(withName: "text4") as? SKLabelNode{
+        if let text4_label = bodyPanel.childNode(withName: "text4") as? SKLabelNode{
             
             text4_label.text = bodyText4
             
         }
         
-        if let text5_label = headerPanel.childNode(withName: "text5") as? SKLabelNode{
+        if let text5_label = bodyPanel.childNode(withName: "text5") as? SKLabelNode{
             
             text5_label.text = bodyText5
             

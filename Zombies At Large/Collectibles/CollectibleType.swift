@@ -27,9 +27,10 @@ enum CollectibleType: Int{
     case MedKit = 102
     case FlaskRed = 107
     case FlaskGreen = 108
-    case Microscope = 111
     case Camera = 200
-    
+    case Microscope = 400
+    case CompassPointB = 500
+    case CompassPointD = 501
     
     static let allCollectibleTypes:[CollectibleType] = {
         
@@ -96,7 +97,7 @@ enum CollectibleType: Int{
             case .Microscope:
                 return 200.0
             default:
-                return 10.00
+                return 0.00
         }
     }
     
@@ -124,6 +125,8 @@ enum CollectibleType: Int{
             return "Clipboard"
         case .Microscope:
             return "Microscope"
+        case .CompassPointB,.CompassPointD:
+            return "Map Location"
         default:
             return "Some Collecible Item"
         }

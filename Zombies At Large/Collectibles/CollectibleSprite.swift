@@ -11,8 +11,8 @@ import SpriteKit
 
 class CollectibleSprite: SKSpriteNode{
 
-    private var collectibleType: CollectibleType!
-
+     var collectibleType: CollectibleType!
+    
      convenience init(collectibleType: CollectibleType,scale: CGFloat = 1.00) {
      
      let texture = collectibleType.getTexture()
@@ -21,17 +21,23 @@ class CollectibleSprite: SKSpriteNode{
      
      self.collectibleType = collectibleType
      
-     self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-     self.physicsBody?.categoryBitMask = ColliderType.Collectible.categoryMask
-    self.physicsBody?.collisionBitMask = ColliderType.Collectible.collisionMask
-    self.physicsBody?.contactTestBitMask = ColliderType.Collectible.contactMask
-     self.physicsBody?.affectedByGravity = false
-     self.physicsBody?.isDynamic = false
-     
+    initializePhysicsProperties(withTexture: texture)
+        
      self.xScale *= scale
      self.yScale *= scale
      
      }
+    
+    public func initializePhysicsProperties(withTexture texture: SKTexture){
+        self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
+        self.physicsBody?.categoryBitMask = ColliderType.Collectible.categoryMask
+        self.physicsBody?.collisionBitMask = ColliderType.Collectible.collisionMask
+        self.physicsBody?.contactTestBitMask = ColliderType.Collectible.contactMask
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.isDynamic = false
+        
+        
+    }
     
     
     public func getCollectible() -> Collectible{
