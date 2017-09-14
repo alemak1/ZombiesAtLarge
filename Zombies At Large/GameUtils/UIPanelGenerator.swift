@@ -11,6 +11,17 @@ import SpriteKit
 
 class UIPanelGenerator{
     
+    static func GetMenuOptionsPanel() -> SKNode{
+        
+        guard let menuOptionsPanel = SKScene(fileNamed: "user_interface")?.childNode(withName: "OptionsMenu") else {
+            
+            fatalError("Error: MenuOptions panel could not be found or is unable to load properly ")
+        }
+        
+        return menuOptionsPanel
+
+    }
+    
     static func GetMissionPanelFor(gameLevel: GameLevel) -> SKNode?{
         
         print("Getting Mission Panel for Game Level \(gameLevel.rawValue)")

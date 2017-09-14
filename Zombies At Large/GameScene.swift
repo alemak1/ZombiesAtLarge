@@ -71,6 +71,9 @@ class GameScene: SKScene {
      **/
     
     var fireButton: SKNode!
+    var menuOptionsButton: SKSpriteNode!
+    var menuOptionsPanel: SKNode?
+    var backToGameButton: SKSpriteNode?
     
     private var buttonsAreLoaded: Bool = false
     
@@ -157,6 +160,7 @@ class GameScene: SKScene {
             missionPanel.position = CGPoint(x: 0.00, y: yPos)
             missionPanel.zPosition = 20
             
+            worldNode.isPaused = true
             isPaused = true
             
         } else {
@@ -189,10 +193,56 @@ class GameScene: SKScene {
             missionPanel.removeFromParent()
             
             isPaused = false
-            
+            worldNode.isPaused = false
         }
         
+        
+        
+        
+        if self.menuOptionsPanel != nil{
+            
+            if menuOptionsButton.contains(overlayNode){
+                
+                menuOptionsPanel!.removeFromParent()
+                self.menuOptionsPanel = nil
+                isPaused = false
+                worldNode.isPaused = false
+                
+            }
+            
+            if let selectedNode = menuOptionsPanel!.nodes(at: overlayNodeLocation).first as? SKSpriteNode{
+                
+                print("User touched menu options panel...")
+                
+            
+                if(selectedNode.name == "BackToGame"){
+                
+                    print("User touched back to game button (test condition uses node name)...")
 
+                    menuOptionsPanel!.removeFromParent()
+                    menuOptionsPanel = nil
+                    isPaused = false
+                    worldNode.isPaused = false
+                }
+                
+                
+                if(selectedNode.name == ""){
+                    
+                }
+                
+                if(selectedNode.name == ""){
+                    
+                }
+               
+        
+            }
+            
+        } else if menuOptionsButton.contains(overlayNodeLocation) {
+            
+            showMenuOptionsPanel()
+            
+            
+        }
         
         let fireButtonShape = fireButton as! SKShapeNode
         
@@ -254,7 +304,23 @@ class GameScene: SKScene {
     
     
    
-   
+    func showMenuOptionsPanel(){
+ 
+        isPaused = true
+        worldNode.isPaused = true 
+        
+        let menuOptionsPanel = UIPanelGenerator.GetMenuOptionsPanel()
+        
+        menuOptionsPanel.position = player.position
+        menuOptionsPanel.zPosition = 30
+        
+        self.menuOptionsPanel = menuOptionsPanel
+
+        self.menuOptionsPanel!.move(toParent: overlayNode)
+        
+     
+        
+    }
   
     
     
@@ -335,15 +401,16 @@ class GameScene: SKScene {
             fatalError("Error: User Interface SKSCene file could not be found or failed to load")
         }
         
-        guard let optionsMenu = user_interface.childNode(withName: "OptionsMenuButton") else {
+        guard let menuOptionsButton = user_interface.childNode(withName: "OptionsMenuButton") as? SKSpriteNode else {
             fatalError("Error: Options Menu button could not be loaded from user_interface.sks file")
         }
         
         let xPos = UIScreen.main.bounds.size.width*0.4
         let yPos = UIScreen.main.bounds.size.height*0.4
         
-        optionsMenu.position = CGPoint(x: xPos, y: yPos)
-        optionsMenu.move(toParent: overlayNode)
+        self.menuOptionsButton = menuOptionsButton
+        self.menuOptionsButton.position = CGPoint(x: xPos, y: yPos)
+        self.menuOptionsButton.move(toParent: overlayNode)
        
         
         buttonsAreLoaded = true

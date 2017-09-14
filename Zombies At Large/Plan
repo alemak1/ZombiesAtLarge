@@ -13,3 +13,7 @@ Continue to develop UIElements for Game Win, Game Loss, and Other Situations
 
 Make sure that zombies can collide with each other so that they don't overlap
 Instead of looping thru all zombies, try using collision detection to activate them
+
+For one mission, have camera slowly animate to position to show a couple in distress, then animate back to the player
+
+use camera to animate back and forth between different players
