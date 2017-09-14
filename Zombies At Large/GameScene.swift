@@ -192,6 +192,8 @@ class GameScene: SKScene {
             
         }
         
+
+        
         let fireButtonShape = fireButton as! SKShapeNode
         
         if fireButtonShape.contains(overlayNodeLocation){
@@ -315,7 +317,7 @@ class GameScene: SKScene {
         
         /** Set the position of the fire button **/
         
-        let xPos = -UIScreen.main.bounds.width*0.45
+        let xPos = -UIScreen.main.bounds.width*0.40
         let yPos = -UIScreen.main.bounds.height*0.34
         
         fireButtonShape.position = CGPoint(x: xPos, y: yPos)
@@ -333,7 +335,15 @@ class GameScene: SKScene {
             fatalError("Error: User Interface SKSCene file could not be found or failed to load")
         }
         
+        guard let optionsMenu = user_interface.childNode(withName: "OptionsMenuButton") else {
+            fatalError("Error: Options Menu button could not be loaded from user_interface.sks file")
+        }
         
+        let xPos = UIScreen.main.bounds.size.width*0.4
+        let yPos = UIScreen.main.bounds.size.height*0.4
+        
+        optionsMenu.position = CGPoint(x: xPos, y: yPos)
+        optionsMenu.move(toParent: overlayNode)
        
         
         buttonsAreLoaded = true
