@@ -10,7 +10,10 @@ import Foundation
 import SpriteKit
 
 
-class HUD: SKNode{
+class HUDManager{
+    
+    
+    static let sharedManager = HUDManager()
     
     /** Cached Blue Bars for Health **/
     
@@ -51,12 +54,49 @@ class HUD: SKNode{
     var redBar15: SKNode!
     var redBarFull: SKNode!
     
+    var mainHUDNode: SKNode!
 
-    override init() {
-        super.init()
+    private init() {
         
+        loadMainHUDNode()
         loadBlueBarIndicators()
         loadRedBarIndicators()
+    }
+    
+    
+    func getHUD() -> SKNode{
+        
+        return self.mainHUDNode
+        
+    }
+    
+    func updateHealthCount(withUnits units: Int){
+        
+        if let healthIndicator = self.mainHUDNode.childNode(withName: "healthIndicator"){
+            
+            let blueBarPos = healthIndicator.position
+            healthIndicator.removeFromParent()
+            
+            let blueBarIndicator = getBlueBar(forUnitNumber: units)
+            blueBarIndicator.position = blueBarPos
+            
+            blueBarIndicator.move(toParent: self.mainHUDNode)
+        }
+    }
+    
+    func updateBulletCount(withUnits units: Int){
+        
+        if let bulletIndicator = self.mainHUDNode.childNode(withName: "bulletIndicator"){
+            
+            let redBarPos = bulletIndicator.position
+            bulletIndicator.removeFromParent()
+            
+            let redBarIndicator = getRedBar(forUnitNumber: units)
+            redBarIndicator.position = redBarPos
+            
+            redBarIndicator.move(toParent: self.mainHUDNode)
+        }
+        
     }
     
     
@@ -65,40 +105,40 @@ class HUD: SKNode{
     }
     
     
-    func getRedBar(forUnitNumber units: Int) -> SKNode{
+    private func getRedBar(forUnitNumber units: Int) -> SKNode{
         switch units {
         case 15:
-            return self.redBarFull
-        case 14:
             return self.redBar15
-        case 13:
+        case 14:
             return self.redBar14
-        case 12:
+        case 13:
             return self.redBar13
-        case 11:
+        case 12:
             return self.redBar12
-        case 10:
+        case 11:
             return self.redBar11
-        case 9:
+        case 10:
             return self.redBar10
-        case 8:
+        case 9:
             return self.redBar9
-        case 7:
+        case 8:
             return self.redBar8
-        case 6:
+        case 7:
             return self.redBar7
-        case 5:
+        case 6:
             return self.redBar6
-        case 4:
+        case 5:
             return self.redBar5
-        case 3:
+        case 4:
             return self.redBar4
-        case 2:
+        case 3:
             return self.redBar3
-        case 1:
+        case 2:
             return self.redBar2
-        case 0:
+        case 1:
             return self.redBar1
+        case 0:
+            return self.redBar0
         default:
             return self.redBar0
         }
@@ -106,7 +146,7 @@ class HUD: SKNode{
     
     
     
-    func getBlueBar(forUnitNumber units: Int) -> SKNode{
+    private func getBlueBar(forUnitNumber units: Int) -> SKNode{
         switch units {
         case 15:
             return self.blueBar15
@@ -145,77 +185,90 @@ class HUD: SKNode{
         }
     }
     
-    func loadBlueBarIndicators(){
-        guard let blueBar0 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar0") else { fatalError("Error: failed to load a blueBar0 texture") }
+    private func loadMainHUDNode(){
+        
+        guard let hudNode = SKScene(fileNamed: "user_interface")?.childNode(withName: "hudNode") else { fatalError("Error: HUD node failed to load")}
+        
+        self.mainHUDNode = hudNode
+    }
+    
+    
+    
+  
+    
+    private func loadBlueBarIndicators(){
+        guard let blueBar0 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BarIndicator") else { fatalError("Error: failed to load a blueBar0 texture") }
         
         self.blueBar0 = blueBar0
         
-        guard let blueBar1 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar1") else { fatalError("Error: failed to load a blueBar1 texture") }
+        guard let blueBar1 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator1") else { fatalError("Error: failed to load a blueBar1 texture") }
         
         self.blueBar1 = blueBar1
         
-        guard let blueBar2 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar2") else { fatalError("Error: failed to load a blueBar2 texture") }
+        guard let blueBar2 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator2") else { fatalError("Error: failed to load a blueBar2 texture") }
         
         self.blueBar2 = blueBar2
         
-        guard let blueBar3 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar3") else { fatalError("Error: failed to load a blueBar3 texture") }
+        guard let blueBar3 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator3") else { fatalError("Error: failed to load a blueBar3 texture") }
         
         self.blueBar3 = blueBar3
         
-        guard let blueBar4 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar4") else { fatalError("Error: failed to load a blueBar4 texture") }
+        guard let blueBar4 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator4") else { fatalError("Error: failed to load a blueBar4 texture") }
         
         self.blueBar4 = blueBar4
         
-        guard let blueBar5 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar5") else { fatalError("Error: failed to load a redBar0 texture") }
+        guard let blueBar5 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator5") else { fatalError("Error: failed to load a redBar0 texture") }
         
         self.blueBar5 = blueBar5
 
       
-        guard let blueBar6 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar6") else { fatalError("Error: failed to load a blueBar6 texture") }
+        guard let blueBar6 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator6") else { fatalError("Error: failed to load a blueBar6 texture") }
         
         self.blueBar6 = blueBar6
         
-        guard let blueBar7 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar7") else { fatalError("Error: failed to load a blueBar7 texture") }
+        guard let blueBar7 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator7") else { fatalError("Error: failed to load a blueBar7 texture") }
         
         self.blueBar7 = blueBar7
         
-        guard let blueBar8 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar8") else { fatalError("Error: failed to load a blueBar8 texture") }
+        guard let blueBar8 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator8") else { fatalError("Error: failed to load a blueBar8 texture") }
         
         self.blueBar8 = blueBar8
         
-        guard let blueBar9 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar9") else { fatalError("Error: failed to load a blueBar9 texture") }
+        guard let blueBar9 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator9") else { fatalError("Error: failed to load a blueBar9 texture") }
         
         self.blueBar9 = blueBar9
         
-        guard let blueBar10 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar10") else { fatalError("Error: failed to load a blueBar10 texture") }
+        guard let blueBar10 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator10") else { fatalError("Error: failed to load a blueBar10 texture") }
         
         self.blueBar10 = blueBar10
         
-        guard let blueBar11 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar11") else { fatalError("Error: failed to load a blueBar11 texture") }
+        guard let blueBar11 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator11") else { fatalError("Error: failed to load a blueBar11 texture") }
         
         self.blueBar11 = blueBar11
         
-        guard let blueBar12 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar12") else { fatalError("Error: failed to load a blueBar12 texture") }
+        guard let blueBar12 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator12") else { fatalError("Error: failed to load a blueBar12 texture") }
         
         self.blueBar12 = blueBar12
         
-        guard let blueBar13 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar13") else { fatalError("Error: failed to load a blueBar13 texture") }
+        guard let blueBar13 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator13") else { fatalError("Error: failed to load a blueBar13 texture") }
         
         self.blueBar13 = blueBar13
         
-        guard let blueBar14 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar14") else { fatalError("Error: failed to load a blueBar14 texture") }
+        guard let blueBar14 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator14") else { fatalError("Error: failed to load a blueBar14 texture") }
         
         self.blueBar14 = blueBar14
         
-        guard let blueBar15 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBar15") else { fatalError("Error: failed to load a blueBar15 texture") }
+        guard let blueBar15 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BlueBarIndicator15") else { fatalError("Error: failed to load a blueBar15 texture") }
         
         self.blueBar15 = blueBar15
+        
+        print("Finished loading blue bar indicators")
     }
         
     
     
     
-    func loadRedBarIndicators(){
+    private func loadRedBarIndicators(){
         guard let redBar0 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BarIndicator") else { fatalError("Error: failed to load a redBar0 texture") }
         
         self.redBar0 = redBar0
@@ -284,6 +337,9 @@ class HUD: SKNode{
         guard let redBarFull = SKScene(fileNamed: "user_interface")?.childNode(withName: "RedBarIndicator15") else { fatalError("Error: failed to load a redBarFull texture") }
         
         self.redBarFull = redBarFull
+        
+        print("Finished loading red bar indicators")
+
 
     }
     

@@ -117,10 +117,13 @@ class GameScene: SKScene {
         loadControls(atPosition: CGPoint(x: xPosControls, y: yPosControls))
         loadBackground()
         
-        let barIndicator = UIPanelGenerator.getBarIndicator(withColor: .Yellow, forNumberOfUnits: 15)
-        barIndicator.move(toParent: overlayNode)
-        barIndicator.zPosition = 30
-        barIndicator.position = CGPoint(x: -140.0, y: -30)
+        
+        let hudNode = HUDManager.sharedManager.getHUD()
+        hudNode.move(toParent: overlayNode)
+        hudNode.zPosition = 35
+        hudNode.position = CGPoint(x: 0, y: 50.0)
+        HUDManager.sharedManager.updateBulletCount(withUnits: 0)
+        HUDManager.sharedManager.updateHealthCount(withUnits: 0)
     }
     
     
