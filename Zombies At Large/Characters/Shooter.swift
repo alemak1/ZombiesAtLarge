@@ -71,7 +71,12 @@ class Shooter: SKSpriteNode{
                 
                 self.bulletInTransit = true
                 
-                self.addChild(bullet)
+            
+                bullet.zRotation = self.zRotation
+                let adjustedPos = self.parent!.convert(bullet.position, from: self)
+                self.parent!.addChild(bullet)
+                bullet.position = adjustedPos
+                
                 self.addChild(gunfire)
                 
                 bullet.physicsBody?.applyImpulse(cgVector)
