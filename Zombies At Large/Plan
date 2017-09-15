@@ -21,3 +21,5 @@ use camera to animate back and forth between different players
 Use an activity indicator or a progress bar to indicate that the game is loading; progress units/progress count can be incremented in the didMoveToViewFunction, with the activity indicator or progress bar being updated accordingly; the progress bar or activity indicataor will be a property of the game view controller
 
 Watch out: player can accidentally hit restart level button, be sure to ask for a confirmation in case the user hits it by accident; maybe provide options "Quit", "Save and Quit", "Cancel"
+
+Update the hud by calling update functions on shared manager from within the player class
