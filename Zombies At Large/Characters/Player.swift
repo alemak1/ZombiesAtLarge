@@ -14,7 +14,7 @@ class Player: Shooter{
     
     private var playerType: PlayerType
     
-    private var playerProximity: SKShapeNode!
+    //private var playerProximity: SKShapeNode!
     
     override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
         
@@ -114,6 +114,7 @@ class Player: Shooter{
         self.init(texture: playerTexture, color: .clear, size: playerTexture.size())
         
         
+        /**
         playerProximity = SKShapeNode(circleOfRadius: 50.0)
         addChild(playerProximity)
         
@@ -135,7 +136,7 @@ class Player: Shooter{
         joint.bodyA = physicsBody!
         joint.bodyB = playerProximity.physicsBody!
         
-       
+       **/
     }
     
     
@@ -212,19 +213,22 @@ class Player: Shooter{
     
     /** Updates the player proximity node so that it is aligned with player's current position; player proximity node is used to check for nearby zombies; adding it as a child node results in slower performance **/
     
+    /**
     public func updatePlayerProximity(){
         self.playerProximity.position = position
        
     }
-    
+    **/
     
     /** Helper function that provides access to the player proximity node, which is used by the zombie manager to detect presence of zombies in close proximity to the player **/
     
+    /**
     public func getPlayerProximityNode() -> SKShapeNode{
         
         return playerProximity
         
     }
+    **/
     
     //public func checkProximityOf(anotherPoint point: CGPoint) -> Bool{
      //   return playerProximity.contains(point)

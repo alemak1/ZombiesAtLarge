@@ -18,7 +18,7 @@ struct ColliderType: OptionSet, Hashable{
     static var definedCollisions: [ColliderType:[ColliderType]] = [
     
         ColliderType.Player : [ColliderType.Enemy, ColliderType.EnemyBullets, ColliderType.Obstacle],
-        ColliderType.Enemy: [ColliderType.PlayerBullets,ColliderType.Player],
+        ColliderType.Enemy: [ColliderType.PlayerBullets,ColliderType.Player,ColliderType.Enemy],
         ColliderType.PlayerBullets: [ColliderType.Obstacle,ColliderType.Enemy],
         ColliderType.PlayerProximity: [],
         ColliderType.EnemyBullets: [ColliderType.Player,ColliderType.Obstacle],
@@ -58,6 +58,7 @@ struct ColliderType: OptionSet, Hashable{
     static var EnemyBullets: ColliderType { return self.init(rawValue: 1 << 6)}
     static var NonPlayerCharacter: ColliderType { return self.init(rawValue: 1 << 7)}
     static var Explosive: ColliderType { return self.init(rawValue: 1 << 8)}
+    
     //MARK: Hashable
     
     var hashValue: Int{

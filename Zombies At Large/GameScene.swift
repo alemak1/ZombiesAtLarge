@@ -31,7 +31,7 @@ class GameScene: SKScene {
     }()
     
     var player: Player!
-    var playerProximity: SKSpriteNode!
+    var playerProximity: SKShapeNode!
     
     
     /** Node Layers **/
@@ -112,9 +112,8 @@ class GameScene: SKScene {
        // loadMissionPanel()
         
         loadPlayer()
-        
+        initializePlayerProximity()
      
-        
         self.mainCameraNode = SKCameraNode()
         self.camera = mainCameraNode
         
@@ -364,7 +363,7 @@ class GameScene: SKScene {
     
 
     override func didSimulatePhysics() {
-        player.updatePlayerProximity()
+        //player.updatePlayerProximity()
         
         self.mainCameraNode.position = player.position
         overlayNode.position = self.mainCameraNode.position
@@ -374,8 +373,41 @@ class GameScene: SKScene {
     }
     
     override func didEvaluateActions() {
-        player.updatePlayerProximity()
-        player.getPlayerProximityNode().position = player.position
+        updatePlayerProximity()
+        //player.updatePlayerProximity()
+       // player.getPlayerProximityNode().position = player.position
+    }
+    
+    
+    func initializePlayerProximity(){
+        
+        playerProximity = SKShapeNode(circleOfRadius: 10.0)
+        worldNode.addChild(playerProximity)
+        
+        playerProximity.position = self.position
+        playerProximity.name = "playerProximity"
+        
+        
+        let playerProximityPB = SKPhysicsBody(circleOfRadius: 200.0)
+        playerProximityPB.affectedByGravity = false
+        playerProximityPB.linearDamping = 0.00
+        playerProximityPB.isDynamic = false
+        playerProximityPB.allowsRotation = false
+        playerProximityPB.categoryBitMask = ColliderType.PlayerProximity.categoryMask
+        playerProximityPB.collisionBitMask = ColliderType.PlayerProximity.collisionMask
+        playerProximityPB.contactTestBitMask = ColliderType.PlayerProximity.contactMask
+        playerProximity.physicsBody = playerProximityPB
+        
+        /**
+        let joint = SKPhysicsJointFixed()
+        joint.bodyA = player.physicsBody!
+        joint.bodyB = playerProximity.physicsBody!
+        **/
+
+    }
+    
+    func updatePlayerProximity(){
+        playerProximity.position = player.position
     }
     
     func centerOn(node: SKNode) {
@@ -639,7 +671,85 @@ extension GameScene: SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
         
-        print("Contact was made between two bodies")
+        handlePlayerContacts(contact: contact)
+        handlePlayerProximityContacts(contact: contact)
+        handlePlayerBulletContacts(contact: contact)
+    
+    
+    }
+    
+    
+    func handleZombieContacts(contact: SKPhysicsContact){
+        
+        print("Handling the zombie contacts")
+        
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        var nonZombieBody: SKPhysicsBody
+        var zombieBody: SKPhysicsBody
+        
+        if(bodyA.categoryBitMask & ColliderType.Enemy.categoryMask == 1){
+            nonZombieBody = bodyB
+            zombieBody = bodyA
+        } else {
+            nonZombieBody = bodyA
+            zombieBody = bodyB
+        }
+
+        
+        switch nonZombieBody.categoryBitMask {
+        case ColliderType.PlayerBullets.categoryMask:
+            print("The zombie has contacted the player bullet")
+            break
+        case ColliderType.PlayerProximity.categoryMask:
+            print("The zombie has contacted the player proximitiy zone")
+            break
+        default:
+            print("No logic implemented for collision btwn zombie and entity of this type")
+        }
+    }
+    
+    /** Helper function to implement contact logic between player bullets and entites that have contacted the player bullets **/
+    
+    func handlePlayerBulletContacts(contact: SKPhysicsContact){
+        
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        var playerBulletPB: SKPhysicsBody
+        var nonPlayerBulletPB: SKPhysicsBody
+        
+        if(bodyA.categoryBitMask & ColliderType.PlayerBullets.categoryMask == 1){
+            nonPlayerBulletPB = bodyB
+            playerBulletPB = bodyA
+        } else {
+            nonPlayerBulletPB = bodyA
+            playerBulletPB = bodyB
+        }
+        
+        switch nonPlayerBulletPB.categoryBitMask {
+        case ColliderType.Enemy.categoryMask:
+            print("The bullet has hit a zombie")
+            if let zombie = nonPlayerBulletPB.node as? Zombie, let playerBullet = playerBulletPB.node as? SKSpriteNode{
+                
+                zombie.takeHit()
+                self.run(SKAction.wait(forDuration: 0.05), completion: {
+                    playerBullet.removeFromParent()
+                })
+                
+            }
+            break
+        default:
+            print("No contact logic implemented")
+        }
+        
+    }
+    
+    
+    /** Helper function to implement the contact logic between the player proximity and the entities in contact with the player proximity zone **/
+    
+    func handlePlayerProximityContacts(contact: SKPhysicsContact){
         
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
@@ -647,7 +757,7 @@ extension GameScene: SKPhysicsContactDelegate{
         var nonplayerProximityPB: SKPhysicsBody
         
         
-        if(bodyA.categoryBitMask & ColliderType.PlayerBullets.categoryMask == 1){
+        if(bodyA.categoryBitMask & ColliderType.PlayerProximity.categoryMask == 1){
             nonplayerProximityPB = bodyB
         } else {
             nonplayerProximityPB = bodyA
@@ -663,62 +773,19 @@ extension GameScene: SKPhysicsContactDelegate{
         default:
             break
         }
+
+    }
+    
+    
+    /** Helper function to implement contact logic between player and the other entity that has contacted a player **/
+    
+func handlePlayerContacts(contact: SKPhysicsContact){
+    
+        print("Processing player contact with other body...")
+    
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
         
-        var playerBulletPB: SKPhysicsBody
-        var nonPlayerBulletPB: SKPhysicsBody
-        
-        
-        if(bodyA.categoryBitMask & ColliderType.PlayerBullets.categoryMask == 1){
-            nonPlayerBulletPB = bodyB
-            playerBulletPB = bodyA
-        } else {
-            nonPlayerBulletPB = bodyA
-            playerBulletPB = bodyB
-        }
-        
-        switch nonPlayerBulletPB.categoryBitMask {
-        case ColliderType.Enemy.categoryMask:
-            print("Bullet hit zombie")
-            if let zombie = nonPlayerBulletPB.node as? Zombie, let playerBullet = playerBulletPB.node as? SKSpriteNode{
-                
-                zombie.takeHit()
-                self.run(SKAction.wait(forDuration: 0.05), completion: {
-                    playerBullet.removeFromParent()
-                })
-                
-            }
-        default:
-            print("No contact logic implemented")
-        }
-        
-        
-        var nonZombieBody: SKPhysicsBody
-        var zombieBody: SKPhysicsBody
-        
-        if(bodyA.categoryBitMask & ColliderType.Enemy.categoryMask == 1){
-            nonZombieBody = bodyB
-            zombieBody = bodyA
-        } else {
-            nonZombieBody = bodyA
-            zombieBody = bodyB
-        }
-        
-   
-        
-        switch nonZombieBody.categoryBitMask {
-        case ColliderType.PlayerBullets.categoryMask:
-            print("Zombie was hit by bullet")
-            if let zombieNode = zombieBody.node as? Zombie{
-                zombieNode.takeHit()
-            }
-            
-            break
-        case ColliderType.PlayerProximity.categoryMask:
-            print("The zombie has contacted the player proximitiy zone")
-            break
-        default:
-            print("No logic implemented for collision btwn zombie and entity of this type")
-        }
         
         var nonPlayerBody: SKPhysicsBody
         
@@ -728,9 +795,10 @@ extension GameScene: SKPhysicsContactDelegate{
             nonPlayerBody = bodyA
         }
         
-    
+        
         switch nonPlayerBody.categoryBitMask {
         case ColliderType.Collectible.categoryMask:
+            print("The player has contacted a collectible")
             if let collectibleSprite = nonPlayerBody.node as? CollectibleSprite{
                 
                 let newCollectible = collectibleSprite.getCollectible()
@@ -739,24 +807,22 @@ extension GameScene: SKPhysicsContactDelegate{
                     
                     self.player.playSoundForCollectibleContact()
                     
-       
+                    
                     collectibleSprite.removeFromParent()
-
+                    
                 }
-
+                
             }
             break
-            /**
-                let zombie = otherBody.node as! Zombie
-                zombie.activateZombie()
-                print("Zombie has been activated")
-             **/
-            break
+ 
         default:
-            print("No contact logic implemented")
+            print("Failed to process player contact with entity: No contact logic implemented for contact between player and this entity")
         }
     }
+    
 }
+
+
 
         /**
         guard let controlSet = user_interface.childNode(withName: "ControlSet_flatDark") else {
