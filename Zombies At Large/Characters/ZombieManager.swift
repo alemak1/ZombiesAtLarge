@@ -60,25 +60,6 @@ class ZombieManager{
     }
     
     
-    /** Checks for any latent zombies close to player; if zombies are within the player proximity zone, they are activated **/
-    
-    /**
-    func checkForZombiesInPlayerProximity(){
-        
-        guard let player = self.player else { return }
-        
-        let nearbyZombies: [Zombie] = getZombiesAt(containingNode: player.getPlayerProximityNode())
-        
-        
-        if !nearbyZombies.isEmpty{
-            
-            
-            for zombie in nearbyZombies{
-                activateZombie(zombie: zombie)
-            }
-        }
-    }
-    **/
     
     /** Update state for all zombies **/
     

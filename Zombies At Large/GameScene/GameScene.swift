@@ -52,6 +52,7 @@ class GameScene: SKScene {
         
     }()
     
+    
     /** Tile Backgrounds **/
     
     var grassTileMap: SKTileMapNode!
@@ -63,13 +64,6 @@ class GameScene: SKScene {
     
     var controlButton: SKSpriteNode!
     
-    /**
-    var leftButton: SKSpriteNode!
-    var rightButton: SKSpriteNode!
-    var upButton: SKSpriteNode!
-    var downButton: SKSpriteNode!
-     **/
-    
     var fireButton: SKNode!
     var menuOptionsButton: SKSpriteNode!
     var menuOptionsPanel: SKNode?
@@ -79,11 +73,8 @@ class GameScene: SKScene {
     
     
    var bgNode: SKAudioNode!
-    
-    
-    var mainZombie: Zombie!
     var zombieManager: ZombieManager!
- 
+
     var frameCount: TimeInterval = 0.00
     var lastUpdateTime: TimeInterval = 0.00
     
@@ -109,7 +100,7 @@ class GameScene: SKScene {
        
         initializeBasicNodeLayers()
 
-       // loadMissionPanel()
+        loadMissionPanel()
         
         loadPlayer()
         initializePlayerProximity()
@@ -176,169 +167,11 @@ class GameScene: SKScene {
         worldNode.addChild(player)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       
-        
-    
-        guard let touch = touches.first else { return }
-        
-        
-        let touchLocation = touch.location(in: self)
-        let overlayNodeLocation = touch.location(in: overlayNode)
-
-        
-    
-        if let missionPanel = self.missionPanel, missionPanel.contains(overlayNodeLocation){
-
-            missionPanel.removeFromParent()
-            
-            isPaused = false
-            worldNode.isPaused = false
-            
-            return;
-            
-        }
-        
-        
-        
-        /**
-        
-        if self.menuOptionsPanel != nil{
-            
-            if let touchedOverlayNode = overlayNode.nodes(at: overlayNodeLocation).first as? SKSpriteNode{
-                
-                if touchedOverlayNode.name == "InventorySummary"{
-                    touchedOverlayNode.removeFromParent()
-                    
-                }
-                
-            }
-            
-            if let selectedNode = menuOptionsPanel!.nodes(at: overlayNodeLocation).first as? SKSpriteNode{
-                
-                print("User touched menu options panel...")
-                
-            
-                if(selectedNode.name == "BackToGame"){
-                
-                    print("User touched back to game button (test condition uses node name)...")
-
-                    menuOptionsPanel!.removeFromParent()
-                    menuOptionsPanel = nil
-                    isPaused = false
-                    worldNode.isPaused = false
-                }
-                
-                
-                if(selectedNode.name == "InventorySummaryOption"){
-                    showInventorySummaryForPlayer(atPosition: player.position)
-                }
-                
-                if(selectedNode.name == ""){
-                    
-                }
-               
-        
-            }
-            
-            
-        }
-        
-        if menuOptionsButton.contains(overlayNodeLocation) {
-            
-            if(menuOptionsPanel == nil){
-                showMenuOptionsPanel()
-            } else {
-                
-                menuOptionsPanel!.removeFromParent()
-                menuOptionsPanel = nil
-                isPaused = false
-                worldNode.isPaused = false
-                
-            }
-            
-            
-        
-        }
-        **/
-        
-        let fireButtonShape = fireButton as! SKShapeNode
-        
-        if fireButtonShape.contains(overlayNodeLocation){
-    
-            player.fireBullet()
-            return;
-            
-        }
-        
-        
-        /** Applied to tank gun turret **/
-        
-        
-       
-    
-        let xDelta = (touchLocation.x - player.position.x)
-        let yDelta = (touchLocation.y - player.position.y)
-        
-        let absDeltaX = abs(xDelta)
-        let absDeltaY = abs(yDelta)
-        
-        var zRotation: CGFloat = 0.00
-        
-        if(xDelta > 0){
-            
-            if(yDelta > 0){
-                zRotation = atan(absDeltaY/absDeltaX)
-            } else {
-                zRotation = 2*CGFloat.pi - atan(absDeltaY/absDeltaX)
-            }
-            
-        } else {
-            
-            if(yDelta > 0){
-                
-                zRotation = CGFloat.pi - atan(absDeltaY/absDeltaX)
-
-            } else {
-                zRotation = CGFloat.pi + atan(absDeltaY/absDeltaX)
-
-            }
-        }
-        
-        if(zRotation <= CGFloat.pi*2){
-            
-            player.compassDirection = CompassDirection(zRotation: zRotation)
-            player.applyMovementImpulse(withMagnitudeOf: 5.00)
-        
-        }
-        
-        
-        
-      
-       
-        
-    }
-    
+  
     
     
    
-    func showMenuOptionsPanel(){
- 
-        isPaused = true
-        worldNode.isPaused = true 
-        
-        let menuOptionsPanel = UIPanelGenerator.GetMenuOptionsPanel()
-        
-        menuOptionsPanel.position = player.position
-        menuOptionsPanel.zPosition = 30
-        
-        self.menuOptionsPanel = menuOptionsPanel
-
-        self.menuOptionsPanel!.move(toParent: overlayNode)
-        
-     
-        
-    }
+  
   
     
     
@@ -351,12 +184,10 @@ class GameScene: SKScene {
     
         frameCount = currentTime - lastUpdateTime;
         
-       // zombieManager.checkForZombiesInPlayerProximity()
         zombieManager.update(withFrameCount: frameCount)
         
         
         lastUpdateTime = currentTime
-        
         
         
         }
@@ -374,8 +205,6 @@ class GameScene: SKScene {
     
     override func didEvaluateActions() {
         updatePlayerProximity()
-        //player.updatePlayerProximity()
-       // player.getPlayerProximityNode().position = player.position
     }
     
     
@@ -397,12 +226,7 @@ class GameScene: SKScene {
         playerProximityPB.collisionBitMask = ColliderType.PlayerProximity.collisionMask
         playerProximityPB.contactTestBitMask = ColliderType.PlayerProximity.contactMask
         playerProximity.physicsBody = playerProximityPB
-        
-        /**
-        let joint = SKPhysicsJointFixed()
-        joint.bodyA = player.physicsBody!
-        joint.bodyB = playerProximity.physicsBody!
-        **/
+     
 
     }
     
@@ -659,165 +483,6 @@ extension GameScene{
         inventorySummaryNode.move(toParent: overlayNode)
         
         
-    }
-    
-}
-
-extension GameScene: SKPhysicsContactDelegate{
-    
-    func didEnd(_ contact: SKPhysicsContact) {
-        print("Contact between bodies has ended")
-    }
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        
-        handlePlayerContacts(contact: contact)
-        handlePlayerProximityContacts(contact: contact)
-        handlePlayerBulletContacts(contact: contact)
-    
-    
-    }
-    
-    
-    func handleZombieContacts(contact: SKPhysicsContact){
-        
-        print("Handling the zombie contacts")
-        
-        let bodyA = contact.bodyA
-        let bodyB = contact.bodyB
-        
-        var nonZombieBody: SKPhysicsBody
-        var zombieBody: SKPhysicsBody
-        
-        if(bodyA.categoryBitMask & ColliderType.Enemy.categoryMask == 1){
-            nonZombieBody = bodyB
-            zombieBody = bodyA
-        } else {
-            nonZombieBody = bodyA
-            zombieBody = bodyB
-        }
-
-        
-        switch nonZombieBody.categoryBitMask {
-        case ColliderType.PlayerBullets.categoryMask:
-            print("The zombie has contacted the player bullet")
-            break
-        case ColliderType.PlayerProximity.categoryMask:
-            print("The zombie has contacted the player proximitiy zone")
-            break
-        default:
-            print("No logic implemented for collision btwn zombie and entity of this type")
-        }
-    }
-    
-    /** Helper function to implement contact logic between player bullets and entites that have contacted the player bullets **/
-    
-    func handlePlayerBulletContacts(contact: SKPhysicsContact){
-        
-        let bodyA = contact.bodyA
-        let bodyB = contact.bodyB
-        
-        var playerBulletPB: SKPhysicsBody
-        var nonPlayerBulletPB: SKPhysicsBody
-        
-        if(bodyA.categoryBitMask & ColliderType.PlayerBullets.categoryMask == 1){
-            nonPlayerBulletPB = bodyB
-            playerBulletPB = bodyA
-        } else {
-            nonPlayerBulletPB = bodyA
-            playerBulletPB = bodyB
-        }
-        
-        switch nonPlayerBulletPB.categoryBitMask {
-        case ColliderType.Enemy.categoryMask:
-            print("The bullet has hit a zombie")
-            if let zombie = nonPlayerBulletPB.node as? Zombie, let playerBullet = playerBulletPB.node as? SKSpriteNode{
-                
-                zombie.takeHit()
-                self.run(SKAction.wait(forDuration: 0.05), completion: {
-                    playerBullet.removeFromParent()
-                })
-                
-            }
-            break
-        default:
-            print("No contact logic implemented")
-        }
-        
-    }
-    
-    
-    /** Helper function to implement the contact logic between the player proximity and the entities in contact with the player proximity zone **/
-    
-    func handlePlayerProximityContacts(contact: SKPhysicsContact){
-        
-        let bodyA = contact.bodyA
-        let bodyB = contact.bodyB
-        
-        var nonplayerProximityPB: SKPhysicsBody
-        
-        
-        if(bodyA.categoryBitMask & ColliderType.PlayerProximity.categoryMask == 1){
-            nonplayerProximityPB = bodyB
-        } else {
-            nonplayerProximityPB = bodyA
-        }
-        
-        switch nonplayerProximityPB.categoryBitMask {
-        case ColliderType.Enemy.categoryMask:
-            print("The player proximity contacted the zombie")
-            if let zombie = nonplayerProximityPB.node as? Zombie{
-                zombieManager.activateZombie(zombie: zombie)
-            }
-            break
-        default:
-            break
-        }
-
-    }
-    
-    
-    /** Helper function to implement contact logic between player and the other entity that has contacted a player **/
-    
-func handlePlayerContacts(contact: SKPhysicsContact){
-    
-        print("Processing player contact with other body...")
-    
-        let bodyA = contact.bodyA
-        let bodyB = contact.bodyB
-        
-        
-        var nonPlayerBody: SKPhysicsBody
-        
-        if((bodyA.categoryBitMask & ColliderType.Player.categoryMask) == 1){
-            nonPlayerBody = bodyB
-        } else {
-            nonPlayerBody = bodyA
-        }
-        
-        
-        switch nonPlayerBody.categoryBitMask {
-        case ColliderType.Collectible.categoryMask:
-            print("The player has contacted a collectible")
-            if let collectibleSprite = nonPlayerBody.node as? CollectibleSprite{
-                
-                let newCollectible = collectibleSprite.getCollectible()
-                
-                player.addCollectibleItem(newCollectible: newCollectible){
-                    
-                    self.player.playSoundForCollectibleContact()
-                    
-                    
-                    collectibleSprite.removeFromParent()
-                    
-                }
-                
-            }
-            break
- 
-        default:
-            print("Failed to process player contact with entity: No contact logic implemented for contact between player and this entity")
-        }
     }
     
 }
