@@ -131,6 +131,16 @@ extension GameScene{
                         showInventorySummaryForPlayer(atPosition: player.position)
                     }
                     
+                    if(selectedNode.name == "RestartLevel"){
+                        
+                        menuOptionsPanel!.removeFromParent()
+                        menuOptionsPanel = nil
+
+                        let transition = SKTransition.crossFade(withDuration: 2.00)
+                        let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel)
+                        view!.presentScene(currentGameScene, transition: transition)
+                    }
+                    
                     if(selectedNode.name == "CurrentMission"){
                         showMissionPanel()
                     }

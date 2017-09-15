@@ -17,3 +17,5 @@ Instead of looping thru all zombies, try using collision detection to activate t
 For one mission, have camera slowly animate to position to show a couple in distress, then animate back to the player
 
 use camera to animate back and forth between different players
+
+Use an activity indicator or a progress bar to indicate that the game is loading; progress units/progress count can be incremented in the didMoveToViewFunction, with the activity indicator or progress bar being updated accordingly; the progress bar or activity indicataor will be a property of the game view controller
