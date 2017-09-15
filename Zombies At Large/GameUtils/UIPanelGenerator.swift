@@ -200,4 +200,121 @@ class UIPanelGenerator{
         
         return nil
     }
+    
+    enum BarColor{
+        case Yellow
+        case Red
+        case Blue
+        case Green
+        
+        
+        func getLeftBar() -> SKTexture{
+            switch self {
+            case .Blue:
+                return SKTexture(imageNamed: "barBlue_horizontalLeft")
+            case .Red:
+                return SKTexture(imageNamed: "barRed_horizontalLeft")
+            case .Yellow:
+                return SKTexture(imageNamed: "barYellow_horizontalLeft")
+            case .Green:
+                return SKTexture(imageNamed: "barGreen_horizontalLeft")
+
+            }
+        }
+        
+        
+        func getMidBar() -> SKTexture{
+            switch self {
+            case .Blue:
+                return SKTexture(imageNamed: "barBlue_horizontalBlue")
+            case .Red:
+                return SKTexture(imageNamed: "barRed_horizontalMid")
+            case .Yellow:
+                return SKTexture(imageNamed: "barYellow_horizontalMid")
+            case .Green:
+                return SKTexture(imageNamed: "barGreen_horizontalMid")
+                
+            }
+        }
+        
+    
+        func getRightBar() -> SKTexture{
+            switch self {
+            case .Blue:
+                return SKTexture(imageNamed: "barBlue_horizontalRight")
+            case .Red:
+                return SKTexture(imageNamed: "barRed_horizontalRight")
+            case .Yellow:
+                return SKTexture(imageNamed: "barYellow_horizontalRight")
+            case .Green:
+                return SKTexture(imageNamed: "barGreen_horizontalRight")
+                
+            }
+        }
+    
+    
+    }
+    
+    
+    static func getBarIndicator(withColor color: BarColor,forNumberOfUnits units: Int) -> SKNode{
+        
+        guard let barIndicator = SKScene(fileNamed: "user_interface")?.childNode(withName: "BarIndicator") else {
+            
+            fatalError("Error: bar indicator failed to load")
+        }
+        
+        let leftBar = color.getLeftBar()
+        let midBar = color.getMidBar()
+        let rightBar = color.getRightBar()
+       
+        for barIndex in 0...units{
+            
+            if(barIndex == 0), let leftBackBar = barIndicator.childNode(withName: "mid0") as? SKSpriteNode{
+                
+                let leftBarSprite = SKSpriteNode(texture: leftBar)
+                leftBarSprite.anchorPoint = CGPoint(x: 1.00, y: 0.5)
+                leftBarSprite.move(toParent: barIndicator)
+                leftBarSprite.position = leftBackBar.position
+                
+            }
+            
+            if(barIndex == 15),let rightBackBar = barIndicator.childNode(withName: "mid15") as? SKSpriteNode{
+                
+                let rightBarSprite = SKSpriteNode(texture: rightBar)
+                rightBarSprite.anchorPoint = CGPoint(x: 0.0, y: 0.5)
+                rightBarSprite.move(toParent: barIndicator)
+                rightBarSprite.position = rightBackBar.position
+                
+            }
+            
+            if let midBackBar = barIndicator.childNode(withName: "mid\(barIndex)") as? SKSpriteNode {
+                
+                let midBarSprite = SKSpriteNode(texture: midBar)
+                midBarSprite.anchorPoint = CGPoint(x: 0.00, y: 0.5)
+                midBarSprite.move(toParent: barIndicator)
+                midBarSprite.position = midBackBar.position
+            }
+            
+            
+            
+        }
+        
+        return barIndicator
+
+    }
+    
+    static func getBarTexture(barColor: BarColor) -> (SKTexture,SKTexture,SKTexture){
+        
+        switch barColor {
+        case .Blue:
+            return (SKTexture(imageNamed: "barBlue_horizontalLeft"),SKTexture(imageNamed: "barBlue_horizontalMid"),SKTexture(imageNamed: "barBlue_horizontalRight"))
+        case .Green:
+            return (SKTexture(imageNamed: "barGreen_horizontalLeft"),SKTexture(imageNamed: "barGreen_horizontalMid"),SKTexture(imageNamed: "barGreen_horizontalRight"))
+        case .Yellow:
+            return (SKTexture(imageNamed: "barYellow_horizontalLeft"),SKTexture(imageNamed: "barYellow_horizontalMid"),SKTexture(imageNamed: "barYellow_horizontalRight"))
+        case .Red:
+            return (SKTexture(imageNamed: "barRed_horizontalLeft"),SKTexture(imageNamed: "barRed_horizontalMid"),SKTexture(imageNamed: "barRed_horizontalRight"))
+
+        }
+    }
 }

@@ -116,7 +116,11 @@ class GameScene: SKScene {
         loadFireButton()
         loadControls(atPosition: CGPoint(x: xPosControls, y: yPosControls))
         loadBackground()
-      
+        
+        let barIndicator = UIPanelGenerator.getBarIndicator(withColor: .Yellow, forNumberOfUnits: 15)
+        barIndicator.move(toParent: overlayNode)
+        barIndicator.zPosition = 30
+        barIndicator.position = CGPoint(x: -140.0, y: -30)
     }
     
     
@@ -361,16 +365,18 @@ class GameScene: SKScene {
                     let tileWidth = blackCorridors.tileSize.width
                 
                     let tileCenter = blackCorridors.centerOfTile(atColumn: col, row: row)
-                    let tileSize = CGSize(width: tileWidth, height: tileHeight)
-                    let cgRect = CGRect(origin: tileCenter, size: tileSize)
+                    let tileSize = CGSize(width: tileWidth*1, height: tileHeight*1)
+                    let cgRect = CGRect(x: tileCenter.x - tileWidth/2.0, y: tileCenter.y - tileHeight/2.0, width: tileWidth, height: tileHeight)
+                    let pbNode = SKShapeNode(rect: cgRect)
+                    pbNode.strokeColor = .clear
                     
-                    let pbNode = SKNode()
-                   let tilePB = SKPhysicsBody(rectangleOf: tileSize, center: tileCenter)
+                    let tilePB = SKPhysicsBody(rectangleOf: tileSize, center: tileCenter)
                     
                     tilePB.categoryBitMask = ColliderType.Obstacle.categoryMask
                     tilePB.collisionBitMask = ColliderType.Obstacle.collisionMask
                     tilePB.contactTestBitMask = ColliderType.Obstacle.contactMask
-                    
+                    tilePB.isDynamic = false
+                    tilePB.allowsRotation = false
                     tilePB.affectedByGravity = false
                     pbNode.physicsBody = tilePB
                     

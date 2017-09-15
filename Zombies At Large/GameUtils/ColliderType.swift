@@ -18,7 +18,7 @@ struct ColliderType: OptionSet, Hashable{
     static var definedCollisions: [ColliderType:[ColliderType]] = [
     
         ColliderType.Player : [ColliderType.Enemy, ColliderType.EnemyBullets, ColliderType.Obstacle],
-        ColliderType.Enemy: [ColliderType.PlayerBullets,ColliderType.Player,ColliderType.Enemy],
+        ColliderType.Enemy: [ColliderType.PlayerBullets,ColliderType.Player,ColliderType.Enemy,ColliderType.Obstacle],
         ColliderType.PlayerBullets: [ColliderType.Obstacle,ColliderType.Enemy],
         ColliderType.PlayerProximity: [],
         ColliderType.EnemyBullets: [ColliderType.Player,ColliderType.Obstacle],
@@ -34,11 +34,11 @@ struct ColliderType: OptionSet, Hashable{
         
         ColliderType.Player : [ColliderType.Collectible,ColliderType.Explosive],
         ColliderType.Enemy: [ColliderType.PlayerProximity,ColliderType.PlayerBullets],
-        ColliderType.PlayerBullets: [ColliderType.Explosive,ColliderType.Enemy],
+        ColliderType.PlayerBullets: [ColliderType.Explosive,ColliderType.Enemy,ColliderType.Obstacle],
         ColliderType.PlayerProximity: [ColliderType.Enemy],
         ColliderType.EnemyBullets: [ColliderType.Explosive],
         ColliderType.Collectible: [ColliderType.Player],
-        ColliderType.Obstacle: [],
+        ColliderType.Obstacle: [ColliderType.PlayerBullets],
         ColliderType.Explosive: [ColliderType.PlayerBullets,ColliderType.EnemyBullets,ColliderType.Player],
         ColliderType.NonPlayerCharacter: [ColliderType.Player]
         

@@ -85,6 +85,13 @@ extension GameScene: SKPhysicsContactDelegate{
                 
             }
             break
+        case ColliderType.Obstacle.categoryMask:
+            if let playerBullet = playerBulletPB.node as? SKSpriteNode{
+                self.run(SKAction.wait(forDuration: 0.05), completion: {
+                    playerBullet.removeFromParent()
+                })
+            }
+            break
         default:
             print("No contact logic implemented")
         }
