@@ -40,3 +40,16 @@ bullets to penetrate walls
 save the pandas
 save zhu ba jie
 
+rescue women - use SKConstraint so that woman links to you, take her to safety area
+get special bullets that penetrate walls
+push bomb to front of door - when bomb is in contact with wall, wall can explode if bomb is detonated (sends notification which can specify a specific door)
+pirate ships
+robots
+
+use cloudkit to download SKS files
+
+walking zombies changes category bitmask - can contact player proximity on random basis
+use light node to find hidden objects
+didReceiveMemoryWarning() - save game
+make sure game screen is sized based on width/height constraints set via autolayout
+
