@@ -23,3 +23,11 @@ Use an activity indicator or a progress bar to indicate that the game is loading
 Watch out: player can accidentally hit restart level button, be sure to ask for a confirmation in case the user hits it by accident; maybe provide options "Quit", "Save and Quit", "Cancel"
 
 Update the hud by calling update functions on shared manager from within the player class
+
+infection rate idea - gradually implement
+    innocent bystanders
+    randomly moving zombies
+
+camera idea
+
+filter idea
