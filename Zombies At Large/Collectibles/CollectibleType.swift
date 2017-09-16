@@ -31,6 +31,12 @@ enum CollectibleType: Int{
     case Microscope = 400
     case CompassPointB = 500
     case CompassPointD = 501
+    case Bullet1 = 502
+    case Bullet2 = 503
+    case RiceBowl1 = 504
+    case RiceBowl2 = 505
+    case RedEnvelope1 = 506
+    case RedEnvelope2 = 507
     
     static let allCollectibleTypes:[CollectibleType] = {
         
@@ -96,6 +102,10 @@ enum CollectibleType: Int{
                 return 10.00
             case .Microscope:
                 return 200.0
+            case .RedEnvelope1:
+                return 100.0
+            case .RedEnvelope2:
+                return 200.0
             default:
                 return 0.00
         }
@@ -127,6 +137,12 @@ enum CollectibleType: Int{
             return "Microscope"
         case .CompassPointB,.CompassPointD:
             return "Map Location"
+        case .RedEnvelope1,.RedEnvelope2:
+            return "RedEnvelope"
+        case .RiceBowl1,.RiceBowl2:
+            return "RiceBowl"
+        case .Bullet1,.Bullet2:
+            return "Bullet"
         default:
             return "Some Collecible Item"
         }
@@ -164,7 +180,6 @@ enum CollectibleType: Int{
             return 0.70
         case .Clipboard:
             return 0.10
-
         default:
             return 0.00
         }

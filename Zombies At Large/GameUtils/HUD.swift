@@ -15,6 +15,7 @@ class HUDManager{
     
     static let sharedManager = HUDManager()
     
+    
     /** Cached Blue Bars for Health **/
     
     var blueBar0: SKNode!
@@ -55,12 +56,19 @@ class HUDManager{
     var redBarFull: SKNode!
     
     var mainHUDNode: SKNode!
-
+    var healthIndicator: SKNode!
+    var bulletIndicator: SKNode!
+    
     private init() {
         
         loadMainHUDNode()
         loadBlueBarIndicators()
         loadRedBarIndicators()
+        
+        updateBulletCount(withUnits: 30)
+        updateHealthCount(withUnits: 15)
+
+        
     }
     
     
@@ -70,33 +78,39 @@ class HUDManager{
         
     }
     
+    
     func updateHealthCount(withUnits units: Int){
         
-        if let healthIndicator = self.mainHUDNode.childNode(withName: "healthIndicator"){
-            
-            let blueBarPos = healthIndicator.position
-            healthIndicator.removeFromParent()
-            
+            print("Updating playe health with health units \(units)")
+            let blueBarPos = self.healthIndicator.position
+            self.healthIndicator.removeFromParent()
+            self.healthIndicator = nil
+        
             let blueBarIndicator = getBlueBar(forUnitNumber: units)
-            blueBarIndicator.position = blueBarPos
-            
-            blueBarIndicator.move(toParent: self.mainHUDNode)
-        }
+        
+            self.healthIndicator = blueBarIndicator
+            self.healthIndicator.move(toParent: self.mainHUDNode)
+            self.healthIndicator.position = blueBarPos
+
+        
     }
     
     func updateBulletCount(withUnits units: Int){
         
-        if let bulletIndicator = self.mainHUDNode.childNode(withName: "bulletIndicator"){
-            
-            let redBarPos = bulletIndicator.position
-            bulletIndicator.removeFromParent()
-            
-            let redBarIndicator = getRedBar(forUnitNumber: units)
-            redBarIndicator.position = redBarPos
-            
-            redBarIndicator.move(toParent: self.mainHUDNode)
-        }
+        print("Updating the bullet count....")
         
+            print("Updating the bullet indicator to show \(units) bullets")
+            let redBarPos = self.bulletIndicator.position
+            self.bulletIndicator.removeFromParent()
+            self.bulletIndicator = nil
+        
+            let redBarIndicator = getRedBar(forUnitNumber: units)
+        
+            self.bulletIndicator = redBarIndicator
+            self.bulletIndicator.move(toParent: self.mainHUDNode)
+            self.bulletIndicator.position = redBarPos
+
+       
     }
     
     
@@ -107,35 +121,37 @@ class HUDManager{
     
     private func getRedBar(forUnitNumber units: Int) -> SKNode{
         switch units {
-        case 15:
+        case 29,30:
+            return self.redBarFull
+        case 27,28:
             return self.redBar15
-        case 14:
+        case 25,26:
             return self.redBar14
-        case 13:
+        case 23,24:
             return self.redBar13
-        case 12:
+        case 21,22:
             return self.redBar12
-        case 11:
+        case 19,20:
             return self.redBar11
-        case 10:
+        case 17,18:
             return self.redBar10
-        case 9:
+        case 15,16:
             return self.redBar9
-        case 8:
+        case 13,14:
             return self.redBar8
-        case 7:
+        case 11,12:
             return self.redBar7
-        case 6:
+        case 9,10:
             return self.redBar6
-        case 5:
+        case 8,9:
             return self.redBar5
-        case 4:
+        case 6,7:
             return self.redBar4
-        case 3:
+        case 4,5:
             return self.redBar3
-        case 2:
+        case 2,3:
             return self.redBar2
-        case 1:
+        case 1,2:
             return self.redBar1
         case 0:
             return self.redBar0
@@ -181,7 +197,7 @@ class HUDManager{
         case 0:
             return self.blueBar0
         default:
-            return self.redBar0
+            return self.blueBar0
         }
     }
     
@@ -190,6 +206,20 @@ class HUDManager{
         guard let hudNode = SKScene(fileNamed: "user_interface")?.childNode(withName: "hudNode") else { fatalError("Error: HUD node failed to load")}
         
         self.mainHUDNode = hudNode
+        
+        
+        guard let bulletIndicator = hudNode.childNode(withName: "bulletIndicator") else {
+            fatalError("Error: bulletIndicator failed to load")
+        }
+        
+        self.bulletIndicator = bulletIndicator
+        
+        guard let healthIndicator = hudNode.childNode(withName: "healthIndicator") else {
+            fatalError("Error: healthIndicator failed to load")
+        }
+        
+        self.healthIndicator = healthIndicator
+        
     }
     
     

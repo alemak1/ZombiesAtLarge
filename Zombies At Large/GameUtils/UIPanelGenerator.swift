@@ -95,7 +95,9 @@ class UIPanelGenerator{
     
     static func GetDialoguePrompt(forAvatar avatar: Avatar, withName name: String,andWithText1 text1: String? = nil,andWithText2 text2: String? = nil, andWithText3 text3: String? = nil, andWithText4 text4: String? = nil) -> SKSpriteNode?{
         
-        guard let dialoguePrompt = GetDialoguePrompt(forAvatar: avatar) else { return nil }
+        guard let dialoguePrompt = GetDialoguePrompt(forAvatar: avatar) else {
+            print("ERROR: Failed to load avatar dialogue prompt")
+            return nil }
         
         if let nameLabel = dialoguePrompt.childNode(withName: "name") as? SKLabelNode{
             nameLabel.text = name
@@ -143,6 +145,8 @@ class UIPanelGenerator{
             return SKScene(fileNamed: "user_interface")?.childNode(withName: "SurvivorPrompt") as? SKSpriteNode
         case .robot:
             return SKScene(fileNamed: "user_interface")?.childNode(withName: "RobotPrompt") as? SKSpriteNode
+        case .zombie:
+             return SKScene(fileNamed: "user_interface")?.childNode(withName: "ZombiePrompt") as? SKSpriteNode
         default:
             return nil
         }

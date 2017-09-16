@@ -14,7 +14,10 @@ class Player: Shooter{
     
     private var playerType: PlayerType
     
-    //private var playerProximity: SKShapeNode!
+    private var health: Int = 15
+    private var numberOfBullets: Int = 30
+    
+    var updatingBulletCount = false
     
     override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
         
@@ -107,36 +110,15 @@ class Player: Shooter{
         
     }
     
-    convenience init(playerType: PlayerType){
+    convenience init(playerType: PlayerType,startingHealth: Int = 15, numberOfBullets: Int = 30){
         
         let playerTexture = playerType.getTexture(textureType: .gun)
         
         self.init(texture: playerTexture, color: .clear, size: playerTexture.size())
         
+        self.numberOfBullets = numberOfBullets
+        self.health = startingHealth
         
-        /**
-        playerProximity = SKShapeNode(circleOfRadius: 50.0)
-        addChild(playerProximity)
-        
-        playerProximity.position = self.position
-        playerProximity.name = "playerProximity"
-        
-    
-        let playerProximityPB = SKPhysicsBody(circleOfRadius: 50.0)
-        playerProximityPB.affectedByGravity = false
-        playerProximityPB.linearDamping = 0.00
-        playerProximityPB.isDynamic = false
-        playerProximityPB.allowsRotation = false
-        playerProximityPB.categoryBitMask = ColliderType.PlayerProximity.categoryMask
-        playerProximityPB.collisionBitMask = ColliderType.PlayerProximity.collisionMask
-        playerProximityPB.contactTestBitMask = ColliderType.PlayerProximity.contactMask
-        playerProximity.physicsBody = playerProximityPB
-        
-        let joint = SKPhysicsJointFixed()
-        joint.bodyA = physicsBody!
-        joint.bodyB = playerProximity.physicsBody!
-        
-       **/
     }
     
     
@@ -171,7 +153,7 @@ class Player: Shooter{
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+  
    
     
     func applyMovementImpulse(withMagnitudeOf forceUnits: CGFloat){
@@ -199,9 +181,46 @@ class Player: Shooter{
         
     }
     
+    public func increaseHealth(byHealthUnits healthUnits: Int){
+        print("Increasing player health...")
+
+        if(self.health + healthUnits > 15){
+            self.health = 15
+        } else {
+            self.health += healthUnits
+        }
+        
+        HUDManager.sharedManager.updateHealthCount(withUnits: self.health)
+    }
+    
+    public func takeDamage(){
+        print("Player has taken damage...")
+        self.health -= 1
+        HUDManager.sharedManager.updateHealthCount(withUnits: self.health)
+        
+    }
+    
+    public func increaseBullets(byBullets bullets: Int){
+        print("Bullets have increased by \(bullets)")
+        
+        if(self.numberOfBullets + bullets > 30){
+            self.numberOfBullets = 30
+        } else {
+            self.numberOfBullets += bullets
+        }
+        HUDManager.sharedManager.updateBulletCount(withUnits: self.numberOfBullets)
+
+    }
+    
     public func fireBullet(){
         
+        if(self.numberOfBullets <= 0) { return }
+        
         super.fireBullet(withPrefireHandler: {}, andWithPostfireHandler: {})
+        
+        self.numberOfBullets -= 1
+        HUDManager.sharedManager.updateBulletCount(withUnits: self.numberOfBullets)
+        
         
         print("Gun fired!")
         

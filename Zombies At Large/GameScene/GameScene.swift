@@ -33,12 +33,18 @@ class GameScene: SKScene {
     var player: Player!
     var playerProximity: SKShapeNode!
     
+    var zombiesKilled: Int = 0
+    
     
     /** Node Layers **/
     
     var overlayNode: SKNode!
     var worldNode: SKNode!
     var mainCameraNode: SKCameraNode!
+    
+    var hudNode: SKNode{
+        return HUDManager.sharedManager.getHUD()
+    }
     
     /** Mission Panel **/
     
@@ -78,11 +84,14 @@ class GameScene: SKScene {
     var frameCount: TimeInterval = 0.00
     var lastUpdateTime: TimeInterval = 0.00
     
+    var dialoguePanelIsShown: Bool = false
     
     /** ***************  GameScene Initializers **/
     convenience init(currentGameLevel: GameLevel) {
         self.init(size: UIScreen.main.bounds.size)
         self.currentGameLevel = currentGameLevel
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(incrementZombieKillCount), name: Notification.Name(rawValue: "didKillZombieNotification"), object: nil)
 
     }
     
@@ -95,6 +104,7 @@ class GameScene: SKScene {
     }
     
     
+  
     
     override func didMove(to view: SKView) {
        
@@ -116,15 +126,11 @@ class GameScene: SKScene {
         loadFireButton()
         loadControls(atPosition: CGPoint(x: xPosControls, y: yPosControls))
         loadBackground()
+        loadHUD()
         
-        
-        let hudNode = HUDManager.sharedManager.getHUD()
-        hudNode.move(toParent: overlayNode)
-        hudNode.zPosition = 35
-        hudNode.position = CGPoint(x: 0, y: 50.0)
-        HUDManager.sharedManager.updateBulletCount(withUnits: 0)
-        HUDManager.sharedManager.updateHealthCount(withUnits: 0)
+       
     }
+    
     
     
     func initializeBasicNodeLayers(){
@@ -175,11 +181,22 @@ class GameScene: SKScene {
     }
     
   
-    
+    func loadHUD(){
+        hudNode.move(toParent: overlayNode)
+        hudNode.zPosition = 35
+        
+        let xPos = -UIScreen.main.bounds.size.width*0.1
+        let yPos = UIScreen.main.bounds.size.height*0.36
+        hudNode.position = CGPoint(x: xPos, y: yPos)
+        
+    }
     
    
   
-  
+    @objc func incrementZombieKillCount(){
+        self.zombiesKilled += 1
+        print("Total number of zombies currently killed is: \(self.zombiesKilled)")
+    }
     
     
     override func update(_ currentTime: TimeInterval) {
@@ -190,6 +207,26 @@ class GameScene: SKScene {
         }
     
         frameCount = currentTime - lastUpdateTime;
+        
+        
+        if(self.zombiesKilled > 5 && !dialoguePanelIsShown){
+            print("You killed over 5 zombies")
+            
+            if let dialoguePanel = UIPanelGenerator.GetDialoguePrompt(forAvatar: .zombie, withName: "Zombie King", andWithText1: "How dare you?", andWithText2: "You will", andWithText3: "never save", andWithText4: "the pandas!"){
+            
+                dialoguePanel.move(toParent: overlayNode)
+                dialoguePanel.position = CGPoint.zero
+            
+                run(SKAction.wait(forDuration: 5.00), completion: {
+                
+                    dialoguePanel.removeFromParent()
+                })
+            } else {
+                print("ERROR: Dialogue panel failed to load")
+            }
+            
+            dialoguePanelIsShown = true
+        }
         
         zombieManager.update(withFrameCount: frameCount)
         
@@ -319,6 +356,47 @@ class GameScene: SKScene {
                 let tileDef = grass.tileDefinition(atColumn: col, row: row)
                 
                 let hasZombie = tileDef?.userData?["hasZombie"] as? Bool
+                let hasRedEnvelope = tileDef?.userData?["hasRedEnvelope"] as? Bool
+                let hasBullet = tileDef?.userData?["hasBullet"] as? Bool
+                let hasRiceBowl = tileDef?.userData?["hasRiceBowl"] as? Bool
+                
+                
+                if(hasRedEnvelope ?? false){
+                    print("Adding a red envelope to the scene")
+
+                    let redEnvelopePos = grass.centerOfTile(atColumn: col, row: row)
+                    
+                    let redEnvelope = RedEnvelope(monetaryValue: nil)
+                    redEnvelope.move(toParent: worldNode)
+                    redEnvelope.position = redEnvelopePos
+
+
+                }
+                
+                if(hasBullet ?? false){
+                    print("Adding a bullet to the scene")
+                    
+                    let bulletPos = grass.centerOfTile(atColumn: col, row: row)
+                    
+                    let bullet = Bullet(numberOfBullets: 1)
+                    bullet.move(toParent: worldNode)
+                    bullet.position = bulletPos
+
+                    
+                }
+                
+                
+                if(hasRiceBowl ?? false){
+                    print("Adding a rice bowl to the scene")
+
+                    let riceBowlPos = grass.centerOfTile(atColumn: col, row: row)
+                    
+                    let riceBowl = RiceBowl(healthValue: 2)
+                    riceBowl.move(toParent: worldNode)
+                    riceBowl.position = riceBowlPos
+
+
+                }
                 
                 if(hasZombie ?? false){
                     let zombiePos = grass.centerOfTile(atColumn: col, row: row)
@@ -360,10 +438,8 @@ class GameScene: SKScene {
                 
                 
                 if(hasPhysicsBody ?? false){
-                        print("Adding another physics body for left edge....")
                 
-                
-                    
+
                     let tileHeight = blackCorridors.tileSize.height
                     let tileWidth = blackCorridors.tileSize.width
                 

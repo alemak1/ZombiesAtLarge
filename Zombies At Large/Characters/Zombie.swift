@@ -103,9 +103,9 @@ class Zombie: Shooter{
 
     /** Timer Related Variables: Zombie will be in attack mode for a period of time designated as attackInterval; During the attack interval, it will fire bullets at every shoot interval **/
     
-    private var shootInterval = 1.00
-    private var attackInterval = 2.00
-    private var followInterval = 2.00
+    private var shootInterval = 0.50
+    private var attackInterval = 1.00
+    private var followInterval = 1.00
     
     private var lastUpdateTime = 0.00
     private var frameCount = 0.00
@@ -293,6 +293,8 @@ class Zombie: Shooter{
             ], timePerFrame: 0.20), completion: {
                 
                 self.removeFromParent()
+                
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "didKillZombieNotification"), object: nil)
         })
     }
     

@@ -16,10 +16,11 @@ extension GameScene: SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
         
-        handlePlayerContacts(contact: contact)
+       handlePlayerContacts(contact: contact)
         handlePlayerProximityContacts(contact: contact)
         handlePlayerBulletContacts(contact: contact)
-        
+        handleEnemyBulletContacts(contact: contact) //TODO: Problem with this function
+
         
     }
     
@@ -75,10 +76,10 @@ extension GameScene: SKPhysicsContactDelegate{
         
         switch nonPlayerBulletPB.categoryBitMask {
         case ColliderType.Enemy.categoryMask:
-            print("The bullet has hit a zombie")
             if let zombie = nonPlayerBulletPB.node as? Zombie, let playerBullet = playerBulletPB.node as? SKSpriteNode{
                 
                 zombie.takeHit()
+                
                 self.run(SKAction.wait(forDuration: 0.05), completion: {
                     playerBullet.removeFromParent()
                 })
@@ -117,7 +118,6 @@ extension GameScene: SKPhysicsContactDelegate{
         
         switch nonplayerProximityPB.categoryBitMask {
         case ColliderType.Enemy.categoryMask:
-            print("The player proximity contacted the zombie")
             if let zombie = nonplayerProximityPB.node as? Zombie{
                 zombieManager.activateZombie(zombie: zombie)
             }
@@ -153,6 +153,50 @@ extension GameScene: SKPhysicsContactDelegate{
             print("The player has contacted a collectible")
             if let collectibleSprite = nonPlayerBody.node as? CollectibleSprite{
                 
+                if collectibleSprite.name == "RedEnvelope",let redEnvelope = collectibleSprite as? RedEnvelope{
+                    
+                    
+                    let newCollectible = redEnvelope.getCollectible()
+                    
+                    player.addCollectibleItem(newCollectible: newCollectible){
+                        
+                        self.player.playSoundForCollectibleContact()
+                        
+                        
+                        collectibleSprite.removeFromParent()
+                        
+                    }
+                    return
+                }
+                
+                if collectibleSprite.name == "Bullet",let bullet = collectibleSprite as? Bullet{
+                    
+                    if(self.player.updatingBulletCount) { return }
+                    
+                    run(SKAction.run {
+                        self.player.updatingBulletCount = true
+                        bullet.removeFromParent()
+                    }, completion: {
+                        self.player.playSoundForCollectibleContact()
+                        self.player.increaseBullets(byBullets: bullet.numberOfBullets)
+                        self.player.updatingBulletCount = false
+
+                    })
+                    
+                   
+                
+                    
+
+                    return
+                }
+                
+                if collectibleSprite.name == "RiceBowl", let riceBowl = collectibleSprite as? RiceBowl{
+            
+                    self.player.increaseHealth(byHealthUnits: riceBowl.healthValue)
+                    self.player.playSoundForCollectibleContact()
+                    return
+                }
+                
                 let newCollectible = collectibleSprite.getCollectible()
                 
                 player.addCollectibleItem(newCollectible: newCollectible){
@@ -166,7 +210,60 @@ extension GameScene: SKPhysicsContactDelegate{
                 
             }
             break
+        default:
+            print("Failed to process player contact with entity: No contact logic implemented for contact between player and this entity")
+        }
+    }
+    
+    
+    func handleEnemyBulletContacts(contact: SKPhysicsContact){
+        
+        print("Processing enemy bullet contact with other body...")
+        
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        
+        var nonBulletBody: SKPhysicsBody
+        var bulletBody: SKPhysicsBody
+        
+        if((bodyA.categoryBitMask & ColliderType.EnemyBullets.categoryMask) == 1){
+            nonBulletBody = bodyB
+            bulletBody = bodyA
+        } else {
+            nonBulletBody = bodyA
+            bulletBody = bodyB
+
+        }
+        
+        
+        switch nonBulletBody.categoryBitMask {
+        case ColliderType.Player.categoryMask:
+            print("The player has been hit by a zombie bullet")
+            if let zombieBullet = bulletBody.node as? SKSpriteNode{
+                
+                player.run(SKAction.run {
+                    
+                    self.player.takeDamage()
+                    
+                    }, completion: {
+                    
+                    zombieBullet.run(SKAction.wait(forDuration: 0.10), completion: {
+                        zombieBullet.removeFromParent()
+                    })
+                })
+                
+            }
+            break
+        case ColliderType.Obstacle.categoryMask:
+            if let zombieBullet = bulletBody.node as? SKSpriteNode{
+                
+                zombieBullet.run(SKAction.wait(forDuration: 0.10), completion: {
+                    zombieBullet.removeFromParent()
             
+                })
+            }
+            break
         default:
             print("Failed to process player contact with entity: No contact logic implemented for contact between player and this entity")
         }

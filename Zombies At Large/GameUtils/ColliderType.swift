@@ -32,11 +32,11 @@ struct ColliderType: OptionSet, Hashable{
     //A dictionary to specify which ColliderType's should be notified of contact with other ColliderType's
     static var requestedContactNotifications: [ColliderType:[ColliderType]] =  [
         
-        ColliderType.Player : [ColliderType.Collectible,ColliderType.Explosive],
+        ColliderType.Player : [ColliderType.Collectible,ColliderType.Explosive,ColliderType.EnemyBullets],
         ColliderType.Enemy: [ColliderType.PlayerProximity,ColliderType.PlayerBullets],
         ColliderType.PlayerBullets: [ColliderType.Explosive,ColliderType.Enemy,ColliderType.Obstacle],
         ColliderType.PlayerProximity: [ColliderType.Enemy],
-        ColliderType.EnemyBullets: [ColliderType.Explosive],
+        ColliderType.EnemyBullets: [ColliderType.Explosive,ColliderType.Player,ColliderType.Obstacle],
         ColliderType.Collectible: [ColliderType.Player],
         ColliderType.Obstacle: [ColliderType.PlayerBullets],
         ColliderType.Explosive: [ColliderType.PlayerBullets,ColliderType.EnemyBullets,ColliderType.Player],

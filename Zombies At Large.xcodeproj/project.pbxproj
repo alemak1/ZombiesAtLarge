@@ -39,6 +39,7 @@
 		BD3A516E1F69331A00B01850 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A516D1F69331A00B01850 /* Avatar.swift */; };
 		BD3A51701F693C6500B01850 /* NonplayerCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */; };
 		BD3A51721F693DA800B01850 /* UIPanelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */; };
+		BD3A788A1F6D690D0001804A /* OtherCollectibleSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A78891F6D690D0001804A /* OtherCollectibleSprites.swift */; };
 		BD4529E01F695946000166A4 /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4529DF1F695946000166A4 /* GameLevel.swift */; };
 		BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD47350F1F6AA5AC00D91819 /* MapLocation.swift */; };
 		BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */; };
@@ -132,6 +133,7 @@
 		BD3A516D1F69331A00B01850 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonplayerCharacterType.swift; sourceTree = "<group>"; };
 		BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanelGenerator.swift; sourceTree = "<group>"; };
+		BD3A78891F6D690D0001804A /* OtherCollectibleSprites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherCollectibleSprites.swift; sourceTree = "<group>"; };
 		BD4529DF1F695946000166A4 /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 		BD47350F1F6AA5AC00D91819 /* MapLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
 		BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSprite.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				BD7865581F6546620071A14F /* CollectibleType.swift */,
 				BD47350F1F6AA5AC00D91819 /* MapLocation.swift */,
 				BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */,
+				BD3A78891F6D690D0001804A /* OtherCollectibleSprites.swift */,
 			);
 			path = Collectibles;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				BDE1250C1F6390CE0092E561 /* Zombie.swift in Sources */,
 				BD3A516C1F692ED500B01850 /* PicturePerson.swift in Sources */,
 				BD78655D1F6562DF0071A14F /* Tank.swift in Sources */,
+				BD3A788A1F6D690D0001804A /* OtherCollectibleSprites.swift in Sources */,
 				BDE9FB031F668C690056B66E /* CollectibleManager.swift in Sources */,
 				BD5C86011F68C7B000D6E0BF /* ColliderConfiguration.swift in Sources */,
 				BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */,
