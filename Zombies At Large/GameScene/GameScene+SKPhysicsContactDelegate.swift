@@ -93,6 +93,12 @@ extension GameScene: SKPhysicsContactDelegate{
                 })
             }
             break
+        case ColliderType.Bomb.categoryMask:
+            if let bomb = nonPlayerBulletPB.node as? Bomb{
+                
+                bomb.runExplosionAnimation()
+            }
+            break
         default:
             print("No contact logic implemented")
         }
@@ -149,6 +155,8 @@ extension GameScene: SKPhysicsContactDelegate{
         
         
         switch nonPlayerBody.categoryBitMask {
+        case ColliderType.Bomb.categoryMask:
+            break
         case ColliderType.Collectible.categoryMask:
             print("The player has contacted a collectible")
             if let collectibleSprite = nonPlayerBody.node as? CollectibleSprite{
@@ -194,6 +202,7 @@ extension GameScene: SKPhysicsContactDelegate{
             
                     self.player.increaseHealth(byHealthUnits: riceBowl.healthValue)
                     self.player.playSoundForCollectibleContact()
+                    collectibleSprite.removeFromParent()
                     return
                 }
                 
@@ -207,6 +216,22 @@ extension GameScene: SKPhysicsContactDelegate{
                     collectibleSprite.removeFromParent()
                     
                 }
+                
+            }
+            break
+        case ColliderType.EnemyBullets.categoryMask:
+            if let zombieBullet = nonPlayerBody.node as? SKSpriteNode{
+                
+                player.run(SKAction.run {
+                    
+                    zombieBullet.removeFromParent()
+                    
+                    }, completion: {
+                        
+                            self.player.takeDamage()
+                        
+
+                })
                 
             }
             break
@@ -238,23 +263,7 @@ extension GameScene: SKPhysicsContactDelegate{
         
         
         switch nonBulletBody.categoryBitMask {
-        case ColliderType.Player.categoryMask:
-            print("The player has been hit by a zombie bullet")
-            if let zombieBullet = bulletBody.node as? SKSpriteNode{
-                
-                player.run(SKAction.run {
-                    
-                    self.player.takeDamage()
-                    
-                    }, completion: {
-                    
-                    zombieBullet.run(SKAction.wait(forDuration: 0.10), completion: {
-                        zombieBullet.removeFromParent()
-                    })
-                })
-                
-            }
-            break
+      
         case ColliderType.Obstacle.categoryMask:
             if let zombieBullet = bulletBody.node as? SKSpriteNode{
                 

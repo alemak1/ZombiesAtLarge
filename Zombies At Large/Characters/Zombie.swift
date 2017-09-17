@@ -103,11 +103,13 @@ class Zombie: Shooter{
 
     /** Timer Related Variables: Zombie will be in attack mode for a period of time designated as attackInterval; During the attack interval, it will fire bullets at every shoot interval **/
     
-    private var shootInterval = 0.50
-    private var attackInterval = 1.00
-    private var followInterval = 1.00
+    private var shootInterval = 2.00
+    
+    private var attackInterval: Double = 4.00
+    private var followInterval: Double = 4.00
     
     private var lastUpdateTime = 0.00
+    private var lastUpdatedShootingTime = 0.00
     private var frameCount = 0.00
     private var shootingFrameCount = 0.000
     
@@ -126,6 +128,10 @@ class Zombie: Shooter{
         self.currentHealth = startingHealth
         self.xScale *= scale
         self.yScale *= scale
+        
+        self.attackInterval = Double(arc4random_uniform(UInt32(3.00))) + 3.00
+        self.followInterval = Double(arc4random_uniform(UInt32(5.00)))
+        self.shootInterval = Double(arc4random_uniform(UInt32(2.0))) + 1.0
     }
     
     /** Helper function for configuring physics properties during initializaiton  **/
@@ -166,14 +172,19 @@ class Zombie: Shooter{
     
     func updateAnimations(withDeltaTime deltaTime: TimeInterval){
         
+        if(lastUpdateTime == 0){
+            lastUpdateTime = deltaTime;
+        }
+        self.frameCount += deltaTime - lastUpdateTime
 
         switch currentMode {
         case .Latent:
             break
         case .Attack:
-           // print("Zombie is currently in attack mode with framecount of \(frameCount)")
-            self.frameCount += deltaTime
-            self.shootingFrameCount += deltaTime
+           print("Zombie is currently in attack mode with framecount of \(frameCount)")
+           
+         
+            self.shootingFrameCount += frameCount - lastUpdatedShootingTime
 
             if(frameCount > attackInterval){
                 self.currentMode = .Following
@@ -185,20 +196,25 @@ class Zombie: Shooter{
                 shootingFrameCount = 0
             }
             
+            lastUpdatedShootingTime = frameCount
             
         case .Following:
-          //  print("Zombie is currently in following mode with framecount of \(frameCount)")
+          print("Zombie is currently in following mode with framecount of \(frameCount)")
 
-            self.frameCount += deltaTime
-            
+          
+          
             if(frameCount > followInterval){
                 
                 self.currentMode = .Attack
                 
                 self.frameCount = 0.00
             }
+            
    
-        }   
+        }
+        
+        lastUpdateTime = deltaTime
+
         
     }
    
@@ -290,7 +306,7 @@ class Zombie: Shooter{
             SKTexture(image: #imageLiteral(resourceName: "regularExplosion05")),
             SKTexture(image: #imageLiteral(resourceName: "regularExplosion06")),
             SKTexture(image: #imageLiteral(resourceName: "regularExplosion08")),
-            ], timePerFrame: 0.20), completion: {
+            ], timePerFrame: 0.10), completion: {
                 
                 self.removeFromParent()
                 

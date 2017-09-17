@@ -17,7 +17,7 @@ struct ColliderType: OptionSet, Hashable{
     //A dictionary of which ColliderType's should collide with other ColliderType's
     static var definedCollisions: [ColliderType:[ColliderType]] = [
     
-        ColliderType.Player : [ColliderType.Enemy, ColliderType.EnemyBullets, ColliderType.Obstacle],
+        ColliderType.Player : [ColliderType.Enemy, ColliderType.EnemyBullets, ColliderType.Obstacle,ColliderType.Bomb],
         ColliderType.Enemy: [ColliderType.PlayerBullets,ColliderType.Player,ColliderType.Enemy,ColliderType.Obstacle],
         ColliderType.PlayerBullets: [ColliderType.Obstacle,ColliderType.Enemy],
         ColliderType.PlayerProximity: [],
@@ -25,7 +25,8 @@ struct ColliderType: OptionSet, Hashable{
         ColliderType.Collectible: [ColliderType.Obstacle],
         ColliderType.Obstacle: [ColliderType.Collectible,ColliderType.Player,ColliderType.Enemy,ColliderType.PlayerBullets,ColliderType.EnemyBullets],
         ColliderType.NonPlayerCharacter: [],
-        ColliderType.Explosive: []
+        ColliderType.Explosive: [],
+        ColliderType.Bomb: [ColliderType.Player]
     
     ]
     
@@ -34,13 +35,14 @@ struct ColliderType: OptionSet, Hashable{
         
         ColliderType.Player : [ColliderType.Collectible,ColliderType.Explosive,ColliderType.EnemyBullets],
         ColliderType.Enemy: [ColliderType.PlayerProximity,ColliderType.PlayerBullets],
-        ColliderType.PlayerBullets: [ColliderType.Explosive,ColliderType.Enemy,ColliderType.Obstacle],
+        ColliderType.PlayerBullets: [ColliderType.Explosive,ColliderType.Enemy,ColliderType.Obstacle,ColliderType.Bomb],
         ColliderType.PlayerProximity: [ColliderType.Enemy],
         ColliderType.EnemyBullets: [ColliderType.Explosive,ColliderType.Player,ColliderType.Obstacle],
         ColliderType.Collectible: [ColliderType.Player],
         ColliderType.Obstacle: [ColliderType.PlayerBullets],
         ColliderType.Explosive: [ColliderType.PlayerBullets,ColliderType.EnemyBullets,ColliderType.Player],
-        ColliderType.NonPlayerCharacter: [ColliderType.Player]
+        ColliderType.NonPlayerCharacter: [ColliderType.Player],
+        ColliderType.Bomb: [ColliderType.Player,ColliderType.PlayerBullets]
         
     ]
 
@@ -58,6 +60,7 @@ struct ColliderType: OptionSet, Hashable{
     static var EnemyBullets: ColliderType { return self.init(rawValue: 1 << 6)}
     static var NonPlayerCharacter: ColliderType { return self.init(rawValue: 1 << 7)}
     static var Explosive: ColliderType { return self.init(rawValue: 1 << 8)}
+    static var Bomb: ColliderType { return self.init(rawValue: 1 << 9)}
     
     //MARK: Hashable
     

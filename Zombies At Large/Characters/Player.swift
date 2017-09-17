@@ -18,6 +18,7 @@ class Player: Shooter{
     private var numberOfBullets: Int = 30
     
     var updatingBulletCount = false
+    var isTemporarilyInvulnerable = false
     
     override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
         
@@ -194,9 +195,29 @@ class Player: Shooter{
     }
     
     public func takeDamage(){
-        print("Player has taken damage...")
-        self.health -= 1
-        HUDManager.sharedManager.updateHealthCount(withUnits: self.health)
+    
+        if(isTemporarilyInvulnerable) {
+            return
+            
+        } else
+        {
+            self.isTemporarilyInvulnerable = true
+
+        }
+        
+
+        run(SKAction.sequence([
+            SKAction.run {
+                print("Player has taken damage...")
+                self.health -= 1
+                HUDManager.sharedManager.updateHealthCount(withUnits: self.health)
+                
+            },
+            SKAction.wait(forDuration: 0.20)
+            ]), completion: {
+            
+            self.isTemporarilyInvulnerable = false
+        })
         
     }
     
@@ -230,28 +251,7 @@ class Player: Shooter{
     
     
     
-    /** Updates the player proximity node so that it is aligned with player's current position; player proximity node is used to check for nearby zombies; adding it as a child node results in slower performance **/
-    
-    /**
-    public func updatePlayerProximity(){
-        self.playerProximity.position = position
-       
-    }
-    **/
-    
-    /** Helper function that provides access to the player proximity node, which is used by the zombie manager to detect presence of zombies in close proximity to the player **/
-    
-    /**
-    public func getPlayerProximityNode() -> SKShapeNode{
-        
-        return playerProximity
-        
-    }
-    **/
-    
-    //public func checkProximityOf(anotherPoint point: CGPoint) -> Bool{
-     //   return playerProximity.contains(point)
-   // }
+   
     
     public func playSoundForCollectibleContact(){
         run(self.playCollectItemSound)

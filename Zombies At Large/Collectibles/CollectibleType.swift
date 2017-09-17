@@ -37,6 +37,7 @@ enum CollectibleType: Int{
     case RiceBowl2 = 505
     case RedEnvelope1 = 506
     case RedEnvelope2 = 507
+    case Bomb = 510
     
     static let allCollectibleTypes:[CollectibleType] = {
         
@@ -143,6 +144,8 @@ enum CollectibleType: Int{
             return "RiceBowl"
         case .Bullet1,.Bullet2:
             return "Bullet"
+        case .Bomb:
+            return "Bomb"
         default:
             return "Some Collecible Item"
         }

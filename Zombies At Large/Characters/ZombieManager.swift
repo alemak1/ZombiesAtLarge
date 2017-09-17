@@ -65,15 +65,13 @@ class ZombieManager{
     
     func update(withFrameCount currentTime: TimeInterval){
         
-       self.frameCount = currentTime - lastUpdateTime
-        
+
         for zombie in activeZombies {
             
-            zombie.updateAnimations(withDeltaTime: frameCount)
+            zombie.updateAnimations(withDeltaTime: currentTime)
             
         }
         
-        lastUpdateTime = currentTime
     }
     
     /** Helper function that gets an array of all the zombies that are within a given node **/

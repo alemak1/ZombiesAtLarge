@@ -128,6 +128,10 @@ class GameScene: SKScene {
         loadBackground()
         loadHUD()
         
+        let bomb = Bomb(scale: 1.00)
+        bomb.move(toParent: worldNode)
+        bomb.position = CGPoint(x: 150.0, y: 10.0)
+        
        
     }
     
@@ -228,8 +232,8 @@ class GameScene: SKScene {
             dialoguePanelIsShown = true
         }
         
-        zombieManager.update(withFrameCount: frameCount)
-        
+        zombieManager.update(withFrameCount: currentTime)
+
         
         lastUpdateTime = currentTime
         
