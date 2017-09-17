@@ -56,6 +56,7 @@
 		BD78655B1F65483D0071A14F /* ImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78655A1F65483D0071A14F /* ImageContainer.swift */; };
 		BD78655D1F6562DF0071A14F /* Tank.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78655C1F6562DF0071A14F /* Tank.swift */; };
 		BD78655F1F65769C0071A14F /* BarrelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78655E1F65769C0071A14F /* BarrelNode.swift */; };
+		BDAF397E1F6E748400A164C9 /* SafetyZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAF397D1F6E748400A164C9 /* SafetyZone.swift */; };
 		BDB259D41F62CA5100CDB8B9 /* Potion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB259D31F62CA5100CDB8B9 /* Potion.swift */; };
 		BDE1250C1F6390CE0092E561 /* Zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE1250B1F6390CE0092E561 /* Zombie.swift */; };
 		BDE1250E1F639FFA0092E561 /* ZombieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE1250D1F639FFA0092E561 /* ZombieManager.swift */; };
@@ -151,6 +152,7 @@
 		BD78655A1F65483D0071A14F /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
 		BD78655C1F6562DF0071A14F /* Tank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tank.swift; sourceTree = "<group>"; };
 		BD78655E1F65769C0071A14F /* BarrelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrelNode.swift; sourceTree = "<group>"; };
+		BDAF397D1F6E748400A164C9 /* SafetyZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyZone.swift; sourceTree = "<group>"; };
 		BDB259D31F62CA5100CDB8B9 /* Potion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Potion.swift; sourceTree = "<group>"; };
 		BDE1250B1F6390CE0092E561 /* Zombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zombie.swift; sourceTree = "<group>"; };
 		BDE1250D1F639FFA0092E561 /* ZombieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieManager.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				BD395A781F66FF0200684AB9 /* OilCan.swift */,
+				BDAF397D1F6E748400A164C9 /* SafetyZone.swift */,
 			);
 			path = OtherGameObjects;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */,
 				BDE9FB071F66A64A0056B66E /* FilterConfiguration.swift in Sources */,
 				BDE9FB0B1F66B24E0056B66E /* ImageSprite.swift in Sources */,
+				BDAF397E1F6E748400A164C9 /* SafetyZone.swift in Sources */,
 				BDE9FB091F66B12C0056B66E /* ImageFilterObject.swift in Sources */,
 				BD3A51721F693DA800B01850 /* UIPanelGenerator.swift in Sources */,
 				BD3A51661F69122500B01850 /* ImageManager.swift in Sources */,

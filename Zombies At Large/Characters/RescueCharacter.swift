@@ -11,7 +11,10 @@ import SpriteKit
 
 class RescueCharacter: SKSpriteNode{
     
+    var player: Player!
     var nonPlayerCharacterType: NonplayerCharacterType!
+    
+    var hasBeenRescued = false
     
     var compassDirection: CompassDirection!{
         didSet{
@@ -27,14 +30,32 @@ class RescueCharacter: SKSpriteNode{
         }
     }
     
-    convenience init(nonPlayerCharacterType: NonplayerCharacterType) {
+    
+    var constraintsForRescueCharacter: [SKConstraint]?{
+        get{
+            guard self.player != nil else { return nil}
+            
+            let lowerDistanceLimit = CGFloat(100.00)
+            let upperDistanceLimit = CGFloat(150.0)
+            
+            let distanceRange = SKRange(lowerLimit: lowerDistanceLimit, upperLimit: upperDistanceLimit)
+            let distanceConstraint = SKConstraint.distance(distanceRange, to: self.player!.position)
+            
+            let orientationRange = SKRange(lowerLimit: 0.00, upperLimit: 0.00)
+            let orientationConstraint = SKConstraint.orient(to: self.player!.position, offset: orientationRange)
+            
+            return [distanceConstraint,orientationConstraint]
+        }
+    }
+    
+    convenience init(withPlayer player: Player, nonPlayerCharacterType: NonplayerCharacterType) {
       
         
         guard let texture = nonPlayerCharacterType.getTexture() else {
-            fa
+            fatalError("Error: Failed to located the texture for the nonPlayerCharacterType")
         }
         
-        self.init(texture: texture, color: color, size: size)
+        self.init(texture: texture, color: .clear, size: texture.size())
         
         self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
         self.physicsBody?.categoryBitMask = ColliderType.RescueCharacter.categoryMask
@@ -49,6 +70,7 @@ class RescueCharacter: SKSpriteNode{
         
         self.nonPlayerCharacterType = nonPlayerCharacterType
         self.compassDirection = .east
+        self.player = player
     }
     
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
@@ -58,4 +80,21 @@ class RescueCharacter: SKSpriteNode{
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func rescueCharacter(){
+        self.hasBeenRescued = true
+    }
+    
+    func unrescueCharacter(){
+        self.hasBeenRescued = false 
+    }
+    
+    func constrainToPlayer(){
+        
+        if(self.hasBeenRescued){
+            self.constraints = self.constraintsForRescueCharacter
+        }
+        
+    }
+ 
 }

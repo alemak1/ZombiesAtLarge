@@ -26,7 +26,8 @@ struct ColliderType: OptionSet, Hashable{
         ColliderType.Obstacle: [ColliderType.Collectible,ColliderType.Player,ColliderType.Enemy,ColliderType.PlayerBullets,ColliderType.EnemyBullets],
         ColliderType.NonPlayerCharacter: [],
         ColliderType.Explosive: [],
-        ColliderType.Bomb: [ColliderType.Player]
+        ColliderType.Bomb: [ColliderType.Player],
+        ColliderType.RescueCharacter: [ColliderType.EnemyBullets,ColliderType.Obstacle,ColliderType.Player]
         
     
     ]
@@ -43,8 +44,9 @@ struct ColliderType: OptionSet, Hashable{
         ColliderType.Obstacle: [ColliderType.PlayerBullets],
         ColliderType.Explosive: [ColliderType.PlayerBullets,ColliderType.EnemyBullets,ColliderType.Player],
         ColliderType.NonPlayerCharacter: [ColliderType.Player],
-        ColliderType.Bomb: [ColliderType.Player,ColliderType.PlayerBullets]
-        
+        ColliderType.Bomb: [ColliderType.Player,ColliderType.PlayerBullets],
+        ColliderType.RescueCharacter: [ColliderType.Player,ColliderType.PlayerProximity,ColliderType.SafetyZone,ColliderType.EnemyBullets,ColliderType.Collectible],
+        ColliderType.SafetyZone: [ColliderType.RescueCharacter]
     ]
 
     

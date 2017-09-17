@@ -77,9 +77,13 @@ class GameScene: SKScene {
     
     private var buttonsAreLoaded: Bool = false
     
+
     
    var bgNode: SKAudioNode!
+    
     var zombieManager: ZombieManager!
+    
+    var rescueCharacter: RescueCharacter?
 
     var frameCount: TimeInterval = 0.00
     var lastUpdateTime: TimeInterval = 0.00
@@ -93,6 +97,8 @@ class GameScene: SKScene {
         
         NotificationCenter.default.addObserver(self, selector: #selector(incrementZombieKillCount), name: Notification.Name(rawValue: "didKillZombieNotification"), object: nil)
 
+        NotificationCenter.default.addObserver(self, selector: #selector(playerDeathHandler(notification:)), name: Notification.Name(rawValue: "playerDiedNotification"), object: nil)
+
     }
     
     override init(size: CGSize) {
@@ -102,7 +108,6 @@ class GameScene: SKScene {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
   
     
@@ -132,7 +137,9 @@ class GameScene: SKScene {
         bomb.move(toParent: worldNode)
         bomb.position = CGPoint(x: 150.0, y: 10.0)
         
-       
+       self.rescueCharacter = RescueCharacter(withPlayer: self.player, nonPlayerCharacterType: .OldWoman)
+        self.rescueCharacter!.move(toParent: worldNode)
+        self.rescueCharacter!.position = CGPoint(x: 0, y: 400)
     }
     
     
@@ -248,6 +255,10 @@ class GameScene: SKScene {
         overlayNode.position = self.mainCameraNode.position
         
         zombieManager.constrainActiveZombiesToPlayer()
+        
+        if let rescueCharacter = self.rescueCharacter{
+            rescueCharacter.constrainToPlayer()
+        }
 
     }
     
@@ -493,6 +504,7 @@ class GameScene: SKScene {
         
         var randomTileCoord = [(randomRow: Int,randomCol: Int)]()
         
+
         
             for _ in 0..<5{
                 let randomRow = Int(arc4random_uniform(UInt32(woodRows)))
@@ -513,6 +525,17 @@ class GameScene: SKScene {
                 let tileDef = woodFloors.tileDefinition(atColumn: col, row: row)
                 
                 let hasCollectible = tileDef?.userData?["hasCollectible"] as? Bool
+                let hasSafetyZone = tileDef?.userData?["hasSafetyZone"] as? Bool
+
+                if(hasSafetyZone ?? false){
+                    
+                    let safetyZonePos = woodFloors.centerOfTile(atColumn: col, row: row)
+                    
+                    let safetyZone = SafetyZone(safetyZoneType: .Blue, scale: 0.50)
+                    safetyZone.move(toParent: self)
+                    safetyZone.position = safetyZonePos
+                    
+                }
                 
                 if(hasCollectible ?? false){
                     let collectiblePos = woodFloors.centerOfTile(atColumn: col, row: row)
@@ -549,6 +572,14 @@ class GameScene: SKScene {
         
         woodFloorTileMap.move(toParent: self)
         
+    }
+    
+    @objc func playerDeathHandler(notification: Notification?){
+        
+        isPaused = true
+        worldNode.isPaused = true
+        
+        print("Player has died!!")
     }
 
 }

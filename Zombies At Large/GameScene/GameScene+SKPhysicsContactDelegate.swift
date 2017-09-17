@@ -19,11 +19,45 @@ extension GameScene: SKPhysicsContactDelegate{
        handlePlayerContacts(contact: contact)
         handlePlayerProximityContacts(contact: contact)
         handlePlayerBulletContacts(contact: contact)
-        handleEnemyBulletContacts(contact: contact) //TODO: Problem with this function
-
+        handleEnemyBulletContacts(contact: contact) 
+        handleRescueCharacterContacts(contact: contact)
         
     }
     
+    func handleRescueCharacterContacts(contact: SKPhysicsContact){
+        
+        print("Handling rescue character contacts")
+        
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        var nonRescueCharacterBody: SKPhysicsBody
+        var rescueCharacterBody: SKPhysicsBody
+        
+        if(bodyA.categoryBitMask & ColliderType.RescueCharacter.categoryMask == 1){
+            nonRescueCharacterBody = bodyB
+            rescueCharacterBody = bodyA
+        } else {
+            nonRescueCharacterBody = bodyA
+            rescueCharacterBody = bodyB
+        }
+        
+        
+        switch nonRescueCharacterBody.categoryBitMask {
+        case ColliderType.SafetyZone.categoryMask:
+            print("The RESCUE CHARACTER has arrived at the SAFETY ZONE!!!")
+            break
+        case ColliderType.EnemyBullets.categoryMask:
+            print("The RESCUE CHARACTER HAS BEEN HIT BY A ZOMBIE")
+            if let rescueCharacter = rescueCharacterBody.node as? RescueCharacter{
+                rescueCharacter.unrescueCharacter()
+            }
+            break
+        default:
+            print("No logic implemented for collision btwn zombie and entity of this type")
+        }
+        
+    }
     
     func handleZombieContacts(contact: SKPhysicsContact){
         
@@ -126,6 +160,11 @@ extension GameScene: SKPhysicsContactDelegate{
         case ColliderType.Enemy.categoryMask:
             if let zombie = nonplayerProximityPB.node as? Zombie{
                 zombieManager.activateZombie(zombie: zombie)
+            }
+            break
+        case ColliderType.RescueCharacter.categoryMask:
+            if let rescueCharacter = nonplayerProximityPB.node as? RescueCharacter{
+                rescueCharacter.rescueCharacter()
             }
             break
         default:

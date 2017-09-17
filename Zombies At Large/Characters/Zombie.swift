@@ -181,7 +181,6 @@ class Zombie: Shooter{
         case .Latent:
             break
         case .Attack:
-           print("Zombie is currently in attack mode with framecount of \(frameCount)")
            
          
             self.shootingFrameCount += frameCount - lastUpdatedShootingTime
@@ -199,7 +198,6 @@ class Zombie: Shooter{
             lastUpdatedShootingTime = frameCount
             
         case .Following:
-          print("Zombie is currently in following mode with framecount of \(frameCount)")
 
           
           

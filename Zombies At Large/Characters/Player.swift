@@ -14,7 +14,15 @@ class Player: Shooter{
     
     private var playerType: PlayerType
     
-    private var health: Int = 15
+    private var health: Int = 15{
+        didSet{
+            if self.health < 0{
+                let playerDiedNotification = Notification.Name(rawValue: "playerDiedNotification")
+                NotificationCenter.default.post(name: playerDiedNotification, object: nil)
+            }
+        }
+    }
+    
     private var numberOfBullets: Int = 30
     
     var updatingBulletCount = false
