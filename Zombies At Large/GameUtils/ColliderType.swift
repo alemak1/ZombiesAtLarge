@@ -27,6 +27,7 @@ struct ColliderType: OptionSet, Hashable{
         ColliderType.NonPlayerCharacter: [],
         ColliderType.Explosive: [],
         ColliderType.Bomb: [ColliderType.Player]
+        
     
     ]
     
@@ -61,7 +62,9 @@ struct ColliderType: OptionSet, Hashable{
     static var NonPlayerCharacter: ColliderType { return self.init(rawValue: 1 << 7)}
     static var Explosive: ColliderType { return self.init(rawValue: 1 << 8)}
     static var Bomb: ColliderType { return self.init(rawValue: 1 << 9)}
-    
+    static var RescueCharacter: ColliderType { return self.init(rawValue: 1 << 10)}
+    static var RescueCharacterProximity: ColliderType { return self.init(rawValue: 1 << 11)}
+    static var SafetyZone: ColliderType { return self.init(rawValue: 1 << 12)}
     //MARK: Hashable
     
     var hashValue: Int{

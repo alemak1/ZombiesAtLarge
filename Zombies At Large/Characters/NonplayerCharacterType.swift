@@ -28,9 +28,28 @@ enum NonplayerCharacterType{
         
         switch self {
         case .OldWoman:
-            return nil
-        default:
-            return nil
+            return SKTexture(image: #imageLiteral(resourceName: "womanOld_stand"))
+        case .Survivor1:
+            return SKTexture(image: #imageLiteral(resourceName: "survivor1_stand"))
+        case .Survivor2:
+            return SKTexture(image: #imageLiteral(resourceName: "survivor2_stand"))
+        case .RedMan:
+            return SKTexture(image: #imageLiteral(resourceName: "manRed_stand"))
+        case .BlueMan:
+            return SKTexture(image: #imageLiteral(resourceName: "manBlue_stand"))
+        case .BrownMan:
+            return SKTexture(image: #imageLiteral(resourceName: "manBrown_stand"))
+        case .Hitman:
+            return SKTexture(image: #imageLiteral(resourceName: "hitman1_stand"))
+        case .Robot:
+            return SKTexture(image: #imageLiteral(resourceName: "robot1_stand"))
+        case .Zombie1:
+            return SKTexture(image: #imageLiteral(resourceName: "zombie1_stand"))
+        case .Zombie2:
+            return SKTexture(image: #imageLiteral(resourceName: "zombie2_stand"))
+        case .GreenWoman:
+            return SKTexture(image: #imageLiteral(resourceName: "womanGreen_stand"))
+ 
         }
     }
     
