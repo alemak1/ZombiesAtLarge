@@ -12,7 +12,7 @@ import SpriteKit
 class CollectibleManager{
     
     var collectibles = Set<Collectible>()
-    var carryingCapacity: Double = 1000.00
+    var carryingCapacity: Double = 3000.00
     
     
     init(){

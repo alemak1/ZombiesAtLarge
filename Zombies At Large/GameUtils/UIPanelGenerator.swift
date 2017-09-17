@@ -11,6 +11,47 @@ import SpriteKit
 
 class UIPanelGenerator{
     
+    
+    
+    static func GetGameWinPrompt(withText1 text1: String, andWithText2 text2: String) -> SKSpriteNode?{
+        
+        guard let gameWinPrompt = SKScene(fileNamed: "user_interface")?.childNode(withName: "GameWinPrompt") else {
+            fatalError("Error: failed to load GameOverPrompt")
+        }
+        
+        if let textLabel1 = gameWinPrompt.childNode(withName: "text1") as? SKLabelNode{
+            textLabel1.text = text1
+        }
+        
+        if let textLabel2 = gameWinPrompt.childNode(withName: "text2") as? SKLabelNode{
+            textLabel2.text = text2
+        }
+        
+        return gameWinPrompt as? SKSpriteNode
+        
+    }
+    
+    
+    
+    static func GetGameOverPrompt(withText1 text1: String, andWithText2 text2: String) -> SKSpriteNode?{
+    
+        guard let gameOverPrompt = SKScene(fileNamed: "user_interface")?.childNode(withName: "GameOverPrompt") else {
+            fatalError("Error: failed to load GameOverPrompt")
+        }
+        
+        if let textLabel1 = gameOverPrompt.childNode(withName: "text1") as? SKLabelNode{
+            textLabel1.text = text1
+        }
+        
+        if let textLabel2 = gameOverPrompt.childNode(withName: "text2") as? SKLabelNode{
+            textLabel2.text = text2
+        }
+        
+        return gameOverPrompt as? SKSpriteNode
+        
+    }
+    
+    
     static func GetMenuOptionsPanel() -> SKNode{
         
         guard let menuOptionsPanel = SKScene(fileNamed: "user_interface")?.childNode(withName: "OptionsMenu") else {

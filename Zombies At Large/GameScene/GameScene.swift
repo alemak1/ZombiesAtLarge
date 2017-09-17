@@ -35,6 +35,11 @@ class GameScene: SKScene {
     
     var zombiesKilled: Int = 0
     
+    /** Cached Sound Files **/
+    
+    var playMissionFailedSound: SKAction = SKAction.playSoundFileNamed("missionFailed", waitForCompletion: false)
+    
+    var playMissionAccomplishedSound: SKAction = SKAction.playSoundFileNamed("missionAccomplished", waitForCompletion: true)
     
     /** Node Layers **/
     
@@ -137,6 +142,10 @@ class GameScene: SKScene {
         bomb.move(toParent: worldNode)
         bomb.position = CGPoint(x: 150.0, y: 10.0)
         
+        let powerDrill = CollectibleType.PowerDrill.getCollectibleSprite()
+        powerDrill.move(toParent: worldNode)
+        powerDrill.position = CGPoint(x: 200.00, y: 50.0)
+        
        self.rescueCharacter = RescueCharacter(withPlayer: self.player, nonPlayerCharacterType: .OldWoman)
         self.rescueCharacter!.move(toParent: worldNode)
         self.rescueCharacter!.position = CGPoint(x: 0, y: 400)
@@ -219,6 +228,14 @@ class GameScene: SKScene {
     
         frameCount = currentTime - lastUpdateTime;
         
+        
+        if let winCondition = getWinConditionTest(),winCondition(){
+            
+            print("Testing if player has enough metal content to win...")
+            
+            playerWinHandler()
+            
+        }
         
         if(self.zombiesKilled > 5 && !dialoguePanelIsShown){
             print("You killed over 5 zombies")
@@ -576,15 +593,63 @@ class GameScene: SKScene {
     
     @objc func playerDeathHandler(notification: Notification?){
         
-        isPaused = true
-        worldNode.isPaused = true
+        run(SKAction.run {
+            
+            self.showGameOverPrompt(withText1: "Health Level is too low", andWithText2: "Want to try again?")
+
+        }, completion: {
+            
+            self.run(self.playMissionFailedSound)
+        })
         
         print("Player has died!!")
+    }
+    
+    func playerWinHandler(){
+        run(SKAction.run {
+            
+            self.showGameWinPrompt(withText1: "Nice Job!", andWithText2: "Ready for more?")
+            
+            }, completion: {
+                
+                self.run(self.playMissionAccomplishedSound)
+        })
     }
 
 }
 
 extension GameScene{
+    
+    
+    public func showGameWinPrompt(withText1 text1: String, andWithText2 text2: String){
+        
+        if let gameWinPrompt = UIPanelGenerator.GetGameWinPrompt(withText1: text1, andWithText2: text2){
+            
+            gameWinPrompt.move(toParent: overlayNode)
+            gameWinPrompt.position = CGPoint.zero
+            
+            isPaused = true
+            worldNode.isPaused = true
+            
+        } else {
+            print("Error: Failed to load the mission completed prompt")
+        }
+    }
+    
+    public func showGameOverPrompt(withText1 text1: String, andWithText2 text2: String){
+        
+        if let gameOverPrompt = UIPanelGenerator.GetGameOverPrompt(withText1: text1, andWithText2: text2){
+            
+            gameOverPrompt.move(toParent: overlayNode)
+            gameOverPrompt.position = CGPoint.zero
+            
+            isPaused = true
+            worldNode.isPaused = true
+            
+        } else {
+            print("Error: Failed to load the mission failed prompt")
+        }
+    }
     
     public func showInventorySummaryForPlayer(atPosition position: CGPoint){
         
@@ -607,6 +672,21 @@ extension GameScene{
     
 }
 
+
+extension GameScene{
+    
+    func getWinConditionTest() -> (() -> Bool)?{
+        
+        switch self.currentGameLevel! {
+        case .Level1:
+            return { return self.player.collectibleManager.getTotalMetalContent() > 200 }
+        default:
+            print("No win condition available for this level ")
+        }
+        
+        return nil
+    }
+}
 
 
         /**
