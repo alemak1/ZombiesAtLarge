@@ -214,6 +214,21 @@ extension GameScene: SKPhysicsContactDelegate{
                 rescueCharacter.rescueCharacter()
             }
             break
+        case ColliderType.NonPlayerCharacter.categoryMask:
+            if let npc = nonplayerProximityPB.node as? SKSpriteNode{
+                if npc.name == "Trader"{
+                    showMerchantPrompt()
+                }
+                
+                if npc.name == "CameraZombie"{
+                    
+                }
+                
+                if npc.name == "Cartographer"{
+                    
+                }
+            }
+            break
         default:
             break
         }

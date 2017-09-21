@@ -11,6 +11,26 @@ import SpriteKit
 
 class UIPanelGenerator{
     
+    static func GetCameraZombiePrompt() -> SKSpriteNode?{
+        
+        guard let cameraZombiePrompt = SKScene(fileNamed: "user_interface")?.childNode(withName: "CameraPrompt") else {
+            fatalError("Error: failed to load GameOverPrompt")
+        }
+        
+        return cameraZombiePrompt as? SKSpriteNode
+        
+    }
+    
+    
+    static func GetTraderPrompt() -> SKSpriteNode?{
+        
+        guard let traderPrompt = SKScene(fileNamed: "user_interface")?.childNode(withName: "MerchantPrompt") else {
+            fatalError("Error: failed to load GameOverPrompt")
+        }
+       
+        return traderPrompt as? SKSpriteNode
+        
+    }
     
     
     static func GetGameWinPrompt(withText1 text1: String, andWithText2 text2: String) -> SKSpriteNode?{

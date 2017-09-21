@@ -504,60 +504,6 @@ class GameScene: SKScene {
 
 }
 
-extension GameScene{
-    
-    
-    public func showGameWinPrompt(withText1 text1: String, andWithText2 text2: String){
-        
-        if let gameWinPrompt = UIPanelGenerator.GetGameWinPrompt(withText1: text1, andWithText2: text2){
-            
-            gameWinPrompt.move(toParent: overlayNode)
-            gameWinPrompt.position = CGPoint.zero
-            
-            isPaused = true
-            worldNode.isPaused = true
-            
-        } else {
-            print("Error: Failed to load the mission completed prompt")
-        }
-    }
-    
-    public func showGameOverPrompt(withText1 text1: String, andWithText2 text2: String){
-        
-        if let gameOverPrompt = UIPanelGenerator.GetGameOverPrompt(withText1: text1, andWithText2: text2){
-            
-            gameOverPrompt.move(toParent: overlayNode)
-            gameOverPrompt.position = CGPoint.zero
-            
-            isPaused = true
-            worldNode.isPaused = true
-            
-        } else {
-            print("Error: Failed to load the mission failed prompt")
-        }
-    }
-    
-    public func showInventorySummaryForPlayer(atPosition position: CGPoint){
-        
-        let uniqueItems = player.collectibleManager.getTotalNumberOfUniqueItems()
-        let totalItems = player.collectibleManager.getTotalNumberOfAllItems()
-        let totalMass = player.collectibleManager.getTotalMassOfAllCollectibles()
-        let totalMonetaryValue = player.collectibleManager.getTotalMonetaryValueOfAllCollectibles()
-        let carryingCapacity = player.collectibleManager.getTotalCarryingCapacity()
-        let totalMetalContent = player.collectibleManager.getTotalMetalContent()
-        
-        guard let inventorySummaryNode = UIPanelGenerator.GetInventorySummaryNode(withTotalUniqueItems: uniqueItems, withTotalItems: totalItems, withTotalMass: totalMass, withTotalMetalContent: totalMetalContent, withMonetaryValue: totalMonetaryValue, withCarryingCapacity: carryingCapacity) else { return }
-        
-        inventorySummaryNode.position = position
-        inventorySummaryNode.zPosition = 30
-        
-        inventorySummaryNode.move(toParent: overlayNode)
-        
-        
-    }
-    
-}
-
 
 
         /**
