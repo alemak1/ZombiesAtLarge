@@ -119,7 +119,6 @@ class ZombieManager{
         
         for zombie in self.dynamicZombies{
             
-            print("Updating dynamic zombies...")
             
             zombie.updateMovement(forTime: currentTime)
             

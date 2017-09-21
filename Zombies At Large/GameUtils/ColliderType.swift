@@ -37,7 +37,7 @@ struct ColliderType: OptionSet, Hashable{
     static var requestedContactNotifications: [ColliderType:[ColliderType]] =  [
         
         ColliderType.Player : [ColliderType.Collectible,ColliderType.Explosive,ColliderType.EnemyBullets],
-        ColliderType.Enemy: [ColliderType.PlayerProximity,ColliderType.PlayerBullets,ColliderType.SpecialBullets,ColliderType.Bystander],
+        ColliderType.Enemy: [ColliderType.PlayerProximity,ColliderType.PlayerBullets,ColliderType.SpecialBullets,ColliderType.Bystander,ColliderType.Obstacle],
         ColliderType.SpecialBullets: [ColliderType.Enemy],
         ColliderType.PlayerBullets: [ColliderType.Explosive,ColliderType.Enemy,ColliderType.Obstacle,ColliderType.Bomb],
         ColliderType.PlayerProximity: [ColliderType.Enemy],

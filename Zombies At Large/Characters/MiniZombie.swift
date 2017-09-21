@@ -51,7 +51,7 @@ class MiniZombie: Zombie, Updateable{
         
         configurePhysicsProperties(withTexture: defaultTexture, andWithSize: defaultTexture.size())
         
-        self.physicsBody?.isDynamic = false
+        self.physicsBody?.allowsRotation = false
         
         self.zombieType = zombieType
         self.currentHealth = startingHealth
@@ -65,8 +65,6 @@ class MiniZombie: Zombie, Updateable{
     
     func updateMovement(forTime currentTime: TimeInterval){
         
-        print("Updating movements for mini zombie...")
-        
         if(lastImpulseUpdateTime == 0){
             
             lastImpulseUpdateTime = currentTime;
@@ -74,26 +72,17 @@ class MiniZombie: Zombie, Updateable{
         }
     
         impulseFrameCount += currentTime - lastImpulseUpdateTime
-        
-        if hasDirectionChangeEnabled{
-            
-            directionChangeFrameCount += currentTime - lastImpulseUpdateTime
-
-            if(directionChangeFrameCount > directionChangeInterval){
-                print("GETTING RANDOM COMPASS DIRECTION...")
-                
-                compassDirection = CompassDirection.GetRandomDirection()
-                
-                directionChangeFrameCount = 0.00
-            }
-            
-            
-        }
-        
-        
+       
         if(impulseFrameCount > impulseInterval){
             
-            print("Applying impulse to mini zombie...")
+    
+            if hasDirectionChangeEnabled{
+                print("Getting random compass direction")
+                compassDirection = CompassDirection.GetRandomDirection()
+                print("Getting random compass direction...\(compassDirection)")
+
+    
+            }
             
             let xImpulse = appliedUnitVector.dx
             let yImpulse = appliedUnitVector.dy

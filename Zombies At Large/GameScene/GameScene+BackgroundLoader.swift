@@ -19,6 +19,16 @@ extension GameScene{
             loadBgLevel1()
             break
         case .Level2:
+            loadBgLevel2()
+            break
+        case .Level3:
+            loadBgLevel3()
+            break
+        case .Level4:
+            loadBgLevel4()
+            break
+        case .Level5:
+            loadBgLevel5()
             break
         default:
             break
@@ -30,6 +40,22 @@ extension GameScene{
         addGrassBackgrounds()
         addBlackCorridors()
         addWoodfloors()
+        
+    }
+    
+    func loadBgLevel2(){
+        
+    }
+    
+    func loadBgLevel3(){
+        
+    }
+    
+    func loadBgLevel4(){
+        
+    }
+    
+    func loadBgLevel5(){
         
     }
     

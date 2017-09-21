@@ -16,13 +16,13 @@ extension GameScene: SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
         
+        handleObstacleContacts(contact: contact)
         handleSafetyZoneContacts(contact: contact)
        handlePlayerContacts(contact: contact)
         handlePlayerProximityContacts(contact: contact)
         handlePlayerBulletContacts(contact: contact)
         handleEnemyBulletContacts(contact: contact) 
         handleRescueCharacterContacts(contact: contact)
-        handleObstacleContacts(contact: contact)
 
         
     }
@@ -57,14 +57,14 @@ extension GameScene: SKPhysicsContactDelegate{
             }
             break
         default:
-            print("No logic implemented for collision btwn rescue character and entity of this type")
+            break
         }
         
     }
     
     func handleObstacleContacts(contact: SKPhysicsContact){
         
-        print("Handling the zombie contacts")
+        print("Handling the obstacle contacts")
         
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
@@ -84,13 +84,16 @@ extension GameScene: SKPhysicsContactDelegate{
         switch nonObstacleBody.categoryBitMask {
             
         case ColliderType.Enemy.rawValue:
-            print("Zombie has contacted a wall")
+            print("Obstacle has contacted a zombie")
             if let minizombie = nonObstacleBody.node as? MiniZombie{
+                
+                print("Adjusting the zombie's direction")
+
                 minizombie.adjustDirectionOnContact()
             }
             break
         default:
-            print("No logic implemented for collision btwn obstacle and entity of this type")
+            break
         }
     }
     
@@ -119,6 +122,7 @@ extension GameScene: SKPhysicsContactDelegate{
             case ColliderType.Obstacle.rawValue:
                 print("Zombie has contacted a wall")
                 if let minizombie = zombieBody.node as? MiniZombie{
+                    print("Adjusting the zombie's direction")
                     minizombie.adjustDirectionOnContact()
                 }
             break
@@ -129,7 +133,7 @@ extension GameScene: SKPhysicsContactDelegate{
                 print("The zombie has contacted the player proximitiy zone")
                 break
             default:
-                print("No logic implemented for collision btwn zombie and entity of this type")
+                break
         }
     }
     
@@ -177,7 +181,7 @@ extension GameScene: SKPhysicsContactDelegate{
             }
             break
         default:
-            print("No contact logic implemented between player and entity of this type")
+            break
         }
         
     }
@@ -324,7 +328,7 @@ extension GameScene: SKPhysicsContactDelegate{
             }
             break
         default:
-            print("Failed to process player contact with entity: No contact logic implemented for contact between player and this entity")
+            break
         }
     }
     
@@ -364,7 +368,7 @@ extension GameScene: SKPhysicsContactDelegate{
             }
             break
         default:
-            print("Failed to process player contact with entity: No contact logic implemented for contact between player and this entity")
+            break
         }
     }
     
@@ -398,7 +402,7 @@ extension GameScene: SKPhysicsContactDelegate{
 
             break
         default:
-            print("No logic implemented for collision btwn zombie and entity of this type")
+            break
         }
         
     }
