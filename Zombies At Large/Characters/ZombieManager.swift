@@ -11,6 +11,12 @@ import SpriteKit
 
 class ZombieManager{
     
+    var miniZombies = [MiniZombie]()
+    var giantZombies = [GiantZombie]()
+    var camouflageZombies = [CamouflageZombie]()
+
+    var dynamicZombies = [Updateable]()
+    
     var latentZombies = [Zombie]()
     var activeZombies = [Zombie]()
     
@@ -49,6 +55,45 @@ class ZombieManager{
         
     }
     
+    
+    func addSpecialZombie(zombie: Zombie){
+        
+        switch zombie.self {
+        case is GiantZombie:
+            print("Adding a giant zombie")
+            self.giantZombies.append(zombie as! GiantZombie)
+            break
+        case is MiniZombie:
+            print("Adding a mini zombie")
+            self.miniZombies.append(zombie as! MiniZombie)
+            break
+        case is CamouflageZombie:
+            print("Adding a camouflage zombie")
+            self.camouflageZombies.append(zombie as! CamouflageZombie)
+            break
+        default:
+            print("")
+        }
+    }
+    
+  
+    func addCamouflageZombie(zombie: CamouflageZombie){
+        self.camouflageZombies.append(zombie)
+    }
+    
+    func addMiniZombie(zombie: MiniZombie){
+        self.miniZombies.append(zombie)
+    }
+    
+    
+    func addGiantZombie(zombie: GiantZombie){
+        self.giantZombies.append(zombie)
+    }
+    
+    func addDynamicZombie(zombie: Updateable){
+        self.dynamicZombies.append(zombie)
+    }
+    
     /** Activates a given zombies and adds it to the list of currently active zombies **/
     
     func activateZombie(zombie: Zombie){
@@ -66,11 +111,21 @@ class ZombieManager{
     func update(withFrameCount currentTime: TimeInterval){
         
 
-        for zombie in activeZombies {
+        for zombie in self.activeZombies {
             
             zombie.updateAnimations(withDeltaTime: currentTime)
             
         }
+        
+        for zombie in self.dynamicZombies{
+            
+            print("Updating dynamic zombies...")
+            
+            zombie.updateMovement(forTime: currentTime)
+            
+        }
+        
+   
         
     }
     

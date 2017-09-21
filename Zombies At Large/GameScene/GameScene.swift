@@ -17,23 +17,36 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    var player: Player!
+    var playerProximity: SKShapeNode!
+    
     
     /** Current Level **/
     
     var currentGameLevel: GameLevel!
     
-    lazy var requiredCollectibles: [CollectibleSprite] = {
-        
-        var requiredCollectibles = [CollectibleSprite]()
+    var requiredCollectibles: Set<CollectibleSprite> = []
 
-        return requiredCollectibles
-        
-    }()
+    var numberOfRequiredCollectibles: Int{
+        return requiredCollectibles.count
+    }
     
-    var player: Player!
-    var playerProximity: SKShapeNode!
+   
+    var unrescuedCharacters: Set<RescueCharacter> = []
+    
+    var numberOfUnrescuedCharacters: Int{
+        return unrescuedCharacters.count
+    }
+    
+    var mustKillZombies: Set<Zombie> = []
+    
+    var numberOfMustKillZombies: Int{
+        return mustKillZombies.count
+    }
     
     var zombiesKilled: Int = 0
+    
+    var destinationZone: SKSpriteNode?
     
     /** Cached Sound Files **/
     
@@ -43,6 +56,7 @@ class GameScene: SKScene {
     
     /** Node Layers **/
     
+    var backgroundNode: SKNode!
     var overlayNode: SKNode!
     var worldNode: SKNode!
     var mainCameraNode: SKCameraNode!
@@ -95,11 +109,34 @@ class GameScene: SKScene {
     
     var dialoguePanelIsShown: Bool = false
     
+    var progressView: UIProgressView!
+    
+    var currentProgress: Float{
+        
+        return Float(currentProgressUnits/totalProgressUnits)
+        
+    }
+    
+    var currentProgressUnits: Int = 0{
+        didSet{
+            
+            if progressView != nil{
+                progressView.setProgress(self.currentProgress, animated: true)
+            }
+        }
+    }
+    
+    var totalProgressUnits: Int{
+        return 10
+    }
+    
     /** ***************  GameScene Initializers **/
-    convenience init(currentGameLevel: GameLevel) {
+    convenience init(currentGameLevel: GameLevel, progressView: UIProgressView) {
         self.init(size: UIScreen.main.bounds.size)
         self.currentGameLevel = currentGameLevel
-        
+        self.progressView = progressView
+        self.currentProgressUnits = 0
+
         NotificationCenter.default.addObserver(self, selector: #selector(incrementZombieKillCount), name: Notification.Name(rawValue: "didKillZombieNotification"), object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(playerDeathHandler(notification:)), name: Notification.Name(rawValue: "playerDiedNotification"), object: nil)
@@ -107,6 +144,7 @@ class GameScene: SKScene {
     }
     
     override init(size: CGSize) {
+        
         super.init(size: size)
     }
     
@@ -118,37 +156,96 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
        
+        self.currentProgressUnits = 0
+        
         initializeBasicNodeLayers()
+
+        self.currentProgressUnits += 1
 
         loadMissionPanel()
         
+        self.currentProgressUnits += 1
+
+
         loadPlayer()
+        
+        self.currentProgressUnits += 1
+
+
         initializePlayerProximity()
+        
+        self.currentProgressUnits += 1
+
+
      
         self.mainCameraNode = SKCameraNode()
         self.camera = mainCameraNode
         
+        self.currentProgressUnits += 1
+
+        
         zombieManager = ZombieManager(withPlayer: player, andWithLatentZombies: [])
         
+        self.currentProgressUnits += 1
+
         let xPosControls = UIScreen.main.bounds.width*0.3
         let yPosControls = -UIScreen.main.bounds.height*0.3
         
         loadFireButton()
+
+        self.currentProgressUnits += 1
+
         loadControls(atPosition: CGPoint(x: xPosControls, y: yPosControls))
+        
+        self.currentProgressUnits += 1
+
+
         loadBackground()
+        
+        self.currentProgressUnits += 1
+
+
         loadHUD()
+        
+        self.currentProgressUnits += 1
+
+
         
         let bomb = Bomb(scale: 1.00)
         bomb.move(toParent: worldNode)
         bomb.position = CGPoint(x: 150.0, y: 10.0)
         
-        let powerDrill = CollectibleType.PowerDrill.getCollectibleSprite()
-        powerDrill.move(toParent: worldNode)
-        powerDrill.position = CGPoint(x: 200.00, y: 50.0)
-        
-       self.rescueCharacter = RescueCharacter(withPlayer: self.player, nonPlayerCharacterType: .OldWoman)
+        let safetyZone = SafetyZone(safetyZoneType: .Green, scale: 0.50)
+        safetyZone.move(toParent: worldNode)
+        safetyZone.position = CGPoint(x: -100, y: -100)
+        safetyZone.zPosition = 30
+
+        self.rescueCharacter = RescueCharacter(withPlayer: self.player, nonPlayerCharacterType: .OldWoman)
         self.rescueCharacter!.move(toParent: worldNode)
-        self.rescueCharacter!.position = CGPoint(x: 0, y: 400)
+        self.rescueCharacter!.position = CGPoint(x: 800, y: 200)
+        unrescuedCharacters.insert(self.rescueCharacter!)
+        print("The unrescued character count is \(unrescuedCharacters.count)")
+        
+        self.progressView.isHidden = true
+        
+        
+        let miniZombie = MiniZombie(zombieType: .zombie2, scale: 1.00, startingHealth: 3, hasDirectionChangeEnabled: true)
+        miniZombie.move(toParent: worldNode)
+        miniZombie.position = CGPoint(x: 100.0, y: 200.00)
+        zombieManager.addDynamicZombie(zombie: miniZombie)
+
+        let miniZombie2 = MiniZombie(zombieType: .zombie1, scale: 1.00, startingHealth: 1, hasDirectionChangeEnabled: true)
+        miniZombie2.move(toParent: worldNode)
+        miniZombie2.position = CGPoint(x: 100.0, y: 250.00)
+        zombieManager.addDynamicZombie(zombie: miniZombie2)
+
+        
+        let miniZombie3 = MiniZombie(zombieType: .zombie1, scale: 1.00, startingHealth: 1, hasDirectionChangeEnabled: true)
+        miniZombie3.move(toParent: worldNode)
+        miniZombie3.position = CGPoint(x: -100.0, y: 250.00)
+        zombieManager.addDynamicZombie(zombie: miniZombie3)
+        
+    
     }
     
     
@@ -160,6 +257,10 @@ class GameScene: SKScene {
         
         self.backgroundColor = SKColor.cyan
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        self.backgroundNode = SKNode()
+        self.addChild(backgroundNode)
+        
         self.overlayNode = SKNode()
         self.overlayNode.zPosition = 20
         self.overlayNode.position = CGPoint(x: 0.00, y: 0.00)
@@ -237,6 +338,7 @@ class GameScene: SKScene {
             
         }
         
+        /**
         if(self.zombiesKilled > 5 && !dialoguePanelIsShown){
             print("You killed over 5 zombies")
             
@@ -255,6 +357,7 @@ class GameScene: SKScene {
             
             dialoguePanelIsShown = true
         }
+        **/
         
         zombieManager.update(withFrameCount: currentTime)
 
@@ -287,13 +390,15 @@ class GameScene: SKScene {
     func initializePlayerProximity(){
         
         playerProximity = SKShapeNode(circleOfRadius: 10.0)
-        worldNode.addChild(playerProximity)
+        playerProximity.strokeColor = .clear
         
+        worldNode.addChild(playerProximity)
+
         playerProximity.position = self.position
         playerProximity.name = "playerProximity"
         
         
-        let playerProximityPB = SKPhysicsBody(circleOfRadius: 200.0)
+        let playerProximityPB = SKPhysicsBody(circleOfRadius: 100.0)
         playerProximityPB.affectedByGravity = false
         playerProximityPB.linearDamping = 0.00
         playerProximityPB.isDynamic = false
@@ -370,226 +475,7 @@ class GameScene: SKScene {
         buttonsAreLoaded = true
     }
     
-    func loadBackground(){
-        
-        
-        guard let grass = SKScene(fileNamed: "backgrounds")?.childNode(withName: "grass") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        
-        let grassRows = grass.numberOfRows
-        let grassCols = grass.numberOfColumns
-        
-        for row in 1...grassRows{
-            for col in 1...grassCols{
-                
-                let tileDef = grass.tileDefinition(atColumn: col, row: row)
-                
-                let hasZombie = tileDef?.userData?["hasZombie"] as? Bool
-                let hasRedEnvelope = tileDef?.userData?["hasRedEnvelope"] as? Bool
-                let hasBullet = tileDef?.userData?["hasBullet"] as? Bool
-                let hasRiceBowl = tileDef?.userData?["hasRiceBowl"] as? Bool
-                
-                
-                if(hasRedEnvelope ?? false){
-                    print("Adding a red envelope to the scene")
-
-                    let redEnvelopePos = grass.centerOfTile(atColumn: col, row: row)
-                    
-                    let redEnvelope = RedEnvelope(monetaryValue: nil)
-                    redEnvelope.move(toParent: worldNode)
-                    redEnvelope.position = redEnvelopePos
-
-
-                }
-                
-                if(hasBullet ?? false){
-                    print("Adding a bullet to the scene")
-                    
-                    let bulletPos = grass.centerOfTile(atColumn: col, row: row)
-                    
-                    let bullet = Bullet(numberOfBullets: 1)
-                    bullet.move(toParent: worldNode)
-                    bullet.position = bulletPos
-
-                    
-                }
-                
-                
-                if(hasRiceBowl ?? false){
-                    print("Adding a rice bowl to the scene")
-
-                    let riceBowlPos = grass.centerOfTile(atColumn: col, row: row)
-                    
-                    let riceBowl = RiceBowl(healthValue: 2)
-                    riceBowl.move(toParent: worldNode)
-                    riceBowl.position = riceBowlPos
-
-
-                }
-                
-                if(hasZombie ?? false){
-                    let zombiePos = grass.centerOfTile(atColumn: col, row: row)
-                    
-                    let newZombie = Zombie(zombieType: .zombie1)
-                    newZombie.position = zombiePos
-                    newZombie.move(toParent: worldNode)
-                    zombieManager.addLatentZombie(zombie: newZombie)
-                    
-                }
-                
-                
-            }
-        }
-        
-        grassTileMap = grass
-        
-        grassTileMap.position = CGPoint(x: 0.00, y: 0.00)
-        
-        grassTileMap.move(toParent: self)
- 
-        
-        
-        guard let blackCorridors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "blackcorridors") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        
-       
-    
-        
-        for row in 0...blackCorridors.numberOfRows{
-            for col in 0...blackCorridors.numberOfColumns{
-                
-                let tileDef = blackCorridors.tileDefinition(atColumn: col, row: row)
-                
-                let hasPhysicsBody = tileDef?.userData?["hasPB"] as? Bool
-                
-                
-                if(hasPhysicsBody ?? false){
-                
-
-                    let tileHeight = blackCorridors.tileSize.height
-                    let tileWidth = blackCorridors.tileSize.width
-                
-                    let tileCenter = blackCorridors.centerOfTile(atColumn: col, row: row)
-                    let tileSize = CGSize(width: tileWidth*1, height: tileHeight*1)
-                    let cgRect = CGRect(x: tileCenter.x - tileWidth/2.0, y: tileCenter.y - tileHeight/2.0, width: tileWidth, height: tileHeight)
-                    let pbNode = SKShapeNode(rect: cgRect)
-                    pbNode.strokeColor = .clear
-                    
-                    let tilePB = SKPhysicsBody(rectangleOf: tileSize, center: tileCenter)
-                    
-                    tilePB.categoryBitMask = ColliderType.Obstacle.categoryMask
-                    tilePB.collisionBitMask = ColliderType.Obstacle.collisionMask
-                    tilePB.contactTestBitMask = ColliderType.Obstacle.contactMask
-                    tilePB.isDynamic = false
-                    tilePB.allowsRotation = false
-                    tilePB.affectedByGravity = false
-                    pbNode.physicsBody = tilePB
-                    
-                    blackCorridors.addChild(pbNode)
-                
-                    
-                
-                }
-            }
-        }
-        
-        
-        blackCorridorTileMap = blackCorridors
-
-        blackCorridorTileMap.position = CGPoint(x: 0.00, y: 0.00)
-        
-        
-       blackCorridorTileMap.move(toParent: self)
-        
-        guard let woodFloors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "woodfloor") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        woodFloors.position = CGPoint(x: 0.00, y: 0.00)
-        
-        
-        
-        let woodRows = woodFloors.numberOfRows
-        let woodCols = woodFloors.numberOfColumns
-        
-        var randomTileCoord = [(randomRow: Int,randomCol: Int)]()
-        
-
-        
-            for _ in 0..<5{
-                let randomRow = Int(arc4random_uniform(UInt32(woodRows)))
-                let randomCol = Int(arc4random_uniform(UInt32(woodCols)))
-                
-                randomTileCoord.append((randomRow: randomRow,randomCol: randomCol))
-                
-            }
-        
-        
-      
-        
-        
-        
-        for row in 1...woodRows{
-            for col in 1...woodCols{
-                
-                let tileDef = woodFloors.tileDefinition(atColumn: col, row: row)
-                
-                let hasCollectible = tileDef?.userData?["hasCollectible"] as? Bool
-                let hasSafetyZone = tileDef?.userData?["hasSafetyZone"] as? Bool
-
-                if(hasSafetyZone ?? false){
-                    
-                    let safetyZonePos = woodFloors.centerOfTile(atColumn: col, row: row)
-                    
-                    let safetyZone = SafetyZone(safetyZoneType: .Blue, scale: 0.50)
-                    safetyZone.move(toParent: self)
-                    safetyZone.position = safetyZonePos
-                    
-                }
-                
-                if(hasCollectible ?? false){
-                    let collectiblePos = woodFloors.centerOfTile(atColumn: col, row: row)
-                    
-                    let randomCollectibleType = CollectibleType.getRandomCollectibleType()
-                    
-                    let randomCollectibleSprite = CollectibleSprite(collectibleType: randomCollectibleType, scale: 0.50)
-                    
-                    randomCollectibleSprite.position = collectiblePos
-                    randomCollectibleSprite.zPosition = 10
-                    randomCollectibleSprite.move(toParent: self)
-                    
-                    for randomCoord in randomTileCoord{
-                        if randomCoord.randomRow == row && randomCoord.randomCol == col{
-                            
-                            let microscope = CollectibleSprite(collectibleType: .Microscope)
-                            
-                            microscope.position = collectiblePos
-                            microscope.zPosition = 10
-                            microscope.move(toParent: self)
-                            
-                            requiredCollectibles.append(microscope)
-                            
-                            
-                        }
-                    }
-                }
-                
-                
-            }
-        }
-        
-        woodFloorTileMap = woodFloors
-        
-        woodFloorTileMap.move(toParent: self)
-        
-    }
+   
     
     @objc func playerDeathHandler(notification: Notification?){
         
@@ -672,21 +558,6 @@ extension GameScene{
     
 }
 
-
-extension GameScene{
-    
-    func getWinConditionTest() -> (() -> Bool)?{
-        
-        switch self.currentGameLevel! {
-        case .Level1:
-            return { return self.player.collectibleManager.getTotalMetalContent() > 200 }
-        default:
-            print("No win condition available for this level ")
-        }
-        
-        return nil
-    }
-}
 
 
         /**

@@ -28,7 +28,7 @@ enum CollectibleType: Int{
     case FlaskRed = 107
     case FlaskGreen = 108
     case Camera = 200
-    case Microscope = 400
+    case Microscope = 111
     case CompassPointB = 500
     case CompassPointD = 501
     case Bullet1 = 502
@@ -45,7 +45,11 @@ enum CollectibleType: Int{
         
         var collectibleTypeArray = [CollectibleType]()
         
-        for rawValue in 1...111{
+        for rawValue in 1...115{
+            
+            if rawValue == 111{
+                break
+            }
             
             if let anotherCollectibleType = CollectibleType(rawValue: rawValue){
                 

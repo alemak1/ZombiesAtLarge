@@ -14,6 +14,7 @@ class Player: Shooter{
     
     private var playerType: PlayerType
     
+    
     private var health: Int = 15{
         didSet{
             if self.health < 0{
@@ -25,6 +26,8 @@ class Player: Shooter{
     
     private var numberOfBullets: Int = 30
     
+    var hasSpecialBullets = false
+    
     var updatingBulletCount = false
     var isTemporarilyInvulnerable = false
     
@@ -32,13 +35,26 @@ class Player: Shooter{
         
         return {(bulletPB: inout SKPhysicsBody) in
             
-            bulletPB.categoryBitMask = ColliderType.PlayerBullets.categoryMask
-            bulletPB.collisionBitMask = ColliderType.PlayerBullets.collisionMask
-            bulletPB.contactTestBitMask = ColliderType.PlayerBullets.contactMask
+            if(!self.hasSpecialBullets){
+                bulletPB.categoryBitMask = ColliderType.PlayerBullets.categoryMask
+                bulletPB.collisionBitMask = ColliderType.PlayerBullets.collisionMask
+                bulletPB.contactTestBitMask = ColliderType.PlayerBullets.contactMask
+            } else {
+                
+                bulletPB.categoryBitMask = ColliderType.SpecialBullets.categoryMask
+                bulletPB.collisionBitMask = ColliderType.SpecialBullets.collisionMask
+                bulletPB.contactTestBitMask = ColliderType.SpecialBullets.contactMask
+            }
             
         }
     }
 
+    func activateSpecialBullets(){
+        
+        hasSpecialBullets = true
+        
+    }
+    
     
     override var playFiringSound: SKAction
     {

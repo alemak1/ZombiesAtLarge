@@ -16,11 +16,14 @@ extension GameScene: SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
         
+        handleSafetyZoneContacts(contact: contact)
        handlePlayerContacts(contact: contact)
         handlePlayerProximityContacts(contact: contact)
         handlePlayerBulletContacts(contact: contact)
         handleEnemyBulletContacts(contact: contact) 
         handleRescueCharacterContacts(contact: contact)
+        handleObstacleContacts(contact: contact)
+
         
     }
     
@@ -54,10 +57,43 @@ extension GameScene: SKPhysicsContactDelegate{
             }
             break
         default:
-            print("No logic implemented for collision btwn zombie and entity of this type")
+            print("No logic implemented for collision btwn rescue character and entity of this type")
         }
         
     }
+    
+    func handleObstacleContacts(contact: SKPhysicsContact){
+        
+        print("Handling the zombie contacts")
+        
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        var nonObstacleBody: SKPhysicsBody
+        var obstacleBody: SKPhysicsBody
+        
+        if(bodyA.categoryBitMask & ColliderType.Obstacle.categoryMask == 1){
+            nonObstacleBody = bodyB
+            obstacleBody = bodyA
+        } else {
+            nonObstacleBody = bodyA
+            obstacleBody = bodyB
+        }
+        
+        
+        switch nonObstacleBody.categoryBitMask {
+            
+        case ColliderType.Enemy.rawValue:
+            print("Zombie has contacted a wall")
+            if let minizombie = nonObstacleBody.node as? MiniZombie{
+                minizombie.adjustDirectionOnContact()
+            }
+            break
+        default:
+            print("No logic implemented for collision btwn obstacle and entity of this type")
+        }
+    }
+    
     
     func handleZombieContacts(contact: SKPhysicsContact){
         
@@ -79,14 +115,21 @@ extension GameScene: SKPhysicsContactDelegate{
         
         
         switch nonZombieBody.categoryBitMask {
-        case ColliderType.PlayerBullets.categoryMask:
-            print("The zombie has contacted the player bullet")
+        
+            case ColliderType.Obstacle.rawValue:
+                print("Zombie has contacted a wall")
+                if let minizombie = zombieBody.node as? MiniZombie{
+                    minizombie.adjustDirectionOnContact()
+                }
             break
-        case ColliderType.PlayerProximity.categoryMask:
-            print("The zombie has contacted the player proximitiy zone")
-            break
-        default:
-            print("No logic implemented for collision btwn zombie and entity of this type")
+            case ColliderType.PlayerBullets.categoryMask:
+                print("The zombie has contacted the player bullet")
+                break
+            case ColliderType.PlayerProximity.categoryMask:
+                print("The zombie has contacted the player proximitiy zone")
+                break
+            default:
+                print("No logic implemented for collision btwn zombie and entity of this type")
         }
     }
     
@@ -134,7 +177,7 @@ extension GameScene: SKPhysicsContactDelegate{
             }
             break
         default:
-            print("No contact logic implemented")
+            print("No contact logic implemented between player and entity of this type")
         }
         
     }
@@ -200,6 +243,9 @@ extension GameScene: SKPhysicsContactDelegate{
             print("The player has contacted a collectible")
             if let collectibleSprite = nonPlayerBody.node as? CollectibleSprite{
                 
+                
+             
+                
                 if collectibleSprite.name == "RedEnvelope",let redEnvelope = collectibleSprite as? RedEnvelope{
                     
                     
@@ -251,8 +297,11 @@ extension GameScene: SKPhysicsContactDelegate{
                     
                     self.player.playSoundForCollectibleContact()
                     
-                    
                     collectibleSprite.removeFromParent()
+                    
+                    if collectibleSprite.name == "RequiredCollectible"{
+                        self.requiredCollectibles.remove(collectibleSprite)
+                    }
                     
                 }
                 
@@ -278,6 +327,8 @@ extension GameScene: SKPhysicsContactDelegate{
             print("Failed to process player contact with entity: No contact logic implemented for contact between player and this entity")
         }
     }
+    
+    
     
     
     func handleEnemyBulletContacts(contact: SKPhysicsContact){
@@ -315,6 +366,41 @@ extension GameScene: SKPhysicsContactDelegate{
         default:
             print("Failed to process player contact with entity: No contact logic implemented for contact between player and this entity")
         }
+    }
+    
+    
+    func handleSafetyZoneContacts(contact: SKPhysicsContact){
+        
+        print("Handling safety zone  contacts")
+        
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        var nonSafetyZoneBody: SKPhysicsBody
+        var safetyZoneBody: SKPhysicsBody
+        
+        if(bodyA.categoryBitMask & ColliderType.RescueCharacter.categoryMask == 1){
+            nonSafetyZoneBody = bodyB
+            safetyZoneBody = bodyA
+        } else {
+            nonSafetyZoneBody = bodyA
+            safetyZoneBody = bodyB
+        }
+        
+        
+        switch nonSafetyZoneBody.categoryBitMask {
+        case ColliderType.RescueCharacter.categoryMask:
+            print("The RESCUE CHARACTER has arrived at the SAFETY ZONE!!!")
+            if let rescueCharacter = nonSafetyZoneBody.node as? RescueCharacter{
+                unrescuedCharacters.remove(rescueCharacter)
+                print("The unrescued character count is: \(unrescuedCharacters.count)")
+            }
+
+            break
+        default:
+            print("No logic implemented for collision btwn zombie and entity of this type")
+        }
+        
     }
     
 }

@@ -40,6 +40,10 @@ bullets to penetrate walls
 save the pandas
 save zhu ba jie
 
+buy motorcycle - only motorcycle has no collision with road - adjust collision properties accordingly
+bullets that penetrate walls
+bomb that destroys wall
+
 rescue women - use SKConstraint so that woman links to you, take her to safety area
 get special bullets that penetrate walls
 push bomb to front of door - when bomb is in contact with wall, wall can explode if bomb is detonated (sends notification which can specify a specific door)

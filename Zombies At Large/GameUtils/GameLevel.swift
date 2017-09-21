@@ -27,6 +27,24 @@ enum GameLevel: Int{
         }
     }
     
+    
+    func getRequiredCollectibleType() -> CollectibleType?{
+        switch self {
+        case .Level1:
+            return CollectibleType.Microscope
+        default:
+            return nil
+        }
+    }
+    
+    func getNumberOfRequiredCollectibles() -> Int{
+        switch self {
+        case .Level1:
+            return 5
+        default:
+            return 0
+        }
+    }
 
     
     func getMissionBodyText() -> (String,String,String,String,String){

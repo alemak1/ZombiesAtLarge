@@ -29,6 +29,8 @@ enum CompassDirection: Int{
         return CGFloat(self.rawValue)*stepSize
     }
     
+    
+    
     init(zRotation: CGFloat) {
         
         let twoPi = Double.pi * 2
@@ -75,6 +77,16 @@ enum CompassDirection: Int{
         default:
             fatalError("Unknown or unsupported string - \(string)")
         }
+    }
+    
+    
+    static func GetRandomDirection() -> CompassDirection{
+        
+        let maxDirections = allDirections.count
+        let randomDirection = Int(arc4random_uniform(UInt32(maxDirections)))
+        
+        return allDirections[randomDirection]
+        
     }
     
 }

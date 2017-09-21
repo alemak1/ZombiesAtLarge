@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		BD14D87E1F60151E00E19F21 /* ColliderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD14D87D1F60151E00E19F21 /* ColliderType.swift */; };
+		BD306AFD1F73AFE40067C17F /* MiniZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD306AFC1F73AFE40067C17F /* MiniZombie.swift */; };
+		BD306AFF1F73B0240067C17F /* GiantZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD306AFE1F73B0240067C17F /* GiantZombie.swift */; };
+		BD306B011F73B46F0067C17F /* CamouflageZombies.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD306B001F73B46F0067C17F /* CamouflageZombies.swift */; };
 		BD32EC281F6E675D0080D712 /* RescueCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD32EC271F6E675D0080D712 /* RescueCharacter.swift */; };
 		BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD395A781F66FF0200684AB9 /* OilCan.swift */; };
 		BD395A7F1F67078D00684AB9 /* explosion1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A7E1F67078500684AB9 /* explosion1.wav */; };
@@ -47,6 +50,9 @@
 		BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD47350F1F6AA5AC00D91819 /* MapLocation.swift */; };
 		BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */; };
 		BD5143281F62EB3C00294559 /* laser1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD5143261F62E7E600294559 /* laser1.wav */; };
+		BD56B8D71F73D80B00159C7B /* Bystander.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56B8D61F73D80B00159C7B /* Bystander.swift */; };
+		BD56B8D91F73DD3800159C7B /* GameScene+BackgroundLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56B8D81F73DD3800159C7B /* GameScene+BackgroundLoader.swift */; };
+		BD56B8DB1F73DDD900159C7B /* GameScene+WinConditionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56B8DA1F73DDD900159C7B /* GameScene+WinConditionTest.swift */; };
 		BD5803991F6BA1830086BBA6 /* GameScene+SKPhysicsContactDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5803981F6BA1830086BBA6 /* GameScene+SKPhysicsContactDelegate.swift */; };
 		BD58039B1F6BA28C0086BBA6 /* GameScene+TouchHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58039A1F6BA28C0086BBA6 /* GameScene+TouchHandling.swift */; };
 		BD58039D1F6BFDE90086BBA6 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58039C1F6BFDE90086BBA6 /* HUD.swift */; };
@@ -58,6 +64,9 @@
 		BD78655B1F65483D0071A14F /* ImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78655A1F65483D0071A14F /* ImageContainer.swift */; };
 		BD78655D1F6562DF0071A14F /* Tank.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78655C1F6562DF0071A14F /* Tank.swift */; };
 		BD78655F1F65769C0071A14F /* BarrelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78655E1F65769C0071A14F /* BarrelNode.swift */; };
+		BD93DE6E1F737C2300C271AF /* Notification.Name+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93DE6D1F737C2300C271AF /* Notification.Name+Notifications.swift */; };
+		BD9D75661F73B90E00F6C38D /* SpecialZombieType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9D75651F73B90E00F6C38D /* SpecialZombieType.swift */; };
+		BD9D75681F73CB4700F6C38D /* Updateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9D75671F73CB4700F6C38D /* Updateable.swift */; };
 		BDAF397E1F6E748400A164C9 /* SafetyZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAF397D1F6E748400A164C9 /* SafetyZone.swift */; };
 		BDB259D41F62CA5100CDB8B9 /* Potion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB259D31F62CA5100CDB8B9 /* Potion.swift */; };
 		BDE1250C1F6390CE0092E561 /* Zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE1250B1F6390CE0092E561 /* Zombie.swift */; };
@@ -95,6 +104,9 @@
 
 /* Begin PBXFileReference section */
 		BD14D87D1F60151E00E19F21 /* ColliderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderType.swift; sourceTree = "<group>"; };
+		BD306AFC1F73AFE40067C17F /* MiniZombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniZombie.swift; sourceTree = "<group>"; };
+		BD306AFE1F73B0240067C17F /* GiantZombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiantZombie.swift; sourceTree = "<group>"; };
+		BD306B001F73B46F0067C17F /* CamouflageZombies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CamouflageZombies.swift; sourceTree = "<group>"; };
 		BD32EC271F6E675D0080D712 /* RescueCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RescueCharacter.swift; sourceTree = "<group>"; };
 		BD395A781F66FF0200684AB9 /* OilCan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OilCan.swift; sourceTree = "<group>"; };
 		BD395A7A1F67078500684AB9 /* explosion3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion3.wav; sourceTree = "<group>"; };
@@ -145,6 +157,9 @@
 		BD47350F1F6AA5AC00D91819 /* MapLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
 		BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSprite.swift; sourceTree = "<group>"; };
 		BD5143261F62E7E600294559 /* laser1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser1.wav; sourceTree = "<group>"; };
+		BD56B8D61F73D80B00159C7B /* Bystander.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bystander.swift; sourceTree = "<group>"; };
+		BD56B8D81F73DD3800159C7B /* GameScene+BackgroundLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+BackgroundLoader.swift"; sourceTree = "<group>"; };
+		BD56B8DA1F73DDD900159C7B /* GameScene+WinConditionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+WinConditionTest.swift"; sourceTree = "<group>"; };
 		BD5803981F6BA1830086BBA6 /* GameScene+SKPhysicsContactDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+SKPhysicsContactDelegate.swift"; sourceTree = "<group>"; };
 		BD58039A1F6BA28C0086BBA6 /* GameScene+TouchHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+TouchHandling.swift"; sourceTree = "<group>"; };
 		BD58039C1F6BFDE90086BBA6 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
@@ -156,6 +171,9 @@
 		BD78655A1F65483D0071A14F /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
 		BD78655C1F6562DF0071A14F /* Tank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tank.swift; sourceTree = "<group>"; };
 		BD78655E1F65769C0071A14F /* BarrelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrelNode.swift; sourceTree = "<group>"; };
+		BD93DE6D1F737C2300C271AF /* Notification.Name+Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Notifications.swift"; sourceTree = "<group>"; };
+		BD9D75651F73B90E00F6C38D /* SpecialZombieType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialZombieType.swift; sourceTree = "<group>"; };
+		BD9D75671F73CB4700F6C38D /* Updateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updateable.swift; sourceTree = "<group>"; };
 		BDAF397D1F6E748400A164C9 /* SafetyZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyZone.swift; sourceTree = "<group>"; };
 		BDB259D31F62CA5100CDB8B9 /* Potion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Potion.swift; sourceTree = "<group>"; };
 		BDE1250B1F6390CE0092E561 /* Zombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zombie.swift; sourceTree = "<group>"; };
@@ -268,7 +286,6 @@
 				BD3961D11F598ADF0060CDB4 /* Polka Train.mp3 */,
 				BD3961D31F598B310060CDB4 /* Space Cadet.mp3 */,
 				BD3961D41F598B370060CDB4 /* Night at the Beach.mp3 */,
-				BDB259D31F62CA5100CDB8B9 /* Potion.swift */,
 			);
 			path = BackgroundMusic;
 			sourceTree = "<group>";
@@ -312,6 +329,8 @@
 				BD39619C1F5970940060CDB4 /* GameScene.swift */,
 				BD5803981F6BA1830086BBA6 /* GameScene+SKPhysicsContactDelegate.swift */,
 				BD58039A1F6BA28C0086BBA6 /* GameScene+TouchHandling.swift */,
+				BD56B8D81F73DD3800159C7B /* GameScene+BackgroundLoader.swift */,
+				BD56B8DA1F73DDD900159C7B /* GameScene+WinConditionTest.swift */,
 			);
 			path = GameScene;
 			sourceTree = "<group>";
@@ -331,6 +350,13 @@
 				BD3A516D1F69331A00B01850 /* Avatar.swift */,
 				BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */,
 				BD32EC271F6E675D0080D712 /* RescueCharacter.swift */,
+				BDB259D31F62CA5100CDB8B9 /* Potion.swift */,
+				BD306AFC1F73AFE40067C17F /* MiniZombie.swift */,
+				BD306AFE1F73B0240067C17F /* GiantZombie.swift */,
+				BD306B001F73B46F0067C17F /* CamouflageZombies.swift */,
+				BD9D75651F73B90E00F6C38D /* SpecialZombieType.swift */,
+				BD9D75671F73CB4700F6C38D /* Updateable.swift */,
+				BD56B8D61F73D80B00159C7B /* Bystander.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -345,6 +371,7 @@
 				BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */,
 				BD4529DF1F695946000166A4 /* GameLevel.swift */,
 				BD58039C1F6BFDE90086BBA6 /* HUD.swift */,
+				BD93DE6D1F737C2300C271AF /* Notification.Name+Notifications.swift */,
 			);
 			path = GameUtils;
 			sourceTree = "<group>";
@@ -533,6 +560,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD56B8D91F73DD3800159C7B /* GameScene+BackgroundLoader.swift in Sources */,
 				BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */,
 				BDE9FB071F66A64A0056B66E /* FilterConfiguration.swift in Sources */,
 				BDE9FB0B1F66B24E0056B66E /* ImageSprite.swift in Sources */,
@@ -542,12 +570,17 @@
 				BD3A51661F69122500B01850 /* ImageManager.swift in Sources */,
 				BDB259D41F62CA5100CDB8B9 /* Potion.swift in Sources */,
 				BD58039B1F6BA28C0086BBA6 /* GameScene+TouchHandling.swift in Sources */,
+				BD56B8DB1F73DDD900159C7B /* GameScene+WinConditionTest.swift in Sources */,
+				BD9D75661F73B90E00F6C38D /* SpecialZombieType.swift in Sources */,
 				BD14D87E1F60151E00E19F21 /* ColliderType.swift in Sources */,
 				BD3A516E1F69331A00B01850 /* Avatar.swift in Sources */,
 				BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */,
 				BD7865591F6546620071A14F /* CollectibleType.swift in Sources */,
 				BD32EC281F6E675D0080D712 /* RescueCharacter.swift in Sources */,
+				BD306AFD1F73AFE40067C17F /* MiniZombie.swift in Sources */,
+				BD306AFF1F73B0240067C17F /* GiantZombie.swift in Sources */,
 				BDE9FB0D1F66B55F0056B66E /* CustomFilters.swift in Sources */,
+				BD306B011F73B46F0067C17F /* CamouflageZombies.swift in Sources */,
 				BD7865571F6544090071A14F /* Collectible.swift in Sources */,
 				BD5803991F6BA1830086BBA6 /* GameScene+SKPhysicsContactDelegate.swift in Sources */,
 				BD3961CD1F5971340060CDB4 /* PlayerType.swift in Sources */,
@@ -563,6 +596,9 @@
 				BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */,
 				BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */,
 				BD3961CB1F5970BD0060CDB4 /* Player.swift in Sources */,
+				BD9D75681F73CB4700F6C38D /* Updateable.swift in Sources */,
+				BD93DE6E1F737C2300C271AF /* Notification.Name+Notifications.swift in Sources */,
+				BD56B8D71F73D80B00159C7B /* Bystander.swift in Sources */,
 				BD78655F1F65769C0071A14F /* BarrelNode.swift in Sources */,
 				BD39619D1F5970940060CDB4 /* GameScene.swift in Sources */,
 				BDE9FB0F1F66BCC80056B66E /* CameraObject.swift in Sources */,

@@ -18,6 +18,7 @@ extension GameScene{
         guard let touch = touches.first else { return }
         
         let touchLocation = touch.location(in: self)
+      
         let overlayNodeLocation = touch.location(in: overlayNode)
         
         
@@ -137,7 +138,9 @@ extension GameScene{
                         menuOptionsPanel = nil
 
                         let transition = SKTransition.crossFade(withDuration: 2.00)
-                        let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel)
+                        
+                        self.progressView = UIProgressView(progressViewStyle: .bar)
+                        let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel, progressView: self.progressView)
                         view!.presentScene(currentGameScene, transition: transition)
                     }
                     

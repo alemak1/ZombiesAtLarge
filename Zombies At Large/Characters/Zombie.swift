@@ -59,10 +59,10 @@ class Zombie: Shooter{
         case Attack
     }
     
-    private var zombieType: ZombieType!
+     var zombieType: ZombieType!
     
-    private var currentHealth: Int = 3
-    private var isDamaged: Bool = false
+     var currentHealth: Int = 3
+     var isDamaged: Bool = false
     
     override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
         
@@ -75,7 +75,7 @@ class Zombie: Shooter{
         }
     }
     
-    private var currentMode: ZombieMode = .Latent{
+    var currentMode: ZombieMode = .Latent{
         didSet{
             guard oldValue != currentMode else { return }
             
@@ -103,15 +103,15 @@ class Zombie: Shooter{
 
     /** Timer Related Variables: Zombie will be in attack mode for a period of time designated as attackInterval; During the attack interval, it will fire bullets at every shoot interval **/
     
-    private var shootInterval = 2.00
+     var shootInterval = 2.00
     
-    private var attackInterval: Double = 4.00
-    private var followInterval: Double = 4.00
+     var attackInterval: Double = 4.00
+     var followInterval: Double = 4.00
     
-    private var lastUpdateTime = 0.00
-    private var lastUpdatedShootingTime = 0.00
-    private var frameCount = 0.00
-    private var shootingFrameCount = 0.000
+     var lastUpdateTime = 0.00
+     var lastUpdatedShootingTime = 0.00
+     var frameCount = 0.00
+     var shootingFrameCount = 0.000
     
     private var isActive = false
     
@@ -136,7 +136,7 @@ class Zombie: Shooter{
     
     /** Helper function for configuring physics properties during initializaiton  **/
     
-    private func configurePhysicsProperties(withTexture texture: SKTexture, andWithSize size: CGSize){
+    func configurePhysicsProperties(withTexture texture: SKTexture, andWithSize size: CGSize){
        
         self.physicsBody = SKPhysicsBody(texture: texture, size: size)
         physicsBody?.affectedByGravity = false

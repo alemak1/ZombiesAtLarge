@@ -18,8 +18,9 @@ struct ColliderType: OptionSet, Hashable{
     static var definedCollisions: [ColliderType:[ColliderType]] = [
     
         ColliderType.Player : [ColliderType.Enemy, ColliderType.EnemyBullets, ColliderType.Obstacle,ColliderType.Bomb],
-        ColliderType.Enemy: [ColliderType.PlayerBullets,ColliderType.Player,ColliderType.Enemy,ColliderType.Obstacle],
+        ColliderType.Enemy: [ColliderType.PlayerBullets,ColliderType.SpecialBullets,ColliderType.Player,ColliderType.Enemy,ColliderType.Obstacle],
         ColliderType.PlayerBullets: [ColliderType.Obstacle,ColliderType.Enemy],
+        ColliderType.SpecialBullets: [ColliderType.Enemy],
         ColliderType.PlayerProximity: [],
         ColliderType.EnemyBullets: [ColliderType.Player,ColliderType.Obstacle],
         ColliderType.Collectible: [ColliderType.Obstacle],
@@ -36,17 +37,19 @@ struct ColliderType: OptionSet, Hashable{
     static var requestedContactNotifications: [ColliderType:[ColliderType]] =  [
         
         ColliderType.Player : [ColliderType.Collectible,ColliderType.Explosive,ColliderType.EnemyBullets],
-        ColliderType.Enemy: [ColliderType.PlayerProximity,ColliderType.PlayerBullets],
+        ColliderType.Enemy: [ColliderType.PlayerProximity,ColliderType.PlayerBullets,ColliderType.SpecialBullets,ColliderType.Bystander],
+        ColliderType.SpecialBullets: [ColliderType.Enemy],
         ColliderType.PlayerBullets: [ColliderType.Explosive,ColliderType.Enemy,ColliderType.Obstacle,ColliderType.Bomb],
         ColliderType.PlayerProximity: [ColliderType.Enemy],
         ColliderType.EnemyBullets: [ColliderType.Explosive,ColliderType.Player,ColliderType.Obstacle],
         ColliderType.Collectible: [ColliderType.Player],
-        ColliderType.Obstacle: [ColliderType.PlayerBullets],
+        ColliderType.Obstacle: [ColliderType.PlayerBullets,ColliderType.Enemy],
         ColliderType.Explosive: [ColliderType.PlayerBullets,ColliderType.EnemyBullets,ColliderType.Player],
         ColliderType.NonPlayerCharacter: [ColliderType.Player],
         ColliderType.Bomb: [ColliderType.Player,ColliderType.PlayerBullets],
         ColliderType.RescueCharacter: [ColliderType.Player,ColliderType.PlayerProximity,ColliderType.SafetyZone,ColliderType.EnemyBullets,ColliderType.Collectible],
-        ColliderType.SafetyZone: [ColliderType.RescueCharacter]
+        ColliderType.SafetyZone: [ColliderType.RescueCharacter],
+        ColliderType.Bystander: [ColliderType.Enemy]
     ]
 
     
@@ -65,8 +68,11 @@ struct ColliderType: OptionSet, Hashable{
     static var Explosive: ColliderType { return self.init(rawValue: 1 << 8)}
     static var Bomb: ColliderType { return self.init(rawValue: 1 << 9)}
     static var RescueCharacter: ColliderType { return self.init(rawValue: 1 << 10)}
-    static var RescueCharacterProximity: ColliderType { return self.init(rawValue: 1 << 11)}
-    static var SafetyZone: ColliderType { return self.init(rawValue: 1 << 12)}
+    static var RescueCharacterProximity: ColliderType { return self.init(rawValue: 1 << 12)}
+    static var SafetyZone: ColliderType { return self.init(rawValue: 1 << 11)}
+    static var SpecialBullets: ColliderType { return self.init(rawValue: 1 << 13)}
+    static var Bystander: ColliderType { return self.init(rawValue: 1 << 14)}
+    
     //MARK: Hashable
     
     var hashValue: Int{
