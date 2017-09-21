@@ -1,28 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rgt-Wl-ATN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main Menu Controller-->
         <scene sceneID="Xmb-j7-psI">
             <objects>
-                <viewController storyboardIdentifier="EmbeddedGVC" id="Rgt-Wl-ATN" sceneMemberID="viewController">
+                <viewController id="Rgt-Wl-ATN" customClass="MainMenuController" customModule="Zombies_At_Large" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aY2-mQ-U4n" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="face_zombie" translatesAutoresizingMaskIntoConstraints="NO" id="BlQ-zr-Ec1">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </imageView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.5" progressImage="barYellow_horizontalMid" trackImage="barBack_horizontalMid" translatesAutoresizingMaskIntoConstraints="NO" id="heA-ia-ban">
+                                <rect key="frame" x="93.5" y="590" width="187.5" height="2.5"/>
+                            </progressView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="heA-ia-ban" firstAttribute="width" secondItem="aY2-mQ-U4n" secondAttribute="width" multiplier="0.5" id="7qe-3g-HAx"/>
+                            <constraint firstItem="CZC-UG-Pg7" firstAttribute="trailing" secondItem="BlQ-zr-Ec1" secondAttribute="trailing" id="84t-bm-ugZ"/>
+                            <constraint firstItem="CZC-UG-Pg7" firstAttribute="bottom" secondItem="heA-ia-ban" secondAttribute="bottom" constant="74.5" id="Dyt-yq-aBV"/>
+                            <constraint firstItem="CZC-UG-Pg7" firstAttribute="bottom" secondItem="BlQ-zr-Ec1" secondAttribute="bottom" id="FK9-0e-gBo"/>
+                            <constraint firstItem="BlQ-zr-Ec1" firstAttribute="leading" secondItem="CZC-UG-Pg7" secondAttribute="leading" id="GyO-w3-cLm"/>
+                            <constraint firstItem="heA-ia-ban" firstAttribute="centerX" secondItem="aY2-mQ-U4n" secondAttribute="centerX" id="TSu-HZ-SXr"/>
+                            <constraint firstItem="BlQ-zr-Ec1" firstAttribute="top" secondItem="CZC-UG-Pg7" secondAttribute="top" id="mqo-z0-1QC"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="CZC-UG-Pg7"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Nf-pq-xJq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="239" y="274"/>
+            <point key="canvasLocation" x="-1402" y="171"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="barBack_horizontalMid" width="18" height="18"/>
+        <image name="barYellow_horizontalMid" width="18" height="18"/>
+        <image name="face_zombie" width="256" height="256"/>
+    </resources>
 </document>

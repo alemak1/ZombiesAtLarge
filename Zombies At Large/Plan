@@ -57,3 +57,4 @@ use light node to find hidden objects
 didReceiveMemoryWarning() - save game
 make sure game screen is sized based on width/height constraints set via autolayout
 
+player proximity contact with the merchant/survivor lead to a dialogue box being presented, which gives player the option of buying goods or exchanging collectibles for cash

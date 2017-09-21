@@ -45,6 +45,36 @@ extension GameScene{
     
     func loadBgLevel2(){
         
+        guard let stoneBackground = SKScene(fileNamed: "backgrounds")?.childNode(withName: "StoneBackgrounds") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        
+        addBulletsTo(tileMapNode: stoneBackground)
+        addZombiesTo(someTileMapNode: stoneBackground)
+        addRiceBowlsTo(someTileMapNode: stoneBackground)
+        addRedEnvelopeTo(someTileMapNode: stoneBackground)
+        addCollectiblesTo(someTileMapNode: stoneBackground)
+        
+        guard let blackCorridor = SKScene(fileNamed: "backgrounds")?.childNode(withName: "BlackCorridors") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        
+        addObstaclePhysicsBodiesTo(tileMapNode: blackCorridor)
+        
+        guard let woodFloor = SKScene(fileNamed: "backgrounds")?.childNode(withName: "WoodFloors") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        
+        addBulletsTo(tileMapNode: woodFloor)
+        addZombiesTo(someTileMapNode: woodFloor)
+        addRiceBowlsTo(someTileMapNode: woodFloor)
+        addCollectiblesTo(someTileMapNode: woodFloor)
+        addRescueCharacterTo(someTileMapNode: woodFloor)
+        
+    
     }
     
     func loadBgLevel3(){
@@ -58,6 +88,9 @@ extension GameScene{
     func loadBgLevel5(){
         
     }
+    
+    
+    
     
     func addGrassBackgrounds(){
         
@@ -363,6 +396,95 @@ extension GameScene{
             
         }
         
+    }
+    
+    
+    
+    func addRescueCharacter(tileMapNode: SKTileMapNode, row: Int, column: Int){
+        
+        
+        let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
+        
+        let hasRescueCharacter = tileDef?.userData?["hasRescueCharacter"] as? Bool
+        
+        if(hasRescueCharacter ?? false){
+            print("Adding required collectible to the tile map....")
+            
+            let requiredCollectiblePos = tileMapNode.centerOfTile(atColumn: column, row: row)
+            
+            print("Adding safety zone to the tile map at pos row: \(row), col: \(column)....")
+            
+            
+            if(self.unrescuedCharacters.count >= self.currentGameLevel.getNumberOfUnrescuedCharacter()){
+                
+                return
+                
+            } else {
+                
+                let rescueCharacterType = self.currentGameLevel.getRescueCharacterType()
+                
+                let rescueCharacter = RescueCharacter(withPlayer: self.player, nonPlayerCharacterType: rescueCharacterType)
+                
+                rescueCharacter.move(toParent: worldNode)
+                rescueCharacter.name = "RescueCharacter"
+                rescueCharacter.position = requiredCollectiblePos
+                rescueCharacter.zPosition = 30
+                unrescuedCharacters.insert(rescueCharacter)
+                
+            }
+            
+            
+        }
+    }
+    
+
+    
+    func addRequiredCollectibleTo(someTileMapNode tileMapNode: SKTileMapNode){
+        self.traverseTileMap(tileMap: tileMapNode, withHandler: addSpecialZombie)
+    }
+    
+    func addRescueCharacterTo(someTileMapNode tileMapNode: SKTileMapNode){
+        self.traverseTileMap(tileMap: tileMapNode, withHandler: addRescueCharacter)
+    }
+    
+    func addCollectiblesTo(someTileMapNode tileMapNode: SKTileMapNode){
+        self.traverseTileMap(tileMap: tileMapNode, withHandler: addRandomCollectible)
+    }
+    
+    func addZombiesTo(someTileMapNode tileMapNode: SKTileMapNode){
+        self.traverseTileMap(tileMap: tileMapNode, withHandler: addZombie)
+    }
+    
+    func addRedEnvelopeTo(someTileMapNode tileMapNode: SKTileMapNode){
+        self.traverseTileMap(tileMap: tileMapNode, withHandler: addRedEnvelope)
+    }
+    
+    func addRiceBowlsTo(someTileMapNode tileMapNode: SKTileMapNode){
+        self.traverseTileMap(tileMap: tileMapNode, withHandler: addRiceBowl)
+    }
+    
+    func addBulletsTo(tileMapNode tileMapeNode: SKTileMapNode){
+        self.traverseTileMap(tileMap: tileMapeNode, withHandler: addBullet)
+    }
+    
+    func addSafetyZonesTo(tileMapNode tileMapeNode: SKTileMapNode){
+        self.traverseTileMap(tileMap: tileMapeNode, withHandler: addSafetyZone)
+    }
+    
+    func addObstaclePhysicsBodiesTo(tileMapNode tileMapeNode: SKTileMapNode){
+        self.traverseTileMap(tileMap: tileMapeNode, withHandler: addObstaclePhysicsBodies)
+    }
+    
+    func traverseTileMap(tileMap: SKTileMapNode, withHandler handler: (SKTileMapNode,Int,Int) -> Void){
+        
+        let rows = tileMap.numberOfRows
+        let columns = tileMap.numberOfColumns
+        
+        for row in 1...rows{
+            for col in 1...columns{
+                    handler(tileMap,row,col)
+            }
+        }
     }
     
 }

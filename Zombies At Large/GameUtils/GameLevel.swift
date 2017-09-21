@@ -37,6 +37,28 @@ enum GameLevel: Int{
         }
     }
     
+    func getRescueCharacterType() -> NonplayerCharacterType{
+        switch self{
+        case .Level2:
+            return .OldWoman
+        case .Level3:
+            return .GreenWoman
+        default:
+            return .GreenWoman
+        }
+    }
+    
+    func getNumberOfUnrescuedCharacter() -> Int{
+        switch self {
+        case .Level1:
+            return 6
+        case .Level2:
+            return 3
+        default:
+            return 0
+        }
+    }
+    
     func getNumberOfRequiredCollectibles() -> Int{
         switch self {
         case .Level1:
