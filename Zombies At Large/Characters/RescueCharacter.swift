@@ -33,9 +33,15 @@ class RescueCharacter: SKSpriteNode{
     
     var constraintsForRescueCharacter: [SKConstraint]?{
         get{
-            guard self.player != nil else { return nil}
+            print("GETTING CONSTRAINTS FOR RESCUE CHARACTER")
             
-            let lowerDistanceLimit = CGFloat(100.00)
+            guard self.player != nil else {
+                print("ERROR: the rescue character does not have a reference to the player")
+                return nil
+                
+            }
+            
+            let lowerDistanceLimit = CGFloat(50.00)
             let upperDistanceLimit = CGFloat(150.0)
             
             let distanceRange = SKRange(lowerLimit: lowerDistanceLimit, upperLimit: upperDistanceLimit)
@@ -90,9 +96,10 @@ class RescueCharacter: SKSpriteNode{
     }
     
     func constrainToPlayer(){
-        
+        print("ADDING CONSTRAINTS FOR RESCUE CHARACTER")
         if(self.hasBeenRescued){
             self.constraints = self.constraintsForRescueCharacter
+            print("Finished adding constraints for rescue character")
         }
         
     }

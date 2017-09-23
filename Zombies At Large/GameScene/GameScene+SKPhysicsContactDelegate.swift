@@ -47,6 +47,11 @@ extension GameScene: SKPhysicsContactDelegate{
         
         
         switch nonRescueCharacterBody.categoryBitMask {
+        case ColliderType.PlayerProximity.categoryMask:
+            if let rescueCharacter = nonRescueCharacterBody.node as? RescueCharacter{
+                rescueCharacter.rescueCharacter()
+            }
+            break
         case ColliderType.SafetyZone.categoryMask:
             print("The RESCUE CHARACTER has arrived at the SAFETY ZONE!!!")
             break
@@ -211,6 +216,7 @@ extension GameScene: SKPhysicsContactDelegate{
             break
         case ColliderType.RescueCharacter.categoryMask:
             if let rescueCharacter = nonplayerProximityPB.node as? RescueCharacter{
+                print("Character has been rescued")
                 rescueCharacter.rescueCharacter()
             }
             break

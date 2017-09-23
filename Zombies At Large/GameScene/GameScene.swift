@@ -38,6 +38,8 @@ class GameScene: SKScene {
         return unrescuedCharacters.count
     }
     
+    
+    
     var mustKillZombies: Set<Zombie> = []
     
     var numberOfMustKillZombies: Int{
@@ -156,61 +158,49 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
        
-        self.currentProgressUnits = 0
+        for timeInterval in 1...10{
+            
+            let when = DispatchTime.now() + Double(timeInterval)
+            
+            DispatchQueue.main.asyncAfter(deadline: when, execute: {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didMakeProgressTowardsGameLoadingNotification), object: nil, userInfo: ["progressAmount": Float(0.05)])
+                
+            })
+        }
+      
         
         initializeBasicNodeLayers()
-
-        self.currentProgressUnits += 1
-
+        
+    
         loadMissionPanel()
         
-        self.currentProgressUnits += 1
-
-
+       
+        
         loadPlayer()
         
-        self.currentProgressUnits += 1
-
-
+   
         initializePlayerProximity()
         
-        self.currentProgressUnits += 1
-
-
      
-        self.mainCameraNode = SKCameraNode()
-        self.camera = mainCameraNode
+        loadCamera()
         
-        self.currentProgressUnits += 1
-
+       
+        loadZombieManager()
         
-        zombieManager = ZombieManager(withPlayer: player, andWithLatentZombies: [])
-        
-        self.currentProgressUnits += 1
-
-        let xPosControls = UIScreen.main.bounds.width*0.3
-        let yPosControls = -UIScreen.main.bounds.height*0.3
+    
         
         loadFireButton()
-
-        self.currentProgressUnits += 1
-
+        
+      
+        
+        let xPosControls = UIScreen.main.bounds.width*0.3
+        let yPosControls = -UIScreen.main.bounds.height*0.3
         loadControls(atPosition: CGPoint(x: xPosControls, y: yPosControls))
         
-        self.currentProgressUnits += 1
-
-
         loadBackground()
-        
-        self.currentProgressUnits += 1
-
-
         loadHUD()
         
-        self.currentProgressUnits += 1
 
-
-        
         let bomb = Bomb(scale: 1.00)
         bomb.move(toParent: worldNode)
         bomb.position = CGPoint(x: 150.0, y: 10.0)
@@ -222,11 +212,10 @@ class GameScene: SKScene {
 
         self.rescueCharacter = RescueCharacter(withPlayer: self.player, nonPlayerCharacterType: .OldWoman)
         self.rescueCharacter!.move(toParent: worldNode)
-        self.rescueCharacter!.position = CGPoint(x: 800, y: 200)
+        self.rescueCharacter!.position = CGPoint(x: 100, y: 100)
         unrescuedCharacters.insert(self.rescueCharacter!)
         print("The unrescued character count is \(unrescuedCharacters.count)")
         
-        self.progressView.isHidden = true
         
         
         let miniZombie = MiniZombie(zombieType: .zombie2, scale: 1.00, startingHealth: 3, hasDirectionChangeEnabled: true)
@@ -248,7 +237,20 @@ class GameScene: SKScene {
     
     }
     
+    func loadCamera(){
+        
+        self.mainCameraNode = SKCameraNode()
+        self.camera = mainCameraNode
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount": Float(0.05)])
+        
+    }
     
+    func loadZombieManager(){
+        zombieManager = ZombieManager(withPlayer: player, andWithLatentZombies: [])
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
+    }
     
     func initializeBasicNodeLayers(){
         
@@ -267,10 +269,14 @@ class GameScene: SKScene {
         addChild(overlayNode)
         
         self.worldNode = SKNode()
-        worldNode.zPosition = 5
+        worldNode.zPosition = 10
         worldNode.position = CGPoint(x: 0.00, y: 0.00)
         worldNode.name = "world"
         addChild(worldNode)
+        
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
+
     }
     
     func loadMissionPanel(){
@@ -291,6 +297,9 @@ class GameScene: SKScene {
             print("Error: Mission Panel failed to load")
         }
         
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
+
+        
     }
     
     func loadPlayer(){
@@ -299,6 +308,9 @@ class GameScene: SKScene {
         player.position = CGPoint(x: 0.00, y: 0.00)
         player.zPosition = 5
         worldNode.addChild(player)
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
+
     }
     
   
@@ -310,6 +322,8 @@ class GameScene: SKScene {
         let yPos = UIScreen.main.bounds.size.height*0.36
         hudNode.position = CGPoint(x: xPos, y: yPos)
         
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
+
     }
     
    
@@ -376,9 +390,13 @@ class GameScene: SKScene {
         
         zombieManager.constrainActiveZombiesToPlayer()
         
-        if let rescueCharacter = self.rescueCharacter{
+      
+        for rescueCharacter in self.unrescuedCharacters{
+            print("Constraining rescue character to player...")
             rescueCharacter.constrainToPlayer()
+
         }
+        
 
     }
     
@@ -408,6 +426,7 @@ class GameScene: SKScene {
         playerProximityPB.contactTestBitMask = ColliderType.PlayerProximity.contactMask
         playerProximity.physicsBody = playerProximityPB
      
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
 
     }
     
@@ -447,6 +466,8 @@ class GameScene: SKScene {
         
         fireButtonShape.position = CGPoint(x: xPos, y: yPos)
         
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
+
         
     }
     
@@ -473,6 +494,9 @@ class GameScene: SKScene {
        
         
         buttonsAreLoaded = true
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
+
     }
     
    

@@ -11,8 +11,9 @@ import SpriteKit
 
 extension Notification.Name{
     static let RescueCharacterHasReachedSafetyZoneNotification = "rescueCharacterHasReachedSafetyZoneNotification"
-    
-
+    static let ShowInventoryCollectionViewNotification = "showInventoryCollectionViewNotification"
+    static let didUpdateGameLoadingProgressNotification = "didUpdateGameLoadingProgressNotification"
+    static let didMakeProgressTowardsGameLoadingNotification = "didMakeProgressTowardsGameLoadingNotification"
    
 }
 

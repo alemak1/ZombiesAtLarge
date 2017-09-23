@@ -37,15 +37,19 @@ extension GameScene{
     }
     
     func loadBgLevel1(){
+        
         addGrassBackgrounds()
+        
+
         addBlackCorridors()
+        
         addWoodfloors()
         
     }
     
     func loadBgLevel2(){
         
-        guard let stoneBackground = SKScene(fileNamed: "backgrounds")?.childNode(withName: "StoneBackgrounds") as? SKTileMapNode else {
+        guard let stoneBackground = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "StoneBackgrounds") as? SKTileMapNode else {
             
             fatalError("Error: tile backgrounds failed to load")
         }
@@ -56,14 +60,18 @@ extension GameScene{
         addRedEnvelopeTo(someTileMapNode: stoneBackground)
         addCollectiblesTo(someTileMapNode: stoneBackground)
         
-        guard let blackCorridor = SKScene(fileNamed: "backgrounds")?.childNode(withName: "BlackCorridors") as? SKTileMapNode else {
+        stoneBackground.move(toParent: backgroundNode)
+        
+        guard let blackCorridor = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "BlackCorridors") as? SKTileMapNode else {
             
             fatalError("Error: tile backgrounds failed to load")
         }
         
         addObstaclePhysicsBodiesTo(tileMapNode: blackCorridor)
         
-        guard let woodFloor = SKScene(fileNamed: "backgrounds")?.childNode(withName: "WoodFloors") as? SKTileMapNode else {
+        blackCorridor.move(toParent: backgroundNode)
+        
+        guard let woodFloor = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "WoodFloors") as? SKTileMapNode else {
             
             fatalError("Error: tile backgrounds failed to load")
         }
@@ -74,6 +82,7 @@ extension GameScene{
         addCollectiblesTo(someTileMapNode: woodFloor)
         addRescueCharacterTo(someTileMapNode: woodFloor)
         
+        woodFloor.move(toParent: backgroundNode)
     
     }
     
@@ -113,6 +122,13 @@ extension GameScene{
                 
                 
             }
+            
+            DispatchQueue.main.async {
+                 NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
+            }
+            
+           
+
         }
         
         grassTileMap = grass
@@ -120,6 +136,7 @@ extension GameScene{
         grassTileMap.position = CGPoint(x: 0.00, y: 0.00)
         
         grassTileMap.move(toParent: backgroundNode)
+        
         
     }
     
@@ -134,6 +151,10 @@ extension GameScene{
             for col in 0...blackCorridors.numberOfColumns{
                 
                 addObstaclePhysicsBodies(tileMapNode: blackCorridors, row: row, column: col)
+            }
+            
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
             }
         }
         
@@ -163,6 +184,11 @@ extension GameScene{
                 addRandomCollectible(tileMapNode: woodFloors, row: row, column: col)
                 addRequiredCollectible(tileMapNode: woodFloors, row: row, column: col)
             }
+            
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
+            }
+
         }
         
         woodFloorTileMap = woodFloors
@@ -390,7 +416,7 @@ extension GameScene{
             tilePB.affectedByGravity = false
             pbNode.physicsBody = tilePB
             
-            tileMapNode.addChild(pbNode)
+           // tileMapNode.addChild(pbNode)
             
             
             
@@ -408,11 +434,11 @@ extension GameScene{
         let hasRescueCharacter = tileDef?.userData?["hasRescueCharacter"] as? Bool
         
         if(hasRescueCharacter ?? false){
-            print("Adding required collectible to the tile map....")
+            print("Adding rescue character to the tile map....")
             
-            let requiredCollectiblePos = tileMapNode.centerOfTile(atColumn: column, row: row)
+            let rescueCharPos = tileMapNode.centerOfTile(atColumn: column, row: row)
             
-            print("Adding safety zone to the tile map at pos row: \(row), col: \(column)....")
+            print("Adding rescue character to the tile map at pos row: \(row), col: \(column)....")
             
             
             if(self.unrescuedCharacters.count >= self.currentGameLevel.getNumberOfUnrescuedCharacter()){
@@ -427,8 +453,7 @@ extension GameScene{
                 
                 rescueCharacter.move(toParent: worldNode)
                 rescueCharacter.name = "RescueCharacter"
-                rescueCharacter.position = requiredCollectiblePos
-                rescueCharacter.zPosition = 30
+                rescueCharacter.position = rescueCharPos
                 unrescuedCharacters.insert(rescueCharacter)
                 
             }

@@ -132,6 +132,14 @@ extension GameScene{
                         showInventorySummaryForPlayer(atPosition: player.position)
                     }
                     
+                    if(selectedNode.name == "ViewInventory"){
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.ShowInventoryCollectionViewNotification), object: nil)
+                        
+                        if let textLabel = selectedNode.childNode(withName: "ViewInventory") as? SKLabelNode{
+                            textLabel.text = "Hide Inventory"
+                        }
+                    }
+                    
                     if(selectedNode.name == "RestartLevel"){
                         
                         menuOptionsPanel!.removeFromParent()

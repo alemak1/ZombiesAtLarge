@@ -14,6 +14,9 @@ class CollectibleManager{
     var collectibles = Set<Collectible>()
     var carryingCapacity: Double = 3000.00
     
+    var enumeratedCollectibles: EnumeratedSequence<Set<Collectible>> {
+        return collectibles.enumerated()
+    }
     
     init(){
         
@@ -51,6 +54,64 @@ class CollectibleManager{
         
         return self.collectibles.contains(collectible)
     
+    }
+    
+    
+    func getCollectiblesArray() -> [Collectible]{
+        
+        return self.collectibles.map({$0})
+    }
+    
+    func getCollectibleAtIndex(index: Int) -> Collectible?{
+        
+        for (idx,collectible) in enumeratedCollectibles{
+            if(index == idx){
+                return collectible
+            }
+        }
+        
+        return nil
+    }
+    
+    func getMostValueableCollectibleBasedOnTotalValue() -> Collectible?{
+        
+        return collectibles.max(by: {
+            
+            c1,c2 in
+            
+            return c1.getCollectibleMonetaryValue() < c2.getCollectibleMonetaryValue()
+            
+        })
+    }
+    
+    func getLeastValuableCollectibleBasedOnTotalValue() -> Collectible?{
+        
+        return collectibles.min(by: { c1,c2 in
+            
+            return c1.getCollectibleMonetaryValue() < c2.getCollectibleMonetaryValue()
+            
+        })
+    }
+    
+    
+    func getLeastValuableCollectibleBasedOnUnitValue() -> Collectible?{
+        
+        return collectibles.min(by: { c1,c2 in
+            
+            return c1.getCollectibleUnitValue() < c2.getCollectibleUnitValue()
+            
+        })
+    }
+    
+    func getMostValueableCollectibleBasedOnUnitValue() -> Collectible?{
+        
+        return collectibles.max(by: {
+            
+            c1,c2 in
+            
+            return c1.getCollectibleUnitValue() < c2.getCollectibleUnitValue()
+            
+        })
     }
     
     func getTotalMonetaryValueOfAllCollectibles() -> Double{

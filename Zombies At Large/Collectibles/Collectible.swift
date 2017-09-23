@@ -35,6 +35,10 @@ class Collectible: Equatable, Hashable{
         return self.collectibleType.getMonetaryUnitValue()*Double(self.totalQuantity)
     }
     
+    public func getCollectibleUnitValue() -> Double{
+        return self.collectibleType.getMonetaryUnitValue()
+    }
+    
     public func getCollectibleMass() -> Double{
         return self.collectibleType.getUnitMass()*Double(self.totalQuantity)
     }
@@ -45,6 +49,17 @@ class Collectible: Equatable, Hashable{
     
     public func changeQuantityTo(newQuantity: Int){
         self.totalQuantity = newQuantity
+    }
+    
+    public func getCollectibleTexture() -> SKTexture{
+        
+        return collectibleType.getTexture()
+        
+    }
+    
+    public func getPercentMetalContentByUnit() -> Double{
+        
+        return collectibleType.getPercentMetalContentPerUnit()
     }
     
     
@@ -70,6 +85,8 @@ class Collectible: Equatable, Hashable{
         print(getDescriptionString())
         
     }
+    
+
     
     
 }

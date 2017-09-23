@@ -15,45 +15,46 @@ class HUDManager{
     
     static let sharedManager = HUDManager()
     
+    private var isLoading = false
     
     /** Cached Blue Bars for Health **/
     
-    var blueBar0: SKNode!
-    var blueBar1: SKNode!
-    var blueBar2: SKNode!
-    var blueBar3: SKNode!
-    var blueBar4: SKNode!
-    var blueBar5: SKNode!
-    var blueBar6: SKNode!
-    var blueBar7: SKNode!
-    var blueBar8: SKNode!
-    var blueBar9: SKNode!
-    var blueBar10: SKNode!
-    var blueBar11: SKNode!
-    var blueBar12: SKNode!
-    var blueBar13: SKNode!
-    var blueBar14: SKNode!
-    var blueBar15: SKNode!
+    var blueBar0: SKNode?
+    var blueBar1: SKNode?
+    var blueBar2: SKNode?
+    var blueBar3: SKNode?
+    var blueBar4: SKNode?
+    var blueBar5: SKNode?
+    var blueBar6: SKNode?
+    var blueBar7: SKNode?
+    var blueBar8: SKNode?
+    var blueBar9: SKNode?
+    var blueBar10: SKNode?
+    var blueBar11: SKNode?
+    var blueBar12: SKNode?
+    var blueBar13: SKNode?
+    var blueBar14: SKNode?
+    var blueBar15: SKNode?
     
     /** Cached Red Bars for Bullets **/
     
-    var redBar0: SKNode!
-    var redBar1: SKNode!
-    var redBar2: SKNode!
-    var redBar3: SKNode!
-    var redBar4: SKNode!
-    var redBar5: SKNode!
-    var redBar6: SKNode!
-    var redBar7: SKNode!
-    var redBar8: SKNode!
-    var redBar9: SKNode!
-    var redBar10: SKNode!
-    var redBar11: SKNode!
-    var redBar12: SKNode!
-    var redBar13: SKNode!
-    var redBar14: SKNode!
-    var redBar15: SKNode!
-    var redBarFull: SKNode!
+    var redBar0: SKNode?
+    var redBar1: SKNode?
+    var redBar2: SKNode?
+    var redBar3: SKNode?
+    var redBar4: SKNode?
+    var redBar5: SKNode?
+    var redBar6: SKNode?
+    var redBar7: SKNode?
+    var redBar8: SKNode?
+    var redBar9: SKNode?
+    var redBar10: SKNode?
+    var redBar11: SKNode?
+    var redBar12: SKNode?
+    var redBar13: SKNode?
+    var redBar14: SKNode?
+    var redBar15: SKNode?
+    var redBarFull: SKNode?
     
     var mainHUDNode: SKNode!
     var healthIndicator: SKNode!
@@ -61,12 +62,22 @@ class HUDManager{
     
     private init() {
         
-        loadMainHUDNode()
-        loadBlueBarIndicators()
-        loadRedBarIndicators()
+        if(self.isLoading){
+            
+            return
+            
+        } else {
+            
+            self.isLoading = true
+            
+            loadMainHUDNode()
+            loadBlueBarIndicators()
+            loadRedBarIndicators()
         
-        updateBulletCount(withUnits: 30)
-        updateHealthCount(withUnits: 15)
+            updateBulletCount(withUnits: 30)
+            updateHealthCount(withUnits: 15)
+            
+        }
 
         
     }
@@ -122,41 +133,41 @@ class HUDManager{
     private func getRedBar(forUnitNumber units: Int) -> SKNode{
         switch units {
         case 29,30:
-            return self.redBarFull
+            return self.redBarFull!
         case 27,28:
-            return self.redBar15
+            return self.redBar15!
         case 25,26:
-            return self.redBar14
+            return self.redBar14!
         case 23,24:
-            return self.redBar13
+            return self.redBar13!
         case 21,22:
-            return self.redBar12
+            return self.redBar12!
         case 19,20:
-            return self.redBar11
+            return self.redBar11!
         case 17,18:
-            return self.redBar10
+            return self.redBar10!
         case 15,16:
-            return self.redBar9
+            return self.redBar9!
         case 13,14:
-            return self.redBar8
+            return self.redBar8!
         case 11,12:
-            return self.redBar7
+            return self.redBar7!
         case 9,10:
-            return self.redBar6
+            return self.redBar6!
         case 8,9:
-            return self.redBar5
+            return self.redBar5!
         case 6,7:
-            return self.redBar4
+            return self.redBar4!
         case 4,5:
-            return self.redBar3
+            return self.redBar3!
         case 2,3:
-            return self.redBar2
+            return self.redBar2!
         case 1,2:
-            return self.redBar1
+            return self.redBar1!
         case 0:
-            return self.redBar0
+            return self.redBar0!
         default:
-            return self.redBar0
+            return self.redBar0!
         }
     }
     
@@ -165,39 +176,39 @@ class HUDManager{
     private func getBlueBar(forUnitNumber units: Int) -> SKNode{
         switch units {
         case 15:
-            return self.blueBar15
+            return self.blueBar15!
         case 14:
-            return self.blueBar14
+            return self.blueBar14!
         case 13:
-            return self.blueBar13
+            return self.blueBar13!
         case 12:
-            return self.blueBar12
+            return self.blueBar12!
         case 11:
-            return self.blueBar11
+            return self.blueBar11!
         case 10:
-            return self.blueBar10
+            return self.blueBar10!
         case 9:
-            return self.blueBar9
+            return self.blueBar9!
         case 8:
-            return self.blueBar8
+            return self.blueBar8!
         case 7:
-            return self.blueBar7
+            return self.blueBar7!
         case 6:
-            return self.blueBar6
+            return self.blueBar6!
         case 5:
-            return self.blueBar5
+            return self.blueBar5!
         case 4:
-            return self.blueBar4
+            return self.blueBar4!
         case 3:
-            return self.blueBar3
+            return self.blueBar3!
         case 2:
-            return self.blueBar2
+            return self.blueBar2!
         case 1:
-            return self.blueBar1
+            return self.blueBar1!
         case 0:
-            return self.blueBar0
+            return self.blueBar0!
         default:
-            return self.blueBar0
+            return self.blueBar0!
         }
     }
     
@@ -225,8 +236,11 @@ class HUDManager{
     
     
   
-    
+ 
     private func loadBlueBarIndicators(){
+        
+        if haveLoadedBlueBars() { return }
+        
         guard let blueBar0 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BarIndicator") else { fatalError("Error: failed to load a blueBar0 texture") }
         
         self.blueBar0 = blueBar0
@@ -299,6 +313,9 @@ class HUDManager{
     
     
     private func loadRedBarIndicators(){
+        
+        if haveLoadedRedBars() { return }
+        
         guard let redBar0 = SKScene(fileNamed: "user_interface")?.childNode(withName: "BarIndicator") else { fatalError("Error: failed to load a redBar0 texture") }
         
         self.redBar0 = redBar0
@@ -371,6 +388,48 @@ class HUDManager{
         print("Finished loading red bar indicators")
 
 
+    }
+    
+    
+    private func haveLoadedBlueBars() -> Bool{
+        
+        return (self.blueBar0 != nil &&
+            self.blueBar1 != nil &&
+            self.blueBar2 != nil &&
+            self.blueBar3 != nil &&
+            self.blueBar4 != nil &&
+            self.blueBar5 != nil &&
+            self.blueBar6 != nil &&
+            self.blueBar7 != nil &&
+            self.blueBar8 != nil &&
+            self.blueBar9 != nil &&
+            self.blueBar10 != nil &&
+            self.blueBar11 != nil &&
+            self.blueBar12 != nil &&
+            self.blueBar13 != nil &&
+            self.blueBar14 != nil &&
+            self.blueBar15 != nil)
+    }
+    
+    private func haveLoadedRedBars() -> Bool{
+        
+        return (self.redBar0 != nil &&
+            self.redBar1 != nil &&
+            self.redBar2 != nil &&
+            self.redBar3 != nil &&
+            self.redBar4 != nil &&
+            self.redBar5 != nil &&
+            self.redBar6 != nil &&
+            self.redBar7 != nil &&
+            self.redBar8 != nil &&
+            self.redBar9 != nil &&
+            self.redBar10 != nil &&
+            self.redBar11 != nil &&
+            self.redBar12 != nil &&
+            self.redBar13 != nil &&
+            self.redBar14 != nil &&
+            self.redBar15 != nil &&
+            self.redBarFull != nil)
     }
     
 }
