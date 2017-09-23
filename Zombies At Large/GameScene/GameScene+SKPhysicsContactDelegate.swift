@@ -16,16 +16,72 @@ extension GameScene: SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
         
+        let contactA = contact.bodyA
+        let contactB = contact.bodyB
+        
+        
+        switch (contactA.categoryBitMask,contactB.categoryBitMask) {
+            
+        case (let x, let y) where x == ColliderType.PlayerBullets.categoryMask ||  y == ColliderType.PlayerBullets.categoryMask:
+            handlePlayerBulletContacts(contact: contact)
+            break
+        case (let x, let y) where x == ColliderType.Player.categoryMask || y == ColliderType.Player.categoryMask:
+                handlePlayerContacts(contact: contact)
+                break
+        case (let x, let y) where x == ColliderType.Obstacle.categoryMask ||  y == ColliderType.Obstacle.categoryMask:
+                handleObstacleContacts(contact: contact)
+                break
+        case (let x, let y) where x == ColliderType.PlayerBullets.categoryMask ||  y == ColliderType.PlayerBullets.categoryMask:
+            handlePlayerBulletContacts(contact: contact)
+            break
+        case (let x, let y) where x == ColliderType.RescueCharacter.categoryMask ||  y == ColliderType.RescueCharacter.categoryMask:
+            handleRescueCharacterContacts(contact: contact)
+            break
+        case (let x, let y) where x == ColliderType.SafetyZone.categoryMask ||  y == ColliderType.SafetyZone.categoryMask:
+            handleSafetyZoneContacts(contact: contact)
+            break
+        case (let x, let y) where x == ColliderType.PlayerProximity.categoryMask ||  y == ColliderType.PlayerProximity.categoryMask:
+            handlePlayerProximityContacts(contact: contact)
+            break
+        case (let x, let y) where x == ColliderType.EnemyBullets.categoryMask ||  y == ColliderType.EnemyBullets.categoryMask:
+            handleEnemyBulletContacts(contact: contact)
+            break
+        default:
+            break
+        }
+        
+        
+        
+        
+        /**
+    
+        switch (contactB.categoryBitMask,contactA.categoryBitMask) {
+        case (ColliderType.Player.categoryMask,ColliderType.Obstacle.categoryMask),(ColliderType.Obstacle.categoryMask,ColliderType.Player.categoryMask):
+            break
+        default:
+            break
+        }
+     
+        **/
+    
+        handleRescueCharacterContacts(contact: contact)
         handleObstacleContacts(contact: contact)
         handleSafetyZoneContacts(contact: contact)
        handlePlayerContacts(contact: contact)
         handlePlayerProximityContacts(contact: contact)
         handlePlayerBulletContacts(contact: contact)
         handleEnemyBulletContacts(contact: contact) 
-        handleRescueCharacterContacts(contact: contact)
-
+        
         
     }
+    
+    typealias BitmaskTuple = (a: UInt32, b: UInt32)
+    
+    func swapBitmasks(bitmaskTuple: BitmaskTuple) -> (UInt32,UInt32){
+        
+        return (bitmaskTuple.b,bitmaskTuple.a)
+    }
+    
     
     func handleRescueCharacterContacts(contact: SKPhysicsContact){
         
@@ -48,6 +104,7 @@ extension GameScene: SKPhysicsContactDelegate{
         
         switch nonRescueCharacterBody.categoryBitMask {
         case ColliderType.PlayerProximity.categoryMask:
+            print("The RESCUE CHARACTER has been resuced!!!")
             if let rescueCharacter = nonRescueCharacterBody.node as? RescueCharacter{
                 rescueCharacter.rescueCharacter()
             }
