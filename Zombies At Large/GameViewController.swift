@@ -213,18 +213,27 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     
     @objc func showCollectionView(){
         
+        /**
         self.inventoryCollectionView.reloadData()
 
-        /**
         UIView.animate(withDuration: 1.00, animations: {
             
             self.inventoryCollectionView.reloadData()
-            self.inventoryCVcenterYConstraint.constant -= 250
+            self.inventoryHeightConstraint.constant = 200
     
           
             self.view.layoutIfNeeded()
         })
-        **/
+    **/
+        
+        let inventoryVC = InventoryViewController(nibName: nil, bundle: nil)
+        
+        inventoryVC.arrayOfCollectibles = collectibleManager!.getCollectiblesArray()
+        
+        present(inventoryVC, animated: true, completion: {
+            
+            inventoryVC.collectionView.reloadData()
+        })
         
     }
     
@@ -368,6 +377,22 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
     }
     
+    var inventoryLeftConstraint: NSLayoutConstraint{
+        return self.inventoryCollectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor)
+    }
+    
+    var inventoryRightConstraint: NSLayoutConstraint{
+        return self.inventoryCollectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor)
+    }
+    
+    var inventoryBottomConstraint: NSLayoutConstraint{
+        return self.inventoryCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+    }
+    
+    var inventoryHeightConstraint: NSLayoutConstraint{
+        return self.inventoryCollectionView.heightAnchor.constraint(equalToConstant: 0)
+    }
+    
     var progressViewCenterXConstant: CGFloat = 0.00
     var progressViewCenterYConstant: CGFloat = 200.00
     var progressViewHeightConstant: CGFloat = 10.00
@@ -375,7 +400,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
 
     var inventoryCVcenterXConstant: CGFloat = 0.000
     var inventoryCVcenterYConstant: CGFloat = 250.00
-    
+
     var skViewCenterYConstant: CGFloat = 0.00
     var skViewCenterXConstant: CGFloat = 0.00
     
@@ -387,7 +412,9 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     //MARK: ******* Computed properites - UIElement Constraints
     
     var inventoryConstraints: [NSLayoutConstraint]{
-        return [self.inventoryCVcenterXConstraint,self.inventoryCVcenterYConstraint, self.inventoryCVheightAnchorConstraint,self.inventoryCVwidthAnchorConstraint]
+        //return [self.inventoryCVcenterXConstraint,self.inventoryCVcenterYConstraint, self.inventoryCVheightAnchorConstraint,self.inventoryCVwidthAnchorConstraint]
+        
+        return [self.inventoryHeightConstraint,self.inventoryLeftConstraint,self.inventoryRightConstraint,self.inventoryBottomConstraint]
     }
     
     var progressViewConstraints: [NSLayoutConstraint]{

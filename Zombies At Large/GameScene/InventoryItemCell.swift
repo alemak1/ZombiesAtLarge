@@ -51,8 +51,36 @@ class InventoryItemCell: UICollectionViewCell{
 
     }
     
+    /**
+    convenience init(collectibleType: CollectibleType) {
+        
+        let defaultFrame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        
+        self.init(frame: defaultFrame)
+        
+        let bgImage = #imageLiteral(resourceName: "red_button09")
+        self.backgroundView = UIImageView(image: bgImage)
+        self.backgroundView!.contentMode = .scaleAspectFill
+        
+       itemImageView.frame = CGRect(x: frame.minX, y: frame.minY+frame.height*0.05, width: frame.width, height: frame.height*0.60)
+        
+       nameLabel.frame = CGRect(x: frame.minX, y: frame.minY+frame.height*0.65, width: frame.width, height: frame.height*0.30)
+        
+        contentView.addSubview(itemImageView)
+        
+        let cgImage = collectibleType.getTexture().cgImage()
+        itemImageView.image = UIImage(cgImage: cgImage)
+
+        contentView.addSubview(nameLabel)
+        nameLabel.text = collectibleType.getCollectibleName()
+
+        
+        
+    }**/
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         
         let bgImage = #imageLiteral(resourceName: "red_button09")
         self.backgroundView = UIImageView(image: bgImage)

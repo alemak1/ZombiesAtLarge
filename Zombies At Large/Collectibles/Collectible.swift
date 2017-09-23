@@ -31,6 +31,10 @@ class Collectible: Equatable, Hashable{
         return collectibleType.getPercentMetalContentPerUnit()*getCollectibleMass()
     }
     
+    public func getCollectibleType() -> CollectibleType{
+        return self.collectibleType
+    }
+    
     public func getCollectibleMonetaryValue() -> Double{
         return self.collectibleType.getMonetaryUnitValue()*Double(self.totalQuantity)
     }
