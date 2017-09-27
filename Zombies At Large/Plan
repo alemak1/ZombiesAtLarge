@@ -1,4 +1,6 @@
 
+Use update function or other game loop function - check that safety zone contains the player or rescue characters;  don't use contact logic
+
 Use Hongbao for money units (instead of coins or monetary value)
 Use kuai/yuan for monetary units
 Use rice bowls for energy level

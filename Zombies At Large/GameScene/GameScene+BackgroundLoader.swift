@@ -54,6 +54,8 @@ extension GameScene{
             fatalError("Error: tile backgrounds failed to load")
         }
         
+       
+        
         addBulletsTo(tileMapNode: stoneBackground)
         addZombiesTo(someTileMapNode: stoneBackground)
         addRiceBowlsTo(someTileMapNode: stoneBackground)
@@ -81,6 +83,7 @@ extension GameScene{
         addRiceBowlsTo(someTileMapNode: woodFloor)
         addCollectiblesTo(someTileMapNode: woodFloor)
         addRescueCharacterTo(someTileMapNode: woodFloor)
+        addSafetyZonesTo(tileMapNode: woodFloor)
         
         woodFloor.move(toParent: backgroundNode)
     
@@ -98,6 +101,22 @@ extension GameScene{
         
     }
     
+    
+    func addSafetyZone(fromNode backgroundNode: SKNode){
+        
+        guard let safetyZone = backgroundNode.childNode(withName: "SafetyZone") as? SKSpriteNode else {
+            fatalError("Error: the safety zone failed to load or could not be found")
+        }
+        
+        self.safetyZone = safetyZone
+        
+        if self.safetyZone != nil{
+            self.safetyZone!.name = "SafetyZone"
+            self.safetyZone!.move(toParent: worldNode)
+
+        }
+    }
+
     
     
     
@@ -345,8 +364,6 @@ extension GameScene{
             
             let requiredCollectiblePos = tileMapNode.centerOfTile(atColumn: column, row: row)
             
-            print("Adding safety zone to the tile map at pos row: \(row), col: \(column)....")
-            
             
             if(self.requiredCollectibles.count >= self.currentGameLevel.getNumberOfRequiredCollectibles()){
                 
@@ -382,10 +399,15 @@ extension GameScene{
             
             print("Adding safety zone to the tile map at pos row: \(row), col: \(column)....")
             
-            let safetyZone = SafetyZone(safetyZoneType: .Green, scale: 0.50)
+            let safetyZone = SafetyZone(safetyZoneType: .Green, scale: 1.00)
             safetyZone.move(toParent: worldNode)
             safetyZone.position = safetyZonePos
             safetyZone.zPosition = 30
+            
+            /** Assumption: There can only be one safety zone per map **/
+            if self.safetyZone == nil{
+                self.safetyZone = safetyZone
+            }
         }
         
     }

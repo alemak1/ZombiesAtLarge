@@ -20,8 +20,12 @@ extension GameScene: SKPhysicsContactDelegate{
         let contactB = contact.bodyB
         
         
+
+        
         switch (contactA.categoryBitMask,contactB.categoryBitMask) {
-            
+        case (let x, let y) where x == ColliderType.RescueCharacter.categoryMask ||  y == ColliderType.RescueCharacter.categoryMask:
+            handleRescueCharacterContacts(contact: contact)
+            break
         case (let x, let y) where x == ColliderType.PlayerBullets.categoryMask ||  y == ColliderType.PlayerBullets.categoryMask:
             handlePlayerBulletContacts(contact: contact)
             break
@@ -34,11 +38,7 @@ extension GameScene: SKPhysicsContactDelegate{
         case (let x, let y) where x == ColliderType.PlayerBullets.categoryMask ||  y == ColliderType.PlayerBullets.categoryMask:
             handlePlayerBulletContacts(contact: contact)
             break
-        case (let x, let y) where x == ColliderType.RescueCharacter.categoryMask ||  y == ColliderType.RescueCharacter.categoryMask:
-            handleRescueCharacterContacts(contact: contact)
-            break
         case (let x, let y) where x == ColliderType.SafetyZone.categoryMask ||  y == ColliderType.SafetyZone.categoryMask:
-            handleSafetyZoneContacts(contact: contact)
             break
         case (let x, let y) where x == ColliderType.PlayerProximity.categoryMask ||  y == ColliderType.PlayerProximity.categoryMask:
             handlePlayerProximityContacts(contact: contact)
@@ -53,25 +53,27 @@ extension GameScene: SKPhysicsContactDelegate{
         
         
         
-        /**
-    
+        
+    /**
         switch (contactB.categoryBitMask,contactA.categoryBitMask) {
-        case (ColliderType.Player.categoryMask,ColliderType.Obstacle.categoryMask),(ColliderType.Obstacle.categoryMask,ColliderType.Player.categoryMask):
+        case (ColliderType.SafetyZone.categoryMask,ColliderType.RescueCharacter.categoryMask),(ColliderType.RescueCharacter.categoryMask,ColliderType.SafetyZone.categoryMask):
+            if let rescueCharacter = contactA.node as? RescueCharacter{
+                unrescuedCharacters.remove(rescueCharacter)
+                print("The unrescued character count is: \(unrescuedCharacters.count)")
+            } else if let rescueCharacter = contactB.node as? RescueCharacter{
+                unrescuedCharacters.remove(rescueCharacter)
+                print("The unrescued character count is: \(unrescuedCharacters.count)")
+            }
             break
         default:
             break
         }
-     
-        **/
+     **/
     
-        handleRescueCharacterContacts(contact: contact)
-        handleObstacleContacts(contact: contact)
-        handleSafetyZoneContacts(contact: contact)
-       handlePlayerContacts(contact: contact)
+    
         handlePlayerProximityContacts(contact: contact)
-        handlePlayerBulletContacts(contact: contact)
-        handleEnemyBulletContacts(contact: contact) 
-        
+        handlePlayerContacts(contact: contact)
+
         
     }
     
@@ -85,7 +87,7 @@ extension GameScene: SKPhysicsContactDelegate{
     
     func handleRescueCharacterContacts(contact: SKPhysicsContact){
         
-        print("Handling rescue character contacts")
+        print("Handling RESCUE CHARACTER contacts")
         
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
@@ -104,16 +106,20 @@ extension GameScene: SKPhysicsContactDelegate{
         
         switch nonRescueCharacterBody.categoryBitMask {
         case ColliderType.PlayerProximity.categoryMask:
-            print("The RESCUE CHARACTER has been resuced!!!")
-            if let rescueCharacter = nonRescueCharacterBody.node as? RescueCharacter{
+            print("handleRescueCharacter: The RESCUE CHARACTER has been resuced!!!")
+            if let rescueCharacter = rescueCharacterBody.node as? RescueCharacter{
                 rescueCharacter.rescueCharacter()
             }
             break
         case ColliderType.SafetyZone.categoryMask:
-            print("The RESCUE CHARACTER has arrived at the SAFETY ZONE!!!")
+            print("handleRescueCharacter: The RESCUE CHARACTER has arrived at the SAFETY ZONE!!!")
+            if let rescueCharacter = rescueCharacterBody.node as? RescueCharacter{
+                unrescuedCharacters.remove(rescueCharacter)
+                print("The unrescued character count is: \(unrescuedCharacters.count)")
+            }
             break
         case ColliderType.EnemyBullets.categoryMask:
-            print("The RESCUE CHARACTER HAS BEEN HIT BY A ZOMBIE")
+            print("handleRescueCharacter: The RESCUE CHARACTER HAS BEEN HIT BY A ZOMBIE")
             if let rescueCharacter = rescueCharacterBody.node as? RescueCharacter{
                 rescueCharacter.unrescueCharacter()
             }
@@ -277,6 +283,9 @@ extension GameScene: SKPhysicsContactDelegate{
                 rescueCharacter.rescueCharacter()
             }
             break
+        case ColliderType.SafetyZone.categoryMask:
+            print("Player HAS REACHED the SAFETY ZONE")
+            break
         case ColliderType.NonPlayerCharacter.categoryMask:
             if let npc = nonplayerProximityPB.node as? SKSpriteNode{
                 if npc.name == "Trader"{
@@ -320,6 +329,9 @@ extension GameScene: SKPhysicsContactDelegate{
         
         switch nonPlayerBody.categoryBitMask {
         case ColliderType.Bomb.categoryMask:
+            break
+        case ColliderType.SafetyZone.categoryMask:
+            print("Player HAS REACHED the SAFETY ZONE")
             break
         case ColliderType.Collectible.categoryMask:
             print("The player has contacted a collectible")
@@ -461,7 +473,7 @@ extension GameScene: SKPhysicsContactDelegate{
         var nonSafetyZoneBody: SKPhysicsBody
         var safetyZoneBody: SKPhysicsBody
         
-        if(bodyA.categoryBitMask & ColliderType.RescueCharacter.categoryMask == 1){
+        if(bodyA.categoryBitMask & ColliderType.SafetyZone.categoryMask == 1){
             nonSafetyZoneBody = bodyB
             safetyZoneBody = bodyA
         } else {
@@ -474,7 +486,7 @@ extension GameScene: SKPhysicsContactDelegate{
         case ColliderType.RescueCharacter.categoryMask:
             print("The RESCUE CHARACTER has arrived at the SAFETY ZONE!!!")
             if let rescueCharacter = nonSafetyZoneBody.node as? RescueCharacter{
-                unrescuedCharacters.remove(rescueCharacter)
+               unrescuedCharacters.remove(rescueCharacter)
                 print("The unrescued character count is: \(unrescuedCharacters.count)")
             }
 

@@ -67,6 +67,8 @@ class GameScene: SKScene {
         return HUDManager.sharedManager.getHUD()
     }
     
+    var safetyZone: SKSpriteNode?
+    
     /** Mission Panel **/
     
     lazy var missionPanel: SKNode? = {
@@ -204,16 +206,7 @@ class GameScene: SKScene {
         let bomb = Bomb(scale: 1.00)
         bomb.move(toParent: worldNode)
         bomb.position = CGPoint(x: 150.0, y: 10.0)
-        
-        let safetyZone = SafetyZone(safetyZoneType: .Green, scale: 0.50)
-        safetyZone.move(toParent: worldNode)
-        safetyZone.position = CGPoint(x: -100, y: -100)
-        safetyZone.zPosition = 30
 
-        self.rescueCharacter = RescueCharacter(withPlayer: self.player, nonPlayerCharacterType: .OldWoman)
-        self.rescueCharacter!.move(toParent: worldNode)
-        self.rescueCharacter!.position = CGPoint(x: 100, y: 100)
-        unrescuedCharacters.insert(self.rescueCharacter!)
         print("The unrescued character count is \(unrescuedCharacters.count)")
         
         
@@ -383,27 +376,23 @@ class GameScene: SKScene {
     
 
     override func didSimulatePhysics() {
-        //player.updatePlayerProximity()
         
         self.mainCameraNode.position = player.position
         overlayNode.position = self.mainCameraNode.position
         
         zombieManager.constrainActiveZombiesToPlayer()
-        
-      
-        for rescueCharacter in self.unrescuedCharacters{
-            print("Constraining rescue character to player...")
-            rescueCharacter.constrainToPlayer()
-
-        }
-        
+        constraintRescuedCharactersToPlayer()
+        checkSafetyZoneForRescueCharacterProximity()
 
     }
+    
+  
     
     override func didEvaluateActions() {
         updatePlayerProximity()
     }
     
+   
     
     func initializePlayerProximity(){
         
@@ -442,6 +431,26 @@ class GameScene: SKScene {
 
         }
         
+    }
+    
+    func constraintRescuedCharactersToPlayer(){
+        for rescueCharacter in self.unrescuedCharacters{
+            rescueCharacter.constrainToPlayer()
+            
+        }
+    }
+    
+    func checkSafetyZoneForRescueCharacterProximity(){
+        for rescueCharacter in self.unrescuedCharacters{
+            if self.safetyZone != nil, self.safetyZone!.contains(rescueCharacter.position){
+                
+                print("The rescue character has entered the safety zone... Proceeding to remove the rescue character from the array of rescue character")
+                
+                self.unrescuedCharacters.remove(rescueCharacter)
+                
+                print("The current number of unrescued character is \(self.unrescuedCharacters.count)")
+            }
+        }
     }
     
     func loadFireButton(){

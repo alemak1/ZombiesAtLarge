@@ -86,7 +86,7 @@ class SafetyZone: SKSpriteNode{
     
     
     public func initializePhysicsProperties(texture: SKTexture){
-        self.physicsBody = SKPhysicsBody(circleOfRadius: texture.size().width*1.5)
+        self.physicsBody = SKPhysicsBody(circleOfRadius: texture.size().width*5)
         self.physicsBody?.categoryBitMask = ColliderType.SafetyZone.categoryMask
         self.physicsBody?.collisionBitMask = ColliderType.SafetyZone.collisionMask
         self.physicsBody?.contactTestBitMask = ColliderType.SafetyZone.contactMask
