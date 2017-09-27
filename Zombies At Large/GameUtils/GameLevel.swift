@@ -62,7 +62,7 @@ enum GameLevel: Int{
     func getNumberOfRequiredCollectibles() -> Int{
         switch self {
         case .Level1:
-            return 5
+            return 7
         default:
             return 0
         }

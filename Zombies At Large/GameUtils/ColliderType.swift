@@ -73,7 +73,7 @@ struct ColliderType: OptionSet, Hashable{
     static var SafetyZone: ColliderType { return self.init(rawValue: 1 << 12)}
     static var SpecialBullets: ColliderType { return self.init(rawValue: 1 << 13)}
     static var Bystander: ColliderType { return self.init(rawValue: 1 << 15)}
-    
+    static var RepulsionField: ColliderType { return self.init(rawValue: 1 << 16)}
     //MARK: Hashable
     
     var hashValue: Int{

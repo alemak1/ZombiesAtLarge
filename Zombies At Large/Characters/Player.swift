@@ -144,6 +144,7 @@ class Player: Shooter{
         self.numberOfBullets = numberOfBullets
         self.health = startingHealth
         
+        
     }
     
     
@@ -163,7 +164,7 @@ class Player: Shooter{
         self.physicsBody?.categoryBitMask = ColliderType.Player.categoryMask
         self.physicsBody?.collisionBitMask = ColliderType.Player.collisionMask
         self.physicsBody?.contactTestBitMask = ColliderType.Player.contactMask
-        
+        self.physicsBody?.fieldBitMask = ColliderType.RepulsionField.categoryMask
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.isDynamic = true
         self.physicsBody?.allowsRotation = false

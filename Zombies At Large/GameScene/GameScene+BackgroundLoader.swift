@@ -487,7 +487,7 @@ extension GameScene{
 
     
     func addRequiredCollectibleTo(someTileMapNode tileMapNode: SKTileMapNode){
-        self.traverseTileMap(tileMap: tileMapNode, withHandler: addSpecialZombie)
+        self.traverseTileMap(tileMap: tileMapNode, withHandler: addRequiredCollectible)
     }
     
     func addRescueCharacterTo(someTileMapNode tileMapNode: SKTileMapNode){

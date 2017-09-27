@@ -339,7 +339,6 @@ class GameScene: SKScene {
         
         if let winCondition = getWinConditionTest(),winCondition(){
             
-            print("Testing if player has enough metal content to win...")
             
             playerWinHandler()
             

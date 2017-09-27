@@ -11,8 +11,10 @@ import SpriteKit
 
 class GiantZombie: Zombie,Updateable{
     
-    
-    
+    var updateInterval: Double = 3.50
+    var lastMovementUpdate: Double = 0.00
+    var movementFrameCount: Double = 0.00
+    var gravityNode: SKFieldNode?
     
     convenience init(zombieType: ZombieType, scale: CGFloat = 1.00, startingHealth: Int = 1) {
         
@@ -26,6 +28,13 @@ class GiantZombie: Zombie,Updateable{
         self.zombieType = zombieType
         self.currentHealth = startingHealth
         
+        
+        self.gravityNode = SKFieldNode.radialGravityField()
+        gravityNode.physicsBody?.categoryBitMask = ColliderType.RepulsionField.categoryMask
+        gravityNode.minimumRadius = 4.00
+        addChild(gravityNode)
+        
+        
         self.xScale *= scale
         self.yScale *= scale
         
@@ -34,6 +43,18 @@ class GiantZombie: Zombie,Updateable{
     
     func updateMovement(forTime currentTime: TimeInterval){
         
+        movementFrameCount = currentTime - lastMovementUpdate
+        
+        if(movementFrameCount > updateInterval){
+            
+            if let gravityNode = self.gravityNode{
+                
+                gravityNode.isEnabled = !gravityNode.isEnabled
+                movementFrameCount = 0
+            }
+        }
+        
+        lastMovementUpdate = currentTime
         
     }
     
