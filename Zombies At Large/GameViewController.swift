@@ -19,13 +19,20 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     
     @IBAction func dismissItemDetailsButton(_ sender: UIButton) {
         
-        
+
+        self.dismissItemDetails()
+    }
+    
+    private func dismissItemDetails(){
         UIView.animate(withDuration: 1.50, animations: {
             
-            self.itemDetailsViewCenterYConstraint.constant -= 500
+            self.itemViewWindowCenterYConstraint.constant += 150
+            self.itemDetailsViewCenterYConstraint.constant -= 150
+            
+            self.itemDetailsAreDisplayed = false
             
             self.view.layoutIfNeeded()
-
+            
         })
     }
     
@@ -58,7 +65,8 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     @IBOutlet weak var itemViewWindowCenterXConstraint: NSLayoutConstraint!
     
     
-   
+    @IBOutlet weak var itemViewWindowCenterYConstraint: NSLayoutConstraint!
+    
     lazy var startGameButton: UIButton = {
        
         let button = UIButton(type: .system)
@@ -111,8 +119,8 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         self.itemCollectionView.delegate = self
         self.itemCollectionView.dataSource = self
         
-        self.itemViewWindowCenterXConstraint.constant = -UIScreen.main.bounds.size.width
-        self.itemDetailsViewCenterXConstraint.constant = -UIScreen.main.bounds.size.width
+        self.itemViewWindowCenterXConstraint.constant = -UIScreen.main.bounds.size.width*2
+        self.itemDetailsViewCenterXConstraint.constant = -UIScreen.main.bounds.size.width*2
         registerNotifications()
 
         self.view.backgroundColor = UIColor.orange
@@ -172,21 +180,17 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     
     @IBAction func dismissItemViewingWindow(_ sender: Any) {
         
+        if(itemDetailsAreDisplayed){
+            self.dismissItemDetails()
+            
+        }
         
-        UIView.animate(withDuration: 1.50, animations: {
-            
-            self.itemViewWindowCenterXConstraint.constant -= UIScreen.main.bounds.size.width
-            
-            if(self.itemDetailsAreDisplayed){
-                self.itemDetailsViewCenterYConstraint.constant -= 500
-            }
-            
-            self.itemDetailsViewCenterXConstraint.constant -= UIScreen.main.bounds.size.width
-            
-            self.itemViewingWindow.layoutIfNeeded()
-            
-        })
+        self.itemViewWindowCenterXConstraint.constant = -UIScreen.main.bounds.size.width*2
+        self.itemDetailsViewCenterXConstraint.constant = -UIScreen.main.bounds.size.width*2
         
+        
+        
+      
     }
   
     override var shouldAutorotate: Bool {
@@ -214,15 +218,12 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     @objc func showCollectionView(){
         
         
-        UIView.animate(withDuration: 1.00, animations: {
-            
-            self.itemCollectionView.reloadData()
-            
-            self.itemViewWindowCenterXConstraint.constant += UIScreen.main.bounds.width
-            self.itemDetailsViewCenterXConstraint.constant += UIScreen.main.bounds.width
-            
-            self.itemViewingWindow.layoutIfNeeded()
-        })
+        self.itemCollectionView.reloadData()
+        
+        self.itemViewWindowCenterXConstraint.constant = 0
+        self.itemDetailsViewCenterXConstraint.constant = 0
+        
+        self.itemViewingWindow.layoutIfNeeded()
         
     }
     
@@ -241,7 +242,8 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         UIView.animate(withDuration: 1.50, animations: {
             
             if(!self.itemDetailsAreDisplayed){
-                self.itemDetailsViewCenterYConstraint.constant += 500
+                self.itemDetailsViewCenterYConstraint.constant += 150
+                self.itemViewWindowCenterYConstraint.constant -= 150
                 self.view.layoutIfNeeded()
                 self.itemDetailsAreDisplayed = true
             }
@@ -260,20 +262,13 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         NotificationCenter.default.addObserver(self, selector: #selector(showCollectionView), name: Notification.Name(rawValue:Notification.Name.ShowInventoryCollectionViewNotification), object: nil)
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateProgressBar(notification:)), name: Notification.Name(rawValue:Notification.Name.didMakeProgressTowardsGameLoadingNotification), object: nil)
+      
 
         
         
     }
     
-    @objc func updateProgressBar(notification: Notification?){
-        
-        if let progressAmount = notification?.userInfo?["progressAmount"] as? Float{
-        
-            self.progressView.progress += Float(progressAmount)
-        }
-    }
-    
+   
     
    
     
