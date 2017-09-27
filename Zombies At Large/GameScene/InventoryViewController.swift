@@ -94,30 +94,8 @@ extension InventoryViewController: UICollectionViewDataSource{
         
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "InventoryItemCell", for: indexPath) as! InventoryItemCell
         
-        guard let array = arrayOfCollectibles else {
-            print("The data source is nil")
-            return cell
-            
-        }
-        
-        
-        let collectible = array[indexPath.row]
-        
-        let frame = cell.frame
-        
-        
-        print("Configuring collection view item cell...")
-            
-        let title = collectible.getCollectibleName()
-        let image = UIImage(cgImage: collectible.getCollectibleTexture().cgImage())
-        
-        print("Dequeued collectible with title...\(title)")
-        
-        cell.nameLabel.text = title
-        cell.itemImageView.image = image
-            
-        print("Collection View item configured with title \(title) and with image \(image)")
-        
+      
+     
     
         
         return cell

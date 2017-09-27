@@ -15,22 +15,55 @@ import GameplayKit
 
 class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource {
 
+    //MARK: ******** ITEM DETAILS VIEW PROPERTIES
+    
+    @IBAction func dismissItemDetailsButton(_ sender: UIButton) {
+        
+        
+        UIView.animate(withDuration: 1.50, animations: {
+            
+            self.itemDetailsViewCenterYConstraint.constant -= 500
+            
+            self.view.layoutIfNeeded()
 
-    lazy var skView: SKView? = {
-        
-        let skView = SKView()
-        
-        skView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return skView
-    }()
+        })
+    }
+    
+    var itemDetailsAreDisplayed: Bool = false
     
     
+    
+    @IBOutlet weak var itemDetailsImage: UIImageView!
+    
+    @IBOutlet weak var itemDetailsViewCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var itemDetailsViewCenterYConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var itemTitleLabel: UILabel!
+    @IBOutlet weak var itemQuantityLabel: UILabel!
+    @IBOutlet weak var totalMassLabel: UILabel!
+    @IBOutlet weak var totalMetalContentLabel: UILabel!
+    @IBOutlet weak var totalUnitValueLabel: UILabel!
+    @IBOutlet weak var totalMonetaryValueLabel: UILabel!
+    
+    
+    @IBOutlet weak var skView: SKView!
+    
+    @IBOutlet weak var itemCollectionView: UICollectionView!
+    
+    @IBOutlet weak var itemViewingWindow: UIView!
+    
+  
+    @IBOutlet weak var itemWindowHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var itemViewWindowCenterXConstraint: NSLayoutConstraint!
+    
+    
+   
     lazy var startGameButton: UIButton = {
        
         let button = UIButton(type: .system)
         
-        button.addTarget(self, action: #selector(loadGame), for: UIControlEvents.allTouchEvents)
+       // button.addTarget(self, action: #selector(loadGame), for: UIControlEvents.allTouchEvents)
         
         button.setTitle("Start Game", for: .normal)
         
@@ -38,32 +71,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
         return button
     }()
-    
-    lazy var inventoryCollectionView: UICollectionView = {
-        
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        
-        flowLayout.itemSize = CGSize(width: 150.0, height: 150.0)
-        
-        flowLayout.minimumInteritemSpacing = 5.00
-        flowLayout.minimumLineSpacing = 5.00
-        
-       let collectionViewRect = CGRect(x: 0.00, y: 0.00, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height*0.50)
-        
-        let collectionView = UICollectionView(frame: collectionViewRect, collectionViewLayout: flowLayout)
-        
-        
-        
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        collectionView.register(InventoryItemCell.self, forCellWithReuseIdentifier: "InventoryItemCell")
-        
-        return collectionView
-    }()
+   
     
     
     var currentGameScene: GameScene?
@@ -90,41 +98,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-
-        
-        view.addSubview(startGameButton)
-        
-        NSLayoutConstraint.activate([
-            startGameButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
-            startGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startGameButton.widthAnchor.constraint(equalToConstant: 200.00),
-            startGameButton.heightAnchor.constraint(equalToConstant: 100.00)
-            
-            ])
-        
-        if let skView = self.skView{
-     
-            self.view.addSubview(skView)
-           self.view.addSubview(progressView)
-            
-           inventoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
-           self.view.addSubview(self.inventoryCollectionView)
-            
-
-        NSLayoutConstraint.activate(self.skViewConstraints)
-       NSLayoutConstraint.activate(self.inventoryConstraints)
-       NSLayoutConstraint.activate(self.progressViewConstraints)
-            
-        
-            
-           
-            
-        } else {
-            fatalError("Error: failed to add the skView")
-            
-        }
-        
-
+       
     }
     
     
@@ -134,22 +108,26 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
         super.viewDidLoad()
         
+        self.itemCollectionView.delegate = self
+        self.itemCollectionView.dataSource = self
+        
+        self.itemViewWindowCenterXConstraint.constant = -UIScreen.main.bounds.size.width
+        self.itemDetailsViewCenterXConstraint.constant = -UIScreen.main.bounds.size.width
         registerNotifications()
 
         self.view.backgroundColor = UIColor.orange
         
-        loadGame()
 
-        
+        loadGame()
         
         
        
     }
     
+   
     
-    @objc func loadGame(){
-        if let skView = self.skView {
-            
+    func loadGame(){
+        
             /**
             UIView.animate(withDuration: 1.00, animations: {
                 
@@ -162,7 +140,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
             progressView.isHidden = false
             
             // Load the SKScene from 'GameScene.sks'
-            currentGameScene = GameScene(currentGameLevel: .Level4, progressView: self.progressView)
+            currentGameScene = GameScene(currentGameLevel: .Level1, progressView: self.progressView)
             
             guard let scene = self.currentGameScene else {
                 fatalError("Error: failed to load game scene ")
@@ -174,8 +152,11 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
             scene.scaleMode = .aspectFill
             
             // Present the scene
-            skView.presentScene(scene)
+    
+                self.skView.presentScene(scene)
+
             
+        
            /**
             UIView.animate(withDuration: 1.00, animations: {
                 
@@ -186,7 +167,26 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
             }) **/
             
             
-        }
+        
+    }
+    
+    @IBAction func dismissItemViewingWindow(_ sender: Any) {
+        
+        
+        UIView.animate(withDuration: 1.50, animations: {
+            
+            self.itemViewWindowCenterXConstraint.constant -= UIScreen.main.bounds.size.width
+            
+            if(self.itemDetailsAreDisplayed){
+                self.itemDetailsViewCenterYConstraint.constant -= 500
+            }
+            
+            self.itemDetailsViewCenterXConstraint.constant -= UIScreen.main.bounds.size.width
+            
+            self.itemViewingWindow.layoutIfNeeded()
+            
+        })
+        
     }
   
     override var shouldAutorotate: Bool {
@@ -213,28 +213,43 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     
     @objc func showCollectionView(){
         
-        /**
-        self.inventoryCollectionView.reloadData()
-
+        
         UIView.animate(withDuration: 1.00, animations: {
             
-            self.inventoryCollectionView.reloadData()
-            self.inventoryHeightConstraint.constant = 200
-    
-          
-            self.view.layoutIfNeeded()
-        })
-    **/
-        
-        let inventoryVC = InventoryViewController(nibName: nil, bundle: nil)
-        
-        inventoryVC.arrayOfCollectibles = collectibleManager!.getCollectiblesArray()
-        
-        present(inventoryVC, animated: true, completion: {
+            self.itemCollectionView.reloadData()
             
-            inventoryVC.collectionView.reloadData()
+            self.itemViewWindowCenterXConstraint.constant += UIScreen.main.bounds.width
+            self.itemDetailsViewCenterXConstraint.constant += UIScreen.main.bounds.width
+            
+            self.itemViewingWindow.layoutIfNeeded()
         })
         
+    }
+    
+    func showItemDetails(forCollectible collectible: Collectible){
+        
+        itemTitleLabel.text = "Item Name: \(collectible.getCollectibleName())"
+        itemQuantityLabel.text = "Quantity: \(collectible.getQuantityOfCollectible())"
+        itemDetailsImage.image = UIImage(cgImage: collectible.getCollectibleTexture().cgImage())
+        
+        totalMassLabel.text = "Total Mass: \(collectible.getCollectibleMass())"
+        totalUnitValueLabel.text = "Unit Value: \(collectible.getCollectibleUnitValue())"
+        totalMonetaryValueLabel.text = "Total Monetary Value: \(collectible.getCollectibleMonetaryValue())"
+        totalMetalContentLabel.text = "Total Metal Content: \(collectible.getCollectibleMetalContent())"
+        totalUnitValueLabel.text = "Unit Value: \(collectible.getCollectibleUnitValue())"
+        
+        UIView.animate(withDuration: 1.50, animations: {
+            
+            if(!self.itemDetailsAreDisplayed){
+                self.itemDetailsViewCenterYConstraint.constant += 500
+                self.view.layoutIfNeeded()
+                self.itemDetailsAreDisplayed = true
+            }
+           
+        })
+        
+        
+      
     }
     
     
@@ -260,102 +275,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     }
     
     
-    /** skView Constraints **/
-    
-    lazy var skViewLeftConstraint: NSLayoutConstraint = {
-        
-        return skView!.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: self.skViewLeftConstraintConstant)
-        
-    
-    }()
-    
-    
-    lazy var skViewRightConstraint: NSLayoutConstraint = {
-        
-        return skView!.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: self.skViewLeftConstraintConstant)
-        
-    }()
-    
-    
-    lazy var skViewTopConstraint: NSLayoutConstraint = {
-    
-        return skView!.topAnchor.constraint(equalTo: self.view.topAnchor, constant: self.skViewTopConstraintConstant)
-        
-    }()
-    
-    lazy var skViewBottomConstraint: NSLayoutConstraint = {
-        
-        return skView!.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: self.skViewBottomConstraintConstant)
-        
-    }()
-    
-    lazy var skViewCenterXConstraint: NSLayoutConstraint = {
-        
-        return skView!.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: self.skViewCenterXConstant)
-        
-    }()
-    
-    lazy var skViewCenterYConstraint: NSLayoutConstraint = {
-        
-        return self.skView!.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.skViewCenterYConstant)
-        
-    }()
-    
-    lazy var skViewWidthAnchorConstraint: NSLayoutConstraint = {
-        
-        return self.skView!.widthAnchor.constraint(equalToConstant: self.skViewWidthAnchorConstant)
-        
-    }()
-    
-    lazy var skViewHeightAnchorConstraint: NSLayoutConstraint = {
-        
-        return skView!.heightAnchor.constraint(equalToConstant: self.skViewHeightAnchorConstant)
-        
-    }()
-
-    var skViewWidthAnchorConstant: CGFloat = UIScreen.main.bounds.width
-        
-        /**
-        get{
-            let isCompactVertical = self.traitCollection.verticalSizeClass == .compact
-        
-            return isCompactVertical ? UIScreen.main.bounds.width: UIScreen.main.bounds.height
-        }
-        **/
-        
-        
-    
-    
-    var skViewHeightAnchorConstant: CGFloat = UIScreen.main.bounds.height
-        
-        /**
-        get{
-            let isCompactVertical = self.traitCollection.verticalSizeClass == .compact
-        
-            return isCompactVertical ? UIScreen.main.bounds.height: UIScreen.main.bounds.width
-        }
-        **/
-        
-  
-    
-    var inventoryCVcenterXConstraint: NSLayoutConstraint{
-        return self.inventoryCollectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: self.inventoryCVcenterXConstant)
-    }
-
-    var inventoryCVcenterYConstraint: NSLayoutConstraint{
-        return self.inventoryCollectionView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.inventoryCVcenterYConstant)
-    }
-    
-    var inventoryCVheightAnchorConstraint: NSLayoutConstraint{
-        return self.inventoryCollectionView.heightAnchor.constraint(equalToConstant: 200)
-
-    }
-    
-    var inventoryCVwidthAnchorConstraint: NSLayoutConstraint{
-        return self.inventoryCollectionView.widthAnchor.constraint(equalToConstant: 400)
-        
-    }
-    
+   
     
     var progressViewCenterXConstraint: NSLayoutConstraint{
         return self.progressView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: self.progressViewCenterXConstant)
@@ -377,53 +297,16 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
     }
     
-    var inventoryLeftConstraint: NSLayoutConstraint{
-        return self.inventoryCollectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor)
-    }
-    
-    var inventoryRightConstraint: NSLayoutConstraint{
-        return self.inventoryCollectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor)
-    }
-    
-    var inventoryBottomConstraint: NSLayoutConstraint{
-        return self.inventoryCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-    }
-    
-    var inventoryHeightConstraint: NSLayoutConstraint{
-        return self.inventoryCollectionView.heightAnchor.constraint(equalToConstant: 0)
-    }
-    
     var progressViewCenterXConstant: CGFloat = 0.00
     var progressViewCenterYConstant: CGFloat = 200.00
     var progressViewHeightConstant: CGFloat = 10.00
     var progressViewWidthConstant: CGFloat = 250.00
 
-    var inventoryCVcenterXConstant: CGFloat = 0.000
-    var inventoryCVcenterYConstant: CGFloat = 250.00
-
-    var skViewCenterYConstant: CGFloat = 0.00
-    var skViewCenterXConstant: CGFloat = 0.00
-    
-    var skViewTopConstraintConstant: CGFloat = 0.00
-    var skViewBottomConstraintConstant: CGFloat = 0.00
-    var skViewLeftConstraintConstant: CGFloat = 0.00
-    var skViewRightConstraintConstant: CGFloat = 0.00
+  
     
     //MARK: ******* Computed properites - UIElement Constraints
     
-    var inventoryConstraints: [NSLayoutConstraint]{
-        //return [self.inventoryCVcenterXConstraint,self.inventoryCVcenterYConstraint, self.inventoryCVheightAnchorConstraint,self.inventoryCVwidthAnchorConstraint]
-        
-        return [self.inventoryHeightConstraint,self.inventoryLeftConstraint,self.inventoryRightConstraint,self.inventoryBottomConstraint]
-    }
-    
-    var progressViewConstraints: [NSLayoutConstraint]{
-            return [self.progressViewCenterXConstraint,self.progressViewCenterYConstraint,self.progressViewWidthConstraint,self.progressViewHeightConstraint]
-    }
-    
-    var skViewConstraints: [NSLayoutConstraint]{
-        return [self.skViewCenterXConstraint,self.skViewCenterYConstraint,self.skViewHeightAnchorConstraint,self.skViewWidthAnchorConstraint]
-    }
+  
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         
@@ -446,6 +329,22 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
 }
 
 extension GameViewController{
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let collectibleManager = collectibleManager else {
+            fatalError("Error: failed to access player collectible manager")
+            
+        }
+        
+        if let collectibleAtIndex = collectibleManager.getCollectibleAtIndex(index: indexPath.row){
+            
+            showItemDetails(forCollectible: collectibleAtIndex)
+
+        }
+
+    }
     
     /** The inventory display will have one section for all the inventory items only **/
     
@@ -470,7 +369,7 @@ extension GameViewController{
             
         }
         
-        let cell = inventoryCollectionView.dequeueReusableCell(withReuseIdentifier: "InventoryItemCell", for: indexPath) as! InventoryItemCell
+        let cell = itemCollectionView.dequeueReusableCell(withReuseIdentifier: "InventoryItemCell", for: indexPath) as! InventoryItemCell
         
         
         //let collectiblesArray = collectibleManager.getCollectiblesArray()
@@ -485,8 +384,8 @@ extension GameViewController{
             let title = collectible.getCollectibleName()
             let image = UIImage(cgImage: collectible.getCollectibleTexture().cgImage())
         
-            cell.nameLabel.text = title
-            cell.itemImageView.image = image
+            cell.itemName.text = title
+            cell.itemImage.image = image
             
             print("Collection View item configured with title \(title) and with image \(image)")
         

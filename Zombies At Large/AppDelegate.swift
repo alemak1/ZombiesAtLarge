@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         **/
         
+        /**
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let rootViewController = GameViewController(nibName: nil, bundle: nil)
@@ -33,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
         
-        
+        **/
         
         return true
     }

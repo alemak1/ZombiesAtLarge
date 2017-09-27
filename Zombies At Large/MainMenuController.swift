@@ -12,6 +12,11 @@ import SpriteKit
 
 class MainMenuController: UIViewController{
     
+    @IBAction func startGame(_ sender: Any) {
+        
+        
+    }
+    
     @IBOutlet weak var progressBar: UIProgressView!
     
     override func viewDidLoad() {

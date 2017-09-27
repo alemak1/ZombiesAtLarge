@@ -17,7 +17,7 @@ class GameMenuViewController: UIViewController{
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
+        /**
         
         let startButton = UIButton(type: .system)
         startButton.addTarget(self, action: #selector(loadLevel1), for: UIControlEvents.allTouchEvents)
@@ -40,6 +40,7 @@ class GameMenuViewController: UIViewController{
 
             ])
         
+        **/
         
     }
     
@@ -55,6 +56,7 @@ class GameMenuViewController: UIViewController{
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.cyan
+        
         
     }
     
