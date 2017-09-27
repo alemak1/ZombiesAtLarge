@@ -136,14 +136,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     
     func loadGame(){
         
-            /**
-            UIView.animate(withDuration: 1.00, animations: {
-                
-                self.skViewCenterXConstant -= 2000
-                
-                skView.setNeedsLayout()
-                
-            }) **/
+        
             
             progressView.isHidden = false
             
@@ -165,16 +158,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
 
             
         
-           /**
-            UIView.animate(withDuration: 1.00, animations: {
-                
-                self.skViewCenterXConstant -= 2000
-                
-                skView.setNeedsLayout()
-
-            }) **/
-            
-            
+        
         
     }
     
