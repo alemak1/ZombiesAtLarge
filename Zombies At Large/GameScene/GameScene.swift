@@ -145,6 +145,28 @@ class GameScene: SKScene {
 
         NotificationCenter.default.addObserver(self, selector: #selector(playerDeathHandler(notification:)), name: Notification.Name(rawValue: "playerDiedNotification"), object: nil)
 
+     
+        NotificationCenter.default.addObserver(self, selector: #selector(removeMustKillZombie(notification:)), name: NSNotification.Name(rawValue: Notification.Name.didKillMustKillZombieNotification), object: nil)
+        
+    }
+    
+    @objc func removeMustKillZombie(notification: Notification?){
+        
+        print("Removing a must kill zombie....")
+        
+        if let toRemoveZombie = self.mustKillZombies.first(where: {
+            
+            $0.name != notification?.userInfo?["zombieName"] as? String
+            
+        }){
+            
+            self.mustKillZombies.remove(toRemoveZombie)
+            print("Must kill zombie removed!")
+            print("Number of zombies left to kill is \(self.mustKillZombies.count)")
+        }
+        
+        
+        
     }
     
     override init(size: CGSize) {

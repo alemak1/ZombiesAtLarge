@@ -28,6 +28,25 @@ enum GameLevel: Int{
     }
     
     
+    func getMustKillZombieType() -> Updateable.Type{
+        switch self {
+        case .Level4:
+            return GiantZombie.self
+        default:
+            return GiantZombie.self
+        }
+    }
+    
+    func getNumberOfMustKillZombies() -> Int{
+        switch self {
+        case .Level4:
+            return 5
+        default:
+            return 0
+        }
+    }
+    
+    
     func getRequiredCollectibleType() -> CollectibleType?{
         switch self {
         case .Level1:

@@ -95,6 +95,33 @@ extension GameScene{
     
     func loadBgLevel4(){
         
+        guard let dirtBackground = SKScene(fileNamed: "backgrounds4")?.childNode(withName: "DirtBackgrounds") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        
+        
+       // addBulletsTo(tileMapNode: dirtBackground)
+       // addZombiesTo(someTileMapNode: dirtBackground)
+       // addRiceBowlsTo(someTileMapNode: dirtBackground)
+       // addRedEnvelopeTo(someTileMapNode: dirtBackground)
+       // addCollectiblesTo(someTileMapNode: dirtBackground)
+        
+        addMustKillZombiesTo(tileMapNode: dirtBackground)
+        
+        dirtBackground.move(toParent: backgroundNode)
+        
+        guard let redCorridors = SKScene(fileNamed: "backgrounds4")?.childNode(withName: "RedCorridors") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        
+        addObstaclePhysicsBodiesTo(tileMapNode: redCorridors)
+        
+        redCorridors.move(toParent: backgroundNode)
+        
+       
+        
     }
     
     func loadBgLevel5(){
@@ -277,6 +304,56 @@ extension GameScene{
         }
     }
     
+    
+    func addMustKillZombie(tileMapNode: SKTileMapNode, row: Int, column: Int){
+     
+        let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
+        
+        let hasMustKillZombie = tileDef?.userData?["hasMustKillZombie"] as? Bool
+        
+        if(hasMustKillZombie ?? false){
+            
+            
+            let mustKillZombiePos = tileMapNode.centerOfTile(atColumn: column, row: row)
+            
+            var mustKillZombie: Zombie?
+            
+            if(self.mustKillZombies.count >= self.currentGameLevel.getNumberOfMustKillZombies()){
+                
+                return
+                
+            } else {
+                
+                let mustKillZombieType = self.currentGameLevel.getMustKillZombieType()
+                
+                switch mustKillZombieType{
+                    case is GiantZombie.Type:
+                        mustKillZombie = GiantZombie(zombieType: .zombie1, scale: 2.00, startingHealth: 6)
+                        break
+                    case is CamouflageZombie.Type:
+                        break
+                    case is MiniZombie.Type:
+                        break
+                    default:
+                        break
+                }
+                
+                if let mustKillZombie = mustKillZombie{
+                    print("Adding must kill zombie to games scene")
+                    mustKillZombie.position = mustKillZombiePos
+                    mustKillZombie.move(toParent: worldNode)
+                    mustKillZombie.name = "MustKillZombie\(self.mustKillZombies.count)"
+                    zombieManager.addDynamicZombie(zombie: mustKillZombie as! Updateable)
+                    mustKillZombies.insert(mustKillZombie)
+                    print("The number of mustKillZombies is \(self.mustKillZombies.count)")
+                }
+            }
+            
+            
+        }
+    }
+    
+    
     func addSpecialZombie(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
@@ -295,19 +372,19 @@ extension GameScene{
                 let newZombie = CamouflageZombie()
                 newZombie.position = zombiePos
                 newZombie.move(toParent: worldNode)
-                zombieManager.addCamouflageZombie(zombie: newZombie)
+                zombieManager.addDynamicZombie(zombie: newZombie)
                 break
             case .GZombie:
                 let newZombie = GiantZombie(zombieType: zombieType, scale: 1.00, startingHealth: 6)
                 newZombie.position = zombiePos
                 newZombie.move(toParent: worldNode)
-                zombieManager.addGiantZombie(zombie: newZombie)
+                zombieManager.addDynamicZombie(zombie: newZombie)
                 break
             case .MZombie:
                 let newZombie = MiniZombie(zombieType: zombieType, scale: 1.00, startingHealth: 1)
                 newZombie.position = zombiePos
                 newZombie.move(toParent: worldNode)
-                zombieManager.addMiniZombie(zombie: newZombie)
+                zombieManager.addDynamicZombie(zombie: newZombie)
                 break
             }
             
@@ -516,6 +593,10 @@ extension GameScene{
     
     func addSafetyZonesTo(tileMapNode tileMapeNode: SKTileMapNode){
         self.traverseTileMap(tileMap: tileMapeNode, withHandler: addSafetyZone)
+    }
+    
+    func addMustKillZombiesTo(tileMapNode: SKTileMapNode){
+        self.traverseTileMap(tileMap: tileMapNode, withHandler: addMustKillZombie)
     }
     
     func addObstaclePhysicsBodiesTo(tileMapNode tileMapeNode: SKTileMapNode){

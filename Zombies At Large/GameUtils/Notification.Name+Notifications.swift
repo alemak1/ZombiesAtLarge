@@ -14,6 +14,6 @@ extension Notification.Name{
     static let ShowInventoryCollectionViewNotification = "showInventoryCollectionViewNotification"
     static let didUpdateGameLoadingProgressNotification = "didUpdateGameLoadingProgressNotification"
     static let didMakeProgressTowardsGameLoadingNotification = "didMakeProgressTowardsGameLoadingNotification"
-   
+   static let didKillMustKillZombieNotification = "didKillMustKillZombieNotification"
 }
 

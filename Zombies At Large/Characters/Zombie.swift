@@ -64,6 +64,8 @@ class Zombie: Shooter{
      var currentHealth: Int = 3
      var isDamaged: Bool = false
     
+  
+    
     override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
         
         return {(bulletPB: inout SKPhysicsBody) in
@@ -233,7 +235,26 @@ class Zombie: Shooter{
             die()
             break
         default:
+            takeDamage()
             print("No logic implemented for health of \(self.currentHealth)")
+        }
+    }
+    
+    
+    private func takeDamage(){
+        if(!isDamaged){
+            isDamaged = true
+            
+            run(SKAction.run {
+                
+                self.run(SKAction.colorize(with: SKColor.red, colorBlendFactor: 0.10, duration: 0.20))
+                self.currentHealth -= 1
+                }, completion: {
+                    
+                    self.isDamaged = false
+                    
+            })
+            
         }
     }
     
@@ -294,22 +315,32 @@ class Zombie: Shooter{
 
     }
     
-    private func die(){
-        
-        run(SKAction.animate(with: [
-            SKTexture(image: #imageLiteral(resourceName: "regularExplosion01")),
-            SKTexture(image: #imageLiteral(resourceName: "regularExplosion02")),
-            SKTexture(image: #imageLiteral(resourceName: "regularExplosion03")),
-            SKTexture(image: #imageLiteral(resourceName: "regularExplosion04")),
-            SKTexture(image: #imageLiteral(resourceName: "regularExplosion05")),
-            SKTexture(image: #imageLiteral(resourceName: "regularExplosion06")),
-            SKTexture(image: #imageLiteral(resourceName: "regularExplosion08")),
-            ], timePerFrame: 0.10), completion: {
+    func die(completion: (() -> Void)? = nil){
+    
+    
+        if(!isDamaged){
+            isDamaged = true
+    
+            run(SKAction.animate(with: [
+                SKTexture(image: #imageLiteral(resourceName: "regularExplosion01")),
+                SKTexture(image: #imageLiteral(resourceName: "regularExplosion02")),
+                SKTexture(image: #imageLiteral(resourceName: "regularExplosion03")),
+                SKTexture(image: #imageLiteral(resourceName: "regularExplosion04")),
+                SKTexture(image: #imageLiteral(resourceName: "regularExplosion05")),
+                SKTexture(image: #imageLiteral(resourceName: "regularExplosion06")),
+                SKTexture(image: #imageLiteral(resourceName: "regularExplosion08")),
+                ], timePerFrame: 0.10), completion: {
                 
-                self.removeFromParent()
+                    self.removeFromParent()
                 
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "didKillZombieNotification"), object: nil)
-        })
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "didKillZombieNotification"), object: nil)
+                    
+                    if completion != nil{
+                        completion!()
+
+                    }
+            })
+        }
     }
     
     func hasBeenActivated() -> Bool{

@@ -16,6 +16,12 @@ class GiantZombie: Zombie,Updateable{
     var movementFrameCount: Double = 0.00
     var gravityNode: SKFieldNode?
     
+    
+    
+    override func hasBeenActivated() -> Bool {
+        return false
+    }
+    
     convenience init(zombieType: ZombieType, scale: CGFloat = 1.00, startingHealth: Int = 1) {
         
         
@@ -28,12 +34,14 @@ class GiantZombie: Zombie,Updateable{
         self.zombieType = zombieType
         self.currentHealth = startingHealth
         
-        
+        /**
         self.gravityNode = SKFieldNode.radialGravityField()
-        gravityNode.physicsBody?.categoryBitMask = ColliderType.RepulsionField.categoryMask
-        gravityNode.minimumRadius = 4.00
-        addChild(gravityNode)
-        
+        self.gravityNode!.physicsBody?.categoryBitMask = ColliderType.RepulsionField.categoryMask
+        self.gravityNode!.minimumRadius = 0.0
+        self.gravityNode!.isEnabled = true
+        addChild(gravityNode!)
+         **/
+ 
         
         self.xScale *= scale
         self.yScale *= scale
@@ -43,21 +51,61 @@ class GiantZombie: Zombie,Updateable{
     
     func updateMovement(forTime currentTime: TimeInterval){
         
-        movementFrameCount = currentTime - lastMovementUpdate
+        if(lastMovementUpdate == 0){
+            lastMovementUpdate = currentTime
+        }
+        
+        
+        movementFrameCount += currentTime - lastMovementUpdate
         
         if(movementFrameCount > updateInterval){
             
+            
+            self.physicsBody?.applyAngularImpulse(0.20)
+
             if let gravityNode = self.gravityNode{
                 
-                gravityNode.isEnabled = !gravityNode.isEnabled
-                movementFrameCount = 0
             }
+            movementFrameCount = 0
+
         }
         
         lastMovementUpdate = currentTime
         
     }
     
+    override func configurePhysicsProperties(withTexture texture: SKTexture, andWithSize size: CGSize) {
+        super.configurePhysicsProperties(withTexture: texture, andWithSize: size)
+        
+        self.physicsBody!.isDynamic = true
+        self.physicsBody!.allowsRotation = true
+        self.physicsBody?.angularDamping = 4.00
+        
+    }
+    
+    override func die(completion: (() -> Void)?) {
+        
+        super.die(completion: {
+            if self.currentHealth <= 0{
+                print("Giant Zombie has died...sending notification...")
+                
+                let notificationName = Notification.Name(rawValue: Notification.Name.didKillMustKillZombieNotification)
+                
+                NotificationCenter.default.post(name: notificationName, object: self, userInfo: [
+                    "zombieName":self.name ?? "MustKillZombie"
+                    ])
+                
+            }
+            
+        })
+        
+    }
+    
+   
+    
+ 
+    
+   
     
     //MARK: ********* Designated and required initializers
     
