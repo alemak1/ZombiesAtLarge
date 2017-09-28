@@ -215,10 +215,19 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
 
         loadGame()
         
-        
+        becomeFirstResponder()
        
     }
     
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if(event?.subtype == UIEventSubtype.motionShake){
+            if collectibleManager != nil, collectibleManager!.getActiveStatusFor(collectibleType: .Grenade){
+                
+                NotificationCenter.default.post(name: Notification.Name.GetDidSetOffGrenadeNotificationName(), object: nil, userInfo: nil)
+
+            }
+        }
+    }
    
     
     func loadGame(){

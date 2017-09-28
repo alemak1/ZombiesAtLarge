@@ -41,6 +41,7 @@ enum CollectibleType: Int{
     case SilverBullet = 508
     case Bomb = 510
     case WordScroll = 511
+    case Grenade = 512
     
     static let allCollectibleTypes:[CollectibleType] = {
         
@@ -117,6 +118,8 @@ enum CollectibleType: Int{
     public func getCanBeActivatedStatus() -> Bool{
         
         switch self {
+            case .Grenade:
+                return true
             case .SilverBullet:
                 return true
             case .Clipboard:
@@ -158,6 +161,8 @@ enum CollectibleType: Int{
     
     public func getCollectibleName() -> String{
         switch self{
+        case .Grenade:
+            return "Grenade"
         case .SilverBullet:
             return "Silver Bullet"
         case .PowerDrill:

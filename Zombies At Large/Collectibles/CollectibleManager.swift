@@ -218,4 +218,21 @@ class CollectibleManager{
         
     }
     
+    
+    func removeCollectible(ofType collectibleType: CollectibleType){
+        
+    
+        if let collectible = getCollectible(ofType: collectibleType){
+            
+            removeCollectible(collectible: collectible)
+
+        }
+        
+    }
+    
+    
+    func removeCollectible(collectible: Collectible){
+        
+        self.collectibles.remove(collectible)
+    }
 }

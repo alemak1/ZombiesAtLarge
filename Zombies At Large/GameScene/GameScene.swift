@@ -56,6 +56,8 @@ class GameScene: SKScene{
     
     var playMissionAccomplishedSound: SKAction = SKAction.playSoundFileNamed("missionAccomplished", waitForCompletion: true)
     
+    var playGrenadeLaunchSound: SKAction = SKAction.playSoundFileNamed("rumble3", waitForCompletion: true)
+    
     /** Node Layers **/
     
     var backgroundNode: SKNode!
@@ -148,6 +150,31 @@ class GameScene: SKScene{
      
         NotificationCenter.default.addObserver(self, selector: #selector(removeMustKillZombie(notification:)), name: NSNotification.Name(rawValue: Notification.Name.didKillMustKillZombieNotification), object: nil)
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setOffGrenade(notification:)), name: NSNotification.Name.GetDidSetOffGrenadeNotificationName(), object: nil)
+
+        
+    }
+    
+    @objc func setOffGrenade(notification: Notification?){
+        
+        run(playGrenadeLaunchSound, completion: {
+            
+            self.player.collectibleManager.removeCollectible(ofType: .Grenade)
+            
+        })
+        
+        
+        for zombie in self.zombieManager.activeZombies{
+            zombie.die(completion: {
+                
+                print("Zombie died from grenade launch!")
+                
+            })
+        }
+        
+      
+        
     }
     
     @objc func removeMustKillZombie(notification: Notification?){
@@ -225,7 +252,7 @@ class GameScene: SKScene{
         loadHUD()
         
 
-        let silverBullet = CollectibleSprite(collectibleType: .SilverBullet)
+        let silverBullet = CollectibleSprite(collectibleType: .Grenade)
         silverBullet.move(toParent: worldNode)
         silverBullet.position = CGPoint(x: 150.0, y: 10.0)
 

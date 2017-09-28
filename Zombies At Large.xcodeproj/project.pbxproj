@@ -49,6 +49,8 @@
 		BD3D72AC1F6E928D00E442C2 /* missionFailed.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD3D72AA1F6E928400E442C2 /* missionFailed.wav */; };
 		BD448B9F1F741FB4000864E8 /* backgrounds2.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD448B9E1F741FB4000864E8 /* backgrounds2.sks */; };
 		BD4529E01F695946000166A4 /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4529DF1F695946000166A4 /* GameLevel.swift */; };
+		BD45E3D91F7D2F3D001C6853 /* rumble3.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD45E3D81F7D2F30001C6853 /* rumble3.wav */; };
+		BD45E3DA1F7D2F40001C6853 /* rumble1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD45E3D71F7D2F30001C6853 /* rumble1.wav */; };
 		BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD47350F1F6AA5AC00D91819 /* MapLocation.swift */; };
 		BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */; };
 		BD4967971F73FF2F00230AB8 /* MainMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4967961F73FF2F00230AB8 /* MainMenuController.swift */; };
@@ -171,6 +173,8 @@
 		BD3D72AA1F6E928400E442C2 /* missionFailed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = missionFailed.wav; sourceTree = "<group>"; };
 		BD448B9E1F741FB4000864E8 /* backgrounds2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = backgrounds2.sks; sourceTree = "<group>"; };
 		BD4529DF1F695946000166A4 /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
+		BD45E3D71F7D2F30001C6853 /* rumble1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rumble1.wav; sourceTree = "<group>"; };
+		BD45E3D81F7D2F30001C6853 /* rumble3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rumble3.wav; sourceTree = "<group>"; };
 		BD47350F1F6AA5AC00D91819 /* MapLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
 		BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSprite.swift; sourceTree = "<group>"; };
 		BD4967961F73FF2F00230AB8 /* MainMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuController.swift; sourceTree = "<group>"; };
@@ -340,6 +344,8 @@
 		BD5143271F62E7F300294559 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				BD45E3D71F7D2F30001C6853 /* rumble1.wav */,
+				BD45E3D81F7D2F30001C6853 /* rumble3.wav */,
 				BD3D72A91F6E928400E442C2 /* missionAccomplished.wav */,
 				BD3D72AA1F6E928400E442C2 /* missionFailed.wav */,
 				BD39FCF51F68ED0200209FFD /* coin2.wav */,
@@ -565,7 +571,9 @@
 				BD448B9F1F741FB4000864E8 /* backgrounds2.sks in Resources */,
 				BD3961A21F5970940060CDB4 /* Main.storyboard in Resources */,
 				BD9659CE1F7623E4009A7F0B /* backgrounds4.sks in Resources */,
+				BD45E3DA1F7D2F40001C6853 /* rumble1.wav in Resources */,
 				BD3961A41F5970940060CDB4 /* Assets.xcassets in Resources */,
+				BD45E3D91F7D2F3D001C6853 /* rumble3.wav in Resources */,
 				BD6378971F5FA8C60057BFD6 /* basicBackground.sks in Resources */,
 				BD395A7F1F67078D00684AB9 /* explosion1.wav in Resources */,
 				BD39FCF61F68ED0A00209FFD /* coin2.wav in Resources */,
