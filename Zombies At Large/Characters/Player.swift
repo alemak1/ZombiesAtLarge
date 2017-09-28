@@ -89,7 +89,11 @@ class Player: Shooter{
     
     private var numberOfBullets: Int = 30
     
-    var hasSpecialBullets = false
+    var hasSpecialBullets: Bool{
+        
+        return self.collectibleManager.getActiveStatusFor(collectibleType: .SilverBullet)
+        
+    }
     
     var updatingBulletCount = false
     var isTemporarilyInvulnerable = false
@@ -102,22 +106,18 @@ class Player: Shooter{
                 bulletPB.categoryBitMask = ColliderType.PlayerBullets.categoryMask
                 bulletPB.collisionBitMask = ColliderType.PlayerBullets.collisionMask
                 bulletPB.contactTestBitMask = ColliderType.PlayerBullets.contactMask
+                
             } else {
                 
                 bulletPB.categoryBitMask = ColliderType.SpecialBullets.categoryMask
-                bulletPB.collisionBitMask = ColliderType.SpecialBullets.collisionMask
+                bulletPB.collisionBitMask = ColliderType.SpecialBullets.collisionMask | ~ColliderType.Obstacle.categoryMask
                 bulletPB.contactTestBitMask = ColliderType.SpecialBullets.contactMask
             }
             
         }
     }
 
-    func activateSpecialBullets(){
-        
-        hasSpecialBullets = true
-        
-    }
-    
+  
     
     override var playFiringSound: SKAction
     {

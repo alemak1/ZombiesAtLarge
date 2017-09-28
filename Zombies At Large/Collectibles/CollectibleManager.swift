@@ -50,6 +50,16 @@ class CollectibleManager{
     }
     
     
+    
+    
+    func hasItem(collectibleType: CollectibleType) -> Bool{
+        
+        let collectible = Collectible(withCollectibleType: collectibleType)
+        
+        return self.collectibles.contains(collectible)
+        
+    }
+    
     func hasItem(collectible: Collectible) -> Bool{
         
         return self.collectibles.contains(collectible)
@@ -60,6 +70,24 @@ class CollectibleManager{
     func getCollectiblesArray() -> [Collectible]{
         
         return self.collectibles.map({$0})
+    }
+    
+    
+    
+    func getActiveStatusFor(collectibleType: CollectibleType) -> Bool{
+        
+        if let collectible = getCollectible(ofType: collectibleType){
+            
+            return collectible.getActiveStatus()
+        }
+        
+        return false
+    }
+    
+    func getCollectible(ofType collectibleType: CollectibleType) -> Collectible?{
+        
+        return getCollectiblesArray().first(where: { $0.getCollectibleType() == collectibleType })
+        
     }
     
     func getCollectibleAtIndex(index: Int) -> Collectible?{

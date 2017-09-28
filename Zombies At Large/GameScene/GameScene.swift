@@ -225,9 +225,9 @@ class GameScene: SKScene{
         loadHUD()
         
 
-        let bomb = Bomb(scale: 1.00)
-        bomb.move(toParent: worldNode)
-        bomb.position = CGPoint(x: 150.0, y: 10.0)
+        let silverBullet = CollectibleSprite(collectibleType: .SilverBullet)
+        silverBullet.move(toParent: worldNode)
+        silverBullet.position = CGPoint(x: 150.0, y: 10.0)
 
         print("The unrescued character count is \(unrescuedCharacters.count)")
         
