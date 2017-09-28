@@ -10,7 +10,70 @@ import Foundation
 import SpriteKit
 
 
+class PlayerStateSnapShot: NSCoding{
+    
+    var healthLevel: Int
+    var numberOfBullets: Int
+    var compassOrientation: CompassDirection
+    var position: CGPoint
+    var currentVelocity: CGVector
+    var playerType: PlayerType
+    
+    init(playerType: PlayerType, healthLevel: Int, numberOfBullets: Int, compassOrientation: CompassDirection, position: CGPoint, currentVelocity: CGVector) {
+        
+        self.playerType = playerType
+        self.healthLevel = healthLevel
+        self.numberOfBullets = numberOfBullets
+        self.compassOrientation = compassOrientation
+        self.position = position
+        self.currentVelocity = currentVelocity
+        
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.position, forKey: "position")
+        aCoder.encode(self.currentVelocity, forKey: "currentVelocity")
+        aCoder.encode(self.healthLevel, forKey: "healthLevel")
+        aCoder.encode(self.numberOfBullets, forKey: "numberOfBullets")
+        
+        aCoder.encode(self.playerType, forKey: "playerType")
+        aCoder.encode(self.compassOrientation, forKey: "compassDirection")
+        
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.position = aDecoder.decodeCGPoint(forKey: "position")
+        self.currentVelocity = aDecoder.decodeCGVector(forKey: "currentVelocity")
+        self.healthLevel = aDecoder.decodeInteger(forKey: "healthLevel")
+        self.numberOfBullets = aDecoder.decodeInteger(forKey: "numberOfBullets")
+        
+        self.compassOrientation = aDecoder.decodeObject(forKey: "compassDirection") as! CompassDirection
+        self.playerType = aDecoder.decodeObject(forKey: "playerType") as! PlayerType
+    }
+}
+
 class Player: Shooter{
+    
+    
+    lazy var playerStateSnapShot: PlayerStateSnapShot = {
+        
+        let velocity = self.physicsBody?.velocity ?? CGVector.zero
+        
+        return PlayerStateSnapShot(playerType: self.playerType, healthLevel: self.health, numberOfBullets: self.numberOfBullets, compassOrientation: self.compassDirection, position: self.position, currentVelocity: velocity)
+        
+    }()
+    
+    func configurePlayerState(withPlayerStateSnapshot playerStateSnapshot: PlayerStateSnapShot){
+        
+        self.position = playerStateSnapshot.position
+        self.playerType = playerStateSnapshot.playerType
+        self.compassDirection = playerStateSnapshot.compassOrientation
+        self.health = playerStateSnapshot.healthLevel
+        self.numberOfBullets = playerStateSnapshot.numberOfBullets
+        self.physicsBody?.velocity = playerStateSnapshot.currentVelocity
+        
+    }
     
     private var playerType: PlayerType
     

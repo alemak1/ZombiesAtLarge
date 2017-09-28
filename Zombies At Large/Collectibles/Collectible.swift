@@ -14,15 +14,49 @@ class Collectible: Equatable, Hashable{
     
     private var collectibleType: CollectibleType!
     private var totalQuantity: Int = 1
-    
+    private var canBeActivated: Bool = false
+    private var isActive: Bool = false
     
     init(withCollectibleType someCollectibleType: CollectibleType){
         
         self.collectibleType = someCollectibleType
+        self.canBeActivated = someCollectibleType.getCanBeActivatedStatus()
         self.totalQuantity = 1
+        
+        registerNotifications()
     }
     
+    
+    public func registerNotifications(){
+        NotificationCenter.default.addObserver(self, selector: #selector(activateCollectible(notification:)), name: Notification.Name.GetDidActivateCollectibleNotificationName(), object: nil)
+    }
 
+    @objc public func activateCollectible(notification: Notification?){
+        
+        if let userInfo = notification?.userInfo, let rawValue = userInfo["collectibleRawValue"] as? Int{
+            
+            if rawValue != self.getCollectibleType().rawValue{
+                return
+            }
+            
+            if let activeStatus = userInfo["isActive"] as? Bool{
+                
+                isActive = activeStatus
+
+            }
+        
+        }
+     
+    }
+    
+    public func getCanBeActivatedStatus() -> Bool{
+        return self.canBeActivated
+    }
+    
+    public func getActiveStatus() -> Bool{
+        return self.isActive
+    }
+    
     public func getCollectibleName() -> String{
         return collectibleType.getCollectibleName()
     }

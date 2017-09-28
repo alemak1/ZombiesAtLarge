@@ -31,6 +31,7 @@
 		BD3961CB1F5970BD0060CDB4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3961CA1F5970BD0060CDB4 /* Player.swift */; };
 		BD3961CD1F5971340060CDB4 /* PlayerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3961CC1F5971340060CDB4 /* PlayerType.swift */; };
 		BD3961CF1F59785C0060CDB4 /* user_interface.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD3961CE1F59785C0060CDB4 /* user_interface.sks */; };
+		BD39D1CB1F7CEF0A00B1E98E /* GameSceneSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39D1CA1F7CEF0A00B1E98E /* GameSceneSnapshot.swift */; };
 		BD39FCF61F68ED0A00209FFD /* coin2.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF51F68ED0200209FFD /* coin2.wav */; };
 		BD39FCF71F68ED0C00209FFD /* coin5.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF11F68ECDA00209FFD /* coin5.wav */; };
 		BD39FCF81F68ED0F00209FFD /* coin1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF41F68ECEB00209FFD /* coin1.wav */; };
@@ -93,6 +94,9 @@
 		BDE9FB0F1F66BCC80056B66E /* CameraObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */; };
 		BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB101F66BCED0056B66E /* CameraSprite.swift */; };
 		BDEB6F5C1F698309000B3B22 /* Plan in Resources */ = {isa = PBXBuildFile; fileRef = BDEB6F5B1F698309000B3B22 /* Plan */; };
+		BDF488121F7CCE9000829CA8 /* ScrollConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF488111F7CCE9000829CA8 /* ScrollConfiguration.swift */; };
+		BDF488141F7CCFEE00829CA8 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF488131F7CCFEE00829CA8 /* Scroll.swift */; };
+		BDF488161F7CD02F00829CA8 /* ScrollManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF488151F7CD02F00829CA8 /* ScrollManager.swift */; };
 		BDFC53261F5A7CEE00289716 /* CompassDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFC53251F5A7CEE00289716 /* CompassDirection.swift */; };
 /* End PBXBuildFile section */
 
@@ -149,6 +153,7 @@
 		BD3961D31F598B310060CDB4 /* Space Cadet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Space Cadet.mp3"; sourceTree = "<group>"; };
 		BD3961D41F598B370060CDB4 /* Night at the Beach.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Night at the Beach.mp3"; sourceTree = "<group>"; };
 		BD3961D51F598B470060CDB4 /* Sad Descent.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Sad Descent.mp3"; sourceTree = "<group>"; };
+		BD39D1CA1F7CEF0A00B1E98E /* GameSceneSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneSnapshot.swift; sourceTree = "<group>"; };
 		BD39FCF11F68ECDA00209FFD /* coin5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin5.wav; sourceTree = "<group>"; };
 		BD39FCF21F68ECE900209FFD /* coin3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin3.wav; sourceTree = "<group>"; };
 		BD39FCF31F68ECE900209FFD /* coin4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin4.wav; sourceTree = "<group>"; };
@@ -211,6 +216,9 @@
 		BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraObject.swift; sourceTree = "<group>"; };
 		BDE9FB101F66BCED0056B66E /* CameraSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSprite.swift; sourceTree = "<group>"; };
 		BDEB6F5B1F698309000B3B22 /* Plan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Plan; sourceTree = "<group>"; };
+		BDF488111F7CCE9000829CA8 /* ScrollConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollConfiguration.swift; sourceTree = "<group>"; };
+		BDF488131F7CCFEE00829CA8 /* Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scroll.swift; sourceTree = "<group>"; };
+		BDF488151F7CD02F00829CA8 /* ScrollManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollManager.swift; sourceTree = "<group>"; };
 		BDFC53251F5A7CEE00289716 /* CompassDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassDirection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -363,6 +371,7 @@
 				BDACC97C1F744C89001EF161 /* GameScene+UIPanelManager.swift */,
 				BD9659D11F7641D3009A7F0B /* InventoryItemCell.swift */,
 				BD4C1D8C1F769DB80017A8F4 /* InventoryViewController.swift */,
+				BD39D1CA1F7CEF0A00B1E98E /* GameSceneSnapshot.swift */,
 			);
 			path = GameScene;
 			sourceTree = "<group>";
@@ -426,6 +435,9 @@
 				BD47350F1F6AA5AC00D91819 /* MapLocation.swift */,
 				BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */,
 				BD3A78891F6D690D0001804A /* OtherCollectibleSprites.swift */,
+				BDF488111F7CCE9000829CA8 /* ScrollConfiguration.swift */,
+				BDF488131F7CCFEE00829CA8 /* Scroll.swift */,
+				BDF488151F7CD02F00829CA8 /* ScrollManager.swift */,
 			);
 			path = Collectibles;
 			sourceTree = "<group>";
@@ -600,6 +612,7 @@
 			files = (
 				BD56B8D91F73DD3800159C7B /* GameScene+BackgroundLoader.swift in Sources */,
 				BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */,
+				BD39D1CB1F7CEF0A00B1E98E /* GameSceneSnapshot.swift in Sources */,
 				BDE9FB071F66A64A0056B66E /* FilterConfiguration.swift in Sources */,
 				BDE9FB0B1F66B24E0056B66E /* ImageSprite.swift in Sources */,
 				BDAF397E1F6E748400A164C9 /* SafetyZone.swift in Sources */,
@@ -616,7 +629,9 @@
 				BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */,
 				BD7865591F6546620071A14F /* CollectibleType.swift in Sources */,
 				BD32EC281F6E675D0080D712 /* RescueCharacter.swift in Sources */,
+				BDF488121F7CCE9000829CA8 /* ScrollConfiguration.swift in Sources */,
 				BD306AFD1F73AFE40067C17F /* MiniZombie.swift in Sources */,
+				BDF488161F7CD02F00829CA8 /* ScrollManager.swift in Sources */,
 				BD306AFF1F73B0240067C17F /* GiantZombie.swift in Sources */,
 				BDE9FB0D1F66B55F0056B66E /* CustomFilters.swift in Sources */,
 				BD4C1D8D1F769DB80017A8F4 /* InventoryViewController.swift in Sources */,
@@ -638,6 +653,7 @@
 				BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */,
 				BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */,
 				BD3961CB1F5970BD0060CDB4 /* Player.swift in Sources */,
+				BDF488141F7CCFEE00829CA8 /* Scroll.swift in Sources */,
 				BDACC97D1F744C89001EF161 /* GameScene+UIPanelManager.swift in Sources */,
 				BD9D75681F73CB4700F6C38D /* Updateable.swift in Sources */,
 				BD93DE6E1F737C2300C271AF /* Notification.Name+Notifications.swift in Sources */,

@@ -28,6 +28,7 @@ enum CollectibleType: Int{
     case FlaskRed = 107
     case FlaskGreen = 108
     case Camera = 200
+    case WallBullet = 201
     case Microscope = 111
     case CompassPointB = 500
     case CompassPointD = 501
@@ -38,6 +39,7 @@ enum CollectibleType: Int{
     case RedEnvelope1 = 506
     case RedEnvelope2 = 507
     case Bomb = 510
+    case WordScroll = 511
     
     static let allCollectibleTypes:[CollectibleType] = {
         
@@ -74,6 +76,19 @@ enum CollectibleType: Int{
     }
     
     
+    func getDetailInformation() -> String{
+        
+        switch self {
+        case .CD:
+            return "This is a CD"
+        case .ClosedBook:
+            return "This is a closed book"
+        default:
+            return "No information available for this item"
+        }
+    }
+  
+    
     func getTexture() -> SKTexture{
         
         let baseStr = "genericItem_color_"
@@ -96,6 +111,28 @@ enum CollectibleType: Int{
         
         
         return SKTexture(imageNamed: finalStr)
+    }
+    
+    public func getCanBeActivatedStatus() -> Bool{
+        
+        switch self {
+            case .Clipboard:
+                return false
+            case .Camera:
+                return true
+            case .WallBullet:
+                return true
+            case .CD:
+                return true
+            case .FeatherPen:
+                return true
+            case .FlaskGreen:
+                return true
+            case .FlaskRed:
+                return false
+        default:
+            return false
+        }
     }
     
     public func getMonetaryUnitValue() -> Double{

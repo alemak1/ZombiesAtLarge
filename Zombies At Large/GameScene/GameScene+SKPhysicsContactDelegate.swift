@@ -335,10 +335,14 @@ extension GameScene: SKPhysicsContactDelegate{
             break
         case ColliderType.Collectible.categoryMask:
             print("The player has contacted a collectible")
+            
+            if let scroll = nonPlayerBody.node as? Scroll{
+                
+            }
+            
+
             if let collectibleSprite = nonPlayerBody.node as? CollectibleSprite{
                 
-                
-             
                 
                 if collectibleSprite.name == "RedEnvelope",let redEnvelope = collectibleSprite as? RedEnvelope{
                     

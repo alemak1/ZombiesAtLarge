@@ -15,7 +15,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene{
     
     var player: Player!
     var playerProximity: SKShapeNode!

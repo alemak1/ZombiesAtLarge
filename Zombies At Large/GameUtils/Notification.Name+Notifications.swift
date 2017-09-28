@@ -14,6 +14,12 @@ extension Notification.Name{
     static let ShowInventoryCollectionViewNotification = "showInventoryCollectionViewNotification"
     static let didUpdateGameLoadingProgressNotification = "didUpdateGameLoadingProgressNotification"
     static let didMakeProgressTowardsGameLoadingNotification = "didMakeProgressTowardsGameLoadingNotification"
-   static let didKillMustKillZombieNotification = "didKillMustKillZombieNotification"
+    static let didKillMustKillZombieNotification = "didKillMustKillZombieNotification"
+    static let didActivateCollectibleNotification = "didActivateCollectibleNotification"
+    
+    static func GetDidActivateCollectibleNotificationName() -> Notification.Name{
+        return self.init(Notification.Name.didActivateCollectibleNotification)
+    }
 }
+
 
