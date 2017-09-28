@@ -51,6 +51,8 @@
 		BD4529E01F695946000166A4 /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4529DF1F695946000166A4 /* GameLevel.swift */; };
 		BD45E3D91F7D2F3D001C6853 /* rumble3.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD45E3D81F7D2F30001C6853 /* rumble3.wav */; };
 		BD45E3DA1F7D2F40001C6853 /* rumble1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD45E3D71F7D2F30001C6853 /* rumble1.wav */; };
+		BD45E3DC1F7D403A001C6853 /* GameViewController+GameplayUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD45E3DB1F7D403A001C6853 /* GameViewController+GameplayUI.swift */; };
+		BD45E3DF1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD45E3DE1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift */; };
 		BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD47350F1F6AA5AC00D91819 /* MapLocation.swift */; };
 		BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */; };
 		BD4967971F73FF2F00230AB8 /* MainMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4967961F73FF2F00230AB8 /* MainMenuController.swift */; };
@@ -175,6 +177,8 @@
 		BD4529DF1F695946000166A4 /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 		BD45E3D71F7D2F30001C6853 /* rumble1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rumble1.wav; sourceTree = "<group>"; };
 		BD45E3D81F7D2F30001C6853 /* rumble3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rumble3.wav; sourceTree = "<group>"; };
+		BD45E3DB1F7D403A001C6853 /* GameViewController+GameplayUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+GameplayUI.swift"; sourceTree = "<group>"; };
+		BD45E3DE1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+CollectionViewHelper.swift"; sourceTree = "<group>"; };
 		BD47350F1F6AA5AC00D91819 /* MapLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
 		BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSprite.swift; sourceTree = "<group>"; };
 		BD4967961F73FF2F00230AB8 /* MainMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuController.swift; sourceTree = "<group>"; };
@@ -274,6 +278,7 @@
 		BD3961951F5970940060CDB4 /* Zombies At Large */ = {
 			isa = PBXGroup;
 			children = (
+				BD45E3DD1F7D4086001C6853 /* GameViewController */,
 				BD5803971F6BA1670086BBA6 /* GameScene */,
 				BD47350E1F6A8D0900D91819 /* SKSFiles */,
 				BD5899311F67FC2C00A13DD2 /* OtherGameObjects */,
@@ -283,7 +288,6 @@
 				BD5143271F62E7F300294559 /* Sounds */,
 				BD3961D01F598A940060CDB4 /* BackgroundMusic */,
 				BD3961961F5970940060CDB4 /* AppDelegate.swift */,
-				BD39619E1F5970940060CDB4 /* GameViewController.swift */,
 				BD3961A01F5970940060CDB4 /* Main.storyboard */,
 				BD3961A31F5970940060CDB4 /* Assets.xcassets */,
 				BD3961A51F5970940060CDB4 /* LaunchScreen.storyboard */,
@@ -324,6 +328,16 @@
 				BD3961D41F598B370060CDB4 /* Night at the Beach.mp3 */,
 			);
 			path = BackgroundMusic;
+			sourceTree = "<group>";
+		};
+		BD45E3DD1F7D4086001C6853 /* GameViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BD45E3DB1F7D403A001C6853 /* GameViewController+GameplayUI.swift */,
+				BD39619E1F5970940060CDB4 /* GameViewController.swift */,
+				BD45E3DE1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift */,
+			);
+			path = GameViewController;
 			sourceTree = "<group>";
 		};
 		BD47350E1F6A8D0900D91819 /* SKSFiles */ = {
@@ -670,7 +684,9 @@
 				BD39619D1F5970940060CDB4 /* GameScene.swift in Sources */,
 				BD806F101F776D2700EF5DF5 /* FaceDetector.swift in Sources */,
 				BDE9FB0F1F66BCC80056B66E /* CameraObject.swift in Sources */,
+				BD45E3DC1F7D403A001C6853 /* GameViewController+GameplayUI.swift in Sources */,
 				BD39619F1F5970940060CDB4 /* GameViewController.swift in Sources */,
+				BD45E3DF1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift in Sources */,
 				BDFC53261F5A7CEE00289716 /* CompassDirection.swift in Sources */,
 				BD3961971F5970940060CDB4 /* AppDelegate.swift in Sources */,
 				BD58039D1F6BFDE90086BBA6 /* HUD.swift in Sources */,

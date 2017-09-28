@@ -252,9 +252,9 @@ class GameScene: SKScene{
         loadHUD()
         
 
-        let silverBullet = CollectibleSprite(collectibleType: .Grenade)
-        silverBullet.move(toParent: worldNode)
-        silverBullet.position = CGPoint(x: 150.0, y: 10.0)
+        let camera = CollectibleSprite(collectibleType: .Camera)
+        camera.move(toParent: worldNode)
+        camera.position = CGPoint(x: 150.0, y: 10.0)
 
         print("The unrescued character count is \(unrescuedCharacters.count)")
         

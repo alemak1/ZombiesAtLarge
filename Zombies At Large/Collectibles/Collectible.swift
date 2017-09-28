@@ -37,6 +37,9 @@ class Collectible: Equatable, Hashable{
             
             if rawValue != self.getCollectibleType().rawValue{
                 return
+            } else {
+                
+                
             }
             
             if let activeStatus = userInfo["isActive"] as? Bool{

@@ -161,6 +161,8 @@ enum CollectibleType: Int{
     
     public func getCollectibleName() -> String{
         switch self{
+        case .Camera:
+            return "Camera"
         case .Grenade:
             return "Grenade"
         case .SilverBullet:
