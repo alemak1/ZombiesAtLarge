@@ -14,6 +14,8 @@ class GameLevelStatTracker{
     
     
     var gameLevel: GameLevel
+    var currentPlayerProfile: PlayerProfile
+    
      var date = Date()
      var numberOfZombiesKilled: Int = 0
      var numberOfBulletsFired: Int = 0
@@ -28,8 +30,9 @@ class GameLevelStatTracker{
     }()
     
     
-    init(gameLevel: GameLevel) {
+    init(gameLevel: GameLevel, playerProfile: PlayerProfile) {
         self.gameLevel = gameLevel
+        self.currentPlayerProfile = playerProfile
     }
     
     
@@ -46,6 +49,9 @@ class GameLevelStatTracker{
         return NSEntityDescription.entity(forEntityName: "GameLevelStatReview", in: self.managedContext)!
     }
     
+    
+    
+    
     func saveGameLevelStats(){
 
         let statReview = GameLevelStatReview(entity: self.entityDescription, insertInto: self.managedContext)
@@ -56,6 +62,8 @@ class GameLevelStatTracker{
         statReview.numberOfZombiesKilled = Int64(self.numberOfZombiesKilled)
         statReview.totalNumberOfCollectibles = Int64(self.totalNumberOfCollectibles)
         statReview.totalValueOfCollectibles = self.totalValueOfCollectibles
+        statReview.playerProfile = self.currentPlayerProfile
+        
         
         do {
             try managedContext.save()
@@ -65,13 +73,23 @@ class GameLevelStatTracker{
     }
     
     
+    func getAllGameLevelStatReviewsForCurrentPlayerProfile() -> NSSet?{
+        
+        return currentPlayerProfile.gameSessions
+    }
+    
+    
     func getAllGameLevelStatReviews() -> [GameLevelStatReview]?{
         
         var gameLevelStatReviews: [GameLevelStatReview]?
         
         do {
             
-            gameLevelStatReviews = try self.managedContext.fetch(self.allGameSessionsFetchRequest)
+            
+            
+            gameLevelStatReviews =  try self.managedContext.fetch(self.allGameSessionsFetchRequest)
+
+            
             
         } catch let error as NSError {
             print("Error: unable to load the game level stat reviews with error \(String(describing: error.localizedFailureReason))")

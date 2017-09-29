@@ -53,6 +53,13 @@
 		BD41D5361F7E21380093CDA8 /* GameLevelStatTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41D5351F7E21380093CDA8 /* GameLevelStatTracker.swift */; };
 		BD41D5411F7E255D0093CDA8 /* GameLevelStatReview+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41D53F1F7E255D0093CDA8 /* GameLevelStatReview+CoreDataClass.swift */; };
 		BD41D5421F7E255D0093CDA8 /* GameLevelStatReview+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41D5401F7E255D0093CDA8 /* GameLevelStatReview+CoreDataProperties.swift */; };
+		BD42C6481F7E53830030588F /* PlayerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD42C6471F7E53830030588F /* PlayerProfileViewController.swift */; };
+		BD42C64C1F7E57150030588F /* SpecialWeaponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD42C64B1F7E57150030588F /* SpecialWeaponCell.swift */; };
+		BD42C64E1F7E57270030588F /* UpgradeObjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD42C64D1F7E57270030588F /* UpgradeObjectCell.swift */; };
+		BD42C6511F7E591B0030588F /* PlayerProfile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD42C64F1F7E591B0030588F /* PlayerProfile+CoreDataClass.swift */; };
+		BD42C6521F7E591B0030588F /* PlayerProfile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD42C6501F7E591B0030588F /* PlayerProfile+CoreDataProperties.swift */; };
+		BD42C6541F7E5C0C0030588F /* PlayerProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD42C6531F7E5C0C0030588F /* PlayerProfileTableViewController.swift */; };
+		BD42C6561F7E5FDC0030588F /* PlayerProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD42C6551F7E5FDC0030588F /* PlayerProfileTableViewCell.swift */; };
 		BD448B9F1F741FB4000864E8 /* backgrounds2.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD448B9E1F741FB4000864E8 /* backgrounds2.sks */; };
 		BD4529E01F695946000166A4 /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4529DF1F695946000166A4 /* GameLevel.swift */; };
 		BD45E3D91F7D2F3D001C6853 /* rumble3.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD45E3D81F7D2F30001C6853 /* rumble3.wav */; };
@@ -134,6 +141,9 @@
 		BD306AFE1F73B0240067C17F /* GiantZombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiantZombie.swift; sourceTree = "<group>"; };
 		BD306B001F73B46F0067C17F /* CamouflageZombies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CamouflageZombies.swift; sourceTree = "<group>"; };
 		BD32EC271F6E675D0080D712 /* RescueCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RescueCharacter.swift; sourceTree = "<group>"; };
+		BD3412531F7E973200E706F9 /* ZombieMaster v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ZombieMaster v2.xcdatamodel"; sourceTree = "<group>"; };
+		BD3412541F7E9D1000E706F9 /* ZombieMaster v 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ZombieMaster v 3.xcdatamodel"; sourceTree = "<group>"; };
+		BD3412551F7EA1BF00E706F9 /* ZombieMaster v 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ZombieMaster v 4.xcdatamodel"; sourceTree = "<group>"; };
 		BD395A781F66FF0200684AB9 /* OilCan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OilCan.swift; sourceTree = "<group>"; };
 		BD395A7A1F67078500684AB9 /* explosion3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion3.wav; sourceTree = "<group>"; };
 		BD395A7B1F67078500684AB9 /* explosion5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion5.wav; sourceTree = "<group>"; };
@@ -185,6 +195,13 @@
 		BD41D5351F7E21380093CDA8 /* GameLevelStatTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelStatTracker.swift; sourceTree = "<group>"; };
 		BD41D53F1F7E255D0093CDA8 /* GameLevelStatReview+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameLevelStatReview+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BD41D5401F7E255D0093CDA8 /* GameLevelStatReview+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameLevelStatReview+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BD42C6471F7E53830030588F /* PlayerProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfileViewController.swift; sourceTree = "<group>"; };
+		BD42C64B1F7E57150030588F /* SpecialWeaponCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialWeaponCell.swift; sourceTree = "<group>"; };
+		BD42C64D1F7E57270030588F /* UpgradeObjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeObjectCell.swift; sourceTree = "<group>"; };
+		BD42C64F1F7E591B0030588F /* PlayerProfile+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerProfile+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BD42C6501F7E591B0030588F /* PlayerProfile+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerProfile+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BD42C6531F7E5C0C0030588F /* PlayerProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfileTableViewController.swift; sourceTree = "<group>"; };
+		BD42C6551F7E5FDC0030588F /* PlayerProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfileTableViewCell.swift; sourceTree = "<group>"; };
 		BD448B9E1F741FB4000864E8 /* backgrounds2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = backgrounds2.sks; sourceTree = "<group>"; };
 		BD4529DF1F695946000166A4 /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 		BD45E3D71F7D2F30001C6853 /* rumble1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rumble1.wav; sourceTree = "<group>"; };
@@ -270,6 +287,8 @@
 		BD39618A1F5970940060CDB4 = {
 			isa = PBXGroup;
 			children = (
+				BD42C64F1F7E591B0030588F /* PlayerProfile+CoreDataClass.swift */,
+				BD42C6501F7E591B0030588F /* PlayerProfile+CoreDataProperties.swift */,
 				BD41D53F1F7E255D0093CDA8 /* GameLevelStatReview+CoreDataClass.swift */,
 				BD41D5401F7E255D0093CDA8 /* GameLevelStatReview+CoreDataProperties.swift */,
 				BD3961951F5970940060CDB4 /* Zombies At Large */,
@@ -292,6 +311,7 @@
 		BD3961951F5970940060CDB4 /* Zombies At Large */ = {
 			isa = PBXGroup;
 			children = (
+				BD42C6461F7E53700030588F /* OtherViewController */,
 				BD41D5321F7E20F10093CDA8 /* PlayerStats */,
 				BD45E3DD1F7D4086001C6853 /* GameViewController */,
 				BD5803971F6BA1670086BBA6 /* GameScene */,
@@ -353,6 +373,18 @@
 				BD41D5351F7E21380093CDA8 /* GameLevelStatTracker.swift */,
 			);
 			path = PlayerStats;
+			sourceTree = "<group>";
+		};
+		BD42C6461F7E53700030588F /* OtherViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BD42C6471F7E53830030588F /* PlayerProfileViewController.swift */,
+				BD42C64B1F7E57150030588F /* SpecialWeaponCell.swift */,
+				BD42C64D1F7E57270030588F /* UpgradeObjectCell.swift */,
+				BD42C6531F7E5C0C0030588F /* PlayerProfileTableViewController.swift */,
+				BD42C6551F7E5FDC0030588F /* PlayerProfileTableViewCell.swift */,
+			);
+			path = OtherViewController;
 			sourceTree = "<group>";
 		};
 		BD45E3DD1F7D4086001C6853 /* GameViewController */ = {
@@ -660,6 +692,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD56B8D91F73DD3800159C7B /* GameScene+BackgroundLoader.swift in Sources */,
+				BD42C64C1F7E57150030588F /* SpecialWeaponCell.swift in Sources */,
 				BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */,
 				BD39D1CB1F7CEF0A00B1E98E /* GameSceneSnapshot.swift in Sources */,
 				BD41D5311F7E1E1F0093CDA8 /* ZombieMaster.xcdatamodeld in Sources */,
@@ -684,6 +717,7 @@
 				BDF488121F7CCE9000829CA8 /* ScrollConfiguration.swift in Sources */,
 				BD306AFD1F73AFE40067C17F /* MiniZombie.swift in Sources */,
 				BDF488161F7CD02F00829CA8 /* ScrollManager.swift in Sources */,
+				BD42C6561F7E5FDC0030588F /* PlayerProfileTableViewCell.swift in Sources */,
 				BD306AFF1F73B0240067C17F /* GiantZombie.swift in Sources */,
 				BD41D5341F7E21140093CDA8 /* GameLevelStatSummary.swift in Sources */,
 				BDE9FB0D1F66B55F0056B66E /* CustomFilters.swift in Sources */,
@@ -704,6 +738,7 @@
 				BDE9FB031F668C690056B66E /* CollectibleManager.swift in Sources */,
 				BD5C86011F68C7B000D6E0BF /* ColliderConfiguration.swift in Sources */,
 				BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */,
+				BD42C6541F7E5C0C0030588F /* PlayerProfileTableViewController.swift in Sources */,
 				BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */,
 				BD3961CB1F5970BD0060CDB4 /* Player.swift in Sources */,
 				BDF488141F7CCFEE00829CA8 /* Scroll.swift in Sources */,
@@ -716,9 +751,11 @@
 				BD806F101F776D2700EF5DF5 /* FaceDetector.swift in Sources */,
 				BDE9FB0F1F66BCC80056B66E /* CameraObject.swift in Sources */,
 				BD45E3DC1F7D403A001C6853 /* GameViewController+GameplayUI.swift in Sources */,
+				BD42C6511F7E591B0030588F /* PlayerProfile+CoreDataClass.swift in Sources */,
 				BD39619F1F5970940060CDB4 /* GameViewController.swift in Sources */,
 				BD45E3DF1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift in Sources */,
 				BDFC53261F5A7CEE00289716 /* CompassDirection.swift in Sources */,
+				BD42C6521F7E591B0030588F /* PlayerProfile+CoreDataProperties.swift in Sources */,
 				BD3961971F5970940060CDB4 /* AppDelegate.swift in Sources */,
 				BD58039D1F6BFDE90086BBA6 /* HUD.swift in Sources */,
 				BDE9FB051F66A1980056B66E /* CollectibleSprite.swift in Sources */,
@@ -727,6 +764,8 @@
 				BD4529E01F695946000166A4 /* GameLevel.swift in Sources */,
 				BD41D5421F7E255D0093CDA8 /* GameLevelStatReview+CoreDataProperties.swift in Sources */,
 				BD78655B1F65483D0071A14F /* ImageContainer.swift in Sources */,
+				BD42C64E1F7E57270030588F /* UpgradeObjectCell.swift in Sources */,
+				BD42C6481F7E53830030588F /* PlayerProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,9 +1068,12 @@
 		BD41D52F1F7E1E1F0093CDA8 /* ZombieMaster.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				BD3412551F7EA1BF00E706F9 /* ZombieMaster v 4.xcdatamodel */,
+				BD3412541F7E9D1000E706F9 /* ZombieMaster v 3.xcdatamodel */,
+				BD3412531F7E973200E706F9 /* ZombieMaster v2.xcdatamodel */,
 				BD41D5301F7E1E1F0093CDA8 /* ZombieMaster.xcdatamodel */,
 			);
-			currentVersion = BD41D5301F7E1E1F0093CDA8 /* ZombieMaster.xcdatamodel */;
+			currentVersion = BD3412551F7EA1BF00E706F9 /* ZombieMaster v 4.xcdatamodel */;
 			path = ZombieMaster.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

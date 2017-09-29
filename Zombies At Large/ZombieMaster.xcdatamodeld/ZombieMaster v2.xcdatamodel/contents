@@ -9,6 +9,7 @@
         <attribute name="totalMoney" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="totalNumberOfCollectibles" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="totalValueOfCollectibles" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="playerProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlayerProfile" inverseName="gameSessions" inverseEntity="PlayerProfile" syncable="YES"/>
     </entity>
     <entity name="PlayerProfile" representedClassName="PlayerProfile" syncable="YES">
         <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -16,10 +17,10 @@
         <attribute name="playerType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="specialWeapon" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="upgradeCollectible" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="gameSessions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GameLevelStatReview" syncable="YES"/>
+        <relationship name="gameSessions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GameLevelStatReview" inverseName="playerProfile" inverseEntity="GameLevelStatReview" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GameLevelStatReview" positionX="-54" positionY="18" width="128" height="165"/>
+        <element name="GameLevelStatReview" positionX="-54" positionY="18" width="128" height="180"/>
         <element name="PlayerProfile" positionX="-54" positionY="81" width="128" height="135"/>
     </elements>
 </model>

@@ -14,6 +14,7 @@
 
 import SpriteKit
 import GameplayKit
+import CoreData
 
 class GameScene: SKScene{
     
@@ -24,6 +25,8 @@ class GameScene: SKScene{
     /** Current Level **/
     
     var currentGameLevel: GameLevel!
+    
+    var currentPlayerProfile: PlayerProfile?
     
     var requiredCollectibles: Set<CollectibleSprite> = []
 
@@ -144,7 +147,32 @@ class GameScene: SKScene{
         self.currentGameLevel = currentGameLevel
         self.progressView = progressView
         self.currentProgressUnits = 0
-        self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: currentGameLevel)
+        
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            fatalError("Error: failed to access the applicaton delegate")
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+   
+        
+        let fetchRequest = NSFetchRequest<PlayerProfile>(entityName: "PlayerProfile")
+        let playerName = "Player1"
+        fetchRequest.predicate = NSPredicate(format: "name == %@", playerName)
+        
+        guard let currentPlayerProfile = try! managedContext.fetch(fetchRequest).first else {
+            fatalError("Error: failed to obtain a player profile for the game scene")
+        }
+        
+            
+        self.currentPlayerProfile = currentPlayerProfile
+        self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: currentGameLevel, playerProfile: currentPlayerProfile)
+        print("Player 1 obtained")
+
+        
+        
+    
         
         NotificationCenter.default.addObserver(self, selector: #selector(incrementZombieKillCount), name: Notification.Name(rawValue: "didKillZombieNotification"), object: nil)
 
@@ -212,14 +240,26 @@ class GameScene: SKScene{
     
     override func didMove(to view: SKView) {
        
-        if let gameLevelStatReviews = gameLevelStatTracker.getAllGameLevelStatReviews(){
-            
-            for gameLevelSession in gameLevelStatReviews{
-                
-                gameLevelSession.showGameLevelStatReviewSummary()
-                
+        print("ALL GAME STAT REVIEW UP TO DATE: ")
+
+        
+        if let gameStatReviews = self.gameLevelStatTracker.getAllGameLevelStatReviews(){
+        
+            for gameStatReview in gameStatReviews{
+                gameStatReview.showGameLevelStatReviewSummary()
             }
+        }
+        
+        
+        print("GAME STAT REVIEW FOR CURRENT PLAYER PROFILE: ")
+        
+        if let gameSessions  = self.gameLevelStatTracker.getAllGameLevelStatReviewsForCurrentPlayerProfile(){
             
+            for gameSession in gameSessions{
+                if let statReview = gameSession as? GameLevelStatReview{
+                    statReview.showGameLevelStatReviewSummary()
+                }
+            }
         }
         
         for timeInterval in 1...10{

@@ -32,6 +32,69 @@ enum PlayerType: String{
     }
 
     
+    init(withIntegerValue intValue: Int){
+        switch intValue {
+        case 1:
+            self = .manBlue
+            break
+        case 2:
+            self = .manRed
+            break
+        case 3:
+            self = .manBrown
+            break
+        case 4:
+            self = .survivor1
+            break
+        case 5:
+            self = .survivor2
+            break
+        case 6:
+            self = .hitman1
+            break
+        case 7:
+            self = .womanOld
+            break
+        case 8:
+            self = .womanGreen
+            break
+        case 9:
+            self = .soldier1
+            break
+        case 10:
+            self = .soldier2
+            break
+        default:
+            self = .manBlue
+        }
+    }
+    
+    func getIntegerValue() -> Int{
+        switch self {
+        case .manBlue:
+            return 1
+        case .manRed:
+            return 2
+        case .manBrown:
+            return 3
+        case .survivor1:
+            return 4
+        case .survivor2:
+            return 5
+        case .hitman1:
+            return 6
+        case .womanOld:
+            return 7
+        case .womanGreen:
+            return 8
+        case .soldier1:
+            return 9
+        case .soldier2:
+            return 10
+  
+        }
+    }
+    
     func getTexture(textureType: TextureType) -> SKTexture{
         
         return SKTexture(imageNamed: self.getTextureName(textureType: textureType))

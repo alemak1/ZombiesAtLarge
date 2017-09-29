@@ -1,4 +1,7 @@
 
+
+Changed the child-entity relationship attribute in a to-many relationship such that the parent entity changed from optional to required....migration could not be be accomplished, Core Data gives error...can first delete all the child entities whose relationship attribute is nil, or provide a default value for the attribute by looping through the results of a fetchRequest and then called delete on the managed object context, or assigning a value to the nil attribute and the calling save on the managed object context...then the migration will work
+
 Use update function or other game loop function - check that safety zone contains the player or rescue characters;  don't use contact logic
 
 Use Hongbao for money units (instead of coins or monetary value)

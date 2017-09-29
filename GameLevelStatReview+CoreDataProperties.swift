@@ -25,5 +25,6 @@ extension GameLevelStatReview {
     @NSManaged public var totalNumberOfCollectibles: Int64
     @NSManaged public var totalMoney: Double
     @NSManaged public var replayVideo: NSData?
+    @NSManaged public var playerProfile: PlayerProfile
 
 }

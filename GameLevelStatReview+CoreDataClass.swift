@@ -30,6 +30,7 @@ public class GameLevelStatReview: NSManagedObject {
         
         let dateString = getFormattedDateString()
     
+        print("GAME SESSION FOR PLAYER PROFILE \(self.playerProfile.name)")
         print("Game Session Date: \(dateString) for Game Session \(Int(self.gameLevel))")
         print("Number of Zombies Killed: \(Int(self.numberOfZombiesKilled))")
         print("Number of Bullets Fired: \(Int(self.numberOfBulletsFired))")

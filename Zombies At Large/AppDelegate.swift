@@ -39,6 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         **/
         
+       // cleanBadData()
+        insertSamplePlayerProfiles()
+        
         return true
     }
 
@@ -110,7 +113,72 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-
+    func cleanBadData(){
+        
+        let managedContext = persistentContainer.viewContext
+        
+        let entityDescription = NSEntityDescription.entity(forEntityName: "GameLevelStatReview", in: managedContext)!
+        
+        let fetchRequest = NSFetchRequest<GameLevelStatReview>(entityName: "GameLevelStatReview")
+        
+        let allStatReviews = try! managedContext.fetch(fetchRequest)
+        
+        for statReview in allStatReviews{
+            if statReview.playerProfile == nil{
+                try! managedContext.delete(statReview)
+            }
+        }
+        
+        print("Finished cleaning bad data...")
+    }
+    
+    
+    func insertSamplePlayerProfiles(){
+        
+        let managedContext = persistentContainer.viewContext
+        
+        let entityDescription = NSEntityDescription.entity(forEntityName: "PlayerProfile", in: managedContext)!
+        
+        
+        let count = try! managedContext.count(for: PlayerProfile.fetchRequest())
+        
+        if count > 0 {
+            print("Sample player data has already been inserted!")
+            return
+            
+        }
+        
+        let newPlayer1 = PlayerProfile(entity: entityDescription, insertInto: managedContext)
+        newPlayer1.dateCreated = Date() as NSDate
+        newPlayer1.name = "Player1"
+        newPlayer1.playerType = Int64(PlayerType.hitman1.getIntegerValue())
+        newPlayer1.specialWeapon = 1
+        newPlayer1.upgradeCollectible = 1
+        newPlayer1.gameSessions = nil
+        
+        let newPlayer2 = PlayerProfile(entity: entityDescription, insertInto: managedContext)
+        newPlayer2.dateCreated = Date() as NSDate
+        newPlayer2.name = "Player2"
+        newPlayer2.playerType = Int64(PlayerType.survivor2.getIntegerValue())
+        newPlayer2.specialWeapon = 2
+        newPlayer2.upgradeCollectible = 2
+        newPlayer2.gameSessions = nil
+        
+        let newPlayer3 = PlayerProfile(entity: entityDescription, insertInto: managedContext)
+        newPlayer3.dateCreated = Date() as NSDate
+        newPlayer3.name = "Player3"
+        newPlayer3.playerType = Int64(PlayerType.womanOld.getIntegerValue())
+        newPlayer3.specialWeapon = 3
+        newPlayer3.upgradeCollectible = 3
+        newPlayer3.gameSessions = nil
+        
+        do {
+            try managedContext.save()
+            print("Sample player profiles successfully saved!")
+        } catch let error as NSError {
+            print("Error: failed to save sample player profiles")
+        }
+    }
 
 }
 
