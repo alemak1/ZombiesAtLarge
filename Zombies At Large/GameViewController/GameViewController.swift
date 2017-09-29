@@ -15,6 +15,20 @@ import GameplayKit
 
 class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource {
 
+    @IBOutlet weak var gameStatsViewCenterXConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var zombiesKilledLabel: UILabel!
+    
+    
+    @IBOutlet weak var shootingAccuracyLabel: UILabel!
+    
+    
+    @IBOutlet weak var totalCollectiblesValueLabel: UILabel!
+    
+    
+    @IBOutlet weak var numberOfItemsCollectedLabel: UILabel!
+    
+    
     //MARK: ******** ITEM DETAILS VIEW PROPERTIES
     
     @IBOutlet weak var detailInfoLabel: UILabel!
@@ -150,6 +164,8 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
         super.viewDidLoad()
         
+        self.gameStatsViewCenterXConstraint.constant = -2000
+        
         self.itemCollectionView.delegate = self
         self.itemCollectionView.dataSource = self
         
@@ -164,6 +180,59 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
         becomeFirstResponder()
        
+    }
+    
+    
+    
+    
+    func showGameStatsView(){
+        
+        self.gameStatsViewCenterXConstraint.constant += 2000
+        
+        UIView.animate(withDuration: 1.50, delay: 0.00, options: .curveEaseOut, animations: {
+            
+            self.view.layoutIfNeeded()
+        }, completion: {
+            
+            isFinishedAnimating in
+            
+            if(isFinishedAnimating){
+                
+                DispatchQueue.global().async {
+                    
+                    //Fetch game stat data
+                    //TODO....
+
+                    DispatchQueue.main.sync {
+                        
+                        //update labels
+                        //TODO....
+                        
+                        self.gameStatsViewCenterXConstraint.constant += 2000
+                        
+                        UIView.animate(withDuration: 1.50, delay: 2.00, options: .curveEaseIn, animations: {
+                            
+                            self.view.layoutIfNeeded()
+                            
+                        }, completion: {
+                            
+                            isFinishedAnimating in
+                            
+                            if(isFinishedAnimating){
+                                
+                                self.gameStatsViewCenterXConstraint.constant = -2000
+                                
+                            }
+                            
+                        })
+                    }
+                }
+                
+               
+                
+            }
+            
+        })
     }
     
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {

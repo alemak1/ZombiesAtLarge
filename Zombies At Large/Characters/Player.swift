@@ -89,6 +89,8 @@ class Player: Shooter{
     
     private var numberOfBullets: Int = 30
     
+    private var numberOfBulletsFired: Int = 0
+    
     var hasSpecialBullets: Bool{
         
         return self.collectibleManager.getActiveStatusFor(collectibleType: .SilverBullet)
@@ -327,6 +329,7 @@ class Player: Shooter{
         
         super.fireBullet(withPrefireHandler: {}, andWithPostfireHandler: {})
         
+        self.numberOfBulletsFired += 1
         self.numberOfBullets -= 1
         HUDManager.sharedManager.updateBulletCount(withUnits: self.numberOfBullets)
         
@@ -335,11 +338,10 @@ class Player: Shooter{
         
     }
     
-  
+    public func getNumberOfBulletsFired() -> Int{
+        return self.numberOfBulletsFired
+    }
     
-    
-    
-   
     
     public func playSoundForCollectibleContact(){
         run(self.playCollectItemSound)

@@ -49,6 +49,7 @@ extension GameScene{
         if fireButtonShape.contains(touchLocation){
             
             player.fireBullet()
+            
             return;
             
         }

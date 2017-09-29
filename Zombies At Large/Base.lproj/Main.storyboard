@@ -367,18 +367,110 @@
                                     <constraint firstAttribute="bottom" secondItem="Rqc-sZ-TeU" secondAttribute="bottom" id="ypT-Hg-7fz"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zwc-AD-GKs" userLabel="gameStatsView">
+                                <rect key="frame" x="0.0" y="166" width="375" height="333.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redBox450w750h" translatesAutoresizingMaskIntoConstraints="NO" id="NpJ-uV-kOB">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCA-Zj-voV">
+                                        <rect key="frame" x="103.5" y="49" width="168" height="30"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Game Statistics">
+                                                <attributes>
+                                                    <font key="NSFont" size="24" name="Didot"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cS-uh-kYX">
+                                        <rect key="frame" x="46" y="131.5" width="281.5" height="22.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Shooting Accuracy:">
+                                                <attributes>
+                                                    <font key="NSFont" size="18" name="Didot"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8Z-a7-cms">
+                                        <rect key="frame" x="46" y="164" width="281.5" height="22.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Total Value of Collectibles:">
+                                                <attributes>
+                                                    <font key="NSFont" size="18" name="Didot"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Go-ER-zHB">
+                                        <rect key="frame" x="46" y="196.5" width="281.5" height="22.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Toal Items Collected:">
+                                                <attributes>
+                                                    <font key="NSFont" size="18" name="Didot"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOH-rH-0cz">
+                                        <rect key="frame" x="46" y="99" width="281.5" height="22.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Zombies Killed:">
+                                                <attributes>
+                                                    <font key="NSFont" size="18" name="Didot"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="iOH-rH-0cz" firstAttribute="top" secondItem="nCA-Zj-voV" secondAttribute="bottom" constant="20" id="29l-N4-5RE"/>
+                                    <constraint firstItem="4cS-uh-kYX" firstAttribute="width" secondItem="iOH-rH-0cz" secondAttribute="width" id="5cj-zm-Xtu"/>
+                                    <constraint firstItem="1Go-ER-zHB" firstAttribute="top" secondItem="a8Z-a7-cms" secondAttribute="bottom" constant="10" id="5zt-xL-gHO"/>
+                                    <constraint firstItem="1Go-ER-zHB" firstAttribute="leading" secondItem="a8Z-a7-cms" secondAttribute="leading" id="K3I-bQ-l95"/>
+                                    <constraint firstItem="4cS-uh-kYX" firstAttribute="leading" secondItem="iOH-rH-0cz" secondAttribute="leading" id="LKd-GF-wVZ"/>
+                                    <constraint firstItem="a8Z-a7-cms" firstAttribute="width" secondItem="4cS-uh-kYX" secondAttribute="width" id="Nfj-oI-Lsc"/>
+                                    <constraint firstItem="a8Z-a7-cms" firstAttribute="top" secondItem="4cS-uh-kYX" secondAttribute="bottom" constant="10" id="Pag-WD-ypv"/>
+                                    <constraint firstAttribute="trailing" secondItem="NpJ-uV-kOB" secondAttribute="trailing" id="RQ2-tL-ccO"/>
+                                    <constraint firstItem="1Go-ER-zHB" firstAttribute="width" secondItem="a8Z-a7-cms" secondAttribute="width" id="Y6s-jV-2ya"/>
+                                    <constraint firstItem="nCA-Zj-voV" firstAttribute="top" secondItem="zwc-AD-GKs" secondAttribute="top" constant="49" id="Zw0-eO-AEt"/>
+                                    <constraint firstAttribute="bottom" secondItem="NpJ-uV-kOB" secondAttribute="bottom" id="azk-zA-MN3"/>
+                                    <constraint firstItem="4cS-uh-kYX" firstAttribute="top" secondItem="iOH-rH-0cz" secondAttribute="bottom" constant="10" id="dkA-vn-0iB"/>
+                                    <constraint firstItem="iOH-rH-0cz" firstAttribute="leading" secondItem="zwc-AD-GKs" secondAttribute="leading" constant="46" id="ef6-Uo-Y3o"/>
+                                    <constraint firstItem="NpJ-uV-kOB" firstAttribute="top" secondItem="zwc-AD-GKs" secondAttribute="top" id="lLo-mx-Y9I"/>
+                                    <constraint firstItem="NpJ-uV-kOB" firstAttribute="leading" secondItem="zwc-AD-GKs" secondAttribute="leading" id="oCs-M8-0yw"/>
+                                    <constraint firstItem="iOH-rH-0cz" firstAttribute="width" secondItem="zwc-AD-GKs" secondAttribute="width" multiplier="0.75" id="qsh-6Y-JMT"/>
+                                    <constraint firstItem="nCA-Zj-voV" firstAttribute="centerX" secondItem="zwc-AD-GKs" secondAttribute="centerX" id="rcj-52-mU3"/>
+                                    <constraint firstItem="a8Z-a7-cms" firstAttribute="leading" secondItem="4cS-uh-kYX" secondAttribute="leading" id="zGh-42-FWq"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="zwc-AD-GKs" firstAttribute="width" secondItem="ORr-ws-uJp" secondAttribute="width" id="A44-Yj-e6W"/>
                             <constraint firstItem="xkO-Na-auC" firstAttribute="height" secondItem="UnS-04-Hm8" secondAttribute="height" multiplier="0.5" id="Cjn-jT-Cfj"/>
                             <constraint firstItem="ORr-ws-uJp" firstAttribute="centerX" secondItem="UnS-04-Hm8" secondAttribute="centerX" id="D3P-8n-Ftf"/>
                             <constraint firstItem="ORr-ws-uJp" firstAttribute="height" secondItem="xkO-Na-auC" secondAttribute="height" identifier="ItemDetailsWindowHeightConstraint" id="DHg-Cl-UIz"/>
                             <constraint firstItem="ORr-ws-uJp" firstAttribute="centerY" secondItem="UnS-04-Hm8" secondAttribute="centerY" id="GhX-37-pey"/>
                             <constraint firstItem="CBH-vq-2eZ" firstAttribute="bottom" secondItem="rfL-go-go0" secondAttribute="bottom" id="JHO-hi-o4L"/>
+                            <constraint firstItem="zwc-AD-GKs" firstAttribute="centerY" secondItem="UnS-04-Hm8" secondAttribute="centerY" id="R8g-yJ-BHW"/>
                             <constraint firstItem="ORr-ws-uJp" firstAttribute="width" secondItem="xkO-Na-auC" secondAttribute="width" id="Tgr-0U-bGI"/>
                             <constraint firstItem="CBH-vq-2eZ" firstAttribute="leading" secondItem="rfL-go-go0" secondAttribute="leading" id="W1L-Qu-RZo"/>
+                            <constraint firstItem="zwc-AD-GKs" firstAttribute="centerX" secondItem="UnS-04-Hm8" secondAttribute="centerX" id="WCe-tx-l6S"/>
                             <constraint firstItem="xkO-Na-auC" firstAttribute="width" secondItem="UnS-04-Hm8" secondAttribute="width" id="WHB-e1-vPS"/>
                             <constraint firstItem="rfL-go-go0" firstAttribute="trailing" secondItem="CBH-vq-2eZ" secondAttribute="trailing" id="YaC-sg-9eR"/>
+                            <constraint firstItem="zwc-AD-GKs" firstAttribute="height" secondItem="ORr-ws-uJp" secondAttribute="height" id="ZmE-xm-wqC"/>
                             <constraint firstItem="CBH-vq-2eZ" firstAttribute="top" secondItem="UnS-04-Hm8" secondAttribute="top" id="eI3-OJ-q0P"/>
                             <constraint firstItem="xkO-Na-auC" firstAttribute="centerY" secondItem="UnS-04-Hm8" secondAttribute="centerY" id="eLh-bk-8TC"/>
                             <constraint firstItem="xkO-Na-auC" firstAttribute="centerX" secondItem="UnS-04-Hm8" secondAttribute="centerX" id="pxI-th-54F"/>
@@ -390,6 +482,7 @@
                         <outlet property="collectibleIsActiveSwitch" destination="PXO-uM-jfQ" id="etd-z7-KJk"/>
                         <outlet property="detailInfoLabel" destination="vxr-co-eFw" id="6Xm-8K-Bxb"/>
                         <outlet property="detailInformationCenterXConstraint" destination="SeI-9x-jEB" id="dAq-M5-V40"/>
+                        <outlet property="gameStatsViewCenterXConstraint" destination="WCe-tx-l6S" id="DQE-uq-qXa"/>
                         <outlet property="itemCollectionView" destination="7d6-OF-zK2" id="p4c-yE-Kuv"/>
                         <outlet property="itemDetailWindow" destination="ORr-ws-uJp" id="jBX-mk-PnF"/>
                         <outlet property="itemDetailsImage" destination="ys8-Cz-0Sh" id="bfp-K2-a1g"/>
@@ -402,12 +495,16 @@
                         <outlet property="itemViewWindowCenterYConstraint" destination="eLh-bk-8TC" id="Lcw-o5-mna"/>
                         <outlet property="itemViewingWindow" destination="xkO-Na-auC" id="okz-Ky-Aaq"/>
                         <outlet property="itemWindowHeightConstraint" destination="Cjn-jT-Cfj" id="Yhx-iI-TA1"/>
+                        <outlet property="numberOfItemsCollectedLabel" destination="1Go-ER-zHB" id="NSp-Qd-SBu"/>
+                        <outlet property="shootingAccuracyLabel" destination="4cS-uh-kYX" id="tOh-bS-Isu"/>
                         <outlet property="skView" destination="CBH-vq-2eZ" id="0hb-k5-ryC"/>
+                        <outlet property="totalCollectiblesValueLabel" destination="a8Z-a7-cms" id="nWD-Dr-MSe"/>
                         <outlet property="totalMassLabel" destination="xMi-Hw-Y2q" id="LT3-BL-bhg"/>
                         <outlet property="totalMetalContentLabel" destination="uHE-Kp-lr0" id="zXl-BA-qiG"/>
                         <outlet property="totalMonetaryValueLabel" destination="2A1-gG-tSE" id="cUf-b7-YRi"/>
                         <outlet property="totalUnitValueLabel" destination="Guu-kU-hQJ" id="O74-pR-FS1"/>
                         <outlet property="unitMetalContentLabel" destination="mC4-oU-5Rj" id="gmp-Sw-MS2"/>
+                        <outlet property="zombiesKilledLabel" destination="iOH-rH-0cz" id="UKI-Sp-3H5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A4V-Xc-S5v" userLabel="First Responder" sceneMemberID="firstResponder"/>

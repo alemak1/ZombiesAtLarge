@@ -69,6 +69,8 @@ class GameScene: SKScene{
         return HUDManager.sharedManager.getHUD()
     }
     
+    var gameLevelStatTracker: GameLevelStatTracker!
+    
     var safetyZone: SKSpriteNode?
     
     /** Mission Panel **/
@@ -142,7 +144,8 @@ class GameScene: SKScene{
         self.currentGameLevel = currentGameLevel
         self.progressView = progressView
         self.currentProgressUnits = 0
-
+        self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: currentGameLevel)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(incrementZombieKillCount), name: Notification.Name(rawValue: "didKillZombieNotification"), object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(playerDeathHandler(notification:)), name: Notification.Name(rawValue: "playerDiedNotification"), object: nil)
@@ -209,6 +212,16 @@ class GameScene: SKScene{
     
     override func didMove(to view: SKView) {
        
+        if let gameLevelStatReviews = gameLevelStatTracker.getAllGameLevelStatReviews(){
+            
+            for gameLevelSession in gameLevelStatReviews{
+                
+                gameLevelSession.showGameLevelStatReviewSummary()
+                
+            }
+            
+        }
+        
         for timeInterval in 1...10{
             
             let when = DispatchTime.now() + Double(timeInterval)
@@ -372,6 +385,7 @@ class GameScene: SKScene{
   
     @objc func incrementZombieKillCount(){
         self.zombiesKilled += 1
+        self.gameLevelStatTracker.numberOfZombiesKilled = self.zombiesKilled
         print("Total number of zombies currently killed is: \(self.zombiesKilled)")
     }
     
@@ -580,6 +594,11 @@ class GameScene: SKScene{
             }, completion: {
                 
                 self.run(self.playMissionAccomplishedSound)
+                
+                self.gameLevelStatTracker.totalValueOfCollectibles = self.player.collectibleManager.getTotalMonetaryValueOfAllCollectibles()
+                self.gameLevelStatTracker.totalNumberOfCollectibles = self.player.collectibleManager.getTotalNumberOfAllItems()
+                self.gameLevelStatTracker.numberOfBulletsFired = self.player.getNumberOfBulletsFired()
+                self.gameLevelStatTracker.saveGameLevelStats()
         })
     }
 

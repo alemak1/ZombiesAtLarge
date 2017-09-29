@@ -72,7 +72,7 @@ extension GameScene: SKPhysicsContactDelegate{
     
     
         handlePlayerProximityContacts(contact: contact)
-        handlePlayerContacts(contact: contact)
+        handlePlayerContactsBugfix(contact: contact)
 
         
     }
@@ -425,6 +425,56 @@ extension GameScene: SKPhysicsContactDelegate{
             break
         }
     }
+    
+    
+    func handlePlayerContactsBugfix(contact: SKPhysicsContact){
+        
+        print("Processing player contact with other body...")
+        
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        
+        var nonPlayerBody: SKPhysicsBody
+        
+        if((bodyA.categoryBitMask & ColliderType.Player.categoryMask) == 1){
+            nonPlayerBody = bodyB
+        } else {
+            nonPlayerBody = bodyA
+        }
+        
+        
+        switch nonPlayerBody.categoryBitMask {
+        case ColliderType.Bomb.categoryMask:
+            break
+        case ColliderType.SafetyZone.categoryMask:
+            print("Player HAS REACHED the SAFETY ZONE")
+            break
+        case ColliderType.Collectible.categoryMask:
+            print("The player has contacted a collectible")
+           
+            break
+        case ColliderType.EnemyBullets.categoryMask:
+            if let zombieBullet = nonPlayerBody.node as? SKSpriteNode{
+                
+                player.run(SKAction.run {
+                    
+                    zombieBullet.removeFromParent()
+                    
+                    }, completion: {
+                        
+                        self.player.takeDamage()
+                        
+                        
+                })
+                
+            }
+            break
+        default:
+            break
+        }
+    }
+
     
     
     
