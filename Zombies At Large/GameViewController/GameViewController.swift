@@ -12,6 +12,7 @@ import GameplayKit
 
 
 
+/** TODO: Use delegates to manage the unrescued characters, the required collectibles, and the must kill zombies **/
 
 class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource {
 

@@ -1,20 +1,39 @@
 //
-//  GameScene+BackgroundLoader.swift
+//  ResourceLoader.swift
 //  Zombies At Large
 //
-//  Created by Aleksander Makedonski on 9/21/17.
+//  Created by Aleksander Makedonski on 9/30/17.
 //  Copyright © 2017 Aleksander Makedonski. All rights reserved.
 //
 
 import Foundation
 import SpriteKit
 
-extension GameScene{
+class ResourceLoader{
+    
+    static let sharedLoader = ResourceLoader()
     
     
-    func loadBackground(){
+    var backgroundNode: SKNode!
+    var worldNode: SKNode!
+    var overlayNode: SKNode!
+    
+    var zombieManager: ZombieManager?
+    var safetyZone: SafetyZone?
+    
+    private init(){
+    
+    }
+    
+    
+    func prepareLoadingResources(forWordGameLevel level: WordGameLevel){
         
-        switch self.currentGameLevel! {
+    }
+    
+    
+    func loadBackground(forWordGameLevel level: WordGameLevel){
+        
+        switch level{
         case .Level1:
             loadBgLevel1()
             break
@@ -38,55 +57,16 @@ extension GameScene{
     
     func loadBgLevel1(){
         
+        
         addGrassBackgrounds()
-        
-
         addBlackCorridors()
-        
         addWoodfloors()
         
     }
     
+    
     func loadBgLevel2(){
         
-        guard let stoneBackground = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "StoneBackgrounds") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-       
-        
-        addBulletsTo(tileMapNode: stoneBackground)
-        addZombiesTo(someTileMapNode: stoneBackground)
-        addRiceBowlsTo(someTileMapNode: stoneBackground)
-        addRedEnvelopeTo(someTileMapNode: stoneBackground)
-        addCollectiblesTo(someTileMapNode: stoneBackground)
-        
-        stoneBackground.move(toParent: backgroundNode)
-        
-        guard let blackCorridor = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "BlackCorridors") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        addObstaclePhysicsBodiesTo(tileMapNode: blackCorridor)
-        
-        blackCorridor.move(toParent: backgroundNode)
-        
-        guard let woodFloor = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "WoodFloors") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        addBulletsTo(tileMapNode: woodFloor)
-        addZombiesTo(someTileMapNode: woodFloor)
-        addRiceBowlsTo(someTileMapNode: woodFloor)
-        addCollectiblesTo(someTileMapNode: woodFloor)
-        addRescueCharacterTo(someTileMapNode: woodFloor)
-        addSafetyZonesTo(tileMapNode: woodFloor)
-        
-        woodFloor.move(toParent: backgroundNode)
-    
     }
     
     func loadBgLevel3(){
@@ -94,33 +74,8 @@ extension GameScene{
     }
     
     func loadBgLevel4(){
-        
-        guard let dirtBackground = SKScene(fileNamed: "backgrounds4")?.childNode(withName: "DirtBackgrounds") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        
-       // addBulletsTo(tileMapNode: dirtBackground)
-       // addZombiesTo(someTileMapNode: dirtBackground)
-       // addRiceBowlsTo(someTileMapNode: dirtBackground)
-       // addRedEnvelopeTo(someTileMapNode: dirtBackground)
-       // addCollectiblesTo(someTileMapNode: dirtBackground)
-        
-        addMustKillZombiesTo(tileMapNode: dirtBackground)
-        
-        dirtBackground.move(toParent: backgroundNode)
-        
-        guard let redCorridors = SKScene(fileNamed: "backgrounds4")?.childNode(withName: "RedCorridors") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        addObstaclePhysicsBodiesTo(tileMapNode: redCorridors)
-        
-        redCorridors.move(toParent: backgroundNode)
-        
        
+        
         
     }
     
@@ -140,10 +95,10 @@ extension GameScene{
         if self.safetyZone != nil{
             self.safetyZone!.name = "SafetyZone"
             self.safetyZone!.move(toParent: worldNode)
-
+            
         }
     }
-
+    
     
     
     
@@ -169,19 +124,13 @@ extension GameScene{
                 
             }
             
-            DispatchQueue.main.async {
-                 NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-            }
             
-           
-
         }
         
-        grassTileMap = grass
         
-        grassTileMap.position = CGPoint(x: 0.00, y: 0.00)
+        grass.position = CGPoint(x: 0.00, y: 0.00)
         
-        grassTileMap.move(toParent: backgroundNode)
+        grass.move(toParent: backgroundNode)
         
         
     }
@@ -199,17 +148,14 @@ extension GameScene{
                 addObstaclePhysicsBodies(tileMapNode: blackCorridors, row: row, column: col)
             }
             
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-            }
+    
         }
         
         
-        blackCorridorTileMap = blackCorridors
         
-        blackCorridorTileMap.position = CGPoint(x: 0.00, y: 0.00)
+        blackCorridors.position = CGPoint(x: 0.00, y: 0.00)
         
-        blackCorridorTileMap.move(toParent: backgroundNode)
+        blackCorridors.move(toParent: backgroundNode)
         
     }
     
@@ -231,15 +177,12 @@ extension GameScene{
                 addRequiredCollectible(tileMapNode: woodFloors, row: row, column: col)
             }
             
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-            }
-
+          
+            
         }
         
-        woodFloorTileMap = woodFloors
         
-        woodFloorTileMap.move(toParent: backgroundNode)
+        woodFloors.move(toParent: backgroundNode)
     }
     
     
@@ -299,14 +242,15 @@ extension GameScene{
             let newZombie = Zombie(zombieType: .zombie1)
             newZombie.position = zombiePos
             newZombie.move(toParent: worldNode)
-            zombieManager.addLatentZombie(zombie: newZombie)
+            
+            SceneManager.sharedManager.addLatentZombie(zombie: newZombie)
             
         }
     }
     
     
     func addMustKillZombie(tileMapNode: SKTileMapNode, row: Int, column: Int){
-     
+        
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
         let hasMustKillZombie = tileDef?.userData?["hasMustKillZombie"] as? Bool
@@ -327,15 +271,15 @@ extension GameScene{
                 let mustKillZombieType = self.currentGameLevel.getMustKillZombieType()
                 
                 switch mustKillZombieType{
-                    case is GiantZombie.Type:
-                        mustKillZombie = GiantZombie(zombieType: .zombie1, scale: 2.00, startingHealth: 6)
-                        break
-                    case is CamouflageZombie.Type:
-                        break
-                    case is MiniZombie.Type:
-                        break
-                    default:
-                        break
+                case is GiantZombie.Type:
+                    mustKillZombie = GiantZombie(zombieType: .zombie1, scale: 2.00, startingHealth: 6)
+                    break
+                case is CamouflageZombie.Type:
+                    break
+                case is MiniZombie.Type:
+                    break
+                default:
+                    break
                 }
                 
                 if let mustKillZombie = mustKillZombie{
@@ -561,7 +505,7 @@ extension GameScene{
         }
     }
     
-
+    
     
     func addRequiredCollectibleTo(someTileMapNode tileMapNode: SKTileMapNode){
         self.traverseTileMap(tileMap: tileMapNode, withHandler: addRequiredCollectible)
@@ -610,9 +554,11 @@ extension GameScene{
         
         for row in 1...rows{
             for col in 1...columns{
-                    handler(tileMap,row,col)
+                handler(tileMap,row,col)
             }
         }
     }
+    
+    
     
 }

@@ -95,6 +95,9 @@
 		BD9659D21F7641D3009A7F0B /* InventoryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9659D11F7641D3009A7F0B /* InventoryItemCell.swift */; };
 		BD9B10381F7F50D600C9A71E /* WordGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9B10371F7F50D600C9A71E /* WordGameViewController.swift */; };
 		BD9B103A1F7F533E00C9A71E /* WordGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9B10391F7F533E00C9A71E /* WordGameScene.swift */; };
+		BD9B103C1F7F597E00C9A71E /* ResourceLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9B103B1F7F597E00C9A71E /* ResourceLoader.swift */; };
+		BD9B103E1F7F5ADB00C9A71E /* WordGameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9B103D1F7F5ADB00C9A71E /* WordGameLevel.swift */; };
+		BD9B10401F7F5CF300C9A71E /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9B103F1F7F5CF300C9A71E /* SceneManager.swift */; };
 		BD9D75661F73B90E00F6C38D /* SpecialZombieType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9D75651F73B90E00F6C38D /* SpecialZombieType.swift */; };
 		BD9D75681F73CB4700F6C38D /* Updateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9D75671F73CB4700F6C38D /* Updateable.swift */; };
 		BDACC97D1F744C89001EF161 /* GameScene+UIPanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDACC97C1F744C89001EF161 /* GameScene+UIPanelManager.swift */; };
@@ -239,6 +242,9 @@
 		BD9659D11F7641D3009A7F0B /* InventoryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryItemCell.swift; sourceTree = "<group>"; };
 		BD9B10371F7F50D600C9A71E /* WordGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordGameViewController.swift; sourceTree = "<group>"; };
 		BD9B10391F7F533E00C9A71E /* WordGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordGameScene.swift; sourceTree = "<group>"; };
+		BD9B103B1F7F597E00C9A71E /* ResourceLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoader.swift; sourceTree = "<group>"; };
+		BD9B103D1F7F5ADB00C9A71E /* WordGameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordGameLevel.swift; sourceTree = "<group>"; };
+		BD9B103F1F7F5CF300C9A71E /* SceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
 		BD9D75651F73B90E00F6C38D /* SpecialZombieType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialZombieType.swift; sourceTree = "<group>"; };
 		BD9D75671F73CB4700F6C38D /* Updateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updateable.swift; sourceTree = "<group>"; };
 		BDACC97C1F744C89001EF161 /* GameScene+UIPanelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+UIPanelManager.swift"; sourceTree = "<group>"; };
@@ -539,6 +545,9 @@
 			children = (
 				BD9B10371F7F50D600C9A71E /* WordGameViewController.swift */,
 				BD9B10391F7F533E00C9A71E /* WordGameScene.swift */,
+				BD9B103B1F7F597E00C9A71E /* ResourceLoader.swift */,
+				BD9B103D1F7F5ADB00C9A71E /* WordGameLevel.swift */,
+				BD9B103F1F7F5CF300C9A71E /* SceneManager.swift */,
 			);
 			path = WordGameViewController;
 			sourceTree = "<group>";
@@ -713,6 +722,7 @@
 				BDE9FB071F66A64A0056B66E /* FilterConfiguration.swift in Sources */,
 				BD41D5361F7E21380093CDA8 /* GameLevelStatTracker.swift in Sources */,
 				BDE9FB0B1F66B24E0056B66E /* ImageSprite.swift in Sources */,
+				BD9B103C1F7F597E00C9A71E /* ResourceLoader.swift in Sources */,
 				BDAF397E1F6E748400A164C9 /* SafetyZone.swift in Sources */,
 				BDE9FB091F66B12C0056B66E /* ImageFilterObject.swift in Sources */,
 				BD3A51721F693DA800B01850 /* UIPanelGenerator.swift in Sources */,
@@ -726,6 +736,7 @@
 				BD9659CA1F760BC6009A7F0B /* GameMenuViewController.swift in Sources */,
 				BD3A516E1F69331A00B01850 /* Avatar.swift in Sources */,
 				BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */,
+				BD9B10401F7F5CF300C9A71E /* SceneManager.swift in Sources */,
 				BD7865591F6546620071A14F /* CollectibleType.swift in Sources */,
 				BD32EC281F6E675D0080D712 /* RescueCharacter.swift in Sources */,
 				BDF488121F7CCE9000829CA8 /* ScrollConfiguration.swift in Sources */,
@@ -755,6 +766,7 @@
 				BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */,
 				BD42C6541F7E5C0C0030588F /* PlayerProfileTableViewController.swift in Sources */,
 				BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */,
+				BD9B103E1F7F5ADB00C9A71E /* WordGameLevel.swift in Sources */,
 				BD3961CB1F5970BD0060CDB4 /* Player.swift in Sources */,
 				BDF488141F7CCFEE00829CA8 /* Scroll.swift in Sources */,
 				BDACC97D1F744C89001EF161 /* GameScene+UIPanelManager.swift in Sources */,
