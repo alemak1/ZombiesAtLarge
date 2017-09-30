@@ -15,6 +15,8 @@ import GameplayKit
 
 class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource {
 
+    @IBOutlet weak var progressBar: UIProgressView!
+    
     @IBOutlet weak var gameStatsViewCenterXConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var zombiesKilledLabel: UILabel!
@@ -175,7 +177,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
 
         self.view.backgroundColor = UIColor.orange
         
-
+        
         loadGame()
         
         becomeFirstResponder()
@@ -265,7 +267,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
             scene.scaleMode = .aspectFill
             
             // Present the scene
-    
+        
                 self.skView.presentScene(scene)
 
             
