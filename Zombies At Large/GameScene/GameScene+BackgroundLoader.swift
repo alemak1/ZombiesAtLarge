@@ -307,6 +307,11 @@ extension GameScene{
     
     func addMustKillZombie(tileMapNode: SKTileMapNode, row: Int, column: Int){
      
+        guard let mustKillZombieTracker = self.mustKillZombieTrackerDelegate else {
+            print("Error: no must kill zombie tracker available")
+            return
+        }
+        
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
         let hasMustKillZombie = tileDef?.userData?["hasMustKillZombie"] as? Bool
@@ -318,7 +323,7 @@ extension GameScene{
             
             var mustKillZombie: Zombie?
             
-            if(self.mustKillZombies.count >= self.currentGameLevel.getNumberOfMustKillZombies()){
+            if(mustKillZombieTracker.getNumberOfUnkilledZombies() >= self.currentGameLevel.getNumberOfMustKillZombies()){
                 
                 return
                 
@@ -335,21 +340,20 @@ extension GameScene{
                     case is MiniZombie.Type:
                         break
                     default:
+                        mustKillZombie = Zombie(zombieType: .zombie1, scale: 1.00, startingHealth: 6)
                         break
                 }
                 
-                if let mustKillZombie = mustKillZombie{
                     print("Adding must kill zombie to games scene")
-                    mustKillZombie.position = mustKillZombiePos
-                    mustKillZombie.move(toParent: worldNode)
-                    mustKillZombie.name = "MustKillZombie\(self.mustKillZombies.count)"
+                    mustKillZombie!.position = mustKillZombiePos
+                    mustKillZombie!.move(toParent: worldNode)
+                    mustKillZombie!.name = "MustKillZombie\(mustKillZombieTracker.getNumberOfUnkilledZombies())"
                     zombieManager.addDynamicZombie(zombie: mustKillZombie as! Updateable)
-                    mustKillZombies.insert(mustKillZombie)
-                    print("The number of mustKillZombies is \(self.mustKillZombies.count)")
-                }
+                    mustKillZombieTracker.addMustKillZombie(zombie: mustKillZombie!)
+                    print("The number of mustKillZombies is \(mustKillZombieTracker.getNumberOfUnkilledZombies())")
+                
+            
             }
-            
-            
         }
     }
     
@@ -432,6 +436,12 @@ extension GameScene{
     
     func addRequiredCollectible(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
+        guard let requiredCollectibleTracker = self.requiredCollectiblesTrackerDelegate else {
+            
+            fatalError("Error: found nil whil unwrapping the required collectible tracker")
+            
+        }
+        
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
         let hasRequiredCollectible = tileDef?.userData?["hasRequiredCollectible"] as? Bool
@@ -442,7 +452,7 @@ extension GameScene{
             let requiredCollectiblePos = tileMapNode.centerOfTile(atColumn: column, row: row)
             
             
-            if(self.requiredCollectibles.count >= self.currentGameLevel.getNumberOfRequiredCollectibles()){
+            if(requiredCollectibleTracker.numberOfRequiredCollectibles >= self.currentGameLevel.getNumberOfRequiredCollectibles()){
                 
                 return
                 
@@ -454,7 +464,9 @@ extension GameScene{
                 collectibleSprite.name = "RequiredCollectible"
                 collectibleSprite.position = requiredCollectiblePos
                 collectibleSprite.zPosition = 30
-                requiredCollectibles.insert(collectibleSprite)
+                
+                requiredCollectibleTracker.addRequiredCollectible(requiredCollectible: collectibleSprite)
+                
                 
             }
             
@@ -515,7 +527,7 @@ extension GameScene{
             tilePB.affectedByGravity = false
             pbNode.physicsBody = tilePB
             
-            //tileMapNode.addChild(pbNode)
+           // tileMapNode.addChild(pbNode)
             
             
             
@@ -527,6 +539,10 @@ extension GameScene{
     
     func addRescueCharacter(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
+        
+        guard let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate else {
+            fatalError("Error: found nil while unwrapping the unrescued characters delegate")
+        }
         
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
@@ -540,7 +556,7 @@ extension GameScene{
             print("Adding rescue character to the tile map at pos row: \(row), col: \(column)....")
             
             
-            if(self.unrescuedCharacters.count >= self.currentGameLevel.getNumberOfUnrescuedCharacter()){
+            if(unrescuedCharactersTracker.numberOfUnrescuedCharacters >= self.currentGameLevel.getNumberOfUnrescuedCharacter()){
                 
                 return
                 
@@ -553,7 +569,9 @@ extension GameScene{
                 rescueCharacter.move(toParent: worldNode)
                 rescueCharacter.name = "RescueCharacter"
                 rescueCharacter.position = rescueCharPos
-                unrescuedCharacters.insert(rescueCharacter)
+                unrescuedCharactersTracker.addUnrescuedCharacters(rescueCharacter: rescueCharacter)
+
+             
                 
             }
             
@@ -616,3 +634,5 @@ extension GameScene{
     }
     
 }
+
+

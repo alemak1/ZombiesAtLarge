@@ -18,40 +18,66 @@ import CoreData
 
 class GameScene: SKScene{
     
+    //MARK: User Profile
+    
+    var currentPlayerProfile: PlayerProfile?
+
+    
+    //MARK: Player/Game Statistics Tracker
+    
+    var gameLevelStatTracker: GameLevelStatTracker!
+
+    
+    //MARK: Player-Related Variables
+    
     var player: Player!
     var playerProximity: SKShapeNode!
     
-    
-    /** Current Level **/
+
+    //MARK: Variables: Current Level Properties
     
     var currentGameLevel: GameLevel!
     
-    var currentPlayerProfile: PlayerProfile?
-    
-    var requiredCollectibles: Set<CollectibleSprite> = []
-
-    var numberOfRequiredCollectibles: Int{
-        return requiredCollectibles.count
-    }
-    
-   
-    var unrescuedCharacters: Set<RescueCharacter> = []
-    
-    var numberOfUnrescuedCharacters: Int{
-        return unrescuedCharacters.count
-    }
-    
-    
-    
-    var mustKillZombies: Set<Zombie> = []
-    
-    var numberOfMustKillZombies: Int{
-        return mustKillZombies.count
-    }
-    
     var zombiesKilled: Int = 0
     
-    var destinationZone: SKSpriteNode?
+    //MARK: *********** TRACKER DELEGATES
+    
+    lazy var requiredCollectiblesTrackerDelegate: RequiredCollectiblesTrackerDelegate? = {
+        
+        switch self.currentGameLevel!{
+        case .Level1,.Level8:
+            return RequiredCollectiblesTracker()
+        default:
+            return nil
+        }
+        
+    }()
+    
+    
+    
+    lazy var unrescuedCharactersTrackerDelegate: UnrescuedCharacterTrackerDelegate? = {
+        
+        
+        switch self.currentGameLevel!{
+        case .Level2,.Level7,.Level8:
+            return UnrescuedCharacterTracker()
+        default:
+            return nil
+        }
+        
+        
+    }()
+    
+    lazy var mustKillZombieTrackerDelegate: MustKillZombieTrackerDelegate? = {
+        
+        switch self.currentGameLevel!{
+        case .Level4:
+            return MustKillZombieTracker()
+        default:
+            return nil
+        }
+        
+    }()
     
     /** Cached Sound Files **/
     
@@ -61,7 +87,7 @@ class GameScene: SKScene{
     
     var playGrenadeLaunchSound: SKAction = SKAction.playSoundFileNamed("rumble3", waitForCompletion: true)
     
-    /** Node Layers **/
+    /** Node Layers and Other Game-Level nodes **/
     
     var backgroundNode: SKNode!
     var overlayNode: SKNode!
@@ -71,10 +97,11 @@ class GameScene: SKScene{
     var hudNode: SKNode{
         return HUDManager.sharedManager.getHUD()
     }
-    
-    var gameLevelStatTracker: GameLevelStatTracker!
-    
+
     var safetyZone: SKSpriteNode?
+    
+    var destinationZone: SKSpriteNode?
+
     
     /** Mission Panel **/
     
@@ -96,7 +123,7 @@ class GameScene: SKScene{
     var woodFloorTileMap: SKTileMapNode!
     
     
-    /** Control buttons **/
+    //MARK: UI Panels, Other UI Elements and Other Related Variables
     
     var controlButton: SKSpriteNode!
     
@@ -107,46 +134,24 @@ class GameScene: SKScene{
     
     private var buttonsAreLoaded: Bool = false
     
+    var dialoguePanelIsShown: Bool = false
 
+    var bgNode: SKAudioNode!
     
-   var bgNode: SKAudioNode!
+    //MARK:  Zombie Manager
     
     var zombieManager: ZombieManager!
-    
-    var rescueCharacter: RescueCharacter?
 
+    //MARK: Timing-Related Variables
+    
     var frameCount: TimeInterval = 0.00
     var lastUpdateTime: TimeInterval = 0.00
     
-    var dialoguePanelIsShown: Bool = false
-    
-    var progressView: UIProgressView!
-    
-    var currentProgress: Float{
-        
-        return Float(currentProgressUnits/totalProgressUnits)
-        
-    }
-    
-    var currentProgressUnits: Int = 0{
-        didSet{
-            
-            if progressView != nil{
-                progressView.setProgress(self.currentProgress, animated: true)
-            }
-        }
-    }
-    
-    var totalProgressUnits: Int{
-        return 10
-    }
     
     /** ***************  GameScene Initializers **/
-    convenience init(currentGameLevel: GameLevel, progressView: UIProgressView) {
+    convenience init(currentGameLevel: GameLevel) {
         self.init(size: UIScreen.main.bounds.size)
         self.currentGameLevel = currentGameLevel
-        self.progressView = progressView
-        self.currentProgressUnits = 0
         
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -210,20 +215,15 @@ class GameScene: SKScene{
     
     @objc func removeMustKillZombie(notification: Notification?){
         
-        print("Removing a must kill zombie....")
-        
-        if let toRemoveZombie = self.mustKillZombies.first(where: {
-            
-            $0.name != notification?.userInfo?["zombieName"] as? String
-            
-        }){
-            
-            self.mustKillZombies.remove(toRemoveZombie)
-            print("Must kill zombie removed!")
-            print("Number of zombies left to kill is \(self.mustKillZombies.count)")
+        guard let mustKillZombieTracker = self.mustKillZombieTrackerDelegate, let toRemoveZombieName = notification?.userInfo?["zombieName"] as? String else {
+            print("Error: found nil while attempting to load the must kill zombie delegate; no must kill zombie tracker delegate available")
+            return
         }
         
+        print("Removing a must kill zombie....")
         
+        mustKillZombieTracker.removeMustKillZombie(withName: toRemoveZombieName)
+
         
     }
     
@@ -309,7 +309,10 @@ class GameScene: SKScene{
         camera.move(toParent: worldNode)
         camera.position = CGPoint(x: 150.0, y: 10.0)
 
-        print("The unrescued character count is \(unrescuedCharacters.count)")
+        if let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate{
+            print("The unrescued character count is \(unrescuedCharactersTracker.numberOfUnrescuedCharacters)")
+
+        }
         
         
         
@@ -483,8 +486,15 @@ class GameScene: SKScene{
         overlayNode.position = self.mainCameraNode.position
         
         zombieManager.constrainActiveZombiesToPlayer()
-        constraintRescuedCharactersToPlayer()
-        checkSafetyZoneForRescueCharacterProximity()
+        
+        
+        if let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate,let safetyZone = self.safetyZone{
+            
+            unrescuedCharactersTracker.constraintRescuedCharactersToPlayer()
+            unrescuedCharactersTracker.checkSafetyZoneForRescueCharacterProximity(safetyZone: safetyZone)
+
+            
+        }
 
     }
     
@@ -534,26 +544,7 @@ class GameScene: SKScene{
         }
         
     }
-    
-    func constraintRescuedCharactersToPlayer(){
-        for rescueCharacter in self.unrescuedCharacters{
-            rescueCharacter.constrainToPlayer()
-            
-        }
-    }
-    
-    func checkSafetyZoneForRescueCharacterProximity(){
-        for rescueCharacter in self.unrescuedCharacters{
-            if self.safetyZone != nil, self.safetyZone!.contains(rescueCharacter.position){
-                
-                print("The rescue character has entered the safety zone... Proceeding to remove the rescue character from the array of rescue character")
-                
-                self.unrescuedCharacters.remove(rescueCharacter)
-                
-                print("The current number of unrescued character is \(self.unrescuedCharacters.count)")
-            }
-        }
-    }
+  
     
     func loadFireButton(){
         
@@ -667,6 +658,28 @@ class GameScene: SKScene{
         
         buttonsAreLoaded = true
         print("buttons successfully loaded!")
+ 
+ 
+ var progressView: UIProgressView!
+ 
+ var currentProgress: Float{
+ 
+ return Float(currentProgressUnits/totalProgressUnits)
+ 
+ }
+ 
+ var currentProgressUnits: Int = 0{
+ didSet{
+ 
+ if progressView != nil{
+ progressView.setProgress(self.currentProgress, animated: true)
+ }
+ }
+ }
+ 
+ var totalProgressUnits: Int{
+ return 10
+ }
  
          **/
 

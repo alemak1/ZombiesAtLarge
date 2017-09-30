@@ -9,50 +9,99 @@
 import Foundation
 import SpriteKit
 
+/** The ResourceLoader preloads the main layers of the backgroundNode as well populates the worldNode withe enemies and collectibles; the preloaded nodes are then assigned to their counterparts in the GameScene  **/
+
 class ResourceLoader{
+    
+    static let GrassTilemapNodeName = "GrassTileMapNode"
+    static let CorridorTilemapNodeName = "CorridorTilemapNodeName"
+    static let FloorTilemapNodeName = "FloorTilemapNodeName"
+
+
+    typealias PreloadedNodeSet = (SKNode,SKNode,SKNode)
     
     static let sharedLoader = ResourceLoader()
     
+
+    private init(){
+        self.progressUnits = 0
+        
+    }
     
+
     var backgroundNode: SKNode!
     var worldNode: SKNode!
     var overlayNode: SKNode!
     
+    
+    var currentGameLevel: WordGameLevel = .Level1
+    
     var zombieManager: ZombieManager?
     var safetyZone: SafetyZone?
     
-    private init(){
     
+    /** Progress Units **/
+    
+    var percentProgress: CGFloat{
+        return CGFloat(progressUnits)/CGFloat(totalProgressUnits)
+    }
+    
+    var totalProgressUnits: Int{
+        
+        return (grassTileMap.numberOfRows*grassTileMap.numberOfColumns*grassHandlers.count) + (corridorTileMap.numberOfColumns*corridorTileMap.numberOfRows*corridorHandlers.count) + (floorTileMap.numberOfColumns*floorTileMap.numberOfRows*woodFloorHandlers.count)
+    }
+    
+    var progressUnits: Int{
+    
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name.GetDidUpdateGameLoadingProgressNotification(), object: nil, userInfo: [
+                "progress":self.percentProgress
+                ])
+        }
+    }
+    
+    func getPreloadedNodes() -> PreloadedNodeSet{
+        
+        return (self.backgroundNode,self.worldNode,self.overlayNode)
     }
     
     
-    func prepareLoadingResources(forWordGameLevel level: WordGameLevel){
+    func setCurrentGameLevel(to currentGameLevel: WordGameLevel){
+        self.currentGameLevel = currentGameLevel
+    }
+    
+    func prepareLoadingResources(forNextLevel level: WordGameLevel){
         
+        backgroundNode = nil
+        worldNode = nil
+        overlayNode = nil
+        
+        let nextLevel = self.currentGameLevel.getNextLevel()
+        loadBackground(forWordGameLevel: nextLevel)
     }
     
     
     func loadBackground(forWordGameLevel level: WordGameLevel){
         
+        loadGenericBackground()
+        
+        /** Perform custom level loading on a per-level basis, looping through children of an SKNode container for special objects and enemies pertaining to that level, or adding additional handlers which check the userInfo dictionary for a tileMap node **/
         switch level{
         case .Level1:
-            loadBgLevel1()
             break
         case .Level2:
-            loadBgLevel2()
             break
         case .Level3:
-            loadBgLevel3()
             break
         case .Level4:
-            loadBgLevel4()
             break
         case .Level5:
-            loadBgLevel5()
             break
         default:
             break
         }
         
+        NotificationCenter.default.post(name: Notification.Name.GetDidFinishedLoadingSceneNotification(), object: nil, userInfo: nil)
     }
     
     func loadBgLevel1(){
@@ -90,100 +139,16 @@ class ResourceLoader{
             fatalError("Error: the safety zone failed to load or could not be found")
         }
         
-        self.safetyZone = safetyZone
         
-        if self.safetyZone != nil{
-            self.safetyZone!.name = "SafetyZone"
-            self.safetyZone!.move(toParent: worldNode)
+        safetyZone.name = "SafetyZone"
+        safetyZone.move(toParent: worldNode)
             
-        }
+        
     }
     
     
-    
-    
-    func addGrassBackgrounds(){
-        
-        guard let grass = SKScene(fileNamed: "backgrounds")?.childNode(withName: "grass") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        let grassRows = grass.numberOfRows
-        let grassCols = grass.numberOfColumns
-        
-        for row in 1...grassRows{
-            for col in 1...grassCols{
-                
-                
-                addRedEnvelope(tileMapNode: grass, row: row, column: col)
-                addBullet(tileMapNode: grass, row: row, column: col)
-                addRiceBowl(tileMapNode: grass, row: row, column: col)
-                addZombie(tileMapNode: grass, row: row, column: col)
-                
-                
-            }
-            
-            
-        }
-        
-        
-        grass.position = CGPoint(x: 0.00, y: 0.00)
-        
-        grass.move(toParent: backgroundNode)
-        
-        
-    }
-    
-    func addBlackCorridors(){
-        
-        guard let blackCorridors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "blackcorridors") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        for row in 0...blackCorridors.numberOfRows{
-            for col in 0...blackCorridors.numberOfColumns{
-                
-                addObstaclePhysicsBodies(tileMapNode: blackCorridors, row: row, column: col)
-            }
-            
-    
-        }
-        
-        
-        
-        blackCorridors.position = CGPoint(x: 0.00, y: 0.00)
-        
-        blackCorridors.move(toParent: backgroundNode)
-        
-    }
-    
-    func addWoodfloors(){
-        
-        guard let woodFloors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "woodfloor") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        let woodRows = woodFloors.numberOfRows
-        let woodCols = woodFloors.numberOfColumns
-        
-        woodFloors.position = CGPoint(x: 0.00, y: 0.00)
-        
-        for row in 1...woodRows{
-            for col in 1...woodCols{
-                addSafetyZone(tileMapNode: woodFloors, row: row, column: col)
-                addRandomCollectible(tileMapNode: woodFloors, row: row, column: col)
-                addRequiredCollectible(tileMapNode: woodFloors, row: row, column: col)
-            }
-            
-          
-            
-        }
-        
-        
-        woodFloors.move(toParent: backgroundNode)
-    }
+
+   
     
     
     func addRandomCollectible(tileMapNode: SKTileMapNode, row: Int, column: Int){
@@ -243,11 +208,11 @@ class ResourceLoader{
             newZombie.position = zombiePos
             newZombie.move(toParent: worldNode)
             
-            SceneManager.sharedManager.addLatentZombie(zombie: newZombie)
-            
         }
     }
     
+    
+    /**
     
     func addMustKillZombie(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
@@ -297,7 +262,10 @@ class ResourceLoader{
         }
     }
     
+    **/
     
+    
+    /**
     func addSpecialZombie(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
@@ -337,6 +305,7 @@ class ResourceLoader{
         }
     }
     
+    **/
     
     func addRiceBowl(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
@@ -374,6 +343,8 @@ class ResourceLoader{
         }
     }
     
+    
+    /**
     func addRequiredCollectible(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
@@ -406,7 +377,9 @@ class ResourceLoader{
         }
         
     }
+     **/
     
+    /**
     func addSafetyZone(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
@@ -432,6 +405,7 @@ class ResourceLoader{
         }
         
     }
+     **/
     
     func addObstaclePhysicsBodies(tileMapNode: SKTileMapNode, row: Int, column: Int){
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
@@ -459,7 +433,7 @@ class ResourceLoader{
             tilePB.affectedByGravity = false
             pbNode.physicsBody = tilePB
             
-            //tileMapNode.addChild(pbNode)
+            tileMapNode.addChild(pbNode)
             
             
             
@@ -468,7 +442,7 @@ class ResourceLoader{
     }
     
     
-    
+    /**
     func addRescueCharacter(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
         
@@ -504,17 +478,34 @@ class ResourceLoader{
             
         }
     }
+     
+     
+     
+     func addRequiredCollectibleTo(someTileMapNode tileMapNode: SKTileMapNode){
+     self.traverseTileMap(tileMap: tileMapNode, withHandler: addRequiredCollectible)
+     }
+     
+     
+     func addSafetyZonesTo(tileMapNode tileMapeNode: SKTileMapNode){
+     self.traverseTileMap(tileMap: tileMapeNode, withHandler: addSafetyZone)
+     }
+     
+     func addMustKillZombiesTo(tileMapNode: SKTileMapNode){
+     self.traverseTileMap(tileMap: tileMapNode, withHandler: addMustKillZombie)
+     }
+     
+     func addRescueCharacterTo(someTileMapNode tileMapNode: SKTileMapNode){
+     self.traverseTileMap(tileMap: tileMapNode, withHandler: addRescueCharacter)
+     }
+     
+     
+    
+    **/
     
     
+  
     
-    func addRequiredCollectibleTo(someTileMapNode tileMapNode: SKTileMapNode){
-        self.traverseTileMap(tileMap: tileMapNode, withHandler: addRequiredCollectible)
-    }
-    
-    func addRescueCharacterTo(someTileMapNode tileMapNode: SKTileMapNode){
-        self.traverseTileMap(tileMap: tileMapNode, withHandler: addRescueCharacter)
-    }
-    
+   
     func addCollectiblesTo(someTileMapNode tileMapNode: SKTileMapNode){
         self.traverseTileMap(tileMap: tileMapNode, withHandler: addRandomCollectible)
     }
@@ -534,20 +525,57 @@ class ResourceLoader{
     func addBulletsTo(tileMapNode tileMapeNode: SKTileMapNode){
         self.traverseTileMap(tileMap: tileMapeNode, withHandler: addBullet)
     }
-    
-    func addSafetyZonesTo(tileMapNode tileMapeNode: SKTileMapNode){
-        self.traverseTileMap(tileMap: tileMapeNode, withHandler: addSafetyZone)
-    }
-    
-    func addMustKillZombiesTo(tileMapNode: SKTileMapNode){
-        self.traverseTileMap(tileMap: tileMapNode, withHandler: addMustKillZombie)
-    }
-    
+  
     func addObstaclePhysicsBodiesTo(tileMapNode tileMapeNode: SKTileMapNode){
         self.traverseTileMap(tileMap: tileMapeNode, withHandler: addObstaclePhysicsBodies)
     }
     
-    func traverseTileMap(tileMap: SKTileMapNode, withHandler handler: (SKTileMapNode,Int,Int) -> Void){
+    
+    func loadGenericBackground(){
+        
+        traverseTileMap(tileMap: grassTileMap, withHandlers: grassHandlers)
+        traverseTileMap(tileMap: corridorTileMap, withHandlers: corridorHandlers)
+        traverseTileMap(tileMap: floorTileMap, withHandlers: woodFloorHandlers)
+    }
+    
+    
+    var grassTileMap: SKTileMapNode{
+        
+        let sceneName = self.currentGameLevel.getSKSceneFilename()
+        
+        guard let tileMap = SKScene(fileNamed: sceneName)?.childNode(withName: ResourceLoader.GrassTilemapNodeName) as? SKTileMapNode else {
+            fatalError("Error: failed to load the tileMap from the SKScene file")
+        }
+        
+        return tileMap
+    }
+    
+    var corridorTileMap: SKTileMapNode{
+        let sceneName = self.currentGameLevel.getSKSceneFilename()
+        
+        guard let tileMap = SKScene(fileNamed: sceneName)?.childNode(withName: ResourceLoader.CorridorTilemapNodeName) as? SKTileMapNode else {
+            fatalError("Error: failed to load the tileMap from the SKScene file")
+        }
+        
+        return tileMap
+    }
+    
+    var floorTileMap: SKTileMapNode{
+        
+        let sceneName = self.currentGameLevel.getSKSceneFilename()
+        
+        guard let tileMap = SKScene(fileNamed: sceneName)?.childNode(withName: ResourceLoader.FloorTilemapNodeName) as? SKTileMapNode else {
+            fatalError("Error: failed to load the tileMap from the SKScene file")
+        }
+        
+        return tileMap
+        
+    }
+    
+    typealias AddItemHandler = (SKTileMapNode,Int,Int) -> Void
+    
+    /** ProgressUnits are incremented every time the tileMap is completely traversed; the tileMap is traversed once i**/
+    func traverseTileMap(tileMap: SKTileMapNode, withHandler handler: AddItemHandler){
         
         let rows = tileMap.numberOfRows
         let columns = tileMap.numberOfColumns
@@ -557,8 +585,142 @@ class ResourceLoader{
                 handler(tileMap,row,col)
             }
         }
+        
+        self.progressUnits += 1
     }
     
     
     
+    var grassHandlers: [AddItemHandler]{
+        return [
+            addBullet,
+            addZombie,
+            addRedEnvelope,
+            addRiceBowl,
+            addRandomCollectible
+        ]
+    }
+    
+    var corridorHandlers: [AddItemHandler]{
+        return [
+            addObstaclePhysicsBodies
+        ]
+    }
+    
+    var woodFloorHandlers: [AddItemHandler]{
+        return [
+            addBullet,
+            addZombie,
+            addRedEnvelope,
+            addRiceBowl,
+            addRandomCollectible
+        ]
+    }
+    
+    func traverseTileMap(tileMap: SKTileMapNode, withHandlers handlers: [AddItemHandler]){
+    
+        
+        let rows = tileMap.numberOfRows
+        let columns = tileMap.numberOfColumns
+        
+        for row in 1...rows{
+            for col in 1...columns{
+                for handler in handlers{
+                    handler(tileMap,row,col)
+                    self.progressUnits += 1
+                }
+            }
+        }
+        
+    }
+    
+
+    
+}
+
+
+//MARK: ******** LEVEl1 LOADER HELPER FUNCTIONS
+
+extension ResourceLoader{
+    
+    func addGrassBackgrounds(){
+        
+        guard let grass = SKScene(fileNamed: "backgrounds")?.childNode(withName: "grass") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        
+        let grassRows = grass.numberOfRows
+        let grassCols = grass.numberOfColumns
+        
+        for row in 1...grassRows{
+            for col in 1...grassCols{
+                
+                
+                addRedEnvelope(tileMapNode: grass, row: row, column: col)
+                addBullet(tileMapNode: grass, row: row, column: col)
+                addRiceBowl(tileMapNode: grass, row: row, column: col)
+                addZombie(tileMapNode: grass, row: row, column: col)
+                
+                
+            }
+            
+            
+        }
+        
+        
+        grass.position = CGPoint(x: 0.00, y: 0.00)
+        
+        grass.move(toParent: backgroundNode)
+        
+        
+    }
+    
+    func addBlackCorridors(){
+        
+        guard let blackCorridors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "blackcorridors") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        
+        for row in 0...blackCorridors.numberOfRows{
+            for col in 0...blackCorridors.numberOfColumns{
+                
+                addObstaclePhysicsBodies(tileMapNode: blackCorridors, row: row, column: col)
+            }
+            
+            
+        }
+        
+        
+        
+        blackCorridors.position = CGPoint(x: 0.00, y: 0.00)
+        
+        blackCorridors.move(toParent: backgroundNode)
+        
+    }
+    
+    func addWoodfloors(){
+        
+        guard let woodFloors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "woodfloor") as? SKTileMapNode else {
+            
+            fatalError("Error: tile backgrounds failed to load")
+        }
+        let woodRows = woodFloors.numberOfRows
+        let woodCols = woodFloors.numberOfColumns
+        
+        woodFloors.position = CGPoint(x: 0.00, y: 0.00)
+        
+        for row in 1...woodRows{
+            for col in 1...woodCols{
+                addRandomCollectible(tileMapNode: woodFloors, row: row, column: col)
+            }
+            
+            
+            
+        }
+        
+        
+        woodFloors.move(toParent: backgroundNode)
+    }
 }

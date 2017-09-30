@@ -159,8 +159,7 @@ extension GameScene{
 
                         let transition = SKTransition.crossFade(withDuration: 2.00)
                         
-                        self.progressView = UIProgressView(progressViewStyle: .bar)
-                        let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel, progressView: self.progressView)
+                        let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel)
                         view!.presentScene(currentGameScene, transition: transition)
                     }
                     

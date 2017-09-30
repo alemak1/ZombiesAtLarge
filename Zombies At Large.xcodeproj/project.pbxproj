@@ -48,6 +48,13 @@
 		BD3A788A1F6D690D0001804A /* OtherCollectibleSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A78891F6D690D0001804A /* OtherCollectibleSprites.swift */; };
 		BD3D72AB1F6E928A00E442C2 /* missionAccomplished.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD3D72A91F6E928400E442C2 /* missionAccomplished.wav */; };
 		BD3D72AC1F6E928D00E442C2 /* missionFailed.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD3D72AA1F6E928400E442C2 /* missionFailed.wav */; };
+		BD3F94351F7F675B0027FE93 /* MustKillZombieTrackerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3F94341F7F675B0027FE93 /* MustKillZombieTrackerDelegate.swift */; };
+		BD3F94371F7F679D0027FE93 /* MustKillZombieTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3F94361F7F679D0027FE93 /* MustKillZombieTracker.swift */; };
+		BD3F943A1F7F713F0027FE93 /* UnrescuedCharacterTrackerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3F94391F7F713F0027FE93 /* UnrescuedCharacterTrackerDelegate.swift */; };
+		BD3F943C1F7F71590027FE93 /* UnrescuedCharacterTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3F943B1F7F71590027FE93 /* UnrescuedCharacterTracker.swift */; };
+		BD3F943E1F7F73960027FE93 /* RequiredCollectiblesTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3F943D1F7F73960027FE93 /* RequiredCollectiblesTracker.swift */; };
+		BD3F94401F7F73A50027FE93 /* RequiredCollectiblesTrackerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3F943F1F7F73A50027FE93 /* RequiredCollectiblesTrackerDelegate.swift */; };
+		BD3F94421F7F7DB90027FE93 /* GameScene+TrackerDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3F94411F7F7DB90027FE93 /* GameScene+TrackerDelegates.swift */; };
 		BD41D5311F7E1E1F0093CDA8 /* ZombieMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD41D52F1F7E1E1F0093CDA8 /* ZombieMaster.xcdatamodeld */; };
 		BD41D5341F7E21140093CDA8 /* GameLevelStatSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41D5331F7E21140093CDA8 /* GameLevelStatSummary.swift */; };
 		BD41D5361F7E21380093CDA8 /* GameLevelStatTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41D5351F7E21380093CDA8 /* GameLevelStatTracker.swift */; };
@@ -195,6 +202,13 @@
 		BD3A78891F6D690D0001804A /* OtherCollectibleSprites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherCollectibleSprites.swift; sourceTree = "<group>"; };
 		BD3D72A91F6E928400E442C2 /* missionAccomplished.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = missionAccomplished.wav; sourceTree = "<group>"; };
 		BD3D72AA1F6E928400E442C2 /* missionFailed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = missionFailed.wav; sourceTree = "<group>"; };
+		BD3F94341F7F675B0027FE93 /* MustKillZombieTrackerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKillZombieTrackerDelegate.swift; sourceTree = "<group>"; };
+		BD3F94361F7F679D0027FE93 /* MustKillZombieTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKillZombieTracker.swift; sourceTree = "<group>"; };
+		BD3F94391F7F713F0027FE93 /* UnrescuedCharacterTrackerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrescuedCharacterTrackerDelegate.swift; sourceTree = "<group>"; };
+		BD3F943B1F7F71590027FE93 /* UnrescuedCharacterTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrescuedCharacterTracker.swift; sourceTree = "<group>"; };
+		BD3F943D1F7F73960027FE93 /* RequiredCollectiblesTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredCollectiblesTracker.swift; sourceTree = "<group>"; };
+		BD3F943F1F7F73A50027FE93 /* RequiredCollectiblesTrackerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredCollectiblesTrackerDelegate.swift; sourceTree = "<group>"; };
+		BD3F94411F7F7DB90027FE93 /* GameScene+TrackerDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+TrackerDelegates.swift"; sourceTree = "<group>"; };
 		BD41D5301F7E1E1F0093CDA8 /* ZombieMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ZombieMaster.xcdatamodel; sourceTree = "<group>"; };
 		BD41D5331F7E21140093CDA8 /* GameLevelStatSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelStatSummary.swift; sourceTree = "<group>"; };
 		BD41D5351F7E21380093CDA8 /* GameLevelStatTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelStatTracker.swift; sourceTree = "<group>"; };
@@ -377,6 +391,19 @@
 			path = BackgroundMusic;
 			sourceTree = "<group>";
 		};
+		BD3F94381F7F6D860027FE93 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				BD3F94341F7F675B0027FE93 /* MustKillZombieTrackerDelegate.swift */,
+				BD3F94361F7F679D0027FE93 /* MustKillZombieTracker.swift */,
+				BD3F94391F7F713F0027FE93 /* UnrescuedCharacterTrackerDelegate.swift */,
+				BD3F943B1F7F71590027FE93 /* UnrescuedCharacterTracker.swift */,
+				BD3F943D1F7F73960027FE93 /* RequiredCollectiblesTracker.swift */,
+				BD3F943F1F7F73A50027FE93 /* RequiredCollectiblesTrackerDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		BD41D5321F7E20F10093CDA8 /* PlayerStats */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,6 +479,7 @@
 		BD5803971F6BA1670086BBA6 /* GameScene */ = {
 			isa = PBXGroup;
 			children = (
+				BD3F94381F7F6D860027FE93 /* Delegates */,
 				BD39619C1F5970940060CDB4 /* GameScene.swift */,
 				BD5803981F6BA1830086BBA6 /* GameScene+SKPhysicsContactDelegate.swift */,
 				BD58039A1F6BA28C0086BBA6 /* GameScene+TouchHandling.swift */,
@@ -461,6 +489,7 @@
 				BD9659D11F7641D3009A7F0B /* InventoryItemCell.swift */,
 				BD4C1D8C1F769DB80017A8F4 /* InventoryViewController.swift */,
 				BD39D1CA1F7CEF0A00B1E98E /* GameSceneSnapshot.swift */,
+				BD3F94411F7F7DB90027FE93 /* GameScene+TrackerDelegates.swift */,
 			);
 			path = GameScene;
 			sourceTree = "<group>";
@@ -738,6 +767,7 @@
 				BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */,
 				BD9B10401F7F5CF300C9A71E /* SceneManager.swift in Sources */,
 				BD7865591F6546620071A14F /* CollectibleType.swift in Sources */,
+				BD3F94351F7F675B0027FE93 /* MustKillZombieTrackerDelegate.swift in Sources */,
 				BD32EC281F6E675D0080D712 /* RescueCharacter.swift in Sources */,
 				BDF488121F7CCE9000829CA8 /* ScrollConfiguration.swift in Sources */,
 				BD9B103A1F7F533E00C9A71E /* WordGameScene.swift in Sources */,
@@ -758,6 +788,7 @@
 				BD3A516A1F692D5D00B01850 /* Talkable.swift in Sources */,
 				BD3A51681F692B7400B01850 /* NonplayerCharacter.swift in Sources */,
 				BDE1250C1F6390CE0092E561 /* Zombie.swift in Sources */,
+				BD3F943A1F7F713F0027FE93 /* UnrescuedCharacterTrackerDelegate.swift in Sources */,
 				BD3A516C1F692ED500B01850 /* PicturePerson.swift in Sources */,
 				BD78655D1F6562DF0071A14F /* Tank.swift in Sources */,
 				BD3A788A1F6D690D0001804A /* OtherCollectibleSprites.swift in Sources */,
@@ -773,6 +804,8 @@
 				BD9D75681F73CB4700F6C38D /* Updateable.swift in Sources */,
 				BD93DE6E1F737C2300C271AF /* Notification.Name+Notifications.swift in Sources */,
 				BD56B8D71F73D80B00159C7B /* Bystander.swift in Sources */,
+				BD3F94421F7F7DB90027FE93 /* GameScene+TrackerDelegates.swift in Sources */,
+				BD3F94401F7F73A50027FE93 /* RequiredCollectiblesTrackerDelegate.swift in Sources */,
 				BD78655F1F65769C0071A14F /* BarrelNode.swift in Sources */,
 				BD39619D1F5970940060CDB4 /* GameScene.swift in Sources */,
 				BD806F101F776D2700EF5DF5 /* FaceDetector.swift in Sources */,
@@ -788,10 +821,13 @@
 				BD58039D1F6BFDE90086BBA6 /* HUD.swift in Sources */,
 				BDE9FB051F66A1980056B66E /* CollectibleSprite.swift in Sources */,
 				BDE125521F63E1E00092E561 /* Shooter.swift in Sources */,
+				BD3F943E1F7F73960027FE93 /* RequiredCollectiblesTracker.swift in Sources */,
 				BD3A51701F693C6500B01850 /* NonplayerCharacterType.swift in Sources */,
 				BD4529E01F695946000166A4 /* GameLevel.swift in Sources */,
 				BD41D5421F7E255D0093CDA8 /* GameLevelStatReview+CoreDataProperties.swift in Sources */,
 				BD78655B1F65483D0071A14F /* ImageContainer.swift in Sources */,
+				BD3F94371F7F679D0027FE93 /* MustKillZombieTracker.swift in Sources */,
+				BD3F943C1F7F71590027FE93 /* UnrescuedCharacterTracker.swift in Sources */,
 				BD42C64E1F7E57270030588F /* UpgradeObjectCell.swift in Sources */,
 				BD42C6481F7E53830030588F /* PlayerProfileViewController.swift in Sources */,
 			);

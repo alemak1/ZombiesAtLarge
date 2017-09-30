@@ -256,7 +256,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
             progressView.isHidden = false
             
             // Load the SKScene from 'GameScene.sks'
-            currentGameScene = GameScene(currentGameLevel: .Level1, progressView: self.progressView)
+            currentGameScene = GameScene(currentGameLevel: .Level1)
             
             guard let scene = self.currentGameScene else {
                 fatalError("Error: failed to load game scene ")

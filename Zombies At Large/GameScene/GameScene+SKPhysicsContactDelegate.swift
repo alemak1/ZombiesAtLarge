@@ -113,9 +113,9 @@ extension GameScene: SKPhysicsContactDelegate{
             break
         case ColliderType.SafetyZone.categoryMask:
             print("handleRescueCharacter: The RESCUE CHARACTER has arrived at the SAFETY ZONE!!!")
-            if let rescueCharacter = rescueCharacterBody.node as? RescueCharacter{
-                unrescuedCharacters.remove(rescueCharacter)
-                print("The unrescued character count is: \(unrescuedCharacters.count)")
+            if let rescueCharacter = rescueCharacterBody.node as? RescueCharacter, let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate{
+                unrescuedCharactersTracker.removeUnrescuedCharacter(rescueCharacter: rescueCharacter)
+                print("The unrescued character count is: \(unrescuedCharactersTracker.numberOfUnrescuedCharacters)")
             }
             break
         case ColliderType.EnemyBullets.categoryMask:
@@ -398,7 +398,11 @@ extension GameScene: SKPhysicsContactDelegate{
                     collectibleSprite.removeFromParent()
                     
                     if collectibleSprite.name == "RequiredCollectible"{
-                        self.requiredCollectibles.remove(collectibleSprite)
+                        
+                        if let requiredCollectiblesTracker = self.requiredCollectiblesTrackerDelegate {
+                            requiredCollectiblesTracker.removeRequiredCollectible(requiredCollectible: collectibleSprite)
+
+                        }
                     }
                     
                 }
@@ -539,9 +543,9 @@ extension GameScene: SKPhysicsContactDelegate{
         switch nonSafetyZoneBody.categoryBitMask {
         case ColliderType.RescueCharacter.categoryMask:
             print("The RESCUE CHARACTER has arrived at the SAFETY ZONE!!!")
-            if let rescueCharacter = nonSafetyZoneBody.node as? RescueCharacter{
-               unrescuedCharacters.remove(rescueCharacter)
-                print("The unrescued character count is: \(unrescuedCharacters.count)")
+            if let rescueCharacter = nonSafetyZoneBody.node as? RescueCharacter, let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate{
+                unrescuedCharactersTracker.removeUnrescuedCharacter(rescueCharacter: rescueCharacter)
+                print("The unrescued character count is: \(unrescuedCharactersTracker.numberOfUnrescuedCharacters)")
             }
 
             break

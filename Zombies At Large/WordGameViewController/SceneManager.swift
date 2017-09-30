@@ -9,7 +9,44 @@
 import Foundation
 import SpriteKit
 
-class SceneManager{
+class SceneManager: MustKillZombieTrackerDelegate,RequiredCollectiblesTrackerDelegate,UnrescuedCharacterTrackerDelegate{
+    
+    func getNumberOfUnkilledZombies() -> Int {
+        return 0
+    }
+    
+    func addMustKillZombie(zombie: Zombie) {
+        
+    }
+    
+    func removeMustKillZombie(withName name: String?) {
+        
+    }
+    
+    func removeRequiredCollectible(requiredCollectible: CollectibleSprite) {
+        
+    }
+    
+    func addRequiredCollectible(requiredCollectible: CollectibleSprite) {
+        
+    }
+    
+    func removeUnrescuedCharacter(rescueCharacter: RescueCharacter) {
+        
+    }
+    
+    func addUnrescuedCharacters(rescueCharacter: RescueCharacter) {
+        
+    }
+    
+    func constraintRescuedCharactersToPlayer() {
+        
+    }
+    
+    func checkSafetyZoneForRescueCharacterProximity(safetyZone: SKSpriteNode) {
+        
+    }
+    
     
     static let sharedManager = SceneManager()
     

@@ -16,13 +16,34 @@ extension GameScene{
         
         switch self.currentGameLevel! {
         case .Level1:
-            return { return self.requiredCollectibles.count <= 0 }
+            return {
+                
+                guard let requiredCollectiblesTracker = self.requiredCollectiblesTrackerDelegate else {
+                    fatalError("Error: found nil while unwrapping the required collectibles tracker delegate")
+                }
+                
+                return requiredCollectiblesTracker.numberOfRequiredCollectibles <= 0
+                
+            }
         case .Level2:
-            return { return self.unrescuedCharacters.count <= 0 }
+            
+            guard let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate else {
+                fatalError("Error: found nil while unwrapping the unrescued characters tracker delegate")
+                
+            }
+            return { return unrescuedCharactersTracker.numberOfUnrescuedCharacters <= 0 }
         case .Level3:
             return { return self.player.collectibleManager.getTotalMetalContent() > 200 }
         case .Level4:
-            return { return self.mustKillZombies.count <= 0 }
+            return {
+                
+                guard let zombieTracker = self.mustKillZombieTrackerDelegate else {
+                    fatalError("Error: found nil while attempting to unwrap the must kill zombie tracker delegate")
+                }
+                
+                return zombieTracker.getNumberOfUnkilledZombies() <= 0
+                
+            }
         case .Level5:
             return { return self.player.collectibleManager.getTotalMonetaryValueOfAllCollectibles() > 2000 }
         case .Level6:
@@ -37,19 +58,49 @@ extension GameScene{
             }
         case .Level7:
             return {
-                return self.mustKillZombies.count <= 0 && self.unrescuedCharacters.count <= 0
+                
+                guard let zombieTracker = self.mustKillZombieTrackerDelegate else {
+                    fatalError("Error: found nil while attempting to unwrap the must kill zombie tracker delegate")
+                }
+                
+                guard let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate else {
+                    fatalError("Error: found nil while unwrapping the unrescued characters tracker delegate")
+                    
+                }
+                
+                return zombieTracker.getNumberOfUnkilledZombies() <= 0 && unrescuedCharactersTracker.numberOfUnrescuedCharacters <= 0
             }
         case .Level8:
             return {
-                return self.unrescuedCharacters.count <= 0 && self.requiredCollectibles.count <= 0
+                
+                guard let requiredCollectiblesTracker = self.requiredCollectiblesTrackerDelegate else {
+                    fatalError("Error: found nil while unwrapping the required collectibles tracker delegate")
+                }
+                
+                guard let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate else {
+                    fatalError("Error: found nil while unwrapping the unrescued characters tracker delegate")
+
+                }
+                
+                return unrescuedCharactersTracker.numberOfUnrescuedCharacters <= 0 && requiredCollectiblesTracker.numberOfRequiredCollectibles <= 0
             }
         case .Level9:
             return {
-                return self.mustKillZombies.count <= 0
+                
+                guard let zombieTracker = self.mustKillZombieTrackerDelegate else {
+                    fatalError("Error: found nil while attempting to unwrap the must kill zombie tracker delegate")
+                }
+                
+                return zombieTracker.getNumberOfUnkilledZombies() <= 0
             }
         case .Level10:
             return {
-                return self.mustKillZombies.count <= 0
+                
+                guard let zombieTracker = self.mustKillZombieTrackerDelegate else {
+                    fatalError("Error: found nil while attempting to unwrap the must kill zombie tracker delegate")
+                }
+                
+                return zombieTracker.getNumberOfUnkilledZombies() <= 0
             }
         default:
             print("No win condition available for this level ")

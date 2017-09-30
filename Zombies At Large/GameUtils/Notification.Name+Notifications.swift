@@ -17,6 +17,15 @@ extension Notification.Name{
     static let didKillMustKillZombieNotification = "didKillMustKillZombieNotification"
     static let didActivateCollectibleNotification = "didActivateCollectibleNotification"
     static let didSetOffGrenadeNotification = "didSetOffGrenadeNotification"
+    static let didFinishLoadingSceneNotification = "didFinishLoadingSceneNotification"
+    
+    static func GetDidFinishedLoadingSceneNotification() -> Notification.Name{
+        return self.init(Notification.Name.didFinishLoadingSceneNotification)
+    }
+    
+    static func GetDidUpdateGameLoadingProgressNotification() -> Notification.Name{
+        return self.init(Notification.Name.didUpdateGameLoadingProgressNotification)
+    }
     
     static func GetDidActivateCollectibleNotificationName() -> Notification.Name{
         return self.init(Notification.Name.didActivateCollectibleNotification)
