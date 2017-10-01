@@ -14,8 +14,8 @@ import SpriteKit
 class ResourceLoader{
     
     static let GrassTilemapNodeName = "GrassTileMapNode"
-    static let CorridorTilemapNodeName = "CorridorTilemapNodeName"
-    static let FloorTilemapNodeName = "FloorTilemapNodeName"
+    static let CorridorTilemapNodeName = "CorridorTileMapNode"
+    static let FloorTilemapNodeName = "FloorTileMapNode"
 
 
     typealias PreloadedNodeSet = (SKNode,SKNode,SKNode)
@@ -77,11 +77,20 @@ class ResourceLoader{
         overlayNode = nil
         
         let nextLevel = self.currentGameLevel.getNextLevel()
-        loadBackground(forWordGameLevel: nextLevel)
+        loadBackground(forWordGameLevel: nextLevel, completion: nil)
     }
     
     
-    func loadBackground(forWordGameLevel level: WordGameLevel){
+
+    
+    func loadBackground(forWordGameLevel level: WordGameLevel, completion: ((Bool)-> Void)?){
+        
+         let nodesAreLoaded = self.backgroundNode != nil && self.overlayNode != nil && self.worldNode != nil
+        
+        if(nodesAreLoaded) && completion != nil{
+            completion!(true)
+            return
+        }
         
         loadGenericBackground()
         
@@ -101,7 +110,11 @@ class ResourceLoader{
             break
         }
         
-        NotificationCenter.default.post(name: Notification.Name.GetDidFinishedLoadingSceneNotification(), object: nil, userInfo: nil)
+        if let completion = completion{
+            
+            completion(true)
+        }
+        
     }
     
     func loadBgLevel1(){

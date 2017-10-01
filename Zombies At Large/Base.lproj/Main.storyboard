@@ -133,19 +133,55 @@
                                     <constraint firstItem="ydY-nT-oBg" firstAttribute="centerY" secondItem="jLR-SR-8Il" secondAttribute="centerY" constant="-20" id="wgO-iE-psk"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hzu-vm-4Uh" userLabel="ProgressBarView">
+                                <rect key="frame" x="62" y="534.66666666666652" width="290" height="147.33333333333337"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ggD-hf-jVp">
+                                        <rect key="frame" x="0.0" y="27" width="290" height="30"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Loading Game....">
+                                                <attributes>
+                                                    <font key="NSFont" size="24" name="Didot"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="92Q-mu-WPF">
+                                        <rect key="frame" x="29" y="88" width="232" height="2"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="Fsr-TN-Prc"/>
+                                        </constraints>
+                                    </progressView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="92Q-mu-WPF" firstAttribute="centerX" secondItem="Hzu-vm-4Uh" secondAttribute="centerX" id="BX3-3m-oOy"/>
+                                    <constraint firstItem="ggD-hf-jVp" firstAttribute="width" secondItem="Hzu-vm-4Uh" secondAttribute="width" id="JHI-Yh-j5D"/>
+                                    <constraint firstItem="92Q-mu-WPF" firstAttribute="width" secondItem="Hzu-vm-4Uh" secondAttribute="width" multiplier="0.8" id="gKv-H1-Eaf"/>
+                                    <constraint firstItem="ggD-hf-jVp" firstAttribute="top" secondItem="Hzu-vm-4Uh" secondAttribute="top" constant="27" id="s0z-12-WR6"/>
+                                    <constraint firstItem="ggD-hf-jVp" firstAttribute="centerX" secondItem="Hzu-vm-4Uh" secondAttribute="centerX" id="w36-jA-ari"/>
+                                    <constraint firstItem="92Q-mu-WPF" firstAttribute="top" secondItem="ggD-hf-jVp" secondAttribute="bottom" constant="31" id="wX9-Fh-hc2"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Iu3-CW-fbc" firstAttribute="leading" secondItem="VBW-cz-MH2" secondAttribute="leading" id="1e3-1k-Sxs"/>
                             <constraint firstItem="jLR-SR-8Il" firstAttribute="top" secondItem="Iu3-CW-fbc" secondAttribute="top" id="8is-h8-EtU"/>
+                            <constraint firstItem="Hzu-vm-4Uh" firstAttribute="centerX" secondItem="7Kb-NQ-qr2" secondAttribute="centerX" id="ArH-aT-Aga"/>
+                            <constraint firstItem="VBW-cz-MH2" firstAttribute="bottom" secondItem="Hzu-vm-4Uh" secondAttribute="bottom" constant="54" id="B9Y-gU-gFK"/>
                             <constraint firstItem="VBW-cz-MH2" firstAttribute="bottom" secondItem="Iu3-CW-fbc" secondAttribute="bottom" id="MMy-tT-Tzh"/>
                             <constraint firstItem="Iu3-CW-fbc" firstAttribute="top" secondItem="7Kb-NQ-qr2" secondAttribute="top" id="MfA-EB-2i9"/>
                             <constraint firstItem="Omc-xN-Vzi" firstAttribute="centerY" secondItem="7Kb-NQ-qr2" secondAttribute="centerY" id="Nn9-7J-CjN"/>
+                            <constraint firstItem="Hzu-vm-4Uh" firstAttribute="height" secondItem="7Kb-NQ-qr2" secondAttribute="height" multiplier="0.2" id="Sl2-Pz-aTR"/>
                             <constraint firstItem="huP-Ev-gI3" firstAttribute="top" secondItem="VBW-cz-MH2" secondAttribute="top" constant="10" id="cjq-hu-mti"/>
                             <constraint firstItem="Omc-xN-Vzi" firstAttribute="centerX" secondItem="7Kb-NQ-qr2" secondAttribute="centerX" id="gdx-0s-OhY"/>
                             <constraint firstItem="jLR-SR-8Il" firstAttribute="centerX" secondItem="7Kb-NQ-qr2" secondAttribute="centerX" constant="-30" id="iBc-Zo-ND1"/>
                             <constraint firstItem="VBW-cz-MH2" firstAttribute="trailing" secondItem="huP-Ev-gI3" secondAttribute="trailing" constant="10" id="nWP-be-Cso"/>
                             <constraint firstItem="jLR-SR-8Il" firstAttribute="width" secondItem="7Kb-NQ-qr2" secondAttribute="width" multiplier="0.9" id="pkE-LL-3fU"/>
+                            <constraint firstItem="Hzu-vm-4Uh" firstAttribute="width" secondItem="7Kb-NQ-qr2" secondAttribute="width" multiplier="0.7" id="vWh-1C-bUJ"/>
                             <constraint firstItem="Iu3-CW-fbc" firstAttribute="trailing" secondItem="VBW-cz-MH2" secondAttribute="trailing" id="xea-SV-pft"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VBW-cz-MH2"/>
@@ -155,6 +191,10 @@
                         <outlet property="optionsMenu" destination="Omc-xN-Vzi" id="GEj-SY-z2n"/>
                         <outlet property="optionsMenuCenterXConstraint" destination="gdx-0s-OhY" id="Zun-Xb-E7V"/>
                         <outlet property="optionsMenuCenterYConstraint" destination="Nn9-7J-CjN" id="qK6-fC-mJk"/>
+                        <outlet property="progressBar" destination="92Q-mu-WPF" id="3Dr-Is-rSQ"/>
+                        <outlet property="progressBarLabel" destination="ggD-hf-jVp" id="og3-RM-VW1"/>
+                        <outlet property="progressBarView" destination="Hzu-vm-4Uh" id="bGx-Yx-9ef"/>
+                        <outlet property="skView" destination="Iu3-CW-fbc" id="EoP-1Y-ym7"/>
                         <outlet property="spriteKitBottomConstraint" destination="MMy-tT-Tzh" id="Fds-6e-WNx"/>
                         <outlet property="spriteKitLeadingConstraint" destination="1e3-1k-Sxs" id="vUf-3h-00v"/>
                         <outlet property="spriteKitTopConstraint" destination="MfA-EB-2i9" id="Jd9-zb-K5A"/>
@@ -163,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7eY-Lb-o1F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="514" y="73"/>
+            <point key="canvasLocation" x="28.985507246376812" y="117.39130434782609"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="zz6-VT-hge">

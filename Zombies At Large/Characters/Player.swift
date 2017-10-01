@@ -152,6 +152,14 @@ class Player: Shooter{
             }
         }
     
+    public func getCurrentHealth() -> Int{
+        return self.health
+    }
+    
+    public func getCurrentNumberOfBullets() -> Int{
+        return self.numberOfBullets
+    }
+    
     
     /**
     var currentOrientation: Orientation{
@@ -354,6 +362,8 @@ class Player: Shooter{
         return self.collectibleManager.hasItem(collectible: collectible)
         
     }
+    
+
 }
 
 

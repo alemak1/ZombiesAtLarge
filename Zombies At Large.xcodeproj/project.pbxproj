@@ -55,6 +55,11 @@
 		BD3F943E1F7F73960027FE93 /* RequiredCollectiblesTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3F943D1F7F73960027FE93 /* RequiredCollectiblesTracker.swift */; };
 		BD3F94401F7F73A50027FE93 /* RequiredCollectiblesTrackerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3F943F1F7F73A50027FE93 /* RequiredCollectiblesTrackerDelegate.swift */; };
 		BD3F94421F7F7DB90027FE93 /* GameScene+TrackerDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3F94411F7F7DB90027FE93 /* GameScene+TrackerDelegates.swift */; };
+		BD41B0EC1F80A0F700E043B4 /* wordLevelBackgrounds1.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD41B0EB1F80A0F700E043B4 /* wordLevelBackgrounds1.sks */; };
+		BD41B0EE1F80A1BF00E043B4 /* wordLevelBackgrounds2.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD41B0ED1F80A1BF00E043B4 /* wordLevelBackgrounds2.sks */; };
+		BD41B0F01F80A1D800E043B4 /* wordLevelBackgrounds3.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD41B0EF1F80A1D800E043B4 /* wordLevelBackgrounds3.sks */; };
+		BD41B0F21F80A1E700E043B4 /* wordLevelBackgrounds4.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD41B0F11F80A1E700E043B4 /* wordLevelBackgrounds4.sks */; };
+		BD41B0F41F80A1FC00E043B4 /* wordLevelBackgrounds5.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD41B0F31F80A1FC00E043B4 /* wordLevelBackgrounds5.sks */; };
 		BD41D5311F7E1E1F0093CDA8 /* ZombieMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD41D52F1F7E1E1F0093CDA8 /* ZombieMaster.xcdatamodeld */; };
 		BD41D5341F7E21140093CDA8 /* GameLevelStatSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41D5331F7E21140093CDA8 /* GameLevelStatSummary.swift */; };
 		BD41D5361F7E21380093CDA8 /* GameLevelStatTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41D5351F7E21380093CDA8 /* GameLevelStatTracker.swift */; };
@@ -209,6 +214,11 @@
 		BD3F943D1F7F73960027FE93 /* RequiredCollectiblesTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredCollectiblesTracker.swift; sourceTree = "<group>"; };
 		BD3F943F1F7F73A50027FE93 /* RequiredCollectiblesTrackerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredCollectiblesTrackerDelegate.swift; sourceTree = "<group>"; };
 		BD3F94411F7F7DB90027FE93 /* GameScene+TrackerDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+TrackerDelegates.swift"; sourceTree = "<group>"; };
+		BD41B0EB1F80A0F700E043B4 /* wordLevelBackgrounds1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wordLevelBackgrounds1.sks; sourceTree = "<group>"; };
+		BD41B0ED1F80A1BF00E043B4 /* wordLevelBackgrounds2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wordLevelBackgrounds2.sks; sourceTree = "<group>"; };
+		BD41B0EF1F80A1D800E043B4 /* wordLevelBackgrounds3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wordLevelBackgrounds3.sks; sourceTree = "<group>"; };
+		BD41B0F11F80A1E700E043B4 /* wordLevelBackgrounds4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wordLevelBackgrounds4.sks; sourceTree = "<group>"; };
+		BD41B0F31F80A1FC00E043B4 /* wordLevelBackgrounds5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wordLevelBackgrounds5.sks; sourceTree = "<group>"; };
 		BD41D5301F7E1E1F0093CDA8 /* ZombieMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ZombieMaster.xcdatamodel; sourceTree = "<group>"; };
 		BD41D5331F7E21140093CDA8 /* GameLevelStatSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelStatSummary.swift; sourceTree = "<group>"; };
 		BD41D5351F7E21380093CDA8 /* GameLevelStatTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelStatTracker.swift; sourceTree = "<group>"; };
@@ -577,6 +587,11 @@
 				BD9B103B1F7F597E00C9A71E /* ResourceLoader.swift */,
 				BD9B103D1F7F5ADB00C9A71E /* WordGameLevel.swift */,
 				BD9B103F1F7F5CF300C9A71E /* SceneManager.swift */,
+				BD41B0EB1F80A0F700E043B4 /* wordLevelBackgrounds1.sks */,
+				BD41B0ED1F80A1BF00E043B4 /* wordLevelBackgrounds2.sks */,
+				BD41B0EF1F80A1D800E043B4 /* wordLevelBackgrounds3.sks */,
+				BD41B0F11F80A1E700E043B4 /* wordLevelBackgrounds4.sks */,
+				BD41B0F31F80A1FC00E043B4 /* wordLevelBackgrounds5.sks */,
 			);
 			path = WordGameViewController;
 			sourceTree = "<group>";
@@ -703,7 +718,10 @@
 				BD395A7F1F67078D00684AB9 /* explosion1.wav in Resources */,
 				BD39FCF61F68ED0A00209FFD /* coin2.wav in Resources */,
 				BD395A801F67079000684AB9 /* explosion2.wav in Resources */,
+				BD41B0F21F80A1E700E043B4 /* wordLevelBackgrounds4.sks in Resources */,
 				BD3D72AC1F6E928D00E442C2 /* missionFailed.wav in Resources */,
+				BD41B0F01F80A1D800E043B4 /* wordLevelBackgrounds3.sks in Resources */,
+				BD41B0EC1F80A0F700E043B4 /* wordLevelBackgrounds1.sks in Resources */,
 				BD39FCF91F68ED1100209FFD /* coin3.wav in Resources */,
 				BD39FCF71F68ED0C00209FFD /* coin5.wav in Resources */,
 				BD39FCF81F68ED0F00209FFD /* coin1.wav in Resources */,
@@ -716,6 +734,8 @@
 				BD9659D01F7627DC009A7F0B /* backgrounds5.sks in Resources */,
 				BD4C1D8F1F76A7E20017A8F4 /* masterBackground.sks in Resources */,
 				BD395A811F67079300684AB9 /* explosion3.wav in Resources */,
+				BD41B0EE1F80A1BF00E043B4 /* wordLevelBackgrounds2.sks in Resources */,
+				BD41B0F41F80A1FC00E043B4 /* wordLevelBackgrounds5.sks in Resources */,
 				BDEB6F5C1F698309000B3B22 /* Plan in Resources */,
 				BD395A831F67079A00684AB9 /* explosion5.wav in Resources */,
 				BDE125501F63C99D0092E561 /* laser7.wav in Resources */,
