@@ -9,26 +9,16 @@
 import Foundation
 import SpriteKit
 
-class WordGameScene: SKScene{
+class WordGameScene: BaseScene{
     
     /** Reference to ResourceLoader singleton **/
     
     let resourceLoader = ResourceLoader.sharedLoader
     
-    /** Reference to Player **/
-    
-    var player: Player!
-    
-    /** Node Layers **/
-    
     var originalWorldNode: SKNode!
     var originalOverlayNode: SKNode!
     var originalBackgroundNode: SKNode!
-    
-    var worldNode: SKNode!
-    var overlayNode: SKNode!
-    var backgroundNode: SKNode!
-    
+
     
     convenience init(preloadedBackgroundNode: SKNode, preloadedWorldNode: SKNode, preloadedOverlayNode: SKNode) {
         
@@ -54,14 +44,7 @@ class WordGameScene: SKScene{
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         
-        worldNode.position = CGPoint.zero
-        worldNode.move(toParent: self)
-        
-        backgroundNode.position = CGPoint.zero
-        backgroundNode.move(toParent: self)
-        
-        overlayNode.position = CGPoint.zero
-        overlayNode.move(toParent: self)
+       
         
     }
     
@@ -70,5 +53,28 @@ class WordGameScene: SKScene{
         
     }
     
+    override func didEvaluateActions() {
+        super.didEvaluateActions()
+        
+    }
+    
+    override func didSimulatePhysics() {
+        super.didSimulatePhysics()
+    }
+    
+  
+}
+
+
+extension WordGameScene{
+    
+    
+    override func didBegin(_ contact: SKPhysicsContact) {
+        super.didBegin(contact)
+    }
+    
+    override func didEnd(_ contact: SKPhysicsContact) {
+        super.didEnd(contact)
+    }
     
 }

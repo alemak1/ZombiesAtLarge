@@ -16,29 +16,14 @@ import SpriteKit
 import GameplayKit
 import CoreData
 
-class GameScene: SKScene{
+class GameScene: BaseScene{
     
-    //MARK: User Profile
-    
-    var currentPlayerProfile: PlayerProfile?
 
-    
-    //MARK: Player/Game Statistics Tracker
-    
-    var gameLevelStatTracker: GameLevelStatTracker!
-
-    
-    //MARK: Player-Related Variables
-    
-    var player: Player!
-    var playerProximity: SKShapeNode!
-    
 
     //MARK: Variables: Current Level Properties
     
     var currentGameLevel: GameLevel!
     
-    var zombiesKilled: Int = 0
     
     //MARK: *********** TRACKER DELEGATES
     
@@ -79,20 +64,8 @@ class GameScene: SKScene{
         
     }()
     
-    /** Cached Sound Files **/
+  
     
-    var playMissionFailedSound: SKAction = SKAction.playSoundFileNamed("missionFailed", waitForCompletion: false)
-    
-    var playMissionAccomplishedSound: SKAction = SKAction.playSoundFileNamed("missionAccomplished", waitForCompletion: true)
-    
-    var playGrenadeLaunchSound: SKAction = SKAction.playSoundFileNamed("rumble3", waitForCompletion: true)
-    
-    /** Node Layers and Other Game-Level nodes **/
-    
-    var backgroundNode: SKNode!
-    var overlayNode: SKNode!
-    var worldNode: SKNode!
-    var mainCameraNode: SKCameraNode!
     
     var hudNode: SKNode{
         return HUDManager.sharedManager.getHUD()
@@ -125,9 +98,6 @@ class GameScene: SKScene{
     
     //MARK: UI Panels, Other UI Elements and Other Related Variables
     
-    var controlButton: SKSpriteNode!
-    
-    var fireButton: SKNode!
     var menuOptionsButton: SKSpriteNode!
     var menuOptionsPanel: SKNode?
     var backToGameButton: SKSpriteNode?
@@ -138,14 +108,7 @@ class GameScene: SKScene{
 
     var bgNode: SKAudioNode!
     
-    //MARK:  Zombie Manager
-    
-    var zombieManager: ZombieManager!
-
-    //MARK: Timing-Related Variables
-    
-    var frameCount: TimeInterval = 0.00
-    var lastUpdateTime: TimeInterval = 0.00
+   
     
     
     /** ***************  GameScene Initializers **/
@@ -154,64 +117,13 @@ class GameScene: SKScene{
         self.currentGameLevel = currentGameLevel
         
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            fatalError("Error: failed to access the applicaton delegate")
-        }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
+        self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: currentGameLevel, playerProfile: self.currentPlayerProfile!)
+
    
-        
-        let fetchRequest = NSFetchRequest<PlayerProfile>(entityName: "PlayerProfile")
-        let playerName = "Player1"
-        fetchRequest.predicate = NSPredicate(format: "name == %@", playerName)
-        
-        guard let currentPlayerProfile = try! managedContext.fetch(fetchRequest).first else {
-            fatalError("Error: failed to obtain a player profile for the game scene")
-        }
-        
-            
-        self.currentPlayerProfile = currentPlayerProfile
-        self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: currentGameLevel, playerProfile: currentPlayerProfile)
-        print("Player 1 obtained")
 
-        
-        
-    
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(incrementZombieKillCount), name: Notification.Name(rawValue: "didKillZombieNotification"), object: nil)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(playerDeathHandler(notification:)), name: Notification.Name(rawValue: "playerDiedNotification"), object: nil)
-
-     
-        NotificationCenter.default.addObserver(self, selector: #selector(removeMustKillZombie(notification:)), name: NSNotification.Name(rawValue: Notification.Name.didKillMustKillZombieNotification), object: nil)
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(setOffGrenade(notification:)), name: NSNotification.Name.GetDidSetOffGrenadeNotificationName(), object: nil)
-
-        
     }
     
-    @objc func setOffGrenade(notification: Notification?){
-        
-        run(playGrenadeLaunchSound, completion: {
-            
-            self.player.collectibleManager.removeCollectible(ofType: .Grenade)
-            
-        })
-        
-        
-        for zombie in self.zombieManager.activeZombies{
-            zombie.die(completion: {
-                
-                print("Zombie died from grenade launch!")
-                
-            })
-        }
-        
-      
-        
-    }
+   
     
     @objc func removeMustKillZombie(notification: Notification?){
         
@@ -230,6 +142,11 @@ class GameScene: SKScene{
     override init(size: CGSize) {
         
         super.init(size: size)
+        
+        
+        let didKillZombieNotificationName =  NSNotification.Name(rawValue: Notification.Name.didKillMustKillZombieNotification)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(removeMustKillZombie(notification:)), name: didKillZombieNotificationName, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -239,28 +156,10 @@ class GameScene: SKScene{
   
     
     override func didMove(to view: SKView) {
-       
+       super.didMove(to: view)
         print("ALL GAME STAT REVIEW UP TO DATE: ")
 
         
-        if let gameStatReviews = self.gameLevelStatTracker.getAllGameLevelStatReviews(){
-        
-            for gameStatReview in gameStatReviews{
-                gameStatReview.showGameLevelStatReviewSummary()
-            }
-        }
-        
-        
-        print("GAME STAT REVIEW FOR CURRENT PLAYER PROFILE: ")
-        
-        if let gameSessions  = self.gameLevelStatTracker.getAllGameLevelStatReviewsForCurrentPlayerProfile(){
-            
-            for gameSession in gameSessions{
-                if let statReview = gameSession as? GameLevelStatReview{
-                    statReview.showGameLevelStatReviewSummary()
-                }
-            }
-        }
         
         for timeInterval in 1...10{
             
@@ -273,37 +172,17 @@ class GameScene: SKScene{
         }
       
         
-        initializeBasicNodeLayers()
-        
     
         loadMissionPanel()
-        
-       
-        
-        loadPlayer()
-        
-   
-        initializePlayerProximity()
-        
-     
-        loadCamera()
-        
-       
-        loadZombieManager()
-        
-    
-        
-        loadFireButton()
-        
-      
-        
-        let xPosControls = UIScreen.main.bounds.width*0.3
-        let yPosControls = -UIScreen.main.bounds.height*0.3
-        loadControls(atPosition: CGPoint(x: xPosControls, y: yPosControls))
-        
         loadBackground()
         loadHUD()
         
+        
+        
+        let xPosControls = UIScreen.main.bounds.width*0.3
+        let yPosControls = -UIScreen.main.bounds.height*0.3
+        let point = CGPoint(x: xPosControls, y: yPosControls)
+        loadControls(atPosition: point)
 
         let camera = CollectibleSprite(collectibleType: .Camera)
         camera.move(toParent: worldNode)
@@ -335,48 +214,7 @@ class GameScene: SKScene{
     
     }
     
-    func loadCamera(){
-        
-        self.mainCameraNode = SKCameraNode()
-        self.camera = mainCameraNode
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount": Float(0.05)])
-        
-    }
-    
-    func loadZombieManager(){
-        zombieManager = ZombieManager(withPlayer: player, andWithLatentZombies: [])
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-    }
-    
-    func initializeBasicNodeLayers(){
-        
-        self.physicsWorld.contactDelegate = self
-        self.physicsWorld.gravity = CGVector(dx: 0.00, dy: 0.00)
-        
-        self.backgroundColor = SKColor.cyan
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
-        self.backgroundNode = SKNode()
-        self.addChild(backgroundNode)
-        
-        self.overlayNode = SKNode()
-        self.overlayNode.zPosition = 20
-        self.overlayNode.position = CGPoint(x: 0.00, y: 0.00)
-        addChild(overlayNode)
-        
-        self.worldNode = SKNode()
-        worldNode.zPosition = 10
-        worldNode.position = CGPoint(x: 0.00, y: 0.00)
-        worldNode.name = "world"
-        addChild(worldNode)
-        
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-
-    }
-    
+   
     func loadMissionPanel(){
     
         
@@ -400,16 +238,6 @@ class GameScene: SKScene{
         
     }
     
-    func loadPlayer(){
-      
-        player = Player(playerType: .hitman1, scale: 1.50)
-        player.position = CGPoint(x: 0.00, y: 0.00)
-        player.zPosition = 5
-        worldNode.addChild(player)
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-
-    }
     
   
     func loadHUD(){
@@ -426,67 +254,20 @@ class GameScene: SKScene{
     
    
   
-    @objc func incrementZombieKillCount(){
-        self.zombiesKilled += 1
-        self.gameLevelStatTracker.numberOfZombiesKilled = self.zombiesKilled
-        print("Total number of zombies currently killed is: \(self.zombiesKilled)")
-    }
-    
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
-        if(lastUpdateTime == 0){
-            lastUpdateTime = currentTime;
-        }
-    
-        frameCount = currentTime - lastUpdateTime;
-        
-        
-        if let winCondition = getWinConditionTest(),winCondition(){
-            
-            
-            playerWinHandler()
-            
-        }
-        
-        /**
-        if(self.zombiesKilled > 5 && !dialoguePanelIsShown){
-            print("You killed over 5 zombies")
-            
-            if let dialoguePanel = UIPanelGenerator.GetDialoguePrompt(forAvatar: .zombie, withName: "Zombie King", andWithText1: "How dare you?", andWithText2: "You will", andWithText3: "never save", andWithText4: "the pandas!"){
-            
-                dialoguePanel.move(toParent: overlayNode)
-                dialoguePanel.position = CGPoint.zero
-            
-                run(SKAction.wait(forDuration: 5.00), completion: {
-                
-                    dialoguePanel.removeFromParent()
-                })
-            } else {
-                print("ERROR: Dialogue panel failed to load")
-            }
-            
-            dialoguePanelIsShown = true
-        }
-        **/
-        
-        zombieManager.update(withFrameCount: currentTime)
+        super.update(currentTime)
 
         
-        lastUpdateTime = currentTime
-        
-        
-        }
+}
     
 
     override func didSimulatePhysics() {
         
-        self.mainCameraNode.position = player.position
-        overlayNode.position = self.mainCameraNode.position
-        
-        zombieManager.constrainActiveZombiesToPlayer()
-        
+       super.didSimulatePhysics()
+                
         
         if let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate,let safetyZone = self.safetyZone{
             
@@ -498,87 +279,10 @@ class GameScene: SKScene{
 
     }
     
-  
-    
-    override func didEvaluateActions() {
-        updatePlayerProximity()
-    }
-    
-   
-    
-    func initializePlayerProximity(){
-        
-        playerProximity = SKShapeNode(circleOfRadius: 10.0)
-        playerProximity.strokeColor = .clear
-        
-        worldNode.addChild(playerProximity)
-
-        playerProximity.position = self.position
-        playerProximity.name = "playerProximity"
-        
-        
-        let playerProximityPB = SKPhysicsBody(circleOfRadius: 100.0)
-        playerProximityPB.affectedByGravity = false
-        playerProximityPB.linearDamping = 0.00
-        playerProximityPB.isDynamic = false
-        playerProximityPB.allowsRotation = false
-        playerProximityPB.categoryBitMask = ColliderType.PlayerProximity.categoryMask
-        playerProximityPB.collisionBitMask = ColliderType.PlayerProximity.collisionMask
-        playerProximityPB.contactTestBitMask = ColliderType.PlayerProximity.contactMask
-        playerProximity.physicsBody = playerProximityPB
-     
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-
-    }
-    
-    func updatePlayerProximity(){
-        playerProximity.position = player.position
-    }
-    
-    func centerOn(node: SKNode) {
-        
-        if let parentNode = node.parent,let cameraPositionInScene = node.scene?.convert(node.position, from: parentNode){
-            
-            parentNode.position = CGPoint(x: parentNode.position.x - cameraPositionInScene.x, y: parentNode.position.y - cameraPositionInScene.y)
-
-        }
-        
-    }
-  
-    
-    func loadFireButton(){
-        
-        fireButton = SKShapeNode(circleOfRadius: 40.00)
-        
-        let fireButtonShape = fireButton as! SKShapeNode
-        fireButtonShape.fillColor = SKColor.cyan
-        fireButtonShape.strokeColor = SKColor.black
-        fireButtonShape.fillTexture = SKTexture(image: #imageLiteral(resourceName: "gun50"))
-        
-        fireButtonShape.lineWidth = 1.50
-        
-        fireButtonShape.name = "fireButton"
-        
-        fireButtonShape.move(toParent: overlayNode)
-        
-        /** Set the position of the fire button **/
-        
-        let xPos = -UIScreen.main.bounds.width*0.35
-        let yPos = -UIScreen.main.bounds.height*0.4
-        
-        fireButtonShape.position = CGPoint(x: xPos, y: yPos)
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-
-        
-    }
-    
-    //TODO: Refactor so that fire button and menu button are added via this function
-    
     func loadControls(atPosition position: CGPoint){
         
         /** Load the control set **/
-
+        
         guard let user_interface = SKScene(fileNamed: "user_interface") else {
             fatalError("Error: User Interface SKSCene file could not be found or failed to load")
         }
@@ -593,45 +297,124 @@ class GameScene: SKScene{
         self.menuOptionsButton = menuOptionsButton
         self.menuOptionsButton.position = CGPoint(x: xPos, y: yPos)
         self.menuOptionsButton.move(toParent: overlayNode)
-       
+        
         
         buttonsAreLoaded = true
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
+        
+    }
 
+    
+  
+    
+    override func didEvaluateActions() {
+        
+        super.didEvaluateActions()
     }
     
    
     
-    @objc func playerDeathHandler(notification: Notification?){
+    override func getWinConditionTest() -> (() -> Bool)?{
         
-        run(SKAction.run {
+        switch self.currentGameLevel! {
+        case .Level1:
+            return {
+                
+                guard let requiredCollectiblesTracker = self.requiredCollectiblesTrackerDelegate else {
+                    fatalError("Error: found nil while unwrapping the required collectibles tracker delegate")
+                }
+                
+                return requiredCollectiblesTracker.numberOfRequiredCollectibles <= 0
+                
+            }
+        case .Level2:
             
-            self.showGameOverPrompt(withText1: "Health Level is too low", andWithText2: "Want to try again?")
+            guard let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate else {
+                fatalError("Error: found nil while unwrapping the unrescued characters tracker delegate")
+                
+            }
+            return { return unrescuedCharactersTracker.numberOfUnrescuedCharacters <= 0 }
+        case .Level3:
+            return { return self.player.collectibleManager.getTotalMetalContent() > 200 }
+        case .Level4:
+            return {
+                
+                guard let zombieTracker = self.mustKillZombieTrackerDelegate else {
+                    fatalError("Error: found nil while attempting to unwrap the must kill zombie tracker delegate")
+                }
+                
+                return zombieTracker.getNumberOfUnkilledZombies() <= 0
+                
+            }
+        case .Level5:
+            return { return self.player.collectibleManager.getTotalMonetaryValueOfAllCollectibles() > 2000 }
+        case .Level6:
+            return {
+                
+                guard let destinationZone = self.destinationZone else {
+                    fatalError("No destination zone initialized for this level")
+                }
+                
+                return destinationZone.contains(self.player.position)
+                
+            }
+        case .Level7:
+            return {
+                
+                guard let zombieTracker = self.mustKillZombieTrackerDelegate else {
+                    fatalError("Error: found nil while attempting to unwrap the must kill zombie tracker delegate")
+                }
+                
+                guard let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate else {
+                    fatalError("Error: found nil while unwrapping the unrescued characters tracker delegate")
+                    
+                }
+                
+                return zombieTracker.getNumberOfUnkilledZombies() <= 0 && unrescuedCharactersTracker.numberOfUnrescuedCharacters <= 0
+            }
+        case .Level8:
+            return {
+                
+                guard let requiredCollectiblesTracker = self.requiredCollectiblesTrackerDelegate else {
+                    fatalError("Error: found nil while unwrapping the required collectibles tracker delegate")
+                }
+                
+                guard let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate else {
+                    fatalError("Error: found nil while unwrapping the unrescued characters tracker delegate")
+                    
+                }
+                
+                return unrescuedCharactersTracker.numberOfUnrescuedCharacters <= 0 && requiredCollectiblesTracker.numberOfRequiredCollectibles <= 0
+            }
+        case .Level9:
+            return {
+                
+                guard let zombieTracker = self.mustKillZombieTrackerDelegate else {
+                    fatalError("Error: found nil while attempting to unwrap the must kill zombie tracker delegate")
+                }
+                
+                return zombieTracker.getNumberOfUnkilledZombies() <= 0
+            }
+        case .Level10:
+            return {
+                
+                guard let zombieTracker = self.mustKillZombieTrackerDelegate else {
+                    fatalError("Error: found nil while attempting to unwrap the must kill zombie tracker delegate")
+                }
+                
+                return zombieTracker.getNumberOfUnkilledZombies() <= 0
+            }
+        default:
+            print("No win condition available for this level ")
+        }
+        
+        return nil
+    }
 
-        }, completion: {
-            
-            self.run(self.playMissionFailedSound)
-        })
-        
-        print("Player has died!!")
-    }
     
-    func playerWinHandler(){
-        run(SKAction.run {
-            
-            self.showGameWinPrompt(withText1: "Nice Job!", andWithText2: "Ready for more?")
-            
-            }, completion: {
-                
-                self.run(self.playMissionAccomplishedSound)
-                
-                self.gameLevelStatTracker.totalValueOfCollectibles = self.player.collectibleManager.getTotalMonetaryValueOfAllCollectibles()
-                self.gameLevelStatTracker.totalNumberOfCollectibles = self.player.collectibleManager.getTotalNumberOfAllItems()
-                self.gameLevelStatTracker.numberOfBulletsFired = self.player.getNumberOfBulletsFired()
-                self.gameLevelStatTracker.saveGameLevelStats()
-        })
-    }
+   
+    
 
 }
 
@@ -683,8 +466,52 @@ class GameScene: SKScene{
  
          **/
 
-    
+
+/**
+ if(self.zombiesKilled > 5 && !dialoguePanelIsShown){
+ print("You killed over 5 zombies")
+ 
+ if let dialoguePanel = UIPanelGenerator.GetDialoguePrompt(forAvatar: .zombie, withName: "Zombie King", andWithText1: "How dare you?", andWithText2: "You will", andWithText3: "never save", andWithText4: "the pandas!"){
+ 
+ dialoguePanel.move(toParent: overlayNode)
+ dialoguePanel.position = CGPoint.zero
+ 
+ run(SKAction.wait(forDuration: 5.00), completion: {
+ 
+ dialoguePanel.removeFromParent()
+ })
+ } else {
+ print("ERROR: Dialogue panel failed to load")
+ }
+ 
+ dialoguePanelIsShown = true
+ }
+ **/
 
 
+/**
+ 
+ /**
+ if let gameStatReviews = self.gameLevelStatTracker.getAllGameLevelStatReviews(){
+ 
+ for gameStatReview in gameStatReviews{
+ gameStatReview.showGameLevelStatReviewSummary()
+ }
+ }
+ 
+ 
+ print("GAME STAT REVIEW FOR CURRENT PLAYER PROFILE: ")
+ 
+ if let gameSessions  = self.gameLevelStatTracker.getAllGameLevelStatReviewsForCurrentPlayerProfile(){
+ 
+ for gameSession in gameSessions{
+ if let statReview = gameSession as? GameLevelStatReview{
+ statReview.showGameLevelStatReviewSummary()
+ }
+ }
+ }
+ **/
+
+**/
     
 

@@ -10,17 +10,79 @@ import Foundation
 import SpriteKit
 import CoreData
 
-class GameLevelStatTracker{
+/** The StatTracker protocol is implemented by different classes, which in turn have different ways of implementing data schemas and managed object contexts; all classes conforming to the protocol must be able to save the basic statistics that are recorded for all types of levels (WordGameLevel, GameLevel, etc **/
+
+protocol StatTracker{
     
+    var currentPlayerProfile: PlayerProfile { get set}
+    var date: Date { get set }
+    var numberOfZombiesKilled: Int { get set }
+    var numberOfBulletsFired: Int { get set }
+    var totalValueOfCollectibles: Double { get set }
+    var totalNumberOfCollectibles: Int { get set}
+    
+    
+    var managedContext: NSManagedObjectContext{ get }
+    var entityDescription: NSEntityDescription{ get }
+    
+    init(playerProfile: PlayerProfile)
+    
+    func saveGameLevelStats()
+    
+}
+
+class WordGameLeveStatTracker: StatTracker{
+    
+    var wordGameLevel: WordGameLevel
+   
+    var currentPlayerProfile: PlayerProfile
+    var date: Date = Date()
+    var numberOfZombiesKilled: Int = 0
+    var numberOfBulletsFired: Int = 0
+    var totalValueOfCollectibles: Double = 0
+    var totalNumberOfCollectibles: Int = 0
+   
+    var managedContext: NSManagedObjectContext{
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            fatalError("Error: failed to load the managed object context for the game level stat tracker")
+        }
+        
+        return appDelegate.persistentContainer.viewContext
+    }
+    
+    var entityDescription: NSEntityDescription{
+        return NSEntityDescription()
+    }
+    
+
+   
+    init(wordGameLevel: WordGameLevel, playerProfile: PlayerProfile) {
+        self.wordGameLevel = wordGameLevel
+        self.currentPlayerProfile = playerProfile
+        
+    }
+    
+    required init(playerProfile: PlayerProfile){
+        self.currentPlayerProfile = playerProfile
+        self.wordGameLevel = .Level1
+    }
+
+    
+    func saveGameLevelStats() {
+        print("Game saved!")
+    }
+}
+
+class GameLevelStatTracker: StatTracker{
     
     var gameLevel: GameLevel
-    var currentPlayerProfile: PlayerProfile
     
-     var date = Date()
-     var numberOfZombiesKilled: Int = 0
-     var numberOfBulletsFired: Int = 0
-     var totalValueOfCollectibles: Double = 0
-     var totalNumberOfCollectibles: Int = 0
+    var currentPlayerProfile: PlayerProfile
+    var date: Date = Date()
+    var numberOfZombiesKilled: Int = 0
+    var numberOfBulletsFired: Int = 0
+    var totalValueOfCollectibles: Double = 0
+    var totalNumberOfCollectibles: Int = 0
     
     lazy var allGameSessionsFetchRequest: NSFetchRequest<GameLevelStatReview> = {
         
@@ -33,26 +95,34 @@ class GameLevelStatTracker{
     init(gameLevel: GameLevel, playerProfile: PlayerProfile) {
         self.gameLevel = gameLevel
         self.currentPlayerProfile = playerProfile
+        
+    }
+    
+    required init(playerProfile: PlayerProfile){
+        self.currentPlayerProfile = playerProfile
+        self.gameLevel = .Level1
     }
     
     
-    private var managedContext: NSManagedObjectContext{
-        
+    var managedContext: NSManagedObjectContext{
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            fatalError("Error: failed to load the app delegate from the GameLevelStat Tracker")
+            fatalError("Error: failed to load the managed object context for the game level stat tracker")
         }
         
         return appDelegate.persistentContainer.viewContext
     }
     
-    private var entityDescription: NSEntityDescription{
+      var entityDescription: NSEntityDescription{
         return NSEntityDescription.entity(forEntityName: "GameLevelStatReview", in: self.managedContext)!
     }
     
     
+
     
     
-    func saveGameLevelStats(){
+    
+    
+     func saveGameLevelStats(){
 
         let statReview = GameLevelStatReview(entity: self.entityDescription, insertInto: self.managedContext)
         

@@ -45,35 +45,7 @@ extension GameScene{
         
     }
     
-    public func showGameWinPrompt(withText1 text1: String, andWithText2 text2: String){
-        
-        if let gameWinPrompt = UIPanelGenerator.GetGameWinPrompt(withText1: text1, andWithText2: text2){
-            
-            gameWinPrompt.move(toParent: overlayNode)
-            gameWinPrompt.position = CGPoint.zero
-            
-            isPaused = true
-            worldNode.isPaused = true
-            
-        } else {
-            print("Error: Failed to load the mission completed prompt")
-        }
-    }
-    
-    public func showGameOverPrompt(withText1 text1: String, andWithText2 text2: String){
-        
-        if let gameOverPrompt = UIPanelGenerator.GetGameOverPrompt(withText1: text1, andWithText2: text2){
-            
-            gameOverPrompt.move(toParent: overlayNode)
-            gameOverPrompt.position = CGPoint.zero
-            
-            isPaused = true
-            worldNode.isPaused = true
-            
-        } else {
-            print("Error: Failed to load the mission failed prompt")
-        }
-    }
+   
     
     public func showInventorySummaryForPlayer(atPosition position: CGPoint){
         

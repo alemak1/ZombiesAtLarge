@@ -11,10 +11,10 @@ import SpriteKit
 
 /** Conformance to SKPhysicsContactDelegate and implementation of contact logic among player entities **/
 
-extension GameScene: SKPhysicsContactDelegate{
+extension GameScene{
     
     
-    func didBegin(_ contact: SKPhysicsContact) {
+    override func didBegin(_ contact: SKPhysicsContact) {
         
         let contactA = contact.bodyA
         let contactB = contact.bodyB
