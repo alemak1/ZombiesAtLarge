@@ -18,7 +18,7 @@ class ResourceLoader{
     static let FloorTilemapNodeName = "FloorTileMapNode"
 
 
-    typealias PreloadedNodeSet = (SKNode,SKNode,SKNode)
+    typealias PreloadedNodeSet = (SKNode?,SKNode?,SKNode?)
     
     static let sharedLoader = ResourceLoader()
     
@@ -42,13 +42,17 @@ class ResourceLoader{
     
     /** Progress Units **/
     
-    var percentProgress: CGFloat{
-        return CGFloat(progressUnits)/CGFloat(totalProgressUnits)
+    var percentProgress: Float{
+        return Float(progressUnits)/Float(totalProgressUnits)
     }
     
     var totalProgressUnits: Int{
         
+        return 100
+        
+        /**
         return (grassTileMap.numberOfRows*grassTileMap.numberOfColumns*grassHandlers.count) + (corridorTileMap.numberOfColumns*corridorTileMap.numberOfRows*corridorHandlers.count) + (floorTileMap.numberOfColumns*floorTileMap.numberOfRows*woodFloorHandlers.count)
+         **/
     }
     
     var progressUnits: Int{
@@ -60,7 +64,15 @@ class ResourceLoader{
         }
     }
     
+    /** Get the cached scene resources for initializing an instance of the WordGameScene **/
+    
     func getPreloadedNodes() -> PreloadedNodeSet{
+        
+        print("Getting preloaded nodes...")
+        
+        if(self.backgroundNode == nil || self.worldNode == nil || self.overlayNode == nil){
+                print("Preloaded nodes are still nil...")
+        }
         
         return (self.backgroundNode,self.worldNode,self.overlayNode)
     }
@@ -69,6 +81,8 @@ class ResourceLoader{
     func setCurrentGameLevel(to currentGameLevel: WordGameLevel){
         self.currentGameLevel = currentGameLevel
     }
+    
+    /** Whe resources for the current level are finished loading and the WordGameScene instance for the current level has finishe initializing with the preloaded node layers, the resource loader clears its cached resources and beings loading cached resources for the next level **/
     
     func prepareLoadingResources(forNextLevel level: WordGameLevel){
         
@@ -81,9 +95,39 @@ class ResourceLoader{
     }
     
     
+    
+    func loadResourcesForWordGameLevel(wordGameLevel: WordGameLevel){
+        
+        loadBackground(forWordGameLevel: wordGameLevel, completion: {
+            
+            hasFinishedLoadingResources in
+            
+            if(!hasFinishedLoadingResources){
+                
+                self.loadResourcesForWordGameLevel(wordGameLevel: wordGameLevel)
+                
+            } else {
+                
+                print("Resources have finished loading for word game level \(wordGameLevel.rawValue)")
+                
+                let userInfo = [
+                    "level": wordGameLevel.rawValue
+                ]
+                
+                DispatchQueue.main.async {
+                       NotificationCenter.default.post(name: Notification.Name.GetDidFinishedLoadingSceneNotification(), object: nil, userInfo: userInfo)
+                }
+                
+             
+            }
+            
+        })
+    }
 
     
     func loadBackground(forWordGameLevel level: WordGameLevel, completion: ((Bool)-> Void)?){
+        
+        /** If the node layers have already been preloaded, then the completion handler gets called immediately, with a boolean flag set to true for argument passed into the completion handler **/
         
          let nodesAreLoaded = self.backgroundNode != nil && self.overlayNode != nil && self.worldNode != nil
         
@@ -92,8 +136,13 @@ class ResourceLoader{
             return
         }
         
-        loadGenericBackground()
+        print("Loading generic background elements....")
         
+        loadGenericBackgroundB()
+        
+        
+        print("Loading level-specific custom background elements....")
+
         /** Perform custom level loading on a per-level basis, looping through children of an SKNode container for special objects and enemies pertaining to that level, or adding additional handlers which check the userInfo dictionary for a tileMap node **/
         switch level{
         case .Level1:
@@ -148,6 +197,8 @@ class ResourceLoader{
     
     func addSafetyZone(fromNode backgroundNode: SKNode){
         
+        print("Adding safety zone ...")
+
         guard let safetyZone = backgroundNode.childNode(withName: "SafetyZone") as? SKSpriteNode else {
             fatalError("Error: the safety zone failed to load or could not be found")
         }
@@ -166,6 +217,8 @@ class ResourceLoader{
     
     func addRandomCollectible(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
+        print("Adding random collectibles ...")
+
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
         let hasCollectible = tileDef?.userData?["hasCollectible"] as? Bool
@@ -191,6 +244,8 @@ class ResourceLoader{
     
     func addBullet(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
+        print("Adding bullets ...")
+
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
         let hasBullet = tileDef?.userData?["hasBullet"] as? Bool
@@ -209,6 +264,8 @@ class ResourceLoader{
     
     func addZombie(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
+        print("Adding zombies ...")
+
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
         let hasZombie = tileDef?.userData?["hasZombie"] as? Bool
@@ -322,6 +379,8 @@ class ResourceLoader{
     
     func addRiceBowl(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
+        print("Adding rice bowls ...")
+
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
         let hasRiceBowl = tileDef?.userData?["hasRiceBowl"] as? Bool
@@ -340,6 +399,8 @@ class ResourceLoader{
     
     func addRedEnvelope(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
+        print("Adding red envelopes ...")
+
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
         let hasRedEnvelope = tileDef?.userData?["hasRedEnvelope"] as? Bool
@@ -421,6 +482,9 @@ class ResourceLoader{
      **/
     
     func addObstaclePhysicsBodies(tileMapNode: SKTileMapNode, row: Int, column: Int){
+        
+        print("Adding physics bodies...")
+        
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
         let hasPhysicsBody = tileDef?.userData?["hasPB"] as? Bool
@@ -544,15 +608,60 @@ class ResourceLoader{
     }
     
     
-    func loadGenericBackground(){
+    
+    
+    func loadGenericBackgroundA(){
         
+        print("Loading grass  background tiles...")
         traverseTileMap(tileMap: grassTileMap, withHandlers: grassHandlers)
+        
+        print("Loading corridor  background tiles...")
         traverseTileMap(tileMap: corridorTileMap, withHandlers: corridorHandlers)
+        
+        print("Loading floor background tiles...")
         traverseTileMap(tileMap: floorTileMap, withHandlers: woodFloorHandlers)
     }
     
+    func loadGenericBackgroundB(){
+        
+        print("Loading generic background tiles...")
+        
+        backgroundNode = SKNode()
+        worldNode = SKNode()
+        overlayNode = SKNode()
+        
+        /** Load Grass Tile Map **/
+        print("Loading grass background tiles...")
+
+        
+        addZombiesTo(someTileMapNode: grassTileMap)
+        addBulletsTo(tileMapNode: grassTileMap)
+        addRedEnvelopeTo(someTileMapNode: grassTileMap)
+        addRiceBowlsTo(someTileMapNode: grassTileMap)
+   
+        
+        /** Load Corridors Tile Map **/
+        print("Loading corridors background tiles...")
+
+       // addObstaclePhysicsBodiesTo(tileMapNode: corridorTileMap)
+        
+        /** Load Floors Tile Map **/
+        print("Loading floor background tiles...")
     
-    var grassTileMap: SKTileMapNode{
+        addZombiesTo(someTileMapNode: floorTileMap)
+        addCollectiblesTo(someTileMapNode: floorTileMap)
+ 
+    
+        grassTileMap.move(toParent: backgroundNode)
+        corridorTileMap.move(toParent: backgroundNode)
+        floorTileMap.move(toParent: backgroundNode)
+
+       
+        
+    }
+    
+    
+    lazy var grassTileMap: SKTileMapNode = {
         
         let sceneName = self.currentGameLevel.getSKSceneFilename()
         
@@ -560,20 +669,23 @@ class ResourceLoader{
             fatalError("Error: failed to load the tileMap from the SKScene file")
         }
         
+        print("GrassTileMap loaded...")
+
         return tileMap
-    }
+    }()
     
-    var corridorTileMap: SKTileMapNode{
+    lazy var corridorTileMap: SKTileMapNode = {
         let sceneName = self.currentGameLevel.getSKSceneFilename()
         
         guard let tileMap = SKScene(fileNamed: sceneName)?.childNode(withName: ResourceLoader.CorridorTilemapNodeName) as? SKTileMapNode else {
             fatalError("Error: failed to load the tileMap from the SKScene file")
         }
-        
+        print("CorridorTilemap loaded...")
+
         return tileMap
-    }
+    }()
     
-    var floorTileMap: SKTileMapNode{
+    lazy var floorTileMap: SKTileMapNode = {
         
         let sceneName = self.currentGameLevel.getSKSceneFilename()
         
@@ -581,20 +693,25 @@ class ResourceLoader{
             fatalError("Error: failed to load the tileMap from the SKScene file")
         }
         
+        print("FloorTilemap loaded...")
+        
         return tileMap
         
-    }
+    }()
     
     typealias AddItemHandler = (SKTileMapNode,Int,Int) -> Void
     
     /** ProgressUnits are incremented every time the tileMap is completely traversed; the tileMap is traversed once i**/
     func traverseTileMap(tileMap: SKTileMapNode, withHandler handler: AddItemHandler){
         
+        print("Traversing tile map \(tileMap.name!)")
+        
         let rows = tileMap.numberOfRows
         let columns = tileMap.numberOfColumns
         
         for row in 1...rows{
             for col in 1...columns{
+                
                 handler(tileMap,row,col)
             }
         }

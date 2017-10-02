@@ -11,26 +11,85 @@ import UIKit
 import SpriteKit
 
 class MainMenuController: UIViewController{
+
+    
+    /** Unwind segue - allows user to return from CreateProfile and LoadProfile view controller to the profile options view controller **/
+    @IBAction func unwindToMainMenuController(segue: UIStoryboardSegue){
+    
+    }
+    
+    @IBOutlet weak var playerProfileOptionsWindow: UIView!
+    
+    
+    
+    @IBOutlet weak var gameStartOptionsCenterXConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var profileOptionsCenterXConstraint: NSLayoutConstraint!
+    
+    
+    
+    @IBAction func showPlayerProfileOptions(_ sender: Any) {
+        
+        self.gameStartOptionsCenterXConstraint.constant += 2000
+        self.profileOptionsCenterXConstraint.constant += 2000
+        
+        
+        UIView.animate(withDuration: 0.70, animations: {
+            
+            
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    
+    
+    @IBAction func showGameStartOptions(_ sender: UIButton) {
+        
+        self.gameStartOptionsCenterXConstraint.constant -= 2000
+        self.profileOptionsCenterXConstraint.constant -= 2000
+        
+        UIView.animate(withDuration: 0.70, animations: {
+            
+            
+            self.view.layoutIfNeeded()
+        })
+    }
+    
     
     @IBAction func startGame(_ sender: Any) {
         
-        self.progressBar.isHidden = false
     }
     
-    @IBOutlet weak var progressBar: UIProgressView!
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.progressBar.isHidden = true
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.playerProfileOptionsWindow.alpha = 1.0
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.progressBar.isHidden = true
+        self.gameStartOptionsCenterXConstraint.constant = 2000
+        
+        self.view.layoutIfNeeded()
+        
+        self.playerProfileOptionsWindow.alpha = 0.0
+
+        
+        UIView.animate(withDuration: 3.00, animations: {
+            
+
+            self.view.layoutIfNeeded()
+            
+        })
         
           NotificationCenter.default.addObserver(self, selector: #selector(updateProgressBar(notification:)), name: Notification.Name(rawValue:Notification.Name.didMakeProgressTowardsGameLoadingNotification), object: nil)
     }
@@ -43,14 +102,12 @@ class MainMenuController: UIViewController{
         
         if let progressAmount = notification?.userInfo?["progressAmount"] as? Float{
             
-            self.progressBar.progress += Float(progressAmount)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "startMissionPlaySegue"){
             
-            self.progressBar.isHidden = false
 
         }
     }

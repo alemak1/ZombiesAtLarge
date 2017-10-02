@@ -23,6 +23,7 @@ extension PlayerProfile {
     @NSManaged public var specialWeapon: Int64
     @NSManaged public var upgradeCollectible: Int64
     @NSManaged public var gameSessions: NSSet?
+    @NSManaged public var savedGames: NSSet?
 
 }
 

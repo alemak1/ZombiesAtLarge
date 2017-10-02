@@ -43,6 +43,17 @@ enum CollectibleType: Int{
     case WordScroll = 511
     case Grenade = 512
     
+    
+    static let SpecialWeaponTypes: [CollectibleType] = [
+        .Grenade,.Microscope,.Toothbrush,.PowerDrill,.FeatherPen, .Bomb
+    ]
+    
+    static let UpgradeItemTypes: [CollectibleType] = [
+        .CD,.Pencil,.Pen,.PaintBrush,.Clipboard,.ClosedBook
+    ]
+    
+    
+    
     static let allCollectibleTypes:[CollectibleType] = {
         
         print("Generating random collectible items")

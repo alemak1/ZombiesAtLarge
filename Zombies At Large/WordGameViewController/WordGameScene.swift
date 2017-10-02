@@ -28,9 +28,11 @@ class WordGameScene: BaseScene{
         /** Copies to the original nodes are maintained in order to restart the game; another approach is to maintain a reference to the original scene in the GameViewController, so that a notification can be sent to the WordGameLevelController to quickly restart the current game **/
         
         /** WARNING: MAY BE NECESARY TO SUBCLASS COPY OR CREATE AN EXTENSION TO SKNODE SO AS TO GET A DEEP COPY AS OPPOSED TO A SHALLOW COPY **/
+        /**
         self.originalWorldNode = preloadedWorldNode.copy() as! SKNode
         self.originalOverlayNode = preloadedOverlayNode.copy() as! SKNode
         self.originalBackgroundNode = preloadedBackgroundNode.copy() as! SKNode
+        **/
         
         self.worldNode = preloadedWorldNode
         self.backgroundNode = preloadedBackgroundNode

@@ -42,6 +42,12 @@ class BaseScene: SKScene{
     var overlayNode: SKNode!
     var backgroundNode: SKNode!
     
+    /** Tile Backgrounds **/
+    
+    var grassTileMap: SKTileMapNode!
+    var blackCorridorTileMap: SKTileMapNode!
+    var woodFloorTileMap: SKTileMapNode!
+    
     var mainCameraNode: SKCameraNode!
     
     var zombiesKilled: Int = 0
@@ -171,16 +177,15 @@ class BaseScene: SKScene{
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         
-        if worldNode == nil{
+        if(worldNode == nil){
             worldNode = SKNode()
         }
         
-        if backgroundNode == nil{
+        if(backgroundNode == nil){
             backgroundNode = SKNode()
         }
         
-        
-        if overlayNode == nil{
+        if(overlayNode == nil){
             overlayNode = SKNode()
         }
         
@@ -191,10 +196,8 @@ class BaseScene: SKScene{
         worldNode.move(toParent: self)
         
         
-        
         backgroundNode.position = CGPoint.zero
         backgroundNode.move(toParent: self)
-        
         
         
         overlayNode.position = CGPoint.zero

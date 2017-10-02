@@ -32,6 +32,8 @@ enum PlayerType: String{
     }
 
     
+    static let allPlayerTypes: [PlayerType] = [.manBlue,.manRed,.manBrown,.survivor1,.survivor2,.hitman1,.soldier1,.soldier2,.womanGreen,.womanOld]
+    
     init(withIntegerValue intValue: Int){
         switch intValue {
         case 1:
@@ -111,5 +113,58 @@ enum PlayerType: String{
         return baseString
 
       
+    }
+    
+    
+    func getPickerView(withFrame frame: CGRect) -> UIView{
+        
+        let view = UIView(frame: frame)
+        
+        let labelFrame = CGRect(x: frame.origin.x + frame.size.width*0.30, y: frame.origin.y, width: frame.size.width*0.70, height: frame.size.height)
+        
+        let label = UILabel(frame: labelFrame)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let imageViewFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width*0.30, height: frame.size.height)
+        let imageView = UIImageView(frame: imageViewFrame)
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(label)
+        view.addSubview(imageView)
+        
+        let texture = getTexture(textureType: .gun)
+      
+        imageView.image = UIImage(cgImage: texture.cgImage())
+        label.text = getPlayerTypeName()
+        label.font = UIFont(name: "Didot", size: 20.0)
+        
+        return view
+        
+    }
+    
+    func getPlayerTypeName() -> String{
+        switch self {
+        case .hitman1:
+            return "Black Shirt"
+        case .manBlue:
+            return "Blue Shirt"
+        case .manRed:
+            return "Red Shirt"
+        case .soldier1:
+            return "Soldier"
+        case .soldier2:
+            return "War Veteran"
+        case .survivor1:
+            return "Survivor"
+        case .survivor2:
+            return "Hunter"
+        case .womanGreen:
+            return "Green Shirt Lady"
+        case .womanOld:
+            return "Angry Grandma"
+        default:
+            return "Awesome Player"
+        }
     }
 }

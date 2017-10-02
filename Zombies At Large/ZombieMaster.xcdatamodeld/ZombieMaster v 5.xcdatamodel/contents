@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13233.4" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="GameLevelStatReview" representedClassName="GameLevelStatReview" syncable="YES">
+        <attribute name="date" attributeType="Date" minDateTimeInterval="528360720" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="gameLevel" attributeType="Integer 16" minValueString="1" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfBulletsFired" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfZombiesKilled" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="replayVideo" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="totalMoney" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="totalNumberOfCollectibles" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="totalValueOfCollectibles" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="playerProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlayerProfile" inverseName="gameSessions" inverseEntity="PlayerProfile" syncable="YES"/>
+    </entity>
+    <entity name="PlayerProfile" representedClassName="PlayerProfile" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString="No Name Given" syncable="YES"/>
+        <attribute name="playerType" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="specialWeapon" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="upgradeCollectible" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="gameSessions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GameLevelStatReview" inverseName="playerProfile" inverseEntity="GameLevelStatReview" syncable="YES"/>
+        <relationship name="savedGames" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SavedGame" inverseName="playerProfile" inverseEntity="SavedGame" syncable="YES"/>
+    </entity>
+    <entity name="SavedGame" representedClassName="SavedGame" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="playerProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlayerProfile" inverseName="savedGames" inverseEntity="PlayerProfile" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="GameLevelStatReview" positionX="-54" positionY="18" width="128" height="180"/>
+        <element name="PlayerProfile" positionX="-54" positionY="81" width="128" height="150"/>
+        <element name="SavedGame" positionX="-45" positionY="99" width="128" height="90"/>
+    </elements>
+</model>

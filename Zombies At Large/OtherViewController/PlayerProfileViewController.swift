@@ -19,13 +19,91 @@ class PlayerProfileViewController: UIViewController{
     
     /** IB Outlets and Actions **/
     
+    @IBOutlet weak var chooseWeaponLableCenterXConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var chooseUpgradeObjectLabelCenterXConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var specialWeaponImageView: UIImageView!
+    
+    
+    @IBOutlet weak var specialWeaponLabel: UILabel!
+    
+    
+    @IBOutlet weak var upgradeObjectImageView: UIImageView!
+    
+    @IBOutlet weak var upgradeObjectLabel: UILabel!
+    
+    @IBAction func showUpgradeObjectCV(_ sender: UIButton) {
+        
+        
+        self.upgradeObjectCollectionViewCenterXConstraint.constant += 1000
+        self.chooseUpgradeObjectLabelCenterXConstraint.constant -= 1000
+        
+        self.upgradeObjectCollectionView.reloadData()
+    }
+    
+    @IBAction func showSpecialWeaponCV(_ sender: UIButton) {
+        
+        
+    
+        
+        self.specialWeaponCollectionViewCenterXConstraint.constant += 1000
+        self.chooseWeaponLableCenterXConstraint.constant -= 1000
+        
+        self.specialWeaponCollectionView.reloadData()
+    }
+    
+    
+    
+    
+    @IBAction func changedWeapon(_ sender: UIButton) {
+        
+        
+        self.specialWeaponCollectionViewCenterXConstraint.constant += 1000
+        self.specialWeaponDetailVewCenterXConstraint.constant += 1000
+        
+        UIView.animate(withDuration: 0.60, animations: {
+            
+            self.view.layoutIfNeeded()
+            
+        })
+    
+    
+
+    }
+ 
+    @IBAction func changedUpgradeItem(_ sender: UIButton) {
+        
+        self.upgradeObjectCollectionViewCenterXConstraint.constant += 1000
+        self.upgradeObjectDetailViewCenterXConstraint.constant += 1000
+        
+        UIView.animate(withDuration: 0.60, animations: {
+            
+            self.view.layoutIfNeeded()
+            
+        })
+        
+    }
+    
+    @IBOutlet weak var specialWeaponCollectionViewCenterXConstraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var specialWeaponDetailVewCenterXConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var upgradeObjectDetailViewCenterXConstraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var upgradeObjectCollectionViewCenterXConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var avatarPicker: UIPickerView!
     @IBOutlet weak var specialWeaponCollectionView: UICollectionView!
     @IBOutlet weak var upgradeObjectCollectionView: UICollectionView!
     
+    var selectedUpgradeItemType: CollectibleType?
+    var selectedSpecialWeaponType: CollectibleType?
+    var selectedPlayerType: PlayerType?
     
-
     @IBAction func saveProfile(_ sender: UIButton) {
         savePlayerProfile()
     }
@@ -63,9 +141,21 @@ class PlayerProfileViewController: UIViewController{
         
         self.specialWeaponCollectionView.dataSource = self
         self.specialWeaponCollectionView.delegate = self
+        self.specialWeaponCollectionView.tag = PlayerProfileCollectionViewTag.SpecialWeaponCV.rawValue
+        self.specialWeaponCollectionView.backgroundColor = UIColor.clear
         
         self.upgradeObjectCollectionView.dataSource = self
         self.upgradeObjectCollectionView.delegate = self
+        self.upgradeObjectCollectionView.tag = PlayerProfileCollectionViewTag.UpgradeObjectCV.rawValue
+        self.upgradeObjectCollectionView.backgroundColor = UIColor.clear
+        
+        self.specialWeaponDetailVewCenterXConstraint.constant = 1000
+        self.upgradeObjectDetailViewCenterXConstraint.constant = 1000
+        
+        self.specialWeaponCollectionViewCenterXConstraint.constant = -1000
+        self.upgradeObjectCollectionViewCenterXConstraint.constant = -1000
+        
+        self.view.layoutIfNeeded()
         
     }
     
@@ -111,11 +201,25 @@ extension PlayerProfileViewController: UIPickerViewDelegate,UIPickerViewDataSour
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        selectedPlayerType = PlayerType.allPlayerTypes[row]
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return pickerView.bounds.height*0.50
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
-        let imageView = UIImageView()
+        let origin = CGPoint(x: 0.0, y: 0.0)
+        let size = CGSize(width: pickerView.bounds.size.width, height: pickerView.bounds.size.height*0.50)
+        let imageViewFrame = CGRect(origin: origin, size: size)
+        
+        let imageView = UIImageView(frame: imageViewFrame)
+        imageView.contentMode = .scaleAspectFit
+        let texture = PlayerType.allPlayerTypes[row].getTexture(textureType: .gun)
+        let image = UIImage(cgImage: texture.cgImage())
+        imageView.image = image
         
         return imageView
     }
@@ -125,7 +229,7 @@ extension PlayerProfileViewController: UIPickerViewDelegate,UIPickerViewDataSour
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 1
+        return PlayerType.allPlayerTypes.count
     }
 }
 
@@ -133,6 +237,57 @@ extension PlayerProfileViewController: UIPickerViewDelegate,UIPickerViewDataSour
 extension PlayerProfileViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       
+        if collectionView.tag == PlayerProfileCollectionViewTag.SpecialWeaponCV.rawValue{
+            
+            
+            self.selectedSpecialWeaponType = CollectibleType.SpecialWeaponTypes[indexPath.row]
+            
+            if let specialWeapon = self.selectedSpecialWeaponType{
+                
+                specialWeaponImageView.contentMode = .scaleAspectFit
+                self.specialWeaponImageView.image = UIImage(cgImage: specialWeapon.getTexture().cgImage())
+                self.specialWeaponLabel.text = specialWeapon.getCollectibleName()
+            }
+            
+            
+            self.specialWeaponCollectionViewCenterXConstraint.constant -= 1000
+            self.specialWeaponDetailVewCenterXConstraint.constant -= 1000
+            
+            UIView.animate(withDuration: 0.60, animations: {
+                
+                self.view.layoutIfNeeded()
+                
+            })
+        }
+        
+        if collectionView.tag == PlayerProfileCollectionViewTag.UpgradeObjectCV.rawValue{
+            
+            self.selectedUpgradeItemType = CollectibleType.UpgradeItemTypes[indexPath.row]
+
+        
+            if let upgradeObject = self.selectedUpgradeItemType{
+                
+                self.upgradeObjectImageView.contentMode = .scaleAspectFit
+                self.upgradeObjectImageView.image = UIImage(cgImage: upgradeObject.getTexture().cgImage())
+                self.upgradeObjectLabel.text = upgradeObject.getCollectibleName()
+            }
+
+            
+            self.upgradeObjectCollectionViewCenterXConstraint.constant -= 1000
+            self.upgradeObjectDetailViewCenterXConstraint.constant -= 1000
+            
+            UIView.animate(withDuration: 0.60, animations: {
+                
+                self.view.layoutIfNeeded()
+                
+            })
+            
+        }
+        
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -142,12 +297,12 @@ extension PlayerProfileViewController: UICollectionViewDataSource, UICollectionV
         
         if collectionView.tag == PlayerProfileCollectionViewTag.SpecialWeaponCV.rawValue{
             
-            return 1
+            return CollectibleType.SpecialWeaponTypes.count
         }
         
         if collectionView.tag == PlayerProfileCollectionViewTag.UpgradeObjectCV.rawValue{
             
-            return 1
+            return CollectibleType.UpgradeItemTypes.count
             
         }
         
@@ -161,12 +316,24 @@ extension PlayerProfileViewController: UICollectionViewDataSource, UICollectionV
             
             let specialWeaponCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SpecialWeaponCell", for: indexPath) as! SpecialWeaponCell
             
+            let texture = CollectibleType.SpecialWeaponTypes[indexPath.row].getTexture()
+            
+            let image = UIImage(cgImage: texture.cgImage())
+            
+            specialWeaponCell.imageView.image = image
+            
             return specialWeaponCell
         }
         
         if collectionView.tag == PlayerProfileCollectionViewTag.UpgradeObjectCV.rawValue{
             
             let upgradeObjectCell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpgradeObjectCell", for: indexPath) as! UpgradeObjectCell
+            
+            let texture = CollectibleType.UpgradeItemTypes[indexPath.row].getTexture()
+            
+            let image = UIImage(cgImage: texture.cgImage())
+            
+            upgradeObjectCell.imageView.image = image
             
             return upgradeObjectCell
 
@@ -180,7 +347,9 @@ extension PlayerProfileViewController: UICollectionViewDataSource, UICollectionV
 
 extension PlayerProfileViewController: UITextFieldDelegate{
     
+    
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+        nameTextField.resignFirstResponder()
     }
 }

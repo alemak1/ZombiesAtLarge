@@ -89,13 +89,7 @@ class GameScene: BaseScene{
     }()
     
     
-    /** Tile Backgrounds **/
-    
-    var grassTileMap: SKTileMapNode!
-    var blackCorridorTileMap: SKTileMapNode!
-    var woodFloorTileMap: SKTileMapNode!
-    
-    
+   
     //MARK: UI Panels, Other UI Elements and Other Related Variables
     
     var menuOptionsButton: SKSpriteNode!

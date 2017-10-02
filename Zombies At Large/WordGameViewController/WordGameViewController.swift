@@ -105,16 +105,45 @@ class WordGameViewController: UIViewController{
     
     var currentGameLevel: WordGameLevel!
     
+    /** A second-level of recursive nil checking occurs here; if the preloaded nodes are still nil, then the resources for the passed in the word game level are loaded again, which would result in a notification being sent a second time upon the compltion of resource loading **/
+    
     @objc func loadGame(notification: Notification?){
         
+        print("Getting preloaded nodes from resource loader....")
+
         let preloadedNodes = resourceLoader.getPreloadedNodes()
         
-        let wordGameScene = self.currentGameScene ?? WordGameScene(preloadedBackgroundNode: preloadedNodes.0, preloadedWorldNode: preloadedNodes.1, preloadedOverlayNode: preloadedNodes.2)
-        
-        self.progressBarView.isHidden = true
+        if let preloadedBgNode = preloadedNodes.0, let preloadedWorldNode = preloadedNodes.1, let preloadedOverlayNoe = preloadedNodes.2{
+            
+            print("Preloaded nodes available.  Instantiating WordGameScene instance....")
+            
+            let wordGameScene = self.currentGameScene ?? WordGameScene(preloadedBackgroundNode: preloadedBgNode, preloadedWorldNode: preloadedWorldNode, preloadedOverlayNode: preloadedOverlayNoe)
+            
+             self.currentGameScene = wordGameScene
+            
+            self.progressBarLabel.text = "Let's Roll!"
+            
+            self.progressBarView.isHidden = true
 
-        self.skView.presentScene(wordGameScene)
-        
+            let nextLevel = currentGameLevel.getNextLevel()
+
+            DispatchQueue.global().async {
+                
+                print("Loading resources for the next level...")
+                self.resourceLoader.prepareLoadingResources(forNextLevel: nextLevel)
+                
+            }
+            
+             self.skView.presentScene(wordGameScene)
+            
+        } else if let rawValue = notification?.userInfo?["level"] as? Int{
+            
+            print("Preloaded nodes are not available...proceeding to load nodes...")
+            
+            let wordGameLevel = WordGameLevel(rawValue: rawValue)!
+            
+            resourceLoader.loadResourcesForWordGameLevel(wordGameLevel: wordGameLevel)
+        }
         
     }
     
@@ -128,6 +157,7 @@ class WordGameViewController: UIViewController{
         self.skView.presentScene(currentGameScene)
     }
     
+    /**
     func startLoadingFirstLevel(){
         
         currentGameLevel = .Level1
@@ -162,28 +192,64 @@ class WordGameViewController: UIViewController{
             
         })
     }
+ 
+     **/
     
     @objc func updateProgressBar(notification: Notification?){
         
+        print("Updating progress bar...")
+        
         if let progress = notification?.userInfo?["progress"] as? Float{
-            self.progressBar.progress = progress
+            print("Setting progress to \(progress)")
+            
+            DispatchQueue.main.async {
+                self.progressBar.progress = progress
+
+            }
+            
         }
     }
     
-    override func didMove(toParentViewController parent: UIViewController?) {
-        super.didMove(toParentViewController: parent)
+    
+    
+    @IBAction func loadGame(_ sender: UIButton) {
         
-        self.progressBarView.isHidden = true
-
+        print("Loading resources for Level1...")
+        currentGameLevel = .Level1
+        resourceLoader.loadResourcesForWordGameLevel(wordGameLevel: .Level1)
+        self.progressBarView.isHidden = false
+  
+    
+        
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        print("Total progress units is: \(resourceLoader.totalProgressUnits)")
+        
+        //self.progressBarView.isHidden = true
+        self.progressBar.progress = 0.00
+        
         self.optionsMenuCenterXConstraint.constant = -2000
         self.optionsMenuIsOpen = false
         self.optionsMenu.dataSource = self
         self.optionsMenu.delegate = self
         
         
+        
         NotificationCenter.default.addObserver(self, selector: #selector(loadGame(notification:)), name: Notification.Name.GetDidFinishedLoadingSceneNotification(), object: nil)
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateProgressBar(notification:)), name: Notification.Name.GetDidUpdateGameLoadingProgressNotification(), object: nil)
+        
+    }
+    
+    
+    
+    
+    override func didMove(toParentViewController parent: UIViewController?) {
+        super.didMove(toParentViewController: parent)
         
        
     }
