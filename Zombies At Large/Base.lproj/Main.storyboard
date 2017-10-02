@@ -747,8 +747,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter name....." borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mg5-9E-tRR">
-                                <rect key="frame" x="20.666666666666657" y="20" width="372.66666666666663" height="73.666666666666671"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mg5-9E-tRR">
+                                <rect key="frame" x="163.66666666666669" y="20" width="207.00000000000006" height="51.666666666666671"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -757,7 +757,7 @@
                                 </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfV-uS-qqx" userLabel="SpecialWeaponDetailView">
-                                <rect key="frame" x="0.0" y="286.33333333333331" width="414" height="147.33333333333337"/>
+                                <rect key="frame" x="0.0" y="253.99999999999997" width="414" height="147.33333333333329"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GMw-TR-vaD">
                                         <rect key="frame" x="44" y="7.6666666666666856" width="132.66666666666666" height="132.33333333333331"/>
@@ -766,7 +766,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6Zy-1x-36v">
-                                        <rect key="frame" x="205.66666666666669" y="24.333333333333371" width="165.66666666666669" height="58.666666666666629"/>
+                                        <rect key="frame" x="205.66666666666669" y="24.333333333333314" width="165.66666666666669" height="58.666666666666686"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Item Name">
                                                 <attributes>
@@ -807,7 +807,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="j6u-N1-fev">
-                                <rect key="frame" x="0.0" y="286.33333333333331" width="414" height="147.33333333333337"/>
+                                <rect key="frame" x="0.0" y="253.99999999999997" width="414" height="147.33333333333329"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="v4J-G0-Wts">
                                     <size key="itemSize" width="100" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -844,7 +844,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AHK-pa-vTH" userLabel="Choose Weapon">
-                                <rect key="frame" x="41" y="336.33333333333331" width="331" height="46"/>
+                                <rect key="frame" x="41" y="304" width="331" height="46"/>
                                 <state key="normal" image="gun50">
                                     <attributedString key="attributedTitle">
                                         <fragment content="   Choose Special Weapon">
@@ -860,7 +860,7 @@
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUZ-YL-3Q9">
-                                <rect key="frame" x="0.0" y="97.333333333333314" width="414" height="184"/>
+                                <rect key="frame" x="0.0" y="101.66666666666666" width="414" height="147.33333333333331"/>
                                 <connections>
                                     <outlet property="dataSource" destination="pij-WI-LYS" id="xOI-Gx-pLA"/>
                                     <outlet property="delegate" destination="pij-WI-LYS" id="DMe-tr-5Qn"/>
@@ -997,17 +997,48 @@
                                     <segue destination="ECc-t6-iH3" kind="unwind" unwindAction="unwindToMainMenuControllerWithSegue:" id="lm7-aK-faa"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITl-C2-Fkb">
+                                <rect key="frame" x="40.666666666666657" y="23.333333333333329" width="103" height="45"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Name:">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="36" name="Didot"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nep-KT-z3e">
+                                <rect key="frame" x="240.33333333333331" y="79" width="53.999999999999943" height="32"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Submit">
+                                            <attributes>
+                                                <color key="NSColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="16" name="Didot"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="submitPlayerName:" destination="pij-WI-LYS" eventType="touchUpInside" id="Off-sO-Iu1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Nw8-tz-dB4" firstAttribute="width" secondItem="5jK-MD-WRj" secondAttribute="width" id="2om-NR-Jze"/>
                             <constraint firstItem="j6u-N1-fev" firstAttribute="top" secondItem="aUZ-YL-3Q9" secondAttribute="bottom" constant="5" id="4XX-Cb-dfs"/>
                             <constraint firstItem="xfV-uS-qqx" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" id="5XT-Hv-M3l"/>
+                            <constraint firstItem="nep-KT-z3e" firstAttribute="centerX" secondItem="mg5-9E-tRR" secondAttribute="centerX" id="5r2-4A-MGr"/>
                             <constraint firstItem="wdV-aU-5U3" firstAttribute="centerY" secondItem="5jK-MD-WRj" secondAttribute="centerY" id="8FN-CY-Gx7"/>
                             <constraint firstItem="Nw8-tz-dB4" firstAttribute="height" secondItem="5jK-MD-WRj" secondAttribute="height" id="A3f-O1-Tan"/>
-                            <constraint firstItem="mg5-9E-tRR" firstAttribute="height" secondItem="tz4-u3-fRs" secondAttribute="height" multiplier="0.1" id="AOf-U6-jEN"/>
-                            <constraint firstItem="aUZ-YL-3Q9" firstAttribute="height" secondItem="tz4-u3-fRs" secondAttribute="height" multiplier="0.25" id="AYB-OY-8pZ"/>
+                            <constraint firstItem="mg5-9E-tRR" firstAttribute="height" secondItem="tz4-u3-fRs" secondAttribute="height" multiplier="0.07" id="AOf-U6-jEN"/>
+                            <constraint firstItem="aUZ-YL-3Q9" firstAttribute="height" secondItem="tz4-u3-fRs" secondAttribute="height" multiplier="0.2" id="AYB-OY-8pZ"/>
                             <constraint firstItem="5jK-MD-WRj" firstAttribute="height" secondItem="j6u-N1-fev" secondAttribute="height" id="CGV-8f-SyQ"/>
+                            <constraint firstItem="ITl-C2-Fkb" firstAttribute="centerY" secondItem="mg5-9E-tRR" secondAttribute="centerY" id="CVe-XT-Vxi"/>
                             <constraint firstItem="aUZ-YL-3Q9" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" id="FnC-AT-hel"/>
                             <constraint firstItem="McH-kb-hDk" firstAttribute="bottom" secondItem="WrZ-m5-eOL" secondAttribute="bottom" constant="20" id="IYG-MP-MwU"/>
                             <constraint firstItem="Nw8-tz-dB4" firstAttribute="centerY" secondItem="5jK-MD-WRj" secondAttribute="centerY" id="J4d-rd-tjn"/>
@@ -1016,6 +1047,7 @@
                             <constraint firstItem="aUZ-YL-3Q9" firstAttribute="width" secondItem="tz4-u3-fRs" secondAttribute="width" id="LXW-m7-fQA"/>
                             <constraint firstItem="mg5-9E-tRR" firstAttribute="top" secondItem="McH-kb-hDk" secondAttribute="top" id="Lna-T5-gRb"/>
                             <constraint firstItem="xfV-uS-qqx" firstAttribute="width" secondItem="tz4-u3-fRs" secondAttribute="width" id="Lsj-LK-am7"/>
+                            <constraint firstItem="mg5-9E-tRR" firstAttribute="leading" secondItem="ITl-C2-Fkb" secondAttribute="trailing" constant="20" id="Mf7-7W-VAy"/>
                             <constraint firstItem="McH-kb-hDk" firstAttribute="trailing" secondItem="QD4-Sv-HFy" secondAttribute="trailing" constant="43" id="NUh-yT-cmQ"/>
                             <constraint firstItem="AHK-pa-vTH" firstAttribute="centerY" secondItem="j6u-N1-fev" secondAttribute="centerY" id="Njc-k6-PSo"/>
                             <constraint firstItem="Nw8-tz-dB4" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" id="QTz-7W-cdj"/>
@@ -1024,10 +1056,11 @@
                             <constraint firstItem="wdV-aU-5U3" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" id="Y7r-o8-Ean"/>
                             <constraint firstItem="5jK-MD-WRj" firstAttribute="centerX" secondItem="McH-kb-hDk" secondAttribute="centerX" id="aX4-p1-DaX"/>
                             <constraint firstItem="AHK-pa-vTH" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" id="atP-2s-nSB"/>
-                            <constraint firstItem="mg5-9E-tRR" firstAttribute="width" secondItem="tz4-u3-fRs" secondAttribute="width" multiplier="0.9" id="b01-zM-yfE"/>
+                            <constraint firstItem="mg5-9E-tRR" firstAttribute="width" secondItem="tz4-u3-fRs" secondAttribute="width" multiplier="0.5" id="b01-zM-yfE"/>
                             <constraint firstItem="j6u-N1-fev" firstAttribute="centerX" secondItem="McH-kb-hDk" secondAttribute="centerX" id="est-aB-IQb"/>
-                            <constraint firstItem="mg5-9E-tRR" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" id="gBn-EQ-qCn"/>
-                            <constraint firstItem="aUZ-YL-3Q9" firstAttribute="top" secondItem="mg5-9E-tRR" secondAttribute="bottom" constant="3.5" id="oS2-rT-Txk"/>
+                            <constraint firstItem="nep-KT-z3e" firstAttribute="top" secondItem="mg5-9E-tRR" secondAttribute="bottom" constant="7.3333333333333286" id="g6b-AH-C5X"/>
+                            <constraint firstItem="mg5-9E-tRR" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" constant="60" id="gBn-EQ-qCn"/>
+                            <constraint firstItem="aUZ-YL-3Q9" firstAttribute="top" secondItem="mg5-9E-tRR" secondAttribute="bottom" constant="30" id="oS2-rT-Txk"/>
                             <constraint firstItem="xfV-uS-qqx" firstAttribute="centerY" secondItem="j6u-N1-fev" secondAttribute="centerY" id="qc6-Ug-11i"/>
                             <constraint firstItem="McH-kb-hDk" firstAttribute="bottom" secondItem="5jK-MD-WRj" secondAttribute="bottom" constant="90" id="rB6-lf-wxZ"/>
                             <constraint firstItem="xfV-uS-qqx" firstAttribute="height" secondItem="j6u-N1-fev" secondAttribute="height" id="tjV-cr-f0i"/>
@@ -1056,7 +1089,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BVM-Rs-VET" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ECc-t6-iH3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-2717" y="858"/>
+            <point key="canvasLocation" x="-2529" y="1114"/>
         </scene>
         <!--Player Profile Table View Controller-->
         <scene sceneID="Np5-YE-KQG">
@@ -1071,7 +1104,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WbB-XH-gux" id="T5V-ze-CBq">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dLp-Yk-t5R">
@@ -1143,7 +1176,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwA-iZ-sCG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="g6W-GJ-yLN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-3196" y="1140"/>
+            <point key="canvasLocation" x="-3368" y="1400"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MqD-Nj-VFq">

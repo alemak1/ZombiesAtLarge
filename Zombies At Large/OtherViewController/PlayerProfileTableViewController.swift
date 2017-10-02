@@ -66,6 +66,23 @@ class PlayerProfileTableViewController: UITableViewController{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerProfileCell") as! PlayerProfileTableViewCell
         
+        if let playerProfiles = self.playerProfiles{
+            
+            let playerProfile = playerProfiles[indexPath.row]
+            let playerTypeRawValue = Int(playerProfile.playerType)
+            let playerType = PlayerType(withIntegerValue: playerTypeRawValue)
+            let cgImage = playerType.getTexture(textureType: .gun).cgImage()
+            cell.avatarImageView.image = UIImage(cgImage: cgImage)
+            
+
+            let name = playerProfile.name
+            let dateCreated = playerProfile.getFormattedDateString()
+            
+            cell.playerNameLabel.text = "Name: \(name)"
+
+        }
+        
+        
         return cell
     }
     

@@ -39,9 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         **/
         
-       // cleanBadData()
-        insertSamplePlayerProfiles()
-        
+        deletePlayers()
+     
         return true
     }
 
@@ -113,6 +112,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    func deletePlayers(){
+    
+        let fetchRequest = NSFetchRequest<PlayerProfile>(entityName: "PlayerProfile")
+        
+        var playerProfiles = [PlayerProfile]()
+        
+        do {
+             playerProfiles = try self.persistentContainer.viewContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Error occurred while deleting players")
+        }
+        
+        
+        if(!playerProfiles.isEmpty){
+            for playerProfile in playerProfiles{
+                self.persistentContainer.viewContext.delete(playerProfile)
+            }
+        } else {
+            print("No player profiles retrieved from databased")
+        }
+    }
+    
     func cleanBadData(){
         
         let managedContext = persistentContainer.viewContext

@@ -19,6 +19,19 @@ class PlayerProfileViewController: UIViewController{
     
     /** IB Outlets and Actions **/
     
+    
+    @IBAction func submitPlayerName(_ sender: UIButton) {
+        
+        if(nameTextField.text == nil || (nameTextField.text != nil && nameTextField.text!.isEmpty)){
+            showMessage(title: "No Name Entered", message: "Please enter a valid player name")
+            return
+        }
+        
+    if(nameTextField.isFirstResponder){ nameTextField.resignFirstResponder()
+        }
+    }
+    
+    
     @IBOutlet weak var chooseWeaponLableCenterXConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var chooseUpgradeObjectLabelCenterXConstraint: NSLayoutConstraint!
@@ -173,12 +186,37 @@ class PlayerProfileViewController: UIViewController{
 
     func savePlayerProfile(){
         
+        
+        if nameTextField.text == nil || (nameTextField.text != nil && nameTextField.text!.isEmpty){
+            showMessage(title: "Error: No Name Entered", message: "Please enter a valid name in order to save the player profile")
+            return
+            
+        }
+        
+        if selectedUpgradeItemType == nil{
+            showMessage(title: "Error: No Special Item Selected", message: "Please select a special upgrade item in order to save the player profile")
+            return
+        }
+        
+        if selectedSpecialWeaponType == nil{
+            showMessage(title: "Error: No Special Weapon Selected", message: "Please select a special weapon in order to save the player profile")
+            return
+        }
+        
+        if selectedPlayerType == nil{
+            showMessage(title: "Error: No Player Type Selected", message: "Please select a player type in order to save the player profile")
+            return
+        }
+        
         if existingPlayerProfile == nil{
             
               let playerProfile = PlayerProfile(entity: self.entityDescription, insertInto: self.managedObjectContext)
             
             playerProfile.dateCreated = self.dateCreatedOrLastModified as NSDate
             playerProfile.name = self.nameTextField.text!
+            playerProfile.playerType = Int64(self.selectedPlayerType!.getIntegerValue())
+            playerProfile.specialWeapon = Int64(self.selectedSpecialWeaponType!.rawValue)
+            playerProfile.upgradeCollectible = Int64(self.selectedUpgradeItemType!.rawValue)
             
         } else {
         
@@ -189,12 +227,27 @@ class PlayerProfileViewController: UIViewController{
         
         do {
             try managedObjectContext.save()
+            
+            showMessage(title: "New Player Saved!", message: "You are ready to go take on some killer zombies!")
+            
         } catch let error as NSError {
             //Error handling: validation errors
         }
     
     }
     
+    
+    
+    func showMessage(title: String, message: String){
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okay = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+        
+        alertController.addAction(okay)
+        
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension PlayerProfileViewController: UIPickerViewDelegate,UIPickerViewDataSource{
@@ -347,7 +400,7 @@ extension PlayerProfileViewController: UICollectionViewDataSource, UICollectionV
 
 extension PlayerProfileViewController: UITextFieldDelegate{
     
-    
+
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         nameTextField.resignFirstResponder()

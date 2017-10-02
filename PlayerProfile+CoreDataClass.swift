@@ -13,4 +13,17 @@ import CoreData
 @objc(PlayerProfile)
 public class PlayerProfile: NSManagedObject {
 
+    
+    func getFormattedDateString() -> String{
+        
+        guard let date = self.dateCreated as Date? else {
+            return "No Date Recorded"
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .medium
+        
+        return dateFormatter.string(from: date)
+    }
 }
