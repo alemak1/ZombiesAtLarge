@@ -1104,7 +1104,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WbB-XH-gux" id="T5V-ze-CBq">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dLp-Yk-t5R">
@@ -1156,7 +1156,7 @@
                     <navigationItem key="navigationItem" id="cw8-c9-BhR">
                         <barButtonItem key="leftBarButtonItem" title="Main Menu" id="O6w-61-RYq">
                             <connections>
-                                <segue destination="g6W-GJ-yLN" kind="unwind" unwindAction="unwindToMainMenuControllerWithSegue:" id="fhq-1N-ptd"/>
+                                <segue destination="g6W-GJ-yLN" kind="unwind" unwindAction="unwindToMainMenuControllerWithSegue:" id="xSK-Xc-KnR"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -1167,7 +1167,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="edit" id="pST-b1-0E7">
                                 <connections>
-                                    <segue destination="pij-WI-LYS" kind="presentation" id="Xp9-ba-gpg"/>
+                                    <segue destination="pij-WI-LYS" kind="presentation" identifier="modifyProfileSegue" id="Xp9-ba-gpg"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -1176,12 +1176,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwA-iZ-sCG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="g6W-GJ-yLN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-3368" y="1400"/>
+            <point key="canvasLocation" x="-4225" y="1326"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Player Profile Navigation Controller-->
         <scene sceneID="MqD-Nj-VFq">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LSx-ra-x4h" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LSx-ra-x4h" customClass="PlayerProfileNavigationController" customModule="Zombies_At_Large" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uXR-4l-ZY6">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -1194,7 +1194,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QxD-2o-79A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3614" y="443"/>
+            <point key="canvasLocation" x="-3836" y="350"/>
         </scene>
     </scenes>
     <resources>

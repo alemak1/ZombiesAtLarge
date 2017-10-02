@@ -18,8 +18,9 @@ class MainMenuController: UIViewController{
     
     }
     
-    @IBOutlet weak var playerProfileOptionsWindow: UIView!
+    var selectedPlayerProfile: PlayerProfile?
     
+    @IBOutlet weak var playerProfileOptionsWindow: UIView!
     
     
     @IBOutlet weak var gameStartOptionsCenterXConstraint: NSLayoutConstraint!
@@ -42,8 +43,25 @@ class MainMenuController: UIViewController{
     }
     
     
+    func showMessage(title: String, message: String){
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okay = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+        
+        alertController.addAction(okay)
+        
+        present(alertController, animated: true, completion: nil)
+    }
     
     @IBAction func showGameStartOptions(_ sender: UIButton) {
+        
+        
+        if(self.selectedPlayerProfile == nil){
+            showMessage(title: "No player profile selected!", message: "Please select a player profile or create a new player profile to start the game!")
+            
+            return
+        }
         
         self.gameStartOptionsCenterXConstraint.constant -= 2000
         self.profileOptionsCenterXConstraint.constant -= 2000

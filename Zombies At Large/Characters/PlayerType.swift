@@ -32,7 +32,7 @@ enum PlayerType: String{
     }
 
     
-    static let allPlayerTypes: [PlayerType] = [.manBlue,.manRed,.manBrown,.survivor1,.survivor2,.hitman1,.soldier1,.soldier2,.womanGreen,.womanOld]
+    static let allPlayerTypes: [PlayerType] = [.manBlue,.manRed,.manBrown,.survivor1,.survivor2,.hitman1,.womanOld,.womanGreen,.soldier1,.soldier2]
     
     init(withIntegerValue intValue: Int){
         switch intValue {

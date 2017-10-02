@@ -17,6 +17,49 @@ enum PlayerProfileCollectionViewTag: Int{
 
 class PlayerProfileViewController: UIViewController{
     
+    
+    var selectedPlayerProfile: PlayerProfile?{
+    
+        get{
+            if let mainMenuController = self.presentingViewController as? MainMenuController{
+            
+                return mainMenuController.selectedPlayerProfile
+            
+            } else if let profileTableViewVC = self.presentingViewController as? PlayerProfileTableViewController{
+            
+                return profileTableViewVC.selectedPlayerProfile
+                
+            } else if let playerProfileNavigationController = self.presentingViewController as? PlayerProfileNavigationController {
+                
+                return playerProfileNavigationController.selectedPlayerProfile
+
+            } else if let rootViewController = self.navigationController?.viewControllers.first as? PlayerProfileNavigationController  {
+                return rootViewController.selectedPlayerProfile
+            } else {
+                return nil
+            }
+        }
+        
+        set(newPlayerProfile){
+            if let mainMenuController = self.presentingViewController as? MainMenuController{
+                
+                mainMenuController.selectedPlayerProfile = newPlayerProfile
+                
+            } else if let profileTableViewVC = self.presentingViewController as? PlayerProfileTableViewController{
+                
+                profileTableViewVC.selectedPlayerProfile = newPlayerProfile
+                
+            } else if let playerProfileNavigationController = self.presentingViewController as? PlayerProfileNavigationController {
+                
+                 playerProfileNavigationController.selectedPlayerProfile = newPlayerProfile
+                
+            } else if let rootViewController = self.navigationController?.viewControllers.first as? PlayerProfileNavigationController  {
+                return rootViewController.selectedPlayerProfile = newPlayerProfile
+            }
+            
+        }
+    }
+    
     /** IB Outlets and Actions **/
     
     
@@ -162,15 +205,39 @@ class PlayerProfileViewController: UIViewController{
         self.upgradeObjectCollectionView.tag = PlayerProfileCollectionViewTag.UpgradeObjectCV.rawValue
         self.upgradeObjectCollectionView.backgroundColor = UIColor.clear
         
-        self.specialWeaponDetailVewCenterXConstraint.constant = 1000
-        self.upgradeObjectDetailViewCenterXConstraint.constant = 1000
+        
+        if(self.selectedPlayerProfile != nil){
+            
+
+            
+            self.specialWeaponDetailVewCenterXConstraint.constant = 0
+            self.upgradeObjectDetailViewCenterXConstraint.constant = 0
+            
+            self.chooseWeaponLableCenterXConstraint.constant = -1000
+            self.chooseUpgradeObjectLabelCenterXConstraint.constant = -1000
+            
+            
+            
+            
+            
+        } else {
+            
+            
+            self.specialWeaponDetailVewCenterXConstraint.constant = 1000
+            self.upgradeObjectDetailViewCenterXConstraint.constant = 1000
+            
+            
+        }
         
         self.specialWeaponCollectionViewCenterXConstraint.constant = -1000
         self.upgradeObjectCollectionViewCenterXConstraint.constant = -1000
         
-        self.view.layoutIfNeeded()
         
+        self.view.layoutIfNeeded()
     }
+    
+    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -182,6 +249,100 @@ class PlayerProfileViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        
+        if(self.selectedPlayerProfile != nil){
+            
+            self.nameTextField.text = selectedPlayerProfile!.name
+            self.nameTextField.setNeedsDisplay()
+            
+            
+            var playerTypeIdx = 0
+            
+            for (idx,playerType) in PlayerType.allPlayerTypes.enumerated(){
+                
+                if(playerType.getIntegerValue() == Int(selectedPlayerProfile!.playerType)){
+                    playerTypeIdx = idx
+                }
+            }
+            /**
+            
+
+            
+            var specialWeaponIdx = 0
+            var upgradeItemIdx = 0
+            
+            for (idx,collectibleType) in CollectibleType.SpecialWeaponTypes.enumerated(){
+                
+                if(collectibleType.rawValue == Int(selectedPlayerProfile!.specialWeapon)){
+                    specialWeaponIdx = idx
+                }
+            }
+            
+            for (idx,collectibleType) in CollectibleType.UpgradeItemTypes.enumerated(){
+                
+                if(collectibleType.rawValue == Int(selectedPlayerProfile!.upgradeCollectible)){
+                    upgradeItemIdx = idx
+                }
+            }
+            
+            **/
+            
+            /**
+            let upgradeItemIndexPath = IndexPath(row: upgradeItemIdx, section: 1)
+            let specialWeaponIndexPath = IndexPath(row: specialWeaponIdx, section: 1)
+            
+            self.upgradeObjectCollectionView.selectItem(at: upgradeItemIndexPath, animated: false, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
+            self.specialWeaponCollectionView.selectItem(at: specialWeaponIndexPath, animated: false, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
+            
+ 
+            
+          
+            
+            if let upgradeObject = CollectibleType(rawValue: Int(self.selectedPlayerProfile!.upgradeCollectible)){
+                
+                self.upgradeObjectImageView.contentMode = .scaleAspectFit
+                self.upgradeObjectImageView.image = UIImage(cgImage: upgradeObject.getTexture().cgImage())
+                self.upgradeObjectLabel.text = upgradeObject.getCollectibleName()
+            }
+            
+            if let specialWeapon = CollectibleType(rawValue: Int(self.selectedPlayerProfile!.specialWeapon)){
+                
+                specialWeaponImageView.contentMode = .scaleAspectFit
+                self.specialWeaponImageView.image = UIImage(cgImage: specialWeapon.getTexture().cgImage())
+                self.specialWeaponLabel.text = specialWeapon.getCollectibleName()
+ 
+            }
+            
+            **/
+            
+            self.specialWeaponDetailVewCenterXConstraint.constant = 0
+            self.upgradeObjectDetailViewCenterXConstraint.constant = 0
+            
+            self.chooseWeaponLableCenterXConstraint.constant = -1000
+            self.chooseUpgradeObjectLabelCenterXConstraint.constant = -1000
+            
+            
+            
+            self.avatarPicker.selectRow(playerTypeIdx, inComponent: 0, animated: true)
+
+            
+        } else {
+            
+            
+            self.specialWeaponDetailVewCenterXConstraint.constant = 1000
+            self.upgradeObjectDetailViewCenterXConstraint.constant = 1000
+            
+            
+        }
+        
+        self.specialWeaponCollectionViewCenterXConstraint.constant = -1000
+        self.upgradeObjectCollectionViewCenterXConstraint.constant = -1000
+        
+        
+        self.view.layoutIfNeeded()
+        
+        
     }
 
     func savePlayerProfile(){
@@ -208,7 +369,7 @@ class PlayerProfileViewController: UIViewController{
             return
         }
         
-        if existingPlayerProfile == nil{
+        if selectedPlayerProfile == nil{
             
               let playerProfile = PlayerProfile(entity: self.entityDescription, insertInto: self.managedObjectContext)
             
@@ -217,11 +378,14 @@ class PlayerProfileViewController: UIViewController{
             playerProfile.playerType = Int64(self.selectedPlayerType!.getIntegerValue())
             playerProfile.specialWeapon = Int64(self.selectedSpecialWeaponType!.rawValue)
             playerProfile.upgradeCollectible = Int64(self.selectedUpgradeItemType!.rawValue)
+            self.selectedPlayerProfile = playerProfile
             
         } else {
         
-            existingPlayerProfile!.dateCreated = self.dateCreatedOrLastModified as NSDate
-            existingPlayerProfile!.name = self.nameTextField.text!
+            selectedPlayerProfile!.name = self.nameTextField.text!
+            selectedPlayerProfile!.playerType = Int64(self.selectedPlayerType!.getIntegerValue())
+            selectedPlayerProfile!.specialWeapon =  Int64(self.selectedSpecialWeaponType!.rawValue)
+            selectedPlayerProfile!.upgradeCollectible = Int64(self.selectedUpgradeItemType!.rawValue)
         }
       
         
@@ -326,6 +490,9 @@ extension PlayerProfileViewController: UICollectionViewDataSource, UICollectionV
                 self.upgradeObjectImageView.image = UIImage(cgImage: upgradeObject.getTexture().cgImage())
                 self.upgradeObjectLabel.text = upgradeObject.getCollectibleName()
             }
+            
+          
+            
 
             
             self.upgradeObjectCollectionViewCenterXConstraint.constant -= 1000
