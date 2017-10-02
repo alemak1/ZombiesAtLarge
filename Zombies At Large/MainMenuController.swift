@@ -126,6 +126,11 @@ class MainMenuController: UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "startMissionPlaySegue"){
             
+            if let gameViewController = segue.destination as? GameViewController{
+                
+                gameViewController.playerProfile = self.selectedPlayerProfile
+                
+            }
 
         }
     }

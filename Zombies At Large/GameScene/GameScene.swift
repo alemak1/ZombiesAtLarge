@@ -70,6 +70,8 @@ class GameScene: BaseScene{
     var hudNode: SKNode{
         return HUDManager.sharedManager.getHUD()
     }
+    
+    var hudLoadingLevel = 0
 
     var safetyZone: SKSpriteNode?
     
@@ -106,18 +108,34 @@ class GameScene: BaseScene{
     
     
     /** ***************  GameScene Initializers **/
-    convenience init(currentGameLevel: GameLevel) {
+    
+    convenience init(currentGameLevel: GameLevel, playerProfile: PlayerProfile) {
         self.init(size: UIScreen.main.bounds.size)
         self.currentGameLevel = currentGameLevel
         
+        self.currentPlayerProfile = playerProfile
         
-        self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: currentGameLevel, playerProfile: self.currentPlayerProfile!)
+        self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: currentGameLevel, playerProfile: playerProfile)
 
    
 
     }
     
-   
+    @objc func updateHUDLoadingLevel(notification: Notification?){
+        
+        if let hudLoadingLevel = notification?.userInfo?["loadingLevel"] as? Int{
+            self.hudLoadingLevel = hudLoadingLevel
+            
+        
+        }
+    }
+    
+    @objc func updateHUDLoadingLevelBasic(notification: Notification?){
+        
+        if let hudLoadingLevel = notification?.userInfo?["loadingLevel"] as? Int{
+            self.hudLoadingLevel = hudLoadingLevel
+        }
+    }
     
     @objc func removeMustKillZombie(notification: Notification?){
         
@@ -141,6 +159,8 @@ class GameScene: BaseScene{
         let didKillZombieNotificationName =  NSNotification.Name(rawValue: Notification.Name.didKillMustKillZombieNotification)
         
         NotificationCenter.default.addObserver(self, selector: #selector(removeMustKillZombie(notification:)), name: didKillZombieNotificationName, object: nil)
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(updateHUDLoadingLevel(notification:)), name: Notification.Name.GetDidFinishLoadingHUDNotification(), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -169,7 +189,6 @@ class GameScene: BaseScene{
     
         loadMissionPanel()
         loadBackground()
-        loadHUD()
         
         
         
@@ -205,7 +224,9 @@ class GameScene: BaseScene{
         miniZombie3.position = CGPoint(x: -100.0, y: 250.00)
         zombieManager.addDynamicZombie(zombie: miniZombie3)
         
-    
+        
+        addHUDNode()
+
     }
     
    
@@ -233,8 +254,66 @@ class GameScene: BaseScene{
     }
     
     
+    func loadHUDViaOperationQueue(){
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            addHUDNode()
+            return
+        }
+        
+        appDelegate.hudLoadingOperationQueue.qualityOfService = .userInitiated
+        
+    }
   
-    func loadHUD(){
+    func loadHUDWithProgrammedDelays(){
+        
+        print("HUD loading level is \(self.hudLoadingLevel)")
+        switch self.hudLoadingLevel {
+        case 4:
+            //HUD is fully loaded
+            print("HUD loading level at 4: HUD is fully loaded")
+            self.addHUDNode()
+            break
+        case 3:
+            //HUD almost fully loaded
+            print("HUD loading level at 3: HUD is almost fully loaded")
+            DispatchQueue.main.asyncAfter(deadline:.now() + 1.00, execute: {
+                self.addHUDNode()
+            })
+            break
+        case 2:
+            //HUD is halfway loaded
+            print("HUD loading level at 2: HUD is almost fully loaded")
+            DispatchQueue.main.asyncAfter(deadline:.now() + 2.00, execute: {
+                self.addHUDNode()
+            })
+            break
+        case 1:
+            //HUS is partially loaded
+            print("HUD loading level at 1: HUD is almost fully loaded")
+            DispatchQueue.main.asyncAfter(deadline:.now() + 2.00, execute: {
+                self.addHUDNode()
+            })
+            break
+        case 0:
+            //HUD has not started loading
+            print("HUD loading level at 0: HUD is almost fully loaded")
+            DispatchQueue.main.asyncAfter(deadline:.now() + 4.00, execute: {
+                self.addHUDNode()
+            })
+            break
+        default:
+            addHUDNode()
+            break
+        }
+        
+      
+
+    }
+    
+    
+    func addHUDNode(){
+        print("Now adding HUD...HUD loading level is at \(hudLoadingLevel)")
         hudNode.move(toParent: overlayNode)
         hudNode.zPosition = 35
         
@@ -242,10 +321,9 @@ class GameScene: BaseScene{
         let yPos = UIScreen.main.bounds.size.height*0.36
         hudNode.position = CGPoint(x: xPos, y: yPos)
         
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-
+        
+        
     }
-    
    
   
     

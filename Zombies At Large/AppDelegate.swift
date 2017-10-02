@@ -16,17 +16,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     var window: UIWindow?
-
+    
+    var hudLoadingOperationQueue: OperationQueue!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        
+        //Asynchronously preload HUD display
+        
         /**
+        hudLoadingOperationQueue = OperationQueue()
+        
+        hudLoadingOperationQueue.addOperation {
+            
+            let _ = HUDManager.sharedManager
+
+        }
+        
+        hudLoadingOperationQueue.qualityOfService = .background
+        
+        **/
+    
         DispatchQueue.global().async {
             
             let _ = HUDManager.sharedManager
-            
+
         }
+    
+        
+        /**
+        
         **/
         
         /**
@@ -39,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         **/
         
-        deletePlayers()
      
         return true
     }

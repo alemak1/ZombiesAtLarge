@@ -159,12 +159,22 @@ extension GameScene{
 
                         let transition = SKTransition.crossFade(withDuration: 2.00)
                         
-                        let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel)
+                        let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel, playerProfile: self.currentPlayerProfile!)
+                        
                         view!.presentScene(currentGameScene, transition: transition)
                     }
                     
                     if(selectedNode.name == "CurrentMission"){
                         showMissionPanel()
+                    }
+                    
+                    if(selectedNode.name == "BackToMainMenu"){
+                        
+                        self.isPaused = true
+                    
+                        NotificationCenter.default.post(name: Notification.Name.GetDidRequestBackToMainMenuNotification(), object: nil, userInfo: nil)
+                        
+                        
                     }
                     
                     

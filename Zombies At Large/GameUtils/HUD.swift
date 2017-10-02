@@ -64,19 +64,41 @@ class HUDManager{
         
         if(self.isLoading){
             
-            return
+            fatalError("Error: attempted to initialize a new singleton instance while instantiation of the singleton is already in progress")
             
         } else {
             
             self.isLoading = true
             
+            NotificationCenter.default.post(name: Notification.Name.GetDidFinishLoadingHUDNotification(), object: nil, userInfo: [
+                    "loadingLevel":0
+                ])
+
+            
             loadMainHUDNode()
+            
+            NotificationCenter.default.post(name: Notification.Name.GetDidFinishLoadingHUDNotification(), object: nil, userInfo: [
+                "loadingLevel":1
+                ])
+            
             loadBlueBarIndicators()
+            
+            NotificationCenter.default.post(name: Notification.Name.GetDidFinishLoadingHUDNotification(), object: nil, userInfo: [
+                "loadingLevel":2
+                ])
+            
             loadRedBarIndicators()
+            
+            NotificationCenter.default.post(name: Notification.Name.GetDidFinishLoadingHUDNotification(), object: nil, userInfo: [
+                "loadingLevel":3
+                ])
         
             updateBulletCount(withUnits: 30)
             updateHealthCount(withUnits: 15)
             
+            NotificationCenter.default.post(name: Notification.Name.GetDidFinishLoadingHUDNotification(), object: nil, userInfo: [
+                "loadingLevel":4
+                ])
         }
 
         

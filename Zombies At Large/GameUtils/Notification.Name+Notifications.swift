@@ -18,6 +18,12 @@ extension Notification.Name{
     static let didActivateCollectibleNotification = "didActivateCollectibleNotification"
     static let didSetOffGrenadeNotification = "didSetOffGrenadeNotification"
     static let didFinishLoadingSceneNotification = "didFinishLoadingSceneNotification"
+    static let didRequestBackToMainMenuNotification = "didRequestBackToMainMenuNotification"
+    static let didFinishLoadingHUDNotification = "didFinishLoadingHUDNotification"
+    
+    static func GetDidFinishLoadingHUDNotification() -> Notification.Name{
+        return self.init(Notification.Name.didFinishLoadingHUDNotification)
+    }
     
     static func GetDidFinishedLoadingSceneNotification() -> Notification.Name{
         return self.init(Notification.Name.didFinishLoadingSceneNotification)
@@ -25,6 +31,11 @@ extension Notification.Name{
     
     static func GetDidUpdateGameLoadingProgressNotification() -> Notification.Name{
         return self.init(Notification.Name.didUpdateGameLoadingProgressNotification)
+    }
+    
+    static func GetDidRequestBackToMainMenuNotification() -> Notification.Name{
+        return self.init(Notification.Name.didRequestBackToMainMenuNotification)
+
     }
     
     static func GetDidActivateCollectibleNotificationName() -> Notification.Name{

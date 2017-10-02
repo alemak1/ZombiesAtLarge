@@ -65,22 +65,7 @@ class BaseScene: SKScene{
     
         super.init(size: size)
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            fatalError("Error: failed to access the applicaton delegate")
-        }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<PlayerProfile>(entityName: "PlayerProfile")
-        let playerName = "Player1"
-        fetchRequest.predicate = NSPredicate(format: "name == %@", playerName)
-        
-        guard let currentPlayerProfile = try! managedContext.fetch(fetchRequest).first else {
-            fatalError("Error: failed to obtain a player profile for the game scene")
-        }
-        
-        self.currentPlayerProfile = currentPlayerProfile
-        
-        print("Player 1 obtained")
+   
         
         NotificationCenter.default.addObserver(self, selector: #selector(incrementZombieKillCount), name: Notification.Name(rawValue: "didKillZombieNotification"), object: nil)
         

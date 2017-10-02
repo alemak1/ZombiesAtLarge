@@ -16,6 +16,10 @@ import GameplayKit
 
 class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource {
 
+    
+    var playerProfile: PlayerProfile?
+    
+    
     @IBOutlet weak var progressBar: UIProgressView!
     
     @IBOutlet weak var gameStatsViewCenterXConstraint: NSLayoutConstraint!
@@ -256,7 +260,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
             progressView.isHidden = false
             
             // Load the SKScene from 'GameScene.sks'
-            currentGameScene = GameScene(currentGameLevel: .Level1)
+            currentGameScene = GameScene(currentGameLevel: .Level1, playerProfile: self.playerProfile!)
             
             guard let scene = self.currentGameScene else {
                 fatalError("Error: failed to load game scene ")
@@ -320,11 +324,40 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
         NotificationCenter.default.addObserver(self, selector: #selector(showCollectionView), name: Notification.Name(rawValue:Notification.Name.ShowInventoryCollectionViewNotification), object: nil)
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissCurrentViewController(notification:)), name: Notification.Name.GetDidRequestBackToMainMenuNotification(), object: nil)
     
         
     }
     
-   
+    @objc func dismissCurrentViewController(notification: Notification?){
+        
+         let alertViewController = UIAlertController(title: "Would you like to save", message: "Click save to save your game before you quit.", preferredStyle: .alert)
+        
+        
+        let okay = UIAlertAction(title: "Save", style: .default, handler: {
+            
+            _ in
+            
+            //TODO: Implement game saving here
+        })
+        
+        let cancel = UIAlertAction(title: "No thanks", style: .cancel, handler: nil)
+        
+        alertViewController.addAction(okay)
+        alertViewController.addAction(cancel)
+        
+        
+        
+        present(alertViewController, animated: false, completion: {
+            
+            self.currentGameScene?.isPaused = true
+            self.currentGameScene = nil
+    
+            self.dismiss(animated: true, completion: nil)
+        
+        })
+    }
     
    
     
