@@ -71,6 +71,14 @@ class PlayerStateSnapShot: NSObject, NSCoding{
 class Player: Shooter{
     
     
+    var pickedImage: UIImage?{
+        didSet{
+            if(pickedImage != nil){
+                //post a notification that is sent to the NPC
+            }
+        }
+    }
+    
     lazy var playerStateSnapShot: PlayerStateSnapShot = {
         
         let velocity = self.physicsBody?.velocity ?? CGVector.zero

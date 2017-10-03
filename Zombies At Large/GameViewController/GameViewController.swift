@@ -145,6 +145,11 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
 
     }
     
+    var currentPlayer: Player?{
+        
+        return currentGameScene?.player
+    }
+    
     lazy var progressView: UIProgressView = {
         
  
@@ -165,11 +170,33 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     }
     
     
+    /** The game view controller has to UINavigation Controller delegate ....**/
+    /** check that camera is available **/
+    
+    lazy var imagePicker: UIImagePickerController = {
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .camera
+        self.imagePicker.delegate = self
+
+    }()
+    
+    /** When the player accepts the mission, open the media picker manager **/
+    
+    func openMediaPickerManager(_ sender: UIButton) {
+        
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
+
+    var nonPlayerCharacterPrompt: SKSpriteNode?
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         
         self.gameStatsViewCenterXConstraint.constant = -2000
         
@@ -427,4 +454,33 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     
     
 }
+
+extension GameViewController: UIImagePickerControllerDelegate{
+    
+    /** The picked image can be stored in the player after dismissing the media picer controller or before; determine which one is more efficient **/
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+           //save the picked image in the player
+            currentPlayer!.pickedImage = pickedImage
+            
+            //property observer in the player posts a notification which can then be received by the NPC
+        }
+        
+        
+        
+        picker.dismiss(animated: true, completion: {
+            
+            
+            
+        })
+        
+        
+    
+    }
+    
+}
+
+
 
