@@ -239,12 +239,14 @@ class GameScene: BaseScene{
 
         //Debug only - remove later
         
+        
         if let savedGames = self.currentPlayerProfile?.getSavedGames(){
             
             for savedGame in savedGames{
                 savedGame.showSavedGameInfo()
             }
         }
+     
     }
     
    

@@ -34,17 +34,18 @@ class PlayerStateSnapShot: NSObject, NSCoding{
         
     }
     
-    
+
     
     func encode(with aCoder: NSCoder) {
+        
         aCoder.encode(self.position, forKey: "position")
         aCoder.encode(self.currentVelocity, forKey: "currentVelocity")
         aCoder.encode(self.healthLevel, forKey: "healthLevel")
         aCoder.encode(self.numberOfBullets, forKey: "numberOfBullets")
         
-        aCoder.encode(self.playerType, forKey: "playerType")
-        aCoder.encode(self.compassOrientation, forKey: "compassDirection")
-        aCoder.encode(self.collectibleManager, forKey: "collectibleManager")
+       aCoder.encode(self.playerType.getIntegerValue(), forKey: "playerType")
+       aCoder.encode(Int64(self.compassOrientation.rawValue), forKey: "compassDirection")
+       aCoder.encode(self.collectibleManager, forKey: "collectibleManager")
         
     }
     
@@ -54,9 +55,16 @@ class PlayerStateSnapShot: NSObject, NSCoding{
         self.healthLevel = aDecoder.decodeInteger(forKey: "healthLevel")
         self.numberOfBullets = aDecoder.decodeInteger(forKey: "numberOfBullets")
         
-        self.compassOrientation = aDecoder.decodeObject(forKey: "compassDirection") as! CompassDirection
-        self.playerType = aDecoder.decodeObject(forKey: "playerType") as! PlayerType
-        self.collectibleManager = aDecoder.decodeObject(forKey: "collectibleManager") as! CollectibleManager
+    
+        
+        self.compassOrientation = CompassDirection(rawValue: Int(aDecoder.decodeInt64(forKey: "compassDirection"))) ?? .east
+        
+        let playerInt = (aDecoder.decodeObject(forKey: "playerType") as? Int) ?? 1
+        self.playerType = PlayerType(withIntegerValue: playerInt)
+        
+        self.collectibleManager = (aDecoder.decodeObject(forKey: "collectibleManager") as? CollectibleManager) ?? CollectibleManager()
+        
+    
     }
 }
 
