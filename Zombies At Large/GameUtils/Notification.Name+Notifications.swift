@@ -20,6 +20,21 @@ extension Notification.Name{
     static let didFinishLoadingSceneNotification = "didFinishLoadingSceneNotification"
     static let didRequestBackToMainMenuNotification = "didRequestBackToMainMenuNotification"
     static let didFinishLoadingHUDNotification = "didFinishLoadingHUDNotification"
+    static let didRequestPlayerProfileStatsTBViewController = "didRequestPlayerProfileStatsTBViewController"
+    static let didRequestNewSortingCriterionNotification = "didRequestNewSortingCriterionNotification"
+    
+    
+    
+    static func GetDidRequestNewSortingCriterionNotification() -> Notification.Name{
+        
+        return self.init(Notification.Name.didRequestNewSortingCriterionNotification)
+        
+    }
+    
+    static func GetDidRequestPlayerProfileStatsTBViewController() -> Notification.Name{
+        
+        return self.init(Notification.Name.didRequestPlayerProfileStatsTBViewController)
+    }
     
     static func GetDidFinishLoadingHUDNotification() -> Notification.Name{
         return self.init(Notification.Name.didFinishLoadingHUDNotification)

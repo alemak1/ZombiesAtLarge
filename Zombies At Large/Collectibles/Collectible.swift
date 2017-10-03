@@ -10,12 +10,28 @@ import Foundation
 import SpriteKit
 
 
-class Collectible: Equatable, Hashable{
+class Collectible: NSObject, NSCoding{
     
     private var collectibleType: CollectibleType!
     private var totalQuantity: Int = 1
     private var canBeActivated: Bool = false
     private var isActive: Bool = false
+    
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.canBeActivated, forKey: "canBeActivated")
+        aCoder.encode(self.isActive, forKey: "isActive")
+        aCoder.encode(Int64(self.totalQuantity), forKey: "totalQuantity")
+        aCoder.encode(Int64(self.collectibleType.rawValue), forKey: "collectibleType")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.canBeActivated = aDecoder.decodeBool(forKey: "canBeActivated")
+        self.isActive = aDecoder.decodeBool(forKey: "isActive")
+        self.totalQuantity = Int(aDecoder.decodeInt64(forKey: "totalQuantity"))
+        self.collectibleType = CollectibleType(rawValue: Int(aDecoder.decodeInt64(forKey: "collectibleType")))!
+        
+    }
     
     init(withCollectibleType someCollectibleType: CollectibleType){
         
@@ -23,7 +39,10 @@ class Collectible: Equatable, Hashable{
         self.canBeActivated = someCollectibleType.getCanBeActivatedStatus()
         self.totalQuantity = 1
         
+        super.init()
+        
         registerNotifications()
+
     }
     
     
@@ -111,7 +130,7 @@ class Collectible: Equatable, Hashable{
     }
     /** Each collectible item is unique;  override hashValue so that the collectible can be inserted into a set such that only one collectible of a given collectible type can be present in the collectible manager at a given time **/
     
-    var hashValue: Int{
+    override var hashValue: Int{
         
         return self.collectibleType.rawValue
     }

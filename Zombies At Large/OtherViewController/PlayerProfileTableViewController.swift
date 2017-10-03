@@ -12,6 +12,11 @@ import CoreData
 
 class PlayerProfileTableViewController: UITableViewController{
     
+    var gameStatsPlayerProfile: PlayerProfile?
+    
+    
+    
+    
     var selectedPlayerProfile: PlayerProfile?{
         
         get{
@@ -76,6 +81,24 @@ class PlayerProfileTableViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showStatsForPlayerProfile(notification:)), name: Notification.Name.GetDidRequestPlayerProfileStatsTBViewController(), object: nil)
+    }
+    
+    @objc func showStatsForPlayerProfile(notification: Notification?){
+        
+        print("Received notification for player profile stats request...proceeding to perform segue to show stats for individual player profile")
+        
+        
+     
+        if let playerProfileTableViewCell = notification?.object as? PlayerProfileTableViewCell{
+            
+            self.gameStatsPlayerProfile = playerProfileTableViewCell.playerProfile
+            
+            self.performSegue(withIdentifier: "showGameStatsSegue", sender: nil)
+
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,6 +114,16 @@ class PlayerProfileTableViewController: UITableViewController{
                 
             }
         }
+        
+        if(segue.identifier == "showGameStatsSegue"){
+            if let gameStatsNavigationController = segue.destination as? GameStatsNavigationController{
+                
+                print("Preparing for segue...Setting the player profile on the game stats table view controller with the currently obtained game stats player profile...")
+                gameStatsNavigationController.playerProfile = self.gameStatsPlayerProfile
+                
+            }
+        }
+       
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -105,6 +138,12 @@ class PlayerProfileTableViewController: UITableViewController{
                 
                 return true
             }
+        }
+        
+        if(identifier == "showGameStatsSegue") && self.gameStatsPlayerProfile == nil {
+            
+            return false
+            
         }
         
         return true
@@ -158,6 +197,8 @@ class PlayerProfileTableViewController: UITableViewController{
         
         if let playerProfiles = self.playerProfiles{
             
+        
+            
             let playerProfile = playerProfiles[indexPath.row]
             let playerTypeRawValue = Int(playerProfile.playerType)
             let playerType = PlayerType(withIntegerValue: playerTypeRawValue)
@@ -169,6 +210,8 @@ class PlayerProfileTableViewController: UITableViewController{
             let dateCreated = playerProfile.getFormattedDateString()
             
             cell.playerNameLabel.text = "Name: \(name)"
+            
+            cell.playerProfile = playerProfile
 
         }
         

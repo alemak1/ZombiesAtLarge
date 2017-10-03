@@ -42,6 +42,13 @@ class BaseScene: SKScene{
     var overlayNode: SKNode!
     var backgroundNode: SKNode!
     
+    /** UIElements**/
+    
+    var gameWinPrompt: SKSpriteNode?
+    var gameLossPrompt: SKSpriteNode?
+    
+    
+    
     /** Tile Backgrounds **/
     
     var grassTileMap: SKTileMapNode!
@@ -318,6 +325,8 @@ class BaseScene: SKScene{
             gameWinPrompt.move(toParent: overlayNode)
             gameWinPrompt.position = CGPoint.zero
             
+            self.gameWinPrompt = gameWinPrompt
+
             isPaused = true
             worldNode.isPaused = true
             
@@ -332,6 +341,8 @@ class BaseScene: SKScene{
             
             gameOverPrompt.move(toParent: overlayNode)
             gameOverPrompt.position = CGPoint.zero
+            
+            self.gameLossPrompt = gameOverPrompt
             
             isPaused = true
             worldNode.isPaused = true

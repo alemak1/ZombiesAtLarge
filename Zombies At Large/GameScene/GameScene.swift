@@ -16,6 +16,13 @@ import SpriteKit
 import GameplayKit
 import CoreData
 
+/**
+ 
+     For the GameScene snapshot, need to save the following information:
+     - PlayerSnaphot
+     - WorldNode
+ **/
+
 class GameScene: BaseScene{
     
 
@@ -90,6 +97,9 @@ class GameScene: BaseScene{
         
     }()
     
+    //MARK: GameSaver
+    
+    var gameSaver: GameSaver!
     
    
     //MARK: UI Panels, Other UI Elements and Other Related Variables
@@ -97,7 +107,7 @@ class GameScene: BaseScene{
     var menuOptionsButton: SKSpriteNode!
     var menuOptionsPanel: SKNode?
     var backToGameButton: SKSpriteNode?
-    
+  
     private var buttonsAreLoaded: Bool = false
     
     var dialoguePanelIsShown: Bool = false
@@ -117,7 +127,7 @@ class GameScene: BaseScene{
         
         self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: currentGameLevel, playerProfile: playerProfile)
 
-   
+        self.gameSaver = GameSaver(withGameScene: self)
 
     }
     
@@ -227,6 +237,14 @@ class GameScene: BaseScene{
         
         addHUDNode()
 
+        //Debug only - remove later
+        
+        if let savedGames = self.currentPlayerProfile?.getSavedGames(){
+            
+            for savedGame in savedGames{
+                savedGame.showSavedGameInfo()
+            }
+        }
     }
     
    

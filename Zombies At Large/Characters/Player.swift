@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 
-class PlayerStateSnapShot: NSCoding{
+class PlayerStateSnapShot: NSObject, NSCoding{
     
     var healthLevel: Int
     var numberOfBullets: Int
@@ -18,8 +18,9 @@ class PlayerStateSnapShot: NSCoding{
     var position: CGPoint
     var currentVelocity: CGVector
     var playerType: PlayerType
+    var collectibleManager: CollectibleManager
     
-    init(playerType: PlayerType, healthLevel: Int, numberOfBullets: Int, compassOrientation: CompassDirection, position: CGPoint, currentVelocity: CGVector) {
+    init(playerType: PlayerType, healthLevel: Int, numberOfBullets: Int, compassOrientation: CompassDirection, position: CGPoint, currentVelocity: CGVector, collectibleManager: CollectibleManager) {
         
         self.playerType = playerType
         self.healthLevel = healthLevel
@@ -27,8 +28,13 @@ class PlayerStateSnapShot: NSCoding{
         self.compassOrientation = compassOrientation
         self.position = position
         self.currentVelocity = currentVelocity
+        self.collectibleManager = collectibleManager
+        
+        super.init()
         
     }
+    
+    
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.position, forKey: "position")
@@ -38,7 +44,7 @@ class PlayerStateSnapShot: NSCoding{
         
         aCoder.encode(self.playerType, forKey: "playerType")
         aCoder.encode(self.compassOrientation, forKey: "compassDirection")
-        
+        aCoder.encode(self.collectibleManager, forKey: "collectibleManager")
         
     }
     
@@ -50,6 +56,7 @@ class PlayerStateSnapShot: NSCoding{
         
         self.compassOrientation = aDecoder.decodeObject(forKey: "compassDirection") as! CompassDirection
         self.playerType = aDecoder.decodeObject(forKey: "playerType") as! PlayerType
+        self.collectibleManager = aDecoder.decodeObject(forKey: "collectibleManager") as! CollectibleManager
     }
 }
 
@@ -60,7 +67,7 @@ class Player: Shooter{
         
         let velocity = self.physicsBody?.velocity ?? CGVector.zero
         
-        return PlayerStateSnapShot(playerType: self.playerType, healthLevel: self.health, numberOfBullets: self.numberOfBullets, compassOrientation: self.compassDirection, position: self.position, currentVelocity: velocity)
+        return PlayerStateSnapShot(playerType: self.playerType, healthLevel: self.health, numberOfBullets: self.numberOfBullets, compassOrientation: self.compassDirection, position: self.position, currentVelocity: velocity, collectibleManager: self.collectibleManager)
         
     }()
     

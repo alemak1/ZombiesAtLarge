@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class CollectibleManager{
+class CollectibleManager: NSObject, NSCoding{
     
     var collectibles = Set<Collectible>()
     var carryingCapacity: Double = 3000.00
@@ -18,8 +18,20 @@ class CollectibleManager{
         return collectibles.enumerated()
     }
     
-    init(){
-        
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.collectibles, forKey: "collectibles")
+        aCoder.encode(self.carryingCapacity, forKey: "carryingCapacity")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.carryingCapacity = aDecoder.decodeDouble(forKey: "carryingCapacity")
+        self.collectibles = aDecoder.decodeObject(forKey: "collectibles") as! Set<Collectible>
+    }
+    
+    
+    
+    override init(){
+        super.init()
     }
     
     

@@ -13,4 +13,38 @@ import CoreData
 @objc(SavedGame)
 public class SavedGame: NSManagedObject {
 
+    func getFormattedDateString() -> String{
+        
+        guard let date = self.date as Date? else {
+            return "No Date Recorded"
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .medium
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    
+    
+    func showSavedGameInfo(){
+        
+        let dateString = getFormattedDateString()
+        let gameLevel = Int(self.level)
+        
+        let playerName = self.playerProfile?.name
+        
+        let pSnapshot = self.playerSnapshot as! PlayerStateSnapShot
+        
+        let numberOfUniqueItems = pSnapshot.collectibleManager.getTotalNumberOfUniqueItems()
+        let numberOfAllItems = pSnapshot.collectibleManager.getTotalNumberOfAllItems()
+        let totalValueOfCollectibles = pSnapshot.collectibleManager.getTotalMonetaryValueOfAllCollectibles()
+        let numberOfBullets = pSnapshot.numberOfBullets
+        let health = pSnapshot.healthLevel
+        let position = pSnapshot.position
+        
+        print("Saved Game for Date: \(dateString), Game Level: \(gameLevel), for Player Name: \(playerName), with health of \(health), total bullets remaining of \(numberOfBullets), and at position x: \(position.x) and y: \(position.y), with total unique items of \(numberOfUniqueItems), total collectibles of \(numberOfAllItems), and total value of all collectibles \(totalValueOfCollectibles)")
+        
+    }
 }

@@ -1172,11 +1172,213 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <segue destination="Lkj-ph-uQF" kind="show" identifier="showGameStatsSegue" id="QMN-qE-JTp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwA-iZ-sCG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="g6W-GJ-yLN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-4225" y="1326"/>
+            <point key="canvasLocation" x="-4574" y="1674"/>
+        </scene>
+        <!--Player Profile Stats Table View Controller-->
+        <scene sceneID="4Fi-Q2-77U">
+            <objects>
+                <tableViewController id="mQv-qO-NU8" customClass="PlayerProfileStatsTableViewController" customModule="Zombies_At_Large" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Fub-T6-DdB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameStatsCell" id="mJw-RO-42t" customClass="GameStatsCell" customModule="Zombies_At_Large" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="200"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mJw-RO-42t" id="v3Z-7X-tU9">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="199.66666666666666"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redBox300w200h" translatesAutoresizingMaskIntoConstraints="NO" id="fqM-zx-Awe">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="199.66666666666666"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zka-C9-UZu">
+                                            <rect key="frame" x="59.999999999999986" y="40" width="165.66666666666663" height="20"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Level 1">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="18" name="Didot"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aN5-bj-uMH">
+                                            <rect key="frame" x="59.999999999999986" y="110" width="165.66666666666663" height="20"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Zombies Killed: ">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="12" name="Didot"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8eU-nX-zX0">
+                                            <rect key="frame" x="59.999999999999986" y="80" width="165.66666666666663" height="20"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Bullets Fired: ">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="12" name="Didot"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zJa-NV-hVO">
+                                            <rect key="frame" x="205.66666666666669" y="80" width="165.66666666666669" height="20"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Number of Collectibles:">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="12" name="Didot"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="U1P-ak-6BU">
+                                            <rect key="frame" x="205.66666666666669" y="110" width="165.66666666666669" height="20"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Total Value of Collectibles:">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="12" name="Didot"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ioB-yb-jl4">
+                                            <rect key="frame" x="205.66666666666669" y="40.333333333333336" width="165.66666666666669" height="20"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Date:">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="18" name="Didot"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zka-C9-UZu" firstAttribute="width" secondItem="v3Z-7X-tU9" secondAttribute="width" multiplier="0.4" id="3tH-nN-LK8"/>
+                                        <constraint firstItem="fqM-zx-Awe" firstAttribute="top" secondItem="v3Z-7X-tU9" secondAttribute="top" id="6IX-ru-PsN"/>
+                                        <constraint firstItem="U1P-ak-6BU" firstAttribute="centerY" secondItem="aN5-bj-uMH" secondAttribute="centerY" id="Bg2-Ed-1gE"/>
+                                        <constraint firstItem="U1P-ak-6BU" firstAttribute="height" secondItem="zJa-NV-hVO" secondAttribute="height" id="CA6-w9-1B3"/>
+                                        <constraint firstItem="8eU-nX-zX0" firstAttribute="top" secondItem="zka-C9-UZu" secondAttribute="bottom" constant="20" id="Da5-4O-ERC"/>
+                                        <constraint firstItem="zJa-NV-hVO" firstAttribute="width" secondItem="ioB-yb-jl4" secondAttribute="width" id="Ff3-tr-bwG"/>
+                                        <constraint firstItem="ioB-yb-jl4" firstAttribute="width" secondItem="zka-C9-UZu" secondAttribute="width" id="IsX-y2-SyQ"/>
+                                        <constraint firstItem="zJa-NV-hVO" firstAttribute="height" secondItem="ioB-yb-jl4" secondAttribute="height" id="Ox8-q6-Edo"/>
+                                        <constraint firstItem="aN5-bj-uMH" firstAttribute="top" secondItem="8eU-nX-zX0" secondAttribute="bottom" constant="10" id="QF8-NT-PSl"/>
+                                        <constraint firstItem="8eU-nX-zX0" firstAttribute="leading" secondItem="zka-C9-UZu" secondAttribute="leading" id="SoG-ax-qOO"/>
+                                        <constraint firstAttribute="bottom" secondItem="fqM-zx-Awe" secondAttribute="bottom" id="Z6W-9w-51c"/>
+                                        <constraint firstItem="8eU-nX-zX0" firstAttribute="width" secondItem="zka-C9-UZu" secondAttribute="width" id="ZQ7-K6-los"/>
+                                        <constraint firstItem="zJa-NV-hVO" firstAttribute="leading" secondItem="ioB-yb-jl4" secondAttribute="leading" id="bd4-Ms-U1v"/>
+                                        <constraint firstItem="zka-C9-UZu" firstAttribute="leading" secondItem="v3Z-7X-tU9" secondAttribute="leading" constant="60" id="btL-W1-ymK"/>
+                                        <constraint firstItem="zJa-NV-hVO" firstAttribute="centerY" secondItem="8eU-nX-zX0" secondAttribute="centerY" id="c0k-Cz-lHN"/>
+                                        <constraint firstItem="zka-C9-UZu" firstAttribute="height" secondItem="v3Z-7X-tU9" secondAttribute="height" multiplier="0.1" id="fTr-xu-kgQ"/>
+                                        <constraint firstItem="8eU-nX-zX0" firstAttribute="height" secondItem="zka-C9-UZu" secondAttribute="height" id="faa-yZ-ssb"/>
+                                        <constraint firstAttribute="trailing" secondItem="fqM-zx-Awe" secondAttribute="trailing" id="jk6-Mc-3jm"/>
+                                        <constraint firstItem="U1P-ak-6BU" firstAttribute="leading" secondItem="zJa-NV-hVO" secondAttribute="leading" id="kLm-MN-Pfp"/>
+                                        <constraint firstItem="ioB-yb-jl4" firstAttribute="centerY" secondItem="zka-C9-UZu" secondAttribute="centerY" id="lsU-Rb-cWu"/>
+                                        <constraint firstItem="aN5-bj-uMH" firstAttribute="leading" secondItem="8eU-nX-zX0" secondAttribute="leading" id="o1k-2C-gnJ"/>
+                                        <constraint firstItem="U1P-ak-6BU" firstAttribute="width" secondItem="zJa-NV-hVO" secondAttribute="width" id="qyc-Fq-ztk"/>
+                                        <constraint firstItem="zka-C9-UZu" firstAttribute="top" secondItem="v3Z-7X-tU9" secondAttribute="top" constant="40" id="sAR-OI-XCa"/>
+                                        <constraint firstItem="ioB-yb-jl4" firstAttribute="leading" secondItem="zka-C9-UZu" secondAttribute="trailing" constant="-20" id="stA-xf-bhb"/>
+                                        <constraint firstItem="fqM-zx-Awe" firstAttribute="leading" secondItem="v3Z-7X-tU9" secondAttribute="leading" id="tLB-Lg-9vP"/>
+                                        <constraint firstItem="aN5-bj-uMH" firstAttribute="height" secondItem="8eU-nX-zX0" secondAttribute="height" id="udI-Tc-kjb"/>
+                                        <constraint firstItem="ioB-yb-jl4" firstAttribute="height" secondItem="zka-C9-UZu" secondAttribute="height" id="vd1-TU-gwb"/>
+                                        <constraint firstItem="aN5-bj-uMH" firstAttribute="width" secondItem="8eU-nX-zX0" secondAttribute="width" id="yNG-Ag-iWa"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="bulletsFiredLabel" destination="8eU-nX-zX0" id="rzl-xA-Mnb"/>
+                                    <outlet property="collectiblesValueLabel" destination="U1P-ak-6BU" id="du3-ME-RMG"/>
+                                    <outlet property="dateLabel" destination="ioB-yb-jl4" id="m3z-xK-faA"/>
+                                    <outlet property="gameLevelLabel" destination="zka-C9-UZu" id="j4O-cL-6DB"/>
+                                    <outlet property="numberCollectiblesLabel" destination="zJa-NV-hVO" id="IQj-yr-9IN"/>
+                                    <outlet property="zombiesKilledLabel" destination="aN5-bj-uMH" id="7am-xX-qgE"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="mQv-qO-NU8" id="jm2-Sg-NP0"/>
+                            <outlet property="delegate" destination="mQv-qO-NU8" id="9eK-T4-aLt"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="NUZ-ct-TqF">
+                        <barButtonItem key="leftBarButtonItem" title="Player Profiles Menu" id="S0l-xa-Qbs">
+                            <connections>
+                                <segue destination="LAh-FU-KRB" kind="unwind" unwindAction="unwindBackToPlayerProfileTBViewControllerWithSegue:" id="dfT-qR-qVX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Sort By" id="WTQ-El-fZx">
+                            <connections>
+                                <segue destination="uJx-6E-n6P" kind="show" id="JhK-e8-UGK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GMd-dY-4P0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="LAh-FU-KRB" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-4181" y="2692"/>
+        </scene>
+        <!--Sorting Criteria Table View Controller-->
+        <scene sceneID="skm-6N-kkx">
+            <objects>
+                <tableViewController id="uJx-6E-n6P" customClass="SortingCriteriaTableViewController" customModule="Zombies_At_Large" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="v7Q-Hn-YRL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SortingCriteriaCell" textLabel="mTe-gI-vka" style="IBUITableViewCellStyleDefault" id="SXo-Gf-6Tz">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SXo-Gf-6Tz" id="gF6-m8-dRd">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mTe-gI-vka">
+                                            <rect key="frame" x="20" y="0.0" width="379" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="uJx-6E-n6P" id="dTS-LM-ZrN"/>
+                            <outlet property="delegate" destination="uJx-6E-n6P" id="c5g-6f-UC3"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NHY-cW-Heb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3388" y="2504"/>
         </scene>
         <!--Player Profile Navigation Controller-->
         <scene sceneID="MqD-Nj-VFq">
@@ -1196,6 +1398,24 @@
             </objects>
             <point key="canvasLocation" x="-3836" y="350"/>
         </scene>
+        <!--Game Stats Navigation Controller-->
+        <scene sceneID="3lg-8U-rKF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Lkj-ph-uQF" customClass="GameStatsNavigationController" customModule="Zombies_At_Large" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RK2-dq-u8m">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mQv-qO-NU8" kind="relationship" relationship="rootViewController" id="ocC-KY-Xdv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mqk-Pm-BMp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4784" y="2633"/>
+        </scene>
     </scenes>
     <resources>
         <image name="barBack_horizontalMid" width="18" height="18"/>
@@ -1210,6 +1430,7 @@
         <image name="gun50" width="50" height="46"/>
         <image name="info40" width="40" height="40"/>
         <image name="redBox300w100h" width="300" height="100"/>
+        <image name="redBox300w200h" width="300" height="200"/>
         <image name="redBox450w750h" width="450" height="750"/>
         <image name="red_button00" width="190" height="45"/>
     </resources>

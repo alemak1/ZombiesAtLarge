@@ -20,5 +20,6 @@ extension SavedGame {
     @NSManaged public var date: NSDate?
     @NSManaged public var level: Int16
     @NSManaged public var playerProfile: PlayerProfile?
+    @NSManaged public var playerSnapshot: NSObject
 
 }

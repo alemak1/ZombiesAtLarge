@@ -101,7 +101,9 @@ extension GameScene{
             
             handleMissionPanelTouch(atOverlayNodeTouchLocation: touchLocation)
             
+            handleGameWinPromptTouch(atOverlayNodeTouchLocation: touchLocation, completion: nil)
             
+            handleGameLossPromptTouch(atOverlayNodeTouchLocation: touchLocation, completion: nil)
             
             if self.menuOptionsPanel != nil{
                 
@@ -118,10 +120,7 @@ extension GameScene{
                         touchedOverlayNode.removeFromParent()
 
                     }
-                    
-                 
-                    
-                    
+     
                 }
                 
                 
@@ -168,6 +167,13 @@ extension GameScene{
                         showMissionPanel()
                     }
                     
+                    if(selectedNode.name == "SaveGame"){
+                        
+                        self.gameSaver.saveGame(withPlayerStateSnapshot: self.player.playerStateSnapShot)
+                        
+                        print("Game Saved!!")
+                    }
+                    
                     if(selectedNode.name == "BackToMainMenu"){
                         
                         self.isPaused = true
@@ -206,6 +212,76 @@ extension GameScene{
         }
         
         
+    }
+    
+    
+
+    
+    func handleGameWinPromptTouch(atOverlayNodeTouchLocation touchLocation: CGPoint, completion: (()->Void)?){
+        
+        print("Handling touch at game win prompt....")
+
+        if gameWinPrompt != nil, gameWinPrompt!.contains(touchLocation){
+            
+            if let node = gameWinPrompt!.nodes(at: touchLocation).first as? SKSpriteNode{
+                
+                if node.name == "NextLevel"{
+                
+                    print("Proceeding to load next level....")
+                    let nextLevel = currentGameLevel.getNextLevel()
+                
+                    let nextGameScene = GameScene(currentGameLevel: nextLevel, playerProfile: self.currentPlayerProfile!)
+                
+                    self.view!.presentScene(nextGameScene)
+                
+                    return
+                }
+            
+                if node.name == "MainMenu"{
+                
+                    print("Proceeding to return to the main menu....")
+
+                    self.isPaused = true
+                
+                    NotificationCenter.default.post(name: Notification.Name.GetDidRequestBackToMainMenuNotification(), object: nil, userInfo: nil)
+                    }
+            }
+            
+        }
+        
+        if completion != nil{
+            completion!()
+        }
+        
+    }
+    
+    
+    func handleGameLossPromptTouch(atOverlayNodeTouchLocation touchLocation: CGPoint, completion: (()->Void)?){
+        
+        print("Handling touch at game loss prompt....")
+        
+        if gameLossPrompt != nil, gameLossPrompt!.contains(touchLocation){
+            
+            if let node = gameLossPrompt?.nodes(at: touchLocation).first as? SKSpriteNode{
+            
+
+                    if node.name == "StartAgain"{
+                        print("Restarting level....")
+                    }
+            
+            
+                    if node.name == "MainMenu"{
+                        print("Returning to main menu...")
+                
+                    }
+            }
+            
+        }
+        
+        
+        if completion != nil{
+            completion!()
+        }
     }
     
 

@@ -28,4 +28,8 @@ class MapLocation: Collectible{
     override init(withCollectibleType someCollectibleType: CollectibleType) {
         super.init(withCollectibleType: someCollectibleType)
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

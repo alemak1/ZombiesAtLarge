@@ -18,6 +18,19 @@ enum GameLevel: Int{
     case Level6, Level7, Level8, Level9, Level10
     
     
+    func getNextLevel() -> GameLevel{
+        
+        switch self {
+        case .Level1,.Level2,.Level3,.Level4,.Level5,.Level6,.Level7,.Level8,.Level9:
+            let rawValueNext = self.rawValue + 1
+            return GameLevel(rawValue: rawValueNext)!
+        case .Level10:
+            return .Level1
+        default:
+            break
+        }
+    }
+    
     func getMissionHeaderText() -> (title: String,subtitle: String){
         switch self {
         case .Level1:

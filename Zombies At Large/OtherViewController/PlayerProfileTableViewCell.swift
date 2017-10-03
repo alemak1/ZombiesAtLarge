@@ -13,12 +13,19 @@ class PlayerProfileTableViewCell: UITableViewCell{
     
     @IBOutlet weak var playerNameLabel: UILabel!
     
-    
     @IBOutlet weak var avatarImageView: UIImageView!
     
+    var playerProfile: PlayerProfile!
+    
+    
     @IBAction func getDetailsButton(_ sender: Any) {
+        
+        NotificationCenter.default.post(name: Notification.Name.GetDidRequestPlayerProfileStatsTBViewController(), object: self, userInfo: nil)
+        
     }
     
+    
+
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
