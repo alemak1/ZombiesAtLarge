@@ -19,7 +19,31 @@ class NonplayerCharacter: SKSpriteNode{
     var nonPlayerCharacterType: NonplayerCharacterType!
     
     var isMissionCompleted = false
+
     
+    weak var missionPrompt: SKSpriteNode?
+    
+    weak var missionPromptTextlabel1: SKLabelNode?{
+        
+    
+        return missionPrompt?.childNode(withName: "text1a") as? SKLabelNode
+        
+    }
+    
+    weak var missionPromptTextlabel2: SKLabelNode?{
+        
+        return missionPrompt?.childNode(withName: "text1b") as? SKLabelNode
+    }
+    
+    weak var missionPromptTextlabel3: SKLabelNode?{
+        
+        return missionPrompt?.childNode(withName: "text2a") as? SKLabelNode
+    }
+    
+    weak var missionPromptTextlabel4: SKLabelNode?{
+        
+        return missionPrompt?.childNode(withName: "text2b") as? SKLabelNode
+    }
     
     enum CoreMLModel: Int{
         case Resnet50 = 0
@@ -66,12 +90,28 @@ class NonplayerCharacter: SKSpriteNode{
         missionPromptNode.move(toParent: node)
     }
     
+    func resetMissionPromptText(newText1: String, newText2: String, newText3: String, newText4: String){
+        
+        print("Resetting the text on the mission prompt...")
+        
+        self.missionPromptTextlabel1?.text = newText1
+      
+        self.missionPromptTextlabel2?.text = newText2
+        
+        self.missionPromptTextlabel3?.text = newText3
+         
+        self.missionPromptTextlabel4?.text = newText4
+
+    }
+    
     func generateMissionPrompt() -> SKSpriteNode{
         
         print("The target picture string is \(self.targetPictureString!)")
         print("The character name is \(self.name!)")
         
-        return UIPanelGenerator.GetDialoguePrompt(forAvatar: self.nonPlayerCharacterType.getAvatarType(), withName: self.name!, andWithText1: "Can you help me", andWithText2: "find a picture", andWithText3: "of a \(self.targetPictureString!)", andWithText4: "I want to see it.")!
+        self.missionPrompt = UIPanelGenerator.GetDialoguePrompt(forAvatar: self.nonPlayerCharacterType.getAvatarType(), withName: self.name!, andWithText1: "Can you help me", andWithText2: "find a picture", andWithText3: "of a \(self.targetPictureString!)", andWithText4: "I want to see it.")!
+        
+        return self.missionPrompt!
     }
     
     /** If the player accepts the mission, then the player saves the image in an instanc variable in the player class and then posts a notification whose object is allows the NPC to accept the picture and perform any necessary analysis **/
@@ -80,7 +120,9 @@ class NonplayerCharacter: SKSpriteNode{
         
         print("Checking the classification identifier with the target string......")
 
-        if(targetPictureString != nil && targetPictureString! == modelGuess){
+        let lowerCasedModelGuess = modelGuess.lowercased()
+        
+        if(targetPictureString != nil && targetPictureString! == lowerCasedModelGuess){
             isMissionCompleted = true
         }
         
@@ -153,9 +195,16 @@ class NonplayerCharacter: SKSpriteNode{
                     if(self.isMissionCompleted){
                         //Tell user good job, post any necessary notifications  or perform additional processing
                         print("Good Job! THat's what I want!")
+                        
+                        self.isMissionCompleted = true
+                        self.resetMissionPromptText(newText1: "Yes! That's", newText2: "exactly what", newText3: "I wanted!", newText4: "Thank you!")
+                        
                     } else {
                         //Tell user to try again
                         print("No! THat's not what I want!")
+                        self.resetMissionPromptText(newText1: "No! That's", newText2: "not quite", newText3: "what I'm", newText4:"looking for")
+                        self.isMissionCompleted = false
+
 
                     }
                     
@@ -170,8 +219,8 @@ class NonplayerCharacter: SKSpriteNode{
             do{
                 print("Performing the CoreML request")
                 try? handler.perform([request])
-            } catch {
-                print("did throw on performing a VNCoreRequest")
+            } catch let error as NSError {
+                print("Error: error occurred while attempting to process VNImageRequest/VNCoreRequest \(error.localizedDescription),\(error.localizedFailureReason)")
             }
         }
     }

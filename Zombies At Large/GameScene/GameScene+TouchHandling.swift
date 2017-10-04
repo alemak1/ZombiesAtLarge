@@ -97,14 +97,14 @@ extension GameScene{
     
     func handleOverlayNodeTouch(touchLocation: CGPoint){
         
-        
+        handleCameraPromptTouch(atOverlayNodeTouchLocation: touchLocation)
+
         handleMissionPanelTouch(atOverlayNodeTouchLocation: touchLocation)
         
         handleGameWinPromptTouch(atOverlayNodeTouchLocation: touchLocation, completion: nil)
         
         handleGameLossPromptTouch(atOverlayNodeTouchLocation: touchLocation, completion: nil)
         
-        handleCameraPromptTouch(atOverlayNodeTouchLocation: touchLocation)
        
         handleMenuOptionsPanelTouch(atOverlayNodeTouchLocation: touchLocation)
         
@@ -269,7 +269,7 @@ extension GameScene{
                     
                     cameraMissionPrompt!.run(SKAction.run {
                         
-                        self.cameraMissionPrompt?.removeFromParent()
+                        self.cameraMissionPrompt!.removeFromParent()
                         
                         }, completion: {
                             
