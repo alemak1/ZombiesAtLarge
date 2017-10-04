@@ -15,6 +15,8 @@ class PlayerProfileTableViewCell: UITableViewCell{
     
     @IBOutlet weak var avatarImageView: UIImageView!
     
+    @IBOutlet weak var checkmarkImageView: UIImageView!
+    
     var playerProfile: PlayerProfile!
     
     

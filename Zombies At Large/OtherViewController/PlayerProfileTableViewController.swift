@@ -14,7 +14,7 @@ class PlayerProfileTableViewController: UITableViewController{
     
     var gameStatsPlayerProfile: PlayerProfile?
     
-    
+    var selectedRow: Int?
     
     
     var selectedPlayerProfile: PlayerProfile?{
@@ -165,6 +165,14 @@ class PlayerProfileTableViewController: UITableViewController{
         if let playerProfiles = playerProfiles{
             
                 self.selectedPlayerProfile = playerProfiles[indexPath.row]
+            
+                self.selectedRow = indexPath.row
+            
+            
+                DispatchQueue.main.async {
+                    tableView.reloadData()
+
+                }
         
         }
 
@@ -174,6 +182,12 @@ class PlayerProfileTableViewController: UITableViewController{
         
         self.selectedPlayerProfile = nil
         
+        self.selectedRow = nil
+        
+        DispatchQueue.main.async {
+            tableView.reloadData()
+            
+        }
     }
     
     
@@ -209,7 +223,18 @@ class PlayerProfileTableViewController: UITableViewController{
             let name = playerProfile.name
             let dateCreated = playerProfile.getFormattedDateString()
             
-            cell.playerNameLabel.text = "Name: \(name)"
+            if(self.selectedRow != nil && indexPath.row == self.selectedRow!){
+                cell.playerNameLabel.text = "Name: \(name)"
+                cell.playerNameLabel.textColor = UIColor.red
+                cell.checkmarkImageView.contentMode = .scaleAspectFit
+                cell.checkmarkImageView.image = #imageLiteral(resourceName: "red_checkmark")
+
+            } else {
+                cell.playerNameLabel.text = "Name: \(name)"
+                cell.checkmarkImageView.image = nil
+                cell.playerNameLabel.textColor = UIColor.black
+            }
+            
             
             cell.playerProfile = playerProfile
 
