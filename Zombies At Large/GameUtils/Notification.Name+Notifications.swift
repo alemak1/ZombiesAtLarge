@@ -22,8 +22,21 @@ extension Notification.Name{
     static let didFinishLoadingHUDNotification = "didFinishLoadingHUDNotification"
     static let didRequestPlayerProfileStatsTBViewController = "didRequestPlayerProfileStatsTBViewController"
     static let didRequestNewSortingCriterionNotification = "didRequestNewSortingCriterionNotification"
+    static let didRequestCameraOrPhotosNotification = "didRequestCameraOrPhotosNotification"
+    static let didSetPickedPictureForPlayer = "didSetPickedPictureForPlayer"
     
     
+    static func GetDidSetPickedPictureForPlayer() -> Notification.Name{
+        
+        return self.init(Notification.Name.didSetPickedPictureForPlayer)
+        
+    }
+    
+    static func GetDidRequestCameraOrPhotosNotification() -> Notification.Name{
+        
+        return self.init(Notification.Name.didRequestCameraOrPhotosNotification)
+        
+    }
     
     static func GetDidRequestNewSortingCriterionNotification() -> Notification.Name{
         

@@ -14,10 +14,41 @@ import GameplayKit
 
 /** TODO: Use delegates to manage the unrescued characters, the required collectibles, and the must kill zombies **/
 
-class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource {
+class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UINavigationControllerDelegate {
 
     
-    var playerProfile: PlayerProfile?
+    var playerProfile: PlayerProfile? /**{
+        
+        get{
+            
+            /**
+            if let navigationController = navigationController as? GameViewNavigationController{
+                return navigationController.playerProfile
+            }
+             **/
+            
+            return nil
+        }
+        
+        set(newPlayerProfile){
+            
+            /**
+            if let navigationController = navigationController as? GameViewNavigationController{
+                navigationController.playerProfile = newPlayerProfile
+            }
+             **/
+        }
+    } **/
+    
+    lazy var imagePicker: UIImagePickerController = {
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        return imagePicker
+    }()
+    
     
     
     @IBOutlet weak var progressBar: UIProgressView!
@@ -173,20 +204,49 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     /** The game view controller has to UINavigation Controller delegate ....**/
     /** check that camera is available **/
     
-    lazy var imagePicker: UIImagePickerController = {
+    /**
+    var imagePicker: UIImagePickerController?{
         
-        let imagePicker = UIImagePickerController()
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .camera
-        self.imagePicker.delegate = self
-
-    }()
+        if let navigationController = navigationController as? GameViewNavigationController{
+            return navigationController.imagePicker
+        }
+        
+        return nil
+    }
+    **/
     
     /** When the player accepts the mission, open the media picker manager **/
     
-    func openMediaPickerManager(_ sender: UIButton) {
+    @objc func openMediaPickerManager(notification: Notification?) {
         
-        present(imagePicker, animated: true, completion: nil)
+        /**
+        guard let imagePicker = self.imagePicker else {
+            print("Error: imagePicker not accessible")
+            return
+            
+        }**/
+        
+        guard let sourceTypeStr = notification?.userInfo?["sourceType"] as? String else {
+            print("Error: unable to access the notification's user info dictionary")
+            return
+        }
+        
+        let sourceType = sourceTypeStr == "camera" ? UIImagePickerControllerSourceType.camera : UIImagePickerControllerSourceType.savedPhotosAlbum
+        
+        imagePicker.sourceType = sourceType
+        
+        present(self.imagePicker, animated: true, completion: {
+            
+            if let gameScene = notification?.object as? GameScene{
+                
+                gameScene.run(SKAction.run {
+                    gameScene.cameraMissionPrompt!.removeFromParent()
+                    
+                }, completion: {
+                    
+                })
+            }
+        })
         
     }
 
@@ -213,7 +273,10 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         loadGame()
         
         becomeFirstResponder()
-       
+        
+    
+        NotificationCenter.default.addObserver(self, selector: #selector(openMediaPickerManager(notification:)), name: Notification.Name.GetDidRequestCameraOrPhotosNotification(), object: self.currentGameScene!)
+        
     }
     
     
@@ -455,15 +518,19 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     
 }
 
+
+
 extension GameViewController: UIImagePickerControllerDelegate{
+    
     
     /** The picked image can be stored in the player after dismissing the media picer controller or before; determine which one is more efficient **/
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
-           //save the picked image in the player
-            currentPlayer!.pickedImage = pickedImage
+            //save the picked image in the player
+            
+            self.currentPlayer!.pickedImage = pickedImage
             
             //property observer in the player posts a notification which can then be received by the NPC
         }
@@ -477,10 +544,9 @@ extension GameViewController: UIImagePickerControllerDelegate{
         })
         
         
-    
+        
     }
     
+    
 }
-
-
 

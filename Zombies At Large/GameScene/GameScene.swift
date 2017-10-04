@@ -84,6 +84,7 @@ class GameScene: BaseScene{
     
     var destinationZone: SKSpriteNode?
 
+    var cameraMissionPrompt: SKSpriteNode?
     
     /** Mission Panel **/
     
@@ -115,7 +116,10 @@ class GameScene: BaseScene{
     var bgNode: SKAudioNode!
     
    
-    
+    var npcAvailableForDialogue: Bool = true
+    var npcPostContactBufferTimeInterval = 2.00
+    var npcPostContactBufferFrameCount = 0.00
+    var npcBufferCounterLastUpdateTime = 0.00
     
     /** ***************  GameScene Initializers **/
     
@@ -234,6 +238,10 @@ class GameScene: BaseScene{
         miniZombie3.position = CGPoint(x: -100.0, y: 250.00)
         zombieManager.addDynamicZombie(zombie: miniZombie3)
         
+        let cameraMan = NonplayerCharacter(nonPlayerCharacterType: .Hitman, andName: "CameraMan")
+        cameraMan.move(toParent: worldNode)
+        cameraMan.position = CGPoint(x: -100, y: -250.00)
+        cameraMan.setTargetPictureString()
         
         addHUDNode()
 
@@ -352,7 +360,24 @@ class GameScene: BaseScene{
         
         super.update(currentTime)
 
-        
+        if(!npcAvailableForDialogue){
+            
+            if(npcBufferCounterLastUpdateTime == 0){
+                npcBufferCounterLastUpdateTime = currentTime
+            }
+            
+            npcPostContactBufferFrameCount += currentTime - npcBufferCounterLastUpdateTime
+            
+            print("The npcPostContactBufferFrameCount is \(npcPostContactBufferFrameCount)")
+            
+            if npcPostContactBufferFrameCount > npcPostContactBufferTimeInterval{
+            
+                npcPostContactBufferFrameCount = 0
+                npcAvailableForDialogue = true
+            }
+            
+            npcBufferCounterLastUpdateTime = currentTime
+        }
 }
     
 

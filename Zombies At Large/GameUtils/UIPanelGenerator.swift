@@ -187,29 +187,32 @@ class UIPanelGenerator{
             
         }
         
+        print("Dialogue prompt obtained...\(dialoguePrompt.description))")
+        
         return dialoguePrompt
     }
     
     private static func GetDialoguePrompt(forAvatar avatar: Avatar) -> SKSpriteNode?{
         
+        print("Getting avatar dialogue prompt...")
         
         switch avatar {
-        case .woman:
-            return SKScene(fileNamed: "user_interface")?.childNode(withName: "WomanPrompt") as? SKSpriteNode
-        case .womanAlternative:
-            return SKScene(fileNamed: "user_interface")?.childNode(withName: "WomanAlternativePrompt") as? SKSpriteNode
-        case .man:
-            return SKScene(fileNamed: "user_interface")?.childNode(withName: "ManPrompt") as? SKSpriteNode
-        case .manAlternative:
-            return SKScene(fileNamed: "user_interface")?.childNode(withName: "ManAlternativePrompt") as? SKSpriteNode
-        case .survivor:
-            return SKScene(fileNamed: "user_interface")?.childNode(withName: "SurvivorPrompt") as? SKSpriteNode
-        case .robot:
-            return SKScene(fileNamed: "user_interface")?.childNode(withName: "RobotPrompt") as? SKSpriteNode
-        case .zombie:
-             return SKScene(fileNamed: "user_interface")?.childNode(withName: "ZombiePrompt") as? SKSpriteNode
-        default:
-            return nil
+            case .woman:
+                return SKScene(fileNamed: "user_interface")?.childNode(withName: "WomanPrompt") as? SKSpriteNode
+            case .womanAlternative:
+                return SKScene(fileNamed: "user_interface")?.childNode(withName: "WomanAlternativePrompt") as? SKSpriteNode
+            case .man:
+                return SKScene(fileNamed: "user_interface")?.childNode(withName: "ManPrompt") as? SKSpriteNode
+            case .manAlternative:
+                return SKScene(fileNamed: "user_interface")?.childNode(withName: "ManAlternativePrompt") as? SKSpriteNode
+            case .survivor:
+                return SKScene(fileNamed: "user_interface")?.childNode(withName: "SurvivorPrompt") as? SKSpriteNode
+            case .robot:
+                return SKScene(fileNamed: "user_interface")?.childNode(withName: "RobotPrompt") as? SKSpriteNode
+            case .zombie:
+                return SKScene(fileNamed: "user_interface")?.childNode(withName: "ZombiePrompt") as? SKSpriteNode
+            default:
+                return SKScene(fileNamed: "user_interface")?.childNode(withName: "ManPrompt") as? SKSpriteNode
         }
     }
     

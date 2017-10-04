@@ -13,6 +13,7 @@
 		BD306AFF1F73B0240067C17F /* GiantZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD306AFE1F73B0240067C17F /* GiantZombie.swift */; };
 		BD306B011F73B46F0067C17F /* CamouflageZombies.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD306B001F73B46F0067C17F /* CamouflageZombies.swift */; };
 		BD32EC281F6E675D0080D712 /* RescueCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD32EC271F6E675D0080D712 /* RescueCharacter.swift */; };
+		BD33F3321F84877A00E94337 /* GameViewNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD33F3311F84877A00E94337 /* GameViewNavigationController.swift */; };
 		BD34D5811F8391E500A6DFD5 /* SKNode+WorldNodeSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD34D5801F8391E500A6DFD5 /* SKNode+WorldNodeSnapshot.swift */; };
 		BD34D5851F83961600A6DFD5 /* GameSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD34D5841F83961600A6DFD5 /* GameSaver.swift */; };
 		BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD395A781F66FF0200684AB9 /* OilCan.swift */; };
@@ -173,6 +174,7 @@
 		BD306AFE1F73B0240067C17F /* GiantZombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiantZombie.swift; sourceTree = "<group>"; };
 		BD306B001F73B46F0067C17F /* CamouflageZombies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CamouflageZombies.swift; sourceTree = "<group>"; };
 		BD32EC271F6E675D0080D712 /* RescueCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RescueCharacter.swift; sourceTree = "<group>"; };
+		BD33F3311F84877A00E94337 /* GameViewNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewNavigationController.swift; sourceTree = "<group>"; };
 		BD3412531F7E973200E706F9 /* ZombieMaster v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ZombieMaster v2.xcdatamodel"; sourceTree = "<group>"; };
 		BD3412541F7E9D1000E706F9 /* ZombieMaster v 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ZombieMaster v 3.xcdatamodel"; sourceTree = "<group>"; };
 		BD3412551F7EA1BF00E706F9 /* ZombieMaster v 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ZombieMaster v 4.xcdatamodel"; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 		BD45E3DD1F7D4086001C6853 /* GameViewController */ = {
 			isa = PBXGroup;
 			children = (
+				BD33F3311F84877A00E94337 /* GameViewNavigationController.swift */,
 				BD45E3DB1F7D403A001C6853 /* GameViewController+GameplayUI.swift */,
 				BD39619E1F5970940060CDB4 /* GameViewController.swift */,
 				BD45E3DE1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift */,
@@ -897,6 +900,7 @@
 				BD5C86011F68C7B000D6E0BF /* ColliderConfiguration.swift in Sources */,
 				BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */,
 				BD42C6541F7E5C0C0030588F /* PlayerProfileTableViewController.swift in Sources */,
+				BD33F3321F84877A00E94337 /* GameViewNavigationController.swift in Sources */,
 				BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */,
 				BD9C004C1F82574B00719E7B /* SavedGame+CoreDataClass.swift in Sources */,
 				BD9B103E1F7F5ADB00C9A71E /* WordGameLevel.swift in Sources */,

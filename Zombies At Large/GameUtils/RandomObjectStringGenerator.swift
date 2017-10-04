@@ -15,10 +15,15 @@ class RandomObjectStringGenerator{
     
     static let RandomMiscellaneousStrings = [
         "banana",
-        "apple",
-        "car",
-        "computer",
-        "shirt"
+        //"bottle",
+       // "chair",
+       // "knife",
+      //  "TV"
+       // "banana",
+       // "apple",
+       // "car",
+       // "computer",
+       // "shirt"
     ]
     
     

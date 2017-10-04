@@ -46,6 +46,8 @@ extension GameScene{
         case (let x, let y) where x == ColliderType.EnemyBullets.categoryMask ||  y == ColliderType.EnemyBullets.categoryMask:
             handleEnemyBulletContacts(contact: contact)
             break
+        case (let x, let y) where x == ColliderType.NonPlayerCharacter.categoryMask || y == ColliderType.NonPlayerCharacter.categoryMask:
+            break
         default:
             break
         }
@@ -328,6 +330,25 @@ extension GameScene{
         
         
         switch nonPlayerBody.categoryBitMask {
+        case ColliderType.NonPlayerCharacter.categoryMask:
+            if let nonplayerCharacter = nonPlayerBody.node as? NonplayerCharacter{
+                if npcAvailableForDialogue && nonplayerCharacter.name == "CameraMan"{
+                    if(self.cameraMissionPrompt == nil){
+                        
+                        isPaused = true
+                        worldNode.isPaused = true
+                        
+                        nonplayerCharacter.registerObserverForNotificationsFromPlayer(player: self.player)
+                        
+                        self.cameraMissionPrompt = nonplayerCharacter.generateMissionPrompt()
+                        self.cameraMissionPrompt!.move(toParent: overlayNode)
+                        self.cameraMissionPrompt!.position = CGPoint.zero
+                        self.npcAvailableForDialogue = false
+
+                    }
+                }
+            }
+            break
         case ColliderType.Bomb.categoryMask:
             break
         case ColliderType.SafetyZone.categoryMask:

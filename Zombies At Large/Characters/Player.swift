@@ -75,6 +75,8 @@ class Player: Shooter{
         didSet{
             if(pickedImage != nil){
                 //post a notification that is sent to the NPC
+                print("Player has picked an image. Procedding to send notification to the NPC")
+                NotificationCenter.default.post(name: Notification.Name.GetDidSetPickedPictureForPlayer(), object: self, userInfo: nil)
             }
         }
     }

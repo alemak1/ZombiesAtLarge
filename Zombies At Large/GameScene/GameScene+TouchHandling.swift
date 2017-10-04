@@ -97,15 +97,28 @@ extension GameScene{
     
     func handleOverlayNodeTouch(touchLocation: CGPoint){
         
-        if let touchedOverlayNode = overlayNode.nodes(at: touchLocation).first as? SKSpriteNode{
+        
+        handleMissionPanelTouch(atOverlayNodeTouchLocation: touchLocation)
+        
+        handleGameWinPromptTouch(atOverlayNodeTouchLocation: touchLocation, completion: nil)
+        
+        handleGameLossPromptTouch(atOverlayNodeTouchLocation: touchLocation, completion: nil)
+        
+        handleCameraPromptTouch(atOverlayNodeTouchLocation: touchLocation)
+       
+        handleMenuOptionsPanelTouch(atOverlayNodeTouchLocation: touchLocation)
+        
+        handleMenuOptionsButtonTouch(atOverlayNodeTouchLocation: touchLocation)
+        
+    }
+    
+    func handleMenuOptionsPanelTouch(atOverlayNodeTouchLocation touchLocation: CGPoint){
+        
+        if self.menuOptionsPanel != nil{
             
-            handleMissionPanelTouch(atOverlayNodeTouchLocation: touchLocation)
             
-            handleGameWinPromptTouch(atOverlayNodeTouchLocation: touchLocation, completion: nil)
-            
-            handleGameLossPromptTouch(atOverlayNodeTouchLocation: touchLocation, completion: nil)
-            
-            if self.menuOptionsPanel != nil{
+            if let touchedOverlayNode = overlayNode.nodes(at: touchLocation).first as? SKSpriteNode{
+                
                 
                 
                 if touchedOverlayNode.name == "InventorySummary"{
@@ -118,9 +131,9 @@ extension GameScene{
                     } else {
                         
                         touchedOverlayNode.removeFromParent()
-
+                        
                     }
-     
+                    
                 }
                 
                 
@@ -148,14 +161,14 @@ extension GameScene{
                     if(selectedNode.name == "ViewInventory"){
                         NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.ShowInventoryCollectionViewNotification), object: nil)
                         
-                     
+                        
                     }
                     
                     if(selectedNode.name == "RestartLevel"){
                         
                         menuOptionsPanel!.removeFromParent()
                         menuOptionsPanel = nil
-
+                        
                         let transition = SKTransition.crossFade(withDuration: 2.00)
                         
                         let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel, playerProfile: self.currentPlayerProfile!)
@@ -177,7 +190,7 @@ extension GameScene{
                     if(selectedNode.name == "BackToMainMenu"){
                         
                         self.isPaused = true
-                    
+                        
                         NotificationCenter.default.post(name: Notification.Name.GetDidRequestBackToMainMenuNotification(), object: nil, userInfo: nil)
                         
                         
@@ -186,36 +199,101 @@ extension GameScene{
                     
                 }
                 
-                return;
-                
-            }
-            
-            if menuOptionsButton.contains(touchLocation) {
-                
-                if(menuOptionsPanel == nil){
-                    showMenuOptionsPanel()
-                } else {
-                    
-                    menuOptionsPanel!.removeFromParent()
-                    menuOptionsPanel = nil
-                    isPaused = false
-                    worldNode.isPaused = false
-                    
-                }
-                
                 
                 
             }
             
-           
+            
+            
             
         }
-        
-        
     }
     
     
+    func handleMenuOptionsButtonTouch(atOverlayNodeTouchLocation touchLocation: CGPoint){
+        if menuOptionsButton.contains(touchLocation) {
+            
+            /** The Menu Options Button is deactivated when either of the Menu Options Panel, the GameWinPrompt, GameLossPromt, or CameraMissionPrompt/NPCMissionPrompt are showing**/
+            
+            if menuOptionsPanel != nil || gameWinPrompt != nil || gameLossPrompt != nil || cameraMissionPrompt != nil || missionPanel != nil{
+                return
+            }
+            
+            if(menuOptionsPanel == nil){
+                showMenuOptionsPanel()
+            } else {
+                
+                menuOptionsPanel!.removeFromParent()
+                menuOptionsPanel = nil
+                isPaused = false
+                worldNode.isPaused = false
+                
+            }
+            
+            
+            
+        }
 
+    }
+
+    func handleCameraPromptTouch(atOverlayNodeTouchLocation touchLocation: CGPoint){
+        
+        if cameraMissionPrompt != nil, cameraMissionPrompt!.contains(touchLocation){
+
+
+            if let node = cameraMissionPrompt?.nodes(at: touchLocation).first as? SKSpriteNode{
+                
+                
+                if node.name == "Camera"{
+                    print("Taking a picture with camera...")
+                    
+                    NotificationCenter.default.post(name: Notification.Name.GetDidRequestCameraOrPhotosNotification(), object: self, userInfo: ["sourceType":"camera"])
+                    return
+                    
+                }
+                
+                if node.name == "Photos"{
+                    print("Pick a photo from albums")
+                    
+                     NotificationCenter.default.post(name: Notification.Name.GetDidRequestCameraOrPhotosNotification(), object: self, userInfo: ["sourceType":"photos"])
+                    return
+
+                    
+                }
+                
+                if node.name == "Cancel"{
+                    print("Cancel mission")
+                    
+                    self.isPaused = false
+                    self.worldNode.isPaused = false
+                    
+                    cameraMissionPrompt!.run(SKAction.run {
+                        
+                        self.cameraMissionPrompt?.removeFromParent()
+                        
+                        }, completion: {
+                            
+                            self.cameraMissionPrompt = nil
+                            
+                            self.npcPostContactBufferFrameCount = 0
+                            
+                    })
+                   
+                    return
+                }
+                    
+                    
+                
+                
+                
+               
+
+            }
+            
+           
+           
+        }
+    }
     
     func handleGameWinPromptTouch(atOverlayNodeTouchLocation touchLocation: CGPoint, completion: (()->Void)?){
         

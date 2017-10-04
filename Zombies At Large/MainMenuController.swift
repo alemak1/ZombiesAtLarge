@@ -130,6 +130,9 @@ class MainMenuController: UIViewController{
                 
                 gameViewController.playerProfile = self.selectedPlayerProfile
                 
+            } else if let navigationController = segue.destination as? GameViewNavigationController{
+                
+                navigationController.playerProfile = self.selectedPlayerProfile
             }
 
         }
