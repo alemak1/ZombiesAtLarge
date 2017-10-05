@@ -11,11 +11,13 @@ import SpriteKit
 
 protocol MustKillZombieTrackerDelegate{
     
-    var mustKillZombies: Set<Zombie> { set get }
+    var mustKillZombies: Set<Zombie> {set get}
     
-    var numberOfMustKillZombies: Int{ get }
+    var numberOfMustKillZombies: Int{get}
     
     func getNumberOfUnkilledZombies() -> Int
+    
+    func getMustKillZombies() -> Set<Zombie>
     
     func addMustKillZombie(zombie: Zombie)
     

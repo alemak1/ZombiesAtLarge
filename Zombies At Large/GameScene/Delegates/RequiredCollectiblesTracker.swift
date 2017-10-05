@@ -9,12 +9,37 @@
 import Foundation
 import SpriteKit
 
-class RequiredCollectiblesTracker: RequiredCollectiblesTrackerDelegate{
+class RequiredCollectiblesTracker: RequiredCollectiblesTrackerDelegate, NSCoding{
+    
+    
+    init() {
+        
+    }
+    
+    init(with requiredCollectibles: Set<CollectibleSprite>){
+        self.requiredCollectibles = requiredCollectibles
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.requiredCollectibles, forKey: "requiredCollectibles")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.requiredCollectibles = aDecoder.decodeObject(forKey: "requiredCollectibles") as! Set<CollectibleSprite>
+    }
     
     var requiredCollectibles: Set<CollectibleSprite> = []
     
     var numberOfRequiredCollectibles: Int{
         return requiredCollectibles.count
+    }
+    
+    func getRequiredCollectibles() -> Set<CollectibleSprite>{
+        return requiredCollectibles
+    }
+    
+    func collectibleHasNotBeenAcquired(collectible: CollectibleSprite) -> Bool{
+        return self.requiredCollectibles.contains(collectible)
     }
     
     func removeRequiredCollectible(requiredCollectible: CollectibleSprite){

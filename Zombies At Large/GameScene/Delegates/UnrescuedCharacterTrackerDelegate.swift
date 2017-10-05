@@ -19,6 +19,8 @@ protocol UnrescuedCharacterTrackerDelegate{
     
     func addUnrescuedCharacters(rescueCharacter: RescueCharacter)
     
+    func getUnrescuedCharacters() -> Set<RescueCharacter>
+    
     func constraintRescuedCharactersToPlayer()
     
     func checkSafetyZoneForRescueCharacterProximity(safetyZone: SKSpriteNode)

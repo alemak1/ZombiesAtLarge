@@ -9,9 +9,28 @@
 import Foundation
 import SpriteKit
 
-class MustKillZombieTracker: MustKillZombieTrackerDelegate{
-   
 
+
+class MustKillZombieTracker: MustKillZombieTrackerDelegate, NSCoding{
+   
+    
+    init() {
+        
+    }
+    
+    init(withMustKillZombies mustKillZombies: Set<Zombie>){
+        self.mustKillZombies = mustKillZombies
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.mustKillZombies, forKey: "mustKillZombies")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.mustKillZombies = aDecoder.decodeObject(forKey: "mustKillZombies") as! Set<Zombie>
+    }
+    
+    
     var mustKillZombies: Set<Zombie> = []
     
     var numberOfMustKillZombies: Int{
@@ -22,8 +41,20 @@ class MustKillZombieTracker: MustKillZombieTrackerDelegate{
         return mustKillZombies.count
     }
     
+    
+    func getMustKillZombies() -> Set<Zombie>{
+        return mustKillZombies
+    }
+    
     func addMustKillZombie(zombie: Zombie){
         self.mustKillZombies.insert(zombie)
+    }
+    
+    
+    
+    func zombieHasNotBeenKilled(zombie: Zombie) -> Bool{
+        
+        return self.mustKillZombies.contains(zombie)
     }
     
     func removeMustKillZombie(withName name: String){

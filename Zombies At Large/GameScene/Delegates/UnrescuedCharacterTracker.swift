@@ -9,12 +9,38 @@
 import Foundation
 import SpriteKit
 
-class UnrescuedCharacterTracker: UnrescuedCharacterTrackerDelegate{
+class UnrescuedCharacterTracker: UnrescuedCharacterTrackerDelegate, NSCoding{
+    
+    
+    init() {
+        
+    }
+    
+    init(with unrescuedCharacters: Set<RescueCharacter>){
+        self.unrescuedCharacters = unrescuedCharacters
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.unrescuedCharacters, forKey: "unrescuedCharacters")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.unrescuedCharacters = aDecoder.decodeObject(forKey: "unrescuedCharacters") as! Set<RescueCharacter>
+    }
     
     var unrescuedCharacters: Set<RescueCharacter> = []
     
     var numberOfUnrescuedCharacters: Int{
         return unrescuedCharacters.count
+    }
+    
+    
+    func getUnrescuedCharacters() -> Set<RescueCharacter>{
+            return self.unrescuedCharacters
+    }
+    
+    func characterHasNotBeenRescued(character: RescueCharacter) -> Bool{
+        return self.unrescuedCharacters.contains(character)
     }
     
     func constraintRescuedCharactersToPlayer(){

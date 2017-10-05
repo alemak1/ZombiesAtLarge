@@ -11,6 +11,8 @@ import SpriteKit
 
 class ZombieManager{
     
+    
+  
     var miniZombies = [MiniZombie]()
     var giantZombies = [GiantZombie]()
     var camouflageZombies = [CamouflageZombie]()

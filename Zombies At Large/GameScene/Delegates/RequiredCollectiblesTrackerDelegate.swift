@@ -19,4 +19,5 @@ protocol RequiredCollectiblesTrackerDelegate{
     
     func addRequiredCollectible(requiredCollectible: CollectibleSprite)
 
+    func getRequiredCollectibles() -> Set<CollectibleSprite>
 }
