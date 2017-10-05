@@ -44,7 +44,7 @@ enum GameLevel: Int{
         case .Level5:
             return "backgrounds5"
         default:
-            break
+            return "backgrounds"
         }
     }
     

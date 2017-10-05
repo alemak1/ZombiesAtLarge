@@ -137,18 +137,23 @@ class GameScene: BaseScene{
         
         self.init(size: UIScreen.main.bounds.size)
         self.loadableGameSceneSnapshot = gameSceneSnapShot
+        let gameLevel = GameLevel(rawValue: gameSceneSnapShot.gameLevelRawValue)!
+        self.currentGameLevel = gameLevel
+        self.currentPlayerProfile = playerProfile
+
+         self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: gameLevel, playerProfile: playerProfile)
         
     }
     
     convenience init(currentGameLevel: GameLevel, playerProfile: PlayerProfile) {
         self.init(size: UIScreen.main.bounds.size)
-        self.currentGameLevel = currentGameLevel
         
+        self.currentGameLevel = currentGameLevel
         self.currentPlayerProfile = playerProfile
         
         self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: currentGameLevel, playerProfile: playerProfile)
 
-        self.gameSaver = GameSaver(withGameScene: self)
+       
 
     }
     
@@ -186,6 +191,7 @@ class GameScene: BaseScene{
         
         super.init(size: size)
         
+     self.gameSaver = GameSaver(withGameScene: self)
         
         let didKillZombieNotificationName =  NSNotification.Name(rawValue: Notification.Name.didKillMustKillZombieNotification)
         

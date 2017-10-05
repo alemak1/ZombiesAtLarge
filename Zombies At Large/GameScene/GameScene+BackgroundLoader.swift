@@ -11,71 +11,44 @@ import SpriteKit
 
 extension GameScene{
     
+    /** Each background scene has 3 tilemap layers, one for the ground, one for the corridors which define the physical boundaries for the maze and the level as a whole, and one for the woodfloors which define interior spaces **/
     
     func loadBackground(){
         
         addGrassBackgrounds()
         addBlackCorridors()
         addWoodfloors()
+        addSafetyZone()
         
     }
     
-    func loadBgLevel1(){
-        
-        addGrassBackgrounds()
-        addBlackCorridors()
-        addWoodfloors()
-        
-    }
     
-    func loadBgLevel2(){
+    
+    func addSafetyZone(){
         
-        guard let stoneBackground = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "StoneBackgrounds") as? SKTileMapNode else {
+        guard let safetyZone = SKScene(fileNamed: self.currentGameLevel.getSKSceneFilename())?.childNode(withName: "SafetyZone") as? SKSpriteNode else {
             
-            fatalError("Error: tile backgrounds failed to load")
+            print("Warning: either there is no safety zone for this game level or the safety zone could not be found")
+            return
+            
         }
-        
        
         
-        addBulletsTo(tileMapNode: stoneBackground)
-        addZombiesTo(someTileMapNode: stoneBackground)
-        addRiceBowlsTo(someTileMapNode: stoneBackground)
-        addRedEnvelopeTo(someTileMapNode: stoneBackground)
-        addCollectiblesTo(someTileMapNode: stoneBackground)
+        self.safetyZone = safetyZone
         
-        stoneBackground.move(toParent: backgroundNode)
-        
-        guard let blackCorridor = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "BlackCorridors") as? SKTileMapNode else {
+        if self.safetyZone != nil{
+            self.safetyZone!.name = "SafetyZone"
+            self.safetyZone!.move(toParent: worldNode)
             
-            fatalError("Error: tile backgrounds failed to load")
         }
-        
-        addObstaclePhysicsBodiesTo(tileMapNode: blackCorridor)
-        
-        blackCorridor.move(toParent: backgroundNode)
-        
-        guard let woodFloor = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "WoodFloors") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        addBulletsTo(tileMapNode: woodFloor)
-        addZombiesTo(someTileMapNode: woodFloor)
-        addRiceBowlsTo(someTileMapNode: woodFloor)
-        addCollectiblesTo(someTileMapNode: woodFloor)
-        addRescueCharacterTo(someTileMapNode: woodFloor)
-        addSafetyZonesTo(tileMapNode: woodFloor)
-        
-        woodFloor.move(toParent: backgroundNode)
-    
     }
-    
-    
+ 
     
     func addSafetyZone(fromNode backgroundNode: SKNode){
         
         guard let safetyZone = backgroundNode.childNode(withName: "SafetyZone") as? SKSpriteNode else {
-            fatalError("Error: the safety zone failed to load or could not be found")
+            print("Warning: either there is no safety zone for this game level or the safety zone could not be found")
+            return
         }
         
         self.safetyZone = safetyZone
@@ -97,24 +70,18 @@ extension GameScene{
             fatalError("Error: tile backgrounds failed to load")
         }
         
-        let grassRows = grass.numberOfRows
-        let grassCols = grass.numberOfColumns
         
-        for row in 1...grassRows{
-            for col in 1...grassCols{
-                
-                
-                loadTileWithBasicGameElements(tileMapNode: grass, row: row, col: col)
-                
-                
-            }
-            
-            DispatchQueue.main.async {
-                 NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-            }
-            
-           
+        if(loadableGameSceneSnapshot == nil){
 
+            let grassRows = grass.numberOfRows
+            let grassCols = grass.numberOfColumns
+            
+            for row in 1...grassRows{
+                for col in 1...grassCols{
+                    loadTileWithBasicGameElements(tileMapNode: grass, row: row, col: col)
+    
+                    }
+                }
         }
         
         grassTileMap = grass
@@ -133,11 +100,12 @@ extension GameScene{
             fatalError("Error: tile backgrounds failed to load")
         }
         
-        for row in 0...blackCorridors.numberOfRows{
-            for col in 0...blackCorridors.numberOfColumns{
+
+            for row in 0...blackCorridors.numberOfRows{
+                for col in 0...blackCorridors.numberOfColumns{
                 
-                addObstaclePhysicsBodies(tileMapNode: blackCorridors, row: row, column: col)
-            }
+                    addObstaclePhysicsBodies(tileMapNode: blackCorridors, row: row, column: col)
+                }
             
           
         }
@@ -159,20 +127,23 @@ extension GameScene{
             return
         }
         
-        let woodRows = woodFloors.numberOfRows
-        let woodCols = woodFloors.numberOfColumns
-        
+       
         woodFloors.position = CGPoint(x: 0.00, y: 0.00)
         
-        for row in 1...woodRows{
-            for col in 1...woodCols{
-    
-                loadTileWithBasicGameElements(tileMapNode: woodFloors, row: row, col: col)
-            }
-            
-         
+        
+        if(loadableGameSceneSnapshot == nil){
 
-        }
+            let woodRows = woodFloors.numberOfRows
+            let woodCols = woodFloors.numberOfColumns
+            
+            for row in 1...woodRows{
+                for col in 1...woodCols{
+                    loadTileWithBasicGameElements(tileMapNode: woodFloors, row: row, col: col)
+                }
+            
+            }
+         
+            }
         
         woodFloorTileMap = woodFloors
         
@@ -180,19 +151,19 @@ extension GameScene{
     }
     
     
+    /** Helper function for adding basic game elements to a specific tile: random collectibles, required collectibles, zombies, must-kill zombies, rice bowls, red envelopes, and rescue characters; addition of these elements is conditional upon data contained in each tile's user data dictionary **/
+    
     func loadTileWithBasicGameElements(tileMapNode: SKTileMapNode, row: Int, col: Int){
-        if(loadableGameSceneSnapshot == nil){
-            
-            addSafetyZone(tileMapNode: tileMapNode, row: row, column: col)
+        
             addRandomCollectible(tileMapNode: tileMapNode, row: row, column: col)
             addRequiredCollectible(tileMapNode: tileMapNode, row: row, column: col)
-            addSafetyZone(tileMapNode: tileMapNode, row: row, column: col)
             addBullet(tileMapNode: tileMapNode, row: row, column: col)
             addZombie(tileMapNode: tileMapNode, row: row, column: col)
             addMustKillZombie(tileMapNode: tileMapNode, row: row, column: col)
             addRiceBowl(tileMapNode: tileMapNode, row: row, column: col)
             addRescueCharacter(tileMapNode: tileMapNode, row: row, column: col)
-        }
+            addRedEnvelope(tileMapNode: tileMapNode, row: row, column: col)
+        
     }
     
     func addRandomCollectible(tileMapNode: SKTileMapNode, row: Int, column: Int){
@@ -389,9 +360,8 @@ extension GameScene{
     func addRequiredCollectible(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
         guard let requiredCollectibleTracker = self.requiredCollectiblesTrackerDelegate else {
-            
-            fatalError("Error: found nil whil unwrapping the required collectible tracker")
-            
+            print("Warning: there either are no required collectibles for this game level or the require collectible tracker failed to initialize ")
+            return
         }
         
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
@@ -493,7 +463,8 @@ extension GameScene{
         
         
         guard let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate else {
-            fatalError("Error: found nil while unwrapping the unrescued characters delegate")
+            print("Warning: either there are no unrescued characters for this level or the unrescued characteres failed to load")
+            return
         }
         
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
@@ -586,5 +557,60 @@ extension GameScene{
     }
     
 }
+
+/**
+ 
+ func loadBgLevel1(){
+ 
+ addGrassBackgrounds()
+ addBlackCorridors()
+ addWoodfloors()
+ 
+ }
+ 
+ func loadBgLevel2(){
+ 
+ guard let stoneBackground = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "StoneBackgrounds") as? SKTileMapNode else {
+ 
+ fatalError("Error: tile backgrounds failed to load")
+ }
+ 
+ 
+ 
+ addBulletsTo(tileMapNode: stoneBackground)
+ addZombiesTo(someTileMapNode: stoneBackground)
+ addRiceBowlsTo(someTileMapNode: stoneBackground)
+ addRedEnvelopeTo(someTileMapNode: stoneBackground)
+ addCollectiblesTo(someTileMapNode: stoneBackground)
+ 
+ stoneBackground.move(toParent: backgroundNode)
+ 
+ guard let blackCorridor = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "BlackCorridors") as? SKTileMapNode else {
+ 
+ fatalError("Error: tile backgrounds failed to load")
+ }
+ 
+ addObstaclePhysicsBodiesTo(tileMapNode: blackCorridor)
+ 
+ blackCorridor.move(toParent: backgroundNode)
+ 
+ guard let woodFloor = SKScene(fileNamed: "backgrounds2")?.childNode(withName: "WoodFloors") as? SKTileMapNode else {
+ 
+ fatalError("Error: tile backgrounds failed to load")
+ }
+ 
+ addBulletsTo(tileMapNode: woodFloor)
+ addZombiesTo(someTileMapNode: woodFloor)
+ addRiceBowlsTo(someTileMapNode: woodFloor)
+ addCollectiblesTo(someTileMapNode: woodFloor)
+ addRescueCharacterTo(someTileMapNode: woodFloor)
+ addSafetyZonesTo(tileMapNode: woodFloor)
+ 
+ woodFloor.move(toParent: backgroundNode)
+ 
+ }
+ 
+ 
+ **/
 
 

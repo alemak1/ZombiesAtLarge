@@ -47,7 +47,6 @@ class NonplayerCharacter: SKSpriteNode{
     
     enum CoreMLModel: Int{
         case Resnet50 = 0
-        case GoogLeNetPlaces
         
     }
     
@@ -66,9 +65,6 @@ class NonplayerCharacter: SKSpriteNode{
         switch coreMLModel {
         case .Resnet50:
             self.activeModel = try? VNCoreMLModel(for: Resnet50().model)
-            break
-        case .GoogLeNetPlaces:
-            self.activeModel = try? VNCoreMLModel(for: GoogLeNetPlaces().model)
             break
         }
     }
