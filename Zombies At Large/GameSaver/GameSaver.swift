@@ -36,7 +36,7 @@ class GameSaver{
     
     func saveGame(withPlayerSnapshot playerSnapshot: PlayerStateSnapShot, gameSceneSnapshot: GameSceneSnapshot){
         
-        print("Saving game...")
+        print("GameSaver is proceeding to save game...")
         
         let savedGame = SavedGame(entity: self.entityDescription, insertInto: self.managedContext)
         
@@ -45,8 +45,12 @@ class GameSaver{
         savedGame.level = Int16(gameScene.currentGameLevel.rawValue)
         savedGame.gameSceneSnapshot = gameSceneSnapshot
         savedGame.playerSnapshot = playerSnapshot
+        
+        print("Game Snapshot Info....Game Level: \(gameSceneSnapshot.gameLevelRawValue), Number of MustKill Zombies: \(String(describing: gameSceneSnapshot.mustKillZombies?.count)), Number of Required Collectibles: \(String(describing: gameSceneSnapshot.requiredCollectibles?.count)), Total Number of Collectibles in the World Node: \(gameSceneSnapshot.worldNodeSnapshot.collectibles.count), Total Number of Zombies: \(gameSceneSnapshot.worldNodeSnapshot.zombies.count)")
+        
         do {
             try self.managedContext.save()
+            print("Game saved successfully!")
         } catch let error as NSError {
             print("Error: unable to save game due to error \(error.localizedDescription), reason: \(error.localizedFailureReason)")
         }

@@ -60,8 +60,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         **/
-        
      
+        //deletePlayers()
+       // deleteSavedGames()
+       // deleteGameLevelStats()
+        
         return true
     }
 
@@ -133,26 +136,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    
+    func deleteGameLevelStats(){
+    
+        let fetchRequest = NSFetchRequest<GameLevelStatReview>(entityName: "GameLevelStatReview")
+        
+        do {
+            let gameLevelStatReviews = try persistentContainer.viewContext.fetch(fetchRequest)
+            
+            
+            for stat in gameLevelStatReviews{
+                try persistentContainer.viewContext.delete(stat)
+            }
+            
+        } catch let error as NSError {
+            print("Unable to delete stat review due to error \(error.localizedDescription)")
+        }
+        
+    }
+    
+    
+    func deleteSavedGames(){
+    
+        let fetchRequest = NSFetchRequest<SavedGame>(entityName: "SavedGame")
+        
+        
+        
+        do {
+            let savedGames = try persistentContainer.viewContext.fetch(fetchRequest)
+            
+            for savedGame in savedGames{
+                
+                persistentContainer.viewContext.delete(savedGame)
+                
+            }
+            
+        } catch let error as NSError {
+            print("Error occurred: \(error.localizedDescription)")
+        }
+    }
+    
     func deletePlayers(){
     
         let fetchRequest = NSFetchRequest<PlayerProfile>(entityName: "PlayerProfile")
         
-        var playerProfiles = [PlayerProfile]()
+       
         
         do {
-             playerProfiles = try self.persistentContainer.viewContext.fetch(fetchRequest)
+             let playerProfiles = try self.persistentContainer.viewContext.fetch(fetchRequest)
+            
+            if(!playerProfiles.isEmpty){
+                for playerProfile in playerProfiles{
+                    self.persistentContainer.viewContext.delete(playerProfile)
+                }
+            } else {
+                print("No player profiles retrieved from databased")
+            }
+
         } catch let error as NSError {
             print("Error occurred while deleting players")
         }
         
         
-        if(!playerProfiles.isEmpty){
-            for playerProfile in playerProfiles{
-                self.persistentContainer.viewContext.delete(playerProfile)
-            }
-        } else {
-            print("No player profiles retrieved from databased")
-        }
     }
     
     func cleanBadData(){

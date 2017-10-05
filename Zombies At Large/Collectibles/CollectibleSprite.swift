@@ -13,6 +13,17 @@ class CollectibleSprite: SKSpriteNode{
 
      var collectibleType: CollectibleType!
     
+    required init?(coder aDecoder: NSCoder) {
+        let collectibleTypeRawValue = aDecoder.decodeInteger(forKey: "collectibleTypeRawValue")
+        self.collectibleType = CollectibleType(rawValue: collectibleTypeRawValue)!
+        super.init(coder: aDecoder)
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.collectibleType.rawValue, forKey: "collectibleTypeRawValue")
+        super.encode(with: aCoder)
+    }
+    
      convenience init(collectibleType: CollectibleType,scale: CGFloat = 1.00) {
      
      let texture = collectibleType.getTexture()
@@ -53,8 +64,6 @@ class CollectibleSprite: SKSpriteNode{
      }
     
      
-     required init?(coder aDecoder: NSCoder) {
-     fatalError("init(coder:) has not been implemented")
-     }
+   
  
 }

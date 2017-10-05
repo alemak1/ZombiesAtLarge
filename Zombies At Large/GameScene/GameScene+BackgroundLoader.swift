@@ -349,7 +349,7 @@ extension GameScene{
             
             let redEnvelopePos = tileMapNode.centerOfTile(atColumn: column, row: row)
             
-            let redEnvelope = RedEnvelope(monetaryValue: nil)
+            let redEnvelope = RedEnvelope(monetaryValue: 50)
             redEnvelope.move(toParent: worldNode)
             redEnvelope.position = redEnvelopePos
             

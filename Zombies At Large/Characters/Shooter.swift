@@ -13,6 +13,18 @@ class Shooter: SKSpriteNode{
     
     var bulletInTransit: Bool
     
+    required init?(coder aDecoder: NSCoder) {
+        self.bulletInTransit = aDecoder.decodeBool(forKey: "bulletInTransit")
+        super.init(coder: aDecoder)
+
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        super.encode(with: aCoder)
+        
+         aCoder.encode(bulletInTransit, forKey:"bulletInTransit")
+    }
+    
     var playFiringSound: SKAction{
         return SKAction()
     }
@@ -42,10 +54,7 @@ class Shooter: SKSpriteNode{
         super.init(texture: texture, color: color, size: size)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+   
     
     public func fireBullet(withPrefireHandler prefireHandler: @escaping (() -> (Void)), andWithPostfireHandler postfireHandler: @escaping (() -> (Void))){
         

@@ -66,6 +66,17 @@ class RiceBowl: CollectibleSprite{
     
     var healthValue: Int = 2
     
+    required init?(coder aDecoder: NSCoder) {
+        self.healthValue = aDecoder.decodeInteger(forKey: "healthValue")
+        super.init(coder: aDecoder)
+        
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        super.encode(with: aCoder)
+        aCoder.encode(healthValue, forKey: "healthValue")
+    }
+    
     convenience init(healthValue: Int? = 2) {
         
         let riceBowlTexture = CollectibleType.RiceBowl1.getTexture()
@@ -81,9 +92,7 @@ class RiceBowl: CollectibleSprite{
         super.init(texture: texture, color: color, size: size)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    
 }
 
 class Bomb: CollectibleSprite{

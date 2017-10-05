@@ -67,15 +67,28 @@ extension SKNode{
             
             
             /** If the zombie has not been killed and belongs in the mustKillZombie array, then it will not be stored redundantly in the world node snasphot array **/
-            if let node = node as? Zombie, mustKillZombieTrackerDelegate != nil{
-                if !mustKillZombieTrackerDelegate!.getMustKillZombies().contains(node){
+            if let node = node as? Zombie{
+                print("Adding node to  temporary must kill zombies array in order to generate a world node snapshot")
+
+                if mustKillZombieTrackerDelegate != nil, !mustKillZombieTrackerDelegate!.getMustKillZombies().contains(node){
+                    
+                    print("Adding zombie that is not must kill")
+
                     zombies.append(node)
+                    
+                } else {
+                    print("Adding zombie")
+
+                    zombies.append(node)
+
                 }
             }
             
             /** If the rescue character has not been rescued and belongs in the unrescuedCharacters array, then it will not be stored redundantly in the world node snasphot array **/
             
             if let node = node as? RescueCharacter, unrescuedCharacterTrackerDelegate != nil{
+                print("Adding node to  temporary resuce characters  array in order to generate a world node snapshot")
+
                 if !unrescuedCharacterTrackerDelegate!.getUnrescuedCharacters().contains(node){
                     unrescuedCharacters.append(node)
                 }
@@ -84,9 +97,19 @@ extension SKNode{
             /** If the collectible  has not been acquired and belongs in the requiredCollectibles array, then it will not be stored redundantly in the world node snasphot array **/
             
             
-            if let node = node as? CollectibleSprite, requiredCollectibleTrackerDelegate != nil{
-                if !requiredCollectibleTrackerDelegate!.getRequiredCollectibles().contains(node){
+            if let node = node as? CollectibleSprite{
+                print("Adding node to  temporary collectibles array in order to generate a world node snapshot")
+                if requiredCollectibleTrackerDelegate != nil, !requiredCollectibleTrackerDelegate!.getRequiredCollectibles().contains(node){
+                    
+                    print("Adding collectible that is not required")
+
                     collectibles.append(node)
+                } else {
+                    
+                    print("Adding collectible")
+
+                    collectibles.append(node)
+
                 }
             }
             
@@ -97,6 +120,8 @@ extension SKNode{
         }
         
         let finalRescueCharacterArray = unrescuedCharacters.isEmpty ? nil : unrescuedCharacters
+        
+        print("Generating world node snapshot with the following properties: zombies \(zombies.count), rescue characters: \(finalRescueCharacterArray?.count), and safety zone information: \(safetyZone.debugDescription)")
         
         return WorldNodeSnapshot(zombies: zombies, collectibles: collectibles, rescueCharacters: finalRescueCharacterArray, safetyZone: safetyZone)
     }

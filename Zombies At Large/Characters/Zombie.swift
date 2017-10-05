@@ -53,8 +53,8 @@ enum ZombieType: String{
 class Zombie: Shooter{
     
     
-    enum ZombieMode{
-        case Latent
+    enum ZombieMode: Int{
+        case Latent = 0
         case Following
         case Attack
     }
@@ -64,6 +64,41 @@ class Zombie: Shooter{
      var currentHealth: Int = 3
      var isDamaged: Bool = false
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        let zombieTypeRawValue = aDecoder.decodeObject(forKey: "zombieTypeRawValue") as! String
+        self.zombieType = ZombieType(rawValue: zombieTypeRawValue)
+        self.isDamaged = aDecoder.decodeBool(forKey: "isDamaged")
+        self.currentHealth = aDecoder.decodeInteger(forKey: "currentHealth")
+        self.physicsBody = aDecoder.decodeObject(forKey: "physicsBody") as? SKPhysicsBody
+        
+        let zombieModeRawValue = aDecoder.decodeInteger(forKey: "currentMode")
+        self.currentMode = ZombieMode(rawValue: zombieModeRawValue)!
+    
+    
+    
+   
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        super.encode(with: aCoder)
+        aCoder.encode(zombieType.rawValue, forKey: "zombieTypeRawValue")
+        aCoder.encode(isDamaged, forKey: "isDamaged")
+        aCoder.encode(currentHealth, forKey: "currentHealth")
+        aCoder.encode(self.physicsBody, forKey: "physicsBody")
+        aCoder.encode(self.currentMode.rawValue, forKey: "currentMode")
+        aCoder.encode(self.isActive, forKey: "isActive")
+        
+        /**
+        aCoder.encode(self.position, forKey: "position")
+        aCoder.encode(zPosition, forKey: "zPosition")
+        aCoder.encode(self.name, forKey: "name")
+        aCoder.encode(self.physicsBody, forKey: "physicsBody")
+         **/
+        
+        
+    }
   
     
     override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
@@ -408,9 +443,6 @@ class Zombie: Shooter{
         super.init(texture: texture, color: color, size: size)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
-    
+   
 }

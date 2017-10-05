@@ -37,14 +37,20 @@ class GameScene: BaseScene{
             
             let worldNodeSnapshot = worldNode.getWorldNodeSnapshot(forMustZillZombieTrackerDelegate: self.mustKillZombieTrackerDelegate, andForRequiredCollectibleTrackerDelegate: self.requiredCollectiblesTrackerDelegate, andForUnrescuedCharacterTrackerDelegate: self.unrescuedCharactersTrackerDelegate)
             
+            print("World Node Snapshot generated: \(worldNodeSnapshot.description)")
+            
             let mustKillZombies = mustKillZombieTrackerDelegate?.getMustKillZombies()
             
             let rescueCharacters = unrescuedCharactersTrackerDelegate?.getUnrescuedCharacters()
             
             let requiredCollectibles = requiredCollectiblesTrackerDelegate?.getRequiredCollectibles()
 
+            print("Generating Game Scene Snapshot with the following information: Must Kill Zombies \(mustKillZombies?.count), Rescue Characters: \(rescueCharacters?.count), Required Collectibles: \(requiredCollectibles?.count)")
+            
             let gameSceneSnapShot = GameSceneSnapshot(gameLevel: self.currentGameLevel, playerStateSnapshot: self.player.playerStateSnapShot, worldNodeSnapshot: worldNodeSnapshot, requiredCollectibles: requiredCollectibles, mustKillZombies: mustKillZombies, unrescuedCharacters: rescueCharacters)
         
+            print("Game Scene Snapshot generated: \(gameSceneSnapShot.description)")
+            
             return gameSceneSnapShot
         }
     }
@@ -327,6 +333,7 @@ class GameScene: BaseScene{
                     rescueCharacter.move(toParent: worldNode)
                 }
             }
+            
             
             if let requiredCollectibles = loadableGameSceneSnapshot.requiredCollectibles{
                 self.requiredCollectiblesTrackerDelegate = RequiredCollectiblesTracker(with: requiredCollectibles)

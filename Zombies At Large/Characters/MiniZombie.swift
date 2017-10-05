@@ -13,6 +13,19 @@ import SpriteKit
 class MiniZombie: Zombie, Updateable{
     
     
+    required init?(coder aDecoder: NSCoder) {
+        let compassDirectionRawValue = aDecoder.decodeInteger(forKey: "compassDirectionRawValue")
+        self.compassDirection = CompassDirection(rawValue: compassDirectionRawValue)!
+        self.hasDirectionChangeEnabled = aDecoder.decodeBool(forKey: "hasDirectionChangeEnabled")
+        super.init(coder: aDecoder)
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        super.encode(with: aCoder)
+        aCoder.encode(self.hasDirectionChangeEnabled, forKey: "hasDirectionChangeEnabled")
+        aCoder.encode(self.compassDirection.rawValue, forKey: "compassDirectionRawValue")
+    }
+    
     var impulseInterval: TimeInterval = 1.00
     var impulseFrameCount: TimeInterval = 0.00
     var directionChangeFrameCount: TimeInterval = 0.00
@@ -117,7 +130,5 @@ class MiniZombie: Zombie, Updateable{
         super.init(texture: texture, color: color, size: size)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+  
 }
