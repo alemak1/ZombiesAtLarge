@@ -30,6 +30,10 @@ class GameScene: BaseScene{
     
     //MARK: GameScene Snapshot
     
+    var loadableGameSceneSnapshot: GameSceneSnapshot?
+    
+    var archiveableGameSceneSnapshot: GameSceneSnapshot?
+    
     
 
 
@@ -128,6 +132,10 @@ class GameScene: BaseScene{
     var npcBufferCounterLastUpdateTime = 0.00
     
     /** ***************  GameScene Initializers **/
+    
+    convenience init(playerProfile: PlayerProfile) {
+        <#statements#>
+    }
     
     convenience init(currentGameLevel: GameLevel, playerProfile: PlayerProfile) {
         self.init(size: UIScreen.main.bounds.size)

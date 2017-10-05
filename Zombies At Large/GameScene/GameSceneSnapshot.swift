@@ -27,6 +27,8 @@ import SpriteKit
 class GameSceneSnapshot: NSCoding{
     
     
+    var date: Date!
+    var gameLevelRawValue: Int!
     var playerStateSnapshot: PlayerStateSnapShot!
     var worldNodeSnapshot: WorldNodeSnapshot!
     var requiredCollectibles: Set<CollectibleSprite>!
@@ -34,8 +36,10 @@ class GameSceneSnapshot: NSCoding{
     var unrescuedCharacters: Set<RescueCharacter>!
     
     
-    init(playerStateSnapshot: PlayerStateSnapShot, worldNodeSnapshot: WorldNodeSnapshot, requiredCollectibles: Set<CollectibleSprite>, mustKillZombies: Set<Zombie>, unrescuedCharacters: Set<RescueCharacter>) {
+    init(gameLevel: GameLevel, playerStateSnapshot: PlayerStateSnapShot, worldNodeSnapshot: WorldNodeSnapshot, requiredCollectibles: Set<CollectibleSprite>, mustKillZombies: Set<Zombie>, unrescuedCharacters: Set<RescueCharacter>) {
         
+        self.date = Date()
+        self.gameLevelRawValue = Int(gameLevel.rawValue)
         self.playerStateSnapshot = playerStateSnapshot
         self.worldNodeSnapshot = worldNodeSnapshot
         self.mustKillZombies = mustKillZombies
@@ -46,6 +50,8 @@ class GameSceneSnapshot: NSCoding{
     
     func encode(with aCoder: NSCoder) {
         
+        aCoder.encode(self.gameLevelRawValue, forKey: "gameLevelRawValue")
+        aCoder.encode(self.date, forKey: "date")
         aCoder.encode(self.playerStateSnapshot, forKey: "playerStateSnapshot")
         aCoder.encode(self.mustKillZombies, forKey: "mustKillZombies")
         aCoder.encode(self.unrescuedCharacters, forKey: "unrescuedCharacters")
@@ -54,6 +60,12 @@ class GameSceneSnapshot: NSCoding{
     }
     
     required init?(coder aDecoder: NSCoder) {
+        
+        self.date = aDecoder.decodeObject(forKey: "date") as! Date
+        
+        let gameLevelRawValue = aDecoder.decodeObject(forKey: "gameLevelRawValue") as! Int
+        self.gameLevelRawValue = GameLevel(rawValue: gameLevelRawValue)!
+        
         self.worldNodeSnapshot = aDecoder.decodeObject(forKey: "worldNodeSnapshot") as! WorldNodeSnapshot
         self.playerStateSnapshot = aDecoder.decodeObject(forKey: "playerStateSnapshot") as! PlayerStateSnapShot
         self.unrescuedCharacters = aDecoder.decodeObject(forKey: "unrescuedCharacters") as! Set<RescueCharacter>
