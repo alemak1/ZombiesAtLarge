@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var hudLoadingOperationQueue: OperationQueue!
     
+    var launchNumber = 0
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -44,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         }
     
-        
+   
         /**
         
         **/
@@ -172,6 +174,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Finished cleaning bad data...")
     }
     
+    
+    func deleteSavedGamesForAllPlayers(){
+        
+        var allPlayerProfiles = [PlayerProfile]()
+        
+        do {
+            try allPlayerProfiles = try persistentContainer.viewContext.fetch(PlayerProfile.fetchRequest())
+        } catch let error as NSError {
+            print("Error occurred while retrieving player profiles at \(error.localizedDescription), \(error.localizedFailureReason)")
+        }
+        
+        for playerProfile in allPlayerProfiles{
+            
+            if let savedGames = playerProfile.getSavedGames(){
+                for savedGame in savedGames{
+                    do{
+                        persistentContainer.viewContext.delete(savedGame)
+                    } catch let error as NSError{
+                        print("Error occurred whil attempting to delete saved game \(error.localizedFailureReason), \(error.localizedDescription)")
+                    }
+                    
+                }
+            }
+        }
+        
+    }
     
     func insertSamplePlayerProfiles(){
         

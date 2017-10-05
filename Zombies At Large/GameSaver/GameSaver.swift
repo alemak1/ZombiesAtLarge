@@ -34,7 +34,7 @@ class GameSaver{
     }
     
     
-    func saveGame(withPlayerStateSnapshot playerStateSnapshot: PlayerStateSnapShot){
+    func saveGame(withPlayerSnapshot playerSnapshot: PlayerStateSnapShot, gameSceneSnapshot: GameSceneSnapshot){
         
         print("Saving game...")
         
@@ -43,8 +43,8 @@ class GameSaver{
         savedGame.playerProfile = gameScene.currentPlayerProfile!
         savedGame.date = Date() as NSDate
         savedGame.level = Int16(gameScene.currentGameLevel.rawValue)
-        savedGame.playerSnapshot = playerStateSnapshot
-        
+        savedGame.gameSceneSnapshot = gameSceneSnapshot
+        savedGame.playerSnapshot = playerSnapshot
         do {
             try self.managedContext.save()
         } catch let error as NSError {

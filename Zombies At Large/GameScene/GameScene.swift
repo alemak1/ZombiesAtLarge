@@ -30,9 +30,24 @@ class GameScene: BaseScene{
     
     //MARK: GameScene Snapshot
     
-    var loadableGameSceneSnapshot: GameSceneSnapshot?
+    var loadableGameSceneSnapshot: GameSceneSnapshot? = nil
     
-    var archiveableGameSceneSnapshot: GameSceneSnapshot?
+    var archiveableGameSceneSnapshot: GameSceneSnapshot?{
+        get{
+            
+            let worldNodeSnapshot = worldNode.getWorldNodeSnapshot(forMustZillZombieTrackerDelegate: self.mustKillZombieTrackerDelegate, andForRequiredCollectibleTrackerDelegate: self.requiredCollectiblesTrackerDelegate, andForUnrescuedCharacterTrackerDelegate: self.unrescuedCharactersTrackerDelegate)
+            
+            let mustKillZombies = mustKillZombieTrackerDelegate?.getMustKillZombies()
+            
+            let rescueCharacters = unrescuedCharactersTrackerDelegate?.getUnrescuedCharacters()
+            
+            let requiredCollectibles = requiredCollectiblesTrackerDelegate?.getRequiredCollectibles()
+
+            let gameSceneSnapShot = GameSceneSnapshot(gameLevel: self.currentGameLevel, playerStateSnapshot: self.player.playerStateSnapShot, worldNodeSnapshot: worldNodeSnapshot, requiredCollectibles: requiredCollectibles, mustKillZombies: mustKillZombies, unrescuedCharacters: rescueCharacters)
+        
+            return gameSceneSnapShot
+        }
+    }
     
     
 

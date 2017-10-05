@@ -25,7 +25,123 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sg5-5I-eWM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3836" y="-692"/>
+            <point key="canvasLocation" x="-3704" y="867"/>
+        </scene>
+        <!--Level Choice View Controller-->
+        <scene sceneID="qap-w8-ROG">
+            <objects>
+                <viewController id="Nh6-JH-2t7" customClass="LevelChoiceViewController" customModule="Zombies_At_Large" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3BD-ir-WKl">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9od-Rh-ImO">
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BWk-Uu-j1n">
+                                    <size key="itemSize" width="150" height="150"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LevelChoiceCell" id="kfC-IB-Iz2" customClass="LevelChoiceCell" customModule="Zombies_At_Large" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultLevelThumbnail" translatesAutoresizingMaskIntoConstraints="NO" id="Poz-wu-MHI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redBox200w100h" translatesAutoresizingMaskIntoConstraints="NO" id="RuU-MJ-jVG" userLabel="titleBackground">
+                                                    <rect key="frame" x="23" y="20" width="105" height="45"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kxn-E6-Iq1">
+                                                    <rect key="frame" x="23" y="20" width="105" height="45"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Level 1">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="17" name="Didot"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redBox200w100h" translatesAutoresizingMaskIntoConstraints="NO" id="4Wo-Y7-p9q" userLabel="descriptionBackground">
+                                                    <rect key="frame" x="6.6666666666666714" y="71.666666666666671" width="137" height="54"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xhH-bu-oDH">
+                                                    <rect key="frame" x="23" y="76" width="105" height="45"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Level Description">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="12" name="Didot"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="xhH-bu-oDH" firstAttribute="centerX" secondItem="kfC-IB-Iz2" secondAttribute="centerX" id="3to-IO-bAL"/>
+                                            <constraint firstAttribute="trailing" secondItem="Poz-wu-MHI" secondAttribute="trailing" id="4Ov-4p-2ET"/>
+                                            <constraint firstItem="RuU-MJ-jVG" firstAttribute="width" secondItem="Kxn-E6-Iq1" secondAttribute="width" id="5Qj-sW-dg1"/>
+                                            <constraint firstItem="Kxn-E6-Iq1" firstAttribute="height" secondItem="kfC-IB-Iz2" secondAttribute="height" multiplier="0.3" id="5RT-ZE-iVR"/>
+                                            <constraint firstItem="Poz-wu-MHI" firstAttribute="leading" secondItem="kfC-IB-Iz2" secondAttribute="leading" id="8OA-KZ-zIC"/>
+                                            <constraint firstItem="xhH-bu-oDH" firstAttribute="height" secondItem="kfC-IB-Iz2" secondAttribute="height" multiplier="0.3" id="CRO-F8-iaE"/>
+                                            <constraint firstItem="xhH-bu-oDH" firstAttribute="width" secondItem="kfC-IB-Iz2" secondAttribute="width" multiplier="0.7" id="FKc-RT-hKN"/>
+                                            <constraint firstItem="Kxn-E6-Iq1" firstAttribute="width" secondItem="kfC-IB-Iz2" secondAttribute="width" multiplier="0.7" id="LyV-ge-Ze7"/>
+                                            <constraint firstAttribute="bottom" secondItem="Poz-wu-MHI" secondAttribute="bottom" id="M8J-Wa-uTy"/>
+                                            <constraint firstItem="Kxn-E6-Iq1" firstAttribute="centerX" secondItem="kfC-IB-Iz2" secondAttribute="centerX" id="NKR-et-fEI"/>
+                                            <constraint firstItem="4Wo-Y7-p9q" firstAttribute="centerY" secondItem="xhH-bu-oDH" secondAttribute="centerY" id="O7F-Qp-T70"/>
+                                            <constraint firstItem="4Wo-Y7-p9q" firstAttribute="centerX" secondItem="xhH-bu-oDH" secondAttribute="centerX" id="O7d-NZ-6sk"/>
+                                            <constraint firstItem="4Wo-Y7-p9q" firstAttribute="width" secondItem="xhH-bu-oDH" secondAttribute="width" multiplier="1.3" id="W5b-Cw-s1e"/>
+                                            <constraint firstItem="Poz-wu-MHI" firstAttribute="top" secondItem="kfC-IB-Iz2" secondAttribute="top" id="YeL-zS-Bfq"/>
+                                            <constraint firstItem="RuU-MJ-jVG" firstAttribute="centerX" secondItem="Kxn-E6-Iq1" secondAttribute="centerX" id="aze-Ex-DCO"/>
+                                            <constraint firstItem="4Wo-Y7-p9q" firstAttribute="height" secondItem="xhH-bu-oDH" secondAttribute="height" multiplier="1.2" id="b5c-6w-LXq"/>
+                                            <constraint firstItem="Kxn-E6-Iq1" firstAttribute="top" secondItem="kfC-IB-Iz2" secondAttribute="top" constant="20" id="m4a-W1-iFr"/>
+                                            <constraint firstItem="RuU-MJ-jVG" firstAttribute="centerY" secondItem="Kxn-E6-Iq1" secondAttribute="centerY" id="ruI-Av-L1f"/>
+                                            <constraint firstItem="xhH-bu-oDH" firstAttribute="top" secondItem="Kxn-E6-Iq1" secondAttribute="bottom" constant="11" id="suh-D9-0yi"/>
+                                            <constraint firstItem="RuU-MJ-jVG" firstAttribute="height" secondItem="Kxn-E6-Iq1" secondAttribute="height" id="zbo-ez-hfu"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="descriptionLabelCenterXConstraint" destination="3to-IO-bAL" id="RCv-9m-bWJ"/>
+                                            <outlet property="levelDescriptionLabel" destination="xhH-bu-oDH" id="J6R-Hb-59c"/>
+                                            <outlet property="levelThumbnail" destination="Poz-wu-MHI" id="Ytv-xI-jIz"/>
+                                            <outlet property="levelTitleLabel" destination="Kxn-E6-Iq1" id="SHm-cq-kFx"/>
+                                            <outlet property="titleLabelCenterXConstraint" destination="NKR-et-fEI" id="dCz-Ww-nJG"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Nh6-JH-2t7" id="Dir-FN-dbt"/>
+                                    <outlet property="delegate" destination="Nh6-JH-2t7" id="RTa-zl-caQ"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9od-Rh-ImO" firstAttribute="top" secondItem="fx1-4Z-nft" secondAttribute="top" id="4n3-Oz-lYW"/>
+                            <constraint firstItem="fx1-4Z-nft" firstAttribute="trailing" secondItem="9od-Rh-ImO" secondAttribute="trailing" id="7hi-wj-RWo"/>
+                            <constraint firstItem="fx1-4Z-nft" firstAttribute="bottom" secondItem="9od-Rh-ImO" secondAttribute="bottom" id="SPY-FR-S85"/>
+                            <constraint firstItem="9od-Rh-ImO" firstAttribute="leading" secondItem="fx1-4Z-nft" secondAttribute="leading" id="UEF-85-fpB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fx1-4Z-nft"/>
+                    </view>
+                    <connections>
+                        <segue destination="2oo-jy-2Gw" kind="show" identifier="loadSelectedLevelSegue" id="P1l-Su-OK9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bku-eB-O3Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1114" y="411"/>
         </scene>
         <!--Main Menu Controller-->
         <scene sceneID="Xmb-j7-psI">
@@ -46,7 +162,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Load Saved Game" backgroundImage="redBox300w100h"/>
                                         <connections>
-                                            <segue destination="KZH-Xv-pZo" kind="show" id="aLT-Qd-8DK"/>
+                                            <segue destination="KZH-Xv-pZo" kind="show" identifier="loadSavedGameSegue" id="aLT-Qd-8DK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BI-oO-j3Y">
@@ -68,6 +184,9 @@
                                         <rect key="frame" x="57" y="270" width="300" height="100"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Choose a Level" backgroundImage="redBox300w100h"/>
+                                        <connections>
+                                            <segue destination="Nh6-JH-2t7" kind="show" identifier="loadLevelSelectorSegue" id="tZE-2i-0LV"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -87,9 +206,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jrx-Mx-Okm">
                                         <rect key="frame" x="57" y="148" width="300" height="99.999999999999972"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <state key="normal" title="Load Profile" backgroundImage="redBox300w100h"/>
+                                        <state key="normal" title="Select Profile" backgroundImage="redBox300w100h"/>
                                         <connections>
-                                            <segue destination="LSx-ra-x4h" kind="show" id="DUS-xc-OfT"/>
+                                            <segue destination="LSx-ra-x4h" kind="show" id="h59-tS-LNk"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TuG-za-DCC">
@@ -174,24 +293,90 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Nf-pq-xJq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1748" y="995"/>
+            <point key="canvasLocation" x="-2352" y="136"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Saved Games View Controller-->
         <scene sceneID="rgL-WY-nVc">
             <objects>
-                <tableViewController id="KZH-Xv-pZo" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fRW-kA-ck1">
+                <tableViewController id="KZH-Xv-pZo" customClass="SavedGamesViewController" customModule="Zombies_At_Large" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="300" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fRW-kA-ck1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="V0D-a9-WNQ">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SavedGameCell" id="V0D-a9-WNQ" customClass="SavedGameCell" customModule="Zombies_At_Large" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="300"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="V0D-a9-WNQ" id="f5G-gC-YMh">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="299.66666666666669"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redBox300w300h" translatesAutoresizingMaskIntoConstraints="NO" id="GbJ-kf-heo">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="299.66666666666669"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ofy-Vz-wxF">
+                                            <rect key="frame" x="56.999999999999986" y="48" width="165.66666666666663" height="45"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Game Level">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="24" name="Didot"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUJ-5t-sXg">
+                                            <rect key="frame" x="232.66666666666663" y="48" width="124.33333333333337" height="45"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Date">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="24" name="Didot"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gh-7N-yrS">
+                                            <rect key="frame" x="57" y="113" width="310.66666666666669" height="120"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Mission Description">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="18" name="Didot"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="iUJ-5t-sXg" firstAttribute="width" secondItem="f5G-gC-YMh" secondAttribute="width" multiplier="0.3" id="1t1-zA-iN7"/>
+                                        <constraint firstItem="3Gh-7N-yrS" firstAttribute="top" secondItem="ofy-Vz-wxF" secondAttribute="bottom" constant="20" id="2Pc-0z-eu1"/>
+                                        <constraint firstItem="ofy-Vz-wxF" firstAttribute="leading" secondItem="f5G-gC-YMh" secondAttribute="leading" constant="57" id="7AM-Z1-mzf"/>
+                                        <constraint firstItem="3Gh-7N-yrS" firstAttribute="leading" secondItem="ofy-Vz-wxF" secondAttribute="leading" id="8Y3-bm-o2C"/>
+                                        <constraint firstItem="3Gh-7N-yrS" firstAttribute="width" secondItem="f5G-gC-YMh" secondAttribute="width" multiplier="0.75" id="BUd-S3-JbC"/>
+                                        <constraint firstItem="ofy-Vz-wxF" firstAttribute="width" secondItem="f5G-gC-YMh" secondAttribute="width" multiplier="0.4" id="DYg-St-JpV"/>
+                                        <constraint firstItem="GbJ-kf-heo" firstAttribute="top" secondItem="f5G-gC-YMh" secondAttribute="top" id="EO5-Le-xkR"/>
+                                        <constraint firstItem="iUJ-5t-sXg" firstAttribute="centerY" secondItem="ofy-Vz-wxF" secondAttribute="centerY" id="PMf-TL-FRv"/>
+                                        <constraint firstAttribute="trailing" secondItem="GbJ-kf-heo" secondAttribute="trailing" id="XVC-Kd-qNl"/>
+                                        <constraint firstItem="ofy-Vz-wxF" firstAttribute="top" secondItem="f5G-gC-YMh" secondAttribute="top" constant="48" id="bbF-6f-75J"/>
+                                        <constraint firstItem="ofy-Vz-wxF" firstAttribute="height" secondItem="f5G-gC-YMh" secondAttribute="height" multiplier="0.15" id="fFj-3E-Hc5"/>
+                                        <constraint firstAttribute="bottom" secondItem="GbJ-kf-heo" secondAttribute="bottom" id="hR8-jR-1fc"/>
+                                        <constraint firstItem="3Gh-7N-yrS" firstAttribute="height" secondItem="f5G-gC-YMh" secondAttribute="height" multiplier="0.4" id="ucc-Mg-23T"/>
+                                        <constraint firstItem="iUJ-5t-sXg" firstAttribute="leading" secondItem="ofy-Vz-wxF" secondAttribute="trailing" constant="10" id="vKz-X4-2bI"/>
+                                        <constraint firstItem="GbJ-kf-heo" firstAttribute="leading" secondItem="f5G-gC-YMh" secondAttribute="leading" id="vgM-xb-gIn"/>
+                                        <constraint firstItem="iUJ-5t-sXg" firstAttribute="height" secondItem="ofy-Vz-wxF" secondAttribute="height" id="x1r-VG-Mrj"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dateSaved" destination="iUJ-5t-sXg" id="BMK-vu-8kc"/>
+                                    <outlet property="levelTitle" destination="ofy-Vz-wxF" id="5MW-1D-sST"/>
+                                    <outlet property="missionDescription" destination="3Gh-7N-yrS" id="Wfl-Ku-s0V"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -202,7 +387,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jga-9C-9LM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2228" y="-90"/>
+            <point key="canvasLocation" x="-1217.3913043478262" y="1515.4891304347827"/>
         </scene>
         <!--Word Game View Controller-->
         <scene sceneID="PBW-zD-b64">
@@ -1483,7 +1668,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QxD-2o-79A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3836" y="350"/>
+            <point key="canvasLocation" x="-4517" y="607"/>
         </scene>
         <!--Game Stats Navigation Controller-->
         <scene sceneID="3lg-8U-rKF">
@@ -1522,6 +1707,7 @@
     <resources>
         <image name="barBack_horizontalMid" width="18" height="18"/>
         <image name="barRed_horizontalMid" width="18" height="18"/>
+        <image name="defaultLevelThumbnail" width="392" height="420"/>
         <image name="face_zombie" width="256" height="256"/>
         <image name="flatDark20" width="48" height="48"/>
         <image name="flatDark23" width="80" height="80"/>
@@ -1531,12 +1717,15 @@
         <image name="genericItem_color_007" width="60" height="95"/>
         <image name="gun50" width="50" height="46"/>
         <image name="info40" width="40" height="40"/>
+        <image name="redBox200w100h" width="200" height="100"/>
         <image name="redBox300w100h" width="300" height="100"/>
         <image name="redBox300w200h" width="300" height="200"/>
+        <image name="redBox300w300h" width="300" height="300"/>
         <image name="redBox450w750h" width="450" height="750"/>
         <image name="red_button00" width="190" height="45"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="H8y-fW-5Xc"/>
+        <segue reference="XgF-ew-Kjw"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -12,7 +12,7 @@ import SpriteKit
 
 /** Extension to SKNode provides convenience methods for obtaining a snapshot of the world node for the game scene; the world node snapshot can be saved as part of an overall Game Scene snapshot so as to allow for relevant game scene data to be archived and unarchived efficently **/
 
-class WorldNodeSnapshot: NSCoding{
+class WorldNodeSnapshot: NSObject, NSCoding{
     
     var zombies: [Zombie]
     var collectibles: [CollectibleSprite]
@@ -21,10 +21,14 @@ class WorldNodeSnapshot: NSCoding{
     
     init(zombies: [Zombie], collectibles: [CollectibleSprite], rescueCharacters: [RescueCharacter]?, safetyZone: SafetyZone?) {
         
+        
         self.zombies = zombies
         self.collectibles = collectibles
         self.rescueCharacters =  rescueCharacters
         self.safetyZone = safetyZone
+        
+        super.init()
+
     }
     
     func encode(with aCoder: NSCoder) {
@@ -41,6 +45,7 @@ class WorldNodeSnapshot: NSCoding{
         self.rescueCharacters = aDecoder.decodeObject(forKey: "rescueCharacters") as? [RescueCharacter]
         self.safetyZone = aDecoder.decodeObject(forKey: "safetyZone") as? SafetyZone
         
+        super.init()
         
     }
     
@@ -48,7 +53,7 @@ class WorldNodeSnapshot: NSCoding{
 
 extension SKNode{
     
-    func getWorldNodeSnapshot(forMustZillZombieTrackerDelegate mustKillZombieTrackerDelegate: MustKillZombieTrackerDelegate, andForRequiredCollectibleTrackerDelegate requiredCollectibleTrackerDelegate: RequiredCollectiblesTrackerDelegate, andForUnrescuedCharacterTrackerDelegate unrescuedCharacterTrackerDelegate: UnrescuedCharacterTrackerDelegate) -> WorldNodeSnapshot{
+    func getWorldNodeSnapshot(forMustZillZombieTrackerDelegate mustKillZombieTrackerDelegate: MustKillZombieTrackerDelegate?, andForRequiredCollectibleTrackerDelegate requiredCollectibleTrackerDelegate: RequiredCollectiblesTrackerDelegate?, andForUnrescuedCharacterTrackerDelegate unrescuedCharacterTrackerDelegate: UnrescuedCharacterTrackerDelegate?) -> WorldNodeSnapshot{
         
         
         
@@ -62,16 +67,16 @@ extension SKNode{
             
             
             /** If the zombie has not been killed and belongs in the mustKillZombie array, then it will not be stored redundantly in the world node snasphot array **/
-            if let node = node as? Zombie{
-                if !mustKillZombieTrackerDelegate.getMustKillZombies().contains(node){
+            if let node = node as? Zombie, mustKillZombieTrackerDelegate != nil{
+                if !mustKillZombieTrackerDelegate!.getMustKillZombies().contains(node){
                     zombies.append(node)
                 }
             }
             
             /** If the rescue character has not been rescued and belongs in the unrescuedCharacters array, then it will not be stored redundantly in the world node snasphot array **/
             
-            if let node = node as? RescueCharacter{
-                if !unrescuedCharacterTrackerDelegate.getUnrescuedCharacters().contains(node){
+            if let node = node as? RescueCharacter, unrescuedCharacterTrackerDelegate != nil{
+                if !unrescuedCharacterTrackerDelegate!.getUnrescuedCharacters().contains(node){
                     unrescuedCharacters.append(node)
                 }
             }
@@ -79,8 +84,8 @@ extension SKNode{
             /** If the collectible  has not been acquired and belongs in the requiredCollectibles array, then it will not be stored redundantly in the world node snasphot array **/
             
             
-            if let node = node as? CollectibleSprite{
-                if !requiredCollectibleTrackerDelegate.getRequiredCollectibles().contains(node){
+            if let node = node as? CollectibleSprite, requiredCollectibleTrackerDelegate != nil{
+                if !requiredCollectibleTrackerDelegate!.getRequiredCollectibles().contains(node){
                     collectibles.append(node)
                 }
             }

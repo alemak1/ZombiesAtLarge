@@ -182,7 +182,7 @@ extension GameScene{
                     
                     if(selectedNode.name == "SaveGame"){
                         
-                        self.gameSaver.saveGame(withPlayerStateSnapshot: self.player.playerStateSnapShot)
+                        self.gameSaver.saveGame(withPlayerSnapshot: self.player.playerStateSnapShot, gameSceneSnapshot: self.archiveableGameSceneSnapshot!)
                         
                         print("Game Saved!!")
                     }

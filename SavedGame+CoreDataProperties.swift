@@ -21,5 +21,5 @@ extension SavedGame {
     @NSManaged public var level: Int16
     @NSManaged public var playerProfile: PlayerProfile?
     @NSManaged public var playerSnapshot: NSObject
-
+    @NSManaged public var gameSceneSnapshot: NSObject
 }

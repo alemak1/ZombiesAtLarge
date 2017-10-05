@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /** The GameScene has a GameLevel stored property, whose value determines which backgrounds to load, the informatin displayed in UI panels at the start of each level, and the game objective for each level, which is evaluated in the update function via a switch statement **/
 
@@ -18,6 +19,11 @@ enum GameLevel: Int{
     case Level6, Level7, Level8, Level9, Level10
     
     
+    static let AllGameLevels: [GameLevel] = [
+    
+        .Level1, .Level2, .Level3, .Level4, .Level5
+    ]
+    
     func getNextLevel() -> GameLevel{
         
         switch self {
@@ -28,6 +34,15 @@ enum GameLevel: Int{
             return .Level1
         default:
             break
+        }
+    }
+    
+    func getFullGameMissionDescription() -> String{
+        switch self {
+        case .Level1:
+            return "Help scientists cure the zombie virus.  Find all the microscopes."
+        default:
+            return "Kill the zombies!"
         }
     }
     
@@ -114,6 +129,16 @@ enum GameLevel: Int{
             return 7
         default:
             return 0
+        }
+    }
+    
+    func getLevelThumbnail() -> UIImage{
+        
+        switch self {
+        case .Level1:
+            return #imageLiteral(resourceName: "defaultLevelThumbnail")
+        default:
+            return #imageLiteral(resourceName: "defaultLevelThumbnail")
         }
     }
 

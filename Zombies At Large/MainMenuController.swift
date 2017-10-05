@@ -136,6 +136,14 @@ class MainMenuController: UIViewController{
             }
 
         }
+        
+        if(segue.identifier == "loadSavedGameSegue"){
+            if let savedGamesViewController = segue.destination as? SavedGamesViewController{
+                
+                savedGamesViewController.playerProfile = self.selectedPlayerProfile
+                
+            }
+        }
     }
     
 }
