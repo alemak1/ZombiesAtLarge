@@ -9,6 +9,7 @@
 import Foundation
 import SpriteKit
 
+/**
 class SceneManager: MustKillZombieTrackerDelegate,RequiredCollectiblesTrackerDelegate,UnrescuedCharacterTrackerDelegate{
     
     func getNumberOfUnkilledZombies() -> Int {
@@ -144,3 +145,4 @@ class SceneManager: MustKillZombieTrackerDelegate,RequiredCollectiblesTrackerDel
     
     
 }
+**/

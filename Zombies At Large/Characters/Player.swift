@@ -245,6 +245,17 @@ class Player: Shooter{
         
     }
     
+    convenience init(playerStateSnapshot: PlayerStateSnapShot) {
+        
+        let numberOfBullets = playerStateSnapshot.numberOfBullets
+        let startingHealth = playerStateSnapshot.healthLevel
+        let playerType = playerStateSnapshot.playerType
+        
+        self.init(playerType: playerType, startingHealth: startingHealth, numberOfBullets: numberOfBullets)
+        
+        configurePlayerState(withPlayerStateSnapshot: playerStateSnapshot)
+    }
+    
     
     
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {

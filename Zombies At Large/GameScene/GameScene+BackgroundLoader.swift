@@ -14,35 +14,16 @@ extension GameScene{
     
     func loadBackground(){
         
-        switch self.currentGameLevel! {
-        case .Level1:
-            loadBgLevel1()
-            break
-        case .Level2:
-            loadBgLevel2()
-            break
-        case .Level3:
-            loadBgLevel3()
-            break
-        case .Level4:
-            loadBgLevel4()
-            break
-        case .Level5:
-            loadBgLevel5()
-            break
-        default:
-            break
-        }
+        addGrassBackgrounds()
+        addBlackCorridors()
+        addWoodfloors()
         
     }
     
     func loadBgLevel1(){
         
         addGrassBackgrounds()
-        
-
         addBlackCorridors()
-        
         addWoodfloors()
         
     }
@@ -89,44 +70,6 @@ extension GameScene{
     
     }
     
-    func loadBgLevel3(){
-        
-    }
-    
-    func loadBgLevel4(){
-        
-        guard let dirtBackground = SKScene(fileNamed: "backgrounds4")?.childNode(withName: "DirtBackgrounds") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        
-       // addBulletsTo(tileMapNode: dirtBackground)
-       // addZombiesTo(someTileMapNode: dirtBackground)
-       // addRiceBowlsTo(someTileMapNode: dirtBackground)
-       // addRedEnvelopeTo(someTileMapNode: dirtBackground)
-       // addCollectiblesTo(someTileMapNode: dirtBackground)
-        
-        addMustKillZombiesTo(tileMapNode: dirtBackground)
-        
-        dirtBackground.move(toParent: backgroundNode)
-        
-        guard let redCorridors = SKScene(fileNamed: "backgrounds4")?.childNode(withName: "RedCorridors") as? SKTileMapNode else {
-            
-            fatalError("Error: tile backgrounds failed to load")
-        }
-        
-        addObstaclePhysicsBodiesTo(tileMapNode: redCorridors)
-        
-        redCorridors.move(toParent: backgroundNode)
-        
-       
-        
-    }
-    
-    func loadBgLevel5(){
-        
-    }
     
     
     func addSafetyZone(fromNode backgroundNode: SKNode){
@@ -149,7 +92,7 @@ extension GameScene{
     
     func addGrassBackgrounds(){
         
-        guard let grass = SKScene(fileNamed: "backgrounds")?.childNode(withName: "grass") as? SKTileMapNode else {
+        guard let grass = SKScene(fileNamed: self.currentGameLevel.getSKSceneFilename())?.childNode(withName: "grass") as? SKTileMapNode else {
             
             fatalError("Error: tile backgrounds failed to load")
         }
@@ -161,10 +104,7 @@ extension GameScene{
             for col in 1...grassCols{
                 
                 
-                addRedEnvelope(tileMapNode: grass, row: row, column: col)
-                addBullet(tileMapNode: grass, row: row, column: col)
-                addRiceBowl(tileMapNode: grass, row: row, column: col)
-                addZombie(tileMapNode: grass, row: row, column: col)
+                loadTileWithBasicGameElements(tileMapNode: grass, row: row, col: col)
                 
                 
             }
@@ -188,7 +128,7 @@ extension GameScene{
     
     func addBlackCorridors(){
         
-        guard let blackCorridors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "blackcorridors") as? SKTileMapNode else {
+        guard let blackCorridors = SKScene(fileNamed: self.currentGameLevel.getSKSceneFilename())?.childNode(withName: "blackcorridors") as? SKTileMapNode else {
             
             fatalError("Error: tile backgrounds failed to load")
         }
@@ -199,9 +139,7 @@ extension GameScene{
                 addObstaclePhysicsBodies(tileMapNode: blackCorridors, row: row, column: col)
             }
             
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-            }
+          
         }
         
         
@@ -215,10 +153,12 @@ extension GameScene{
     
     func addWoodfloors(){
         
-        guard let woodFloors = SKScene(fileNamed: "backgrounds")?.childNode(withName: "woodfloor") as? SKTileMapNode else {
+        guard let woodFloors = SKScene(fileNamed: self.currentGameLevel.getSKSceneFilename())?.childNode(withName: "woodfloors") as? SKTileMapNode else {
             
-            fatalError("Error: tile backgrounds failed to load")
+            print("Warning: No woodfloors for the current game scene")
+            return
         }
+        
         let woodRows = woodFloors.numberOfRows
         let woodCols = woodFloors.numberOfColumns
         
@@ -226,14 +166,11 @@ extension GameScene{
         
         for row in 1...woodRows{
             for col in 1...woodCols{
-                addSafetyZone(tileMapNode: woodFloors, row: row, column: col)
-                addRandomCollectible(tileMapNode: woodFloors, row: row, column: col)
-                addRequiredCollectible(tileMapNode: woodFloors, row: row, column: col)
+    
+                loadTileWithBasicGameElements(tileMapNode: woodFloors, row: row, col: col)
             }
             
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didUpdateGameLoadingProgressNotification), object: nil, userInfo: ["progressAmount":Float(0.05)])
-            }
+         
 
         }
         
@@ -242,6 +179,21 @@ extension GameScene{
         woodFloorTileMap.move(toParent: backgroundNode)
     }
     
+    
+    func loadTileWithBasicGameElements(tileMapNode: SKTileMapNode, row: Int, col: Int){
+        if(loadableGameSceneSnapshot == nil){
+            
+            addSafetyZone(tileMapNode: tileMapNode, row: row, column: col)
+            addRandomCollectible(tileMapNode: tileMapNode, row: row, column: col)
+            addRequiredCollectible(tileMapNode: tileMapNode, row: row, column: col)
+            addSafetyZone(tileMapNode: tileMapNode, row: row, column: col)
+            addBullet(tileMapNode: tileMapNode, row: row, column: col)
+            addZombie(tileMapNode: tileMapNode, row: row, column: col)
+            addMustKillZombie(tileMapNode: tileMapNode, row: row, column: col)
+            addRiceBowl(tileMapNode: tileMapNode, row: row, column: col)
+            addRescueCharacter(tileMapNode: tileMapNode, row: row, column: col)
+        }
+    }
     
     func addRandomCollectible(tileMapNode: SKTileMapNode, row: Int, column: Int){
         

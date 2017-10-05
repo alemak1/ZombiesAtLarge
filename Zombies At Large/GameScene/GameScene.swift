@@ -133,8 +133,11 @@ class GameScene: BaseScene{
     
     /** ***************  GameScene Initializers **/
     
-    convenience init(playerProfile: PlayerProfile) {
-        <#statements#>
+    convenience init(playerProfile: PlayerProfile, gameSceneSnapShot: GameSceneSnapshot) {
+        
+        self.init(size: UIScreen.main.bounds.size)
+        self.loadableGameSceneSnapshot = gameSceneSnapShot
+        
     }
     
     convenience init(currentGameLevel: GameLevel, playerProfile: PlayerProfile) {
@@ -199,40 +202,44 @@ class GameScene: BaseScene{
     
     override func didMove(to view: SKView) {
        super.didMove(to: view)
-        print("ALL GAME STAT REVIEW UP TO DATE: ")
+        
+        /** If the Game Scene has not been loaded from a saved game, then initialize it from scratch **/
+        
+        if(self.loadableGameSceneSnapshot == nil){
+            print("ALL GAME STAT REVIEW UP TO DATE: ")
 
         
         
-        for timeInterval in 1...10{
+            for timeInterval in 1...10{
             
-            let when = DispatchTime.now() + Double(timeInterval)
+                let when = DispatchTime.now() + Double(timeInterval)
             
-            DispatchQueue.main.asyncAfter(deadline: when, execute: {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didMakeProgressTowardsGameLoadingNotification), object: nil, userInfo: ["progressAmount": Float(0.05)])
+                DispatchQueue.main.asyncAfter(deadline: when, execute: {
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didMakeProgressTowardsGameLoadingNotification), object: nil, userInfo: ["progressAmount": Float(0.05)])
                 
-            })
-        }
+                })
+            }
       
         
     
-        loadMissionPanel()
-        loadBackground()
+            loadMissionPanel()
+            loadBackground()
         
         
         
-        let xPosControls = UIScreen.main.bounds.width*0.3
-        let yPosControls = -UIScreen.main.bounds.height*0.3
-        let point = CGPoint(x: xPosControls, y: yPosControls)
-        loadControls(atPosition: point)
+            let xPosControls = UIScreen.main.bounds.width*0.3
+            let yPosControls = -UIScreen.main.bounds.height*0.3
+            let point = CGPoint(x: xPosControls, y: yPosControls)
+            loadControls(atPosition: point)
 
-        let camera = CollectibleSprite(collectibleType: .Camera)
-        camera.move(toParent: worldNode)
-        camera.position = CGPoint(x: 150.0, y: 10.0)
+            let camera = CollectibleSprite(collectibleType: .Camera)
+            camera.move(toParent: worldNode)
+            camera.position = CGPoint(x: 150.0, y: 10.0)
 
-        if let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate{
-            print("The unrescued character count is \(unrescuedCharactersTracker.numberOfUnrescuedCharacters)")
+            if let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate{
+                print("The unrescued character count is \(unrescuedCharactersTracker.numberOfUnrescuedCharacters)")
 
-        }
+            }
         
         
         
@@ -247,29 +254,91 @@ class GameScene: BaseScene{
         zombieManager.addDynamicZombie(zombie: miniZombie2)
 
         
-        let miniZombie3 = MiniZombie(zombieType: .zombie1, scale: 1.00, startingHealth: 1, hasDirectionChangeEnabled: true)
-        miniZombie3.move(toParent: worldNode)
-        miniZombie3.position = CGPoint(x: -100.0, y: 250.00)
-        zombieManager.addDynamicZombie(zombie: miniZombie3)
+            let miniZombie3 = MiniZombie(zombieType: .zombie1, scale: 1.00, startingHealth: 1, hasDirectionChangeEnabled: true)
+            miniZombie3.move(toParent: worldNode)
+            miniZombie3.position = CGPoint(x: -100.0, y: 250.00)
+            zombieManager.addDynamicZombie(zombie: miniZombie3)
         
-        let cameraMan = NonplayerCharacter(nonPlayerCharacterType: .Hitman, andName: "CameraMan")
-        cameraMan.move(toParent: worldNode)
-        cameraMan.position = CGPoint(x: -100, y: -250.00)
-        cameraMan.setTargetPictureString()
+            let cameraMan = NonplayerCharacter(nonPlayerCharacterType: .Hitman, andName: "CameraMan")
+            cameraMan.move(toParent: worldNode)
+            cameraMan.position = CGPoint(x: -100, y: -250.00)
+            cameraMan.setTargetPictureString()
         
-        addHUDNode()
+            addHUDNode()
 
-        //Debug only - remove later
+            //Debug only - remove later
         
         
-        if let savedGames = self.currentPlayerProfile?.getSavedGames(){
+            if let savedGames = self.currentPlayerProfile?.getSavedGames(){
             
-            for savedGame in savedGames{
-                savedGame.showSavedGameInfo()
+                for savedGame in savedGames{
+                    savedGame.showSavedGameInfo()
+                }
             }
+            
+        } else {
+            
+            guard let loadableGameSceneSnapshot = self.loadableGameSceneSnapshot else {
+                print("Error: found nil while unwrapping loadable game scene snapshot")
+                return
+            }
+            
+            /** Initialize the current game level **/
+            
+            let levelInt = loadableGameSceneSnapshot.gameLevelRawValue
+            self.currentGameLevel = GameLevel(rawValue: levelInt!)!
+            
+      
+            /** Depending on the mission level, initialize MustKillZombieTracker, RequiredCollectibleTracker, and RescueCharacterTrackers respectively **/
+            
+            if let mustKillZombies = loadableGameSceneSnapshot.mustKillZombies{
+               self.mustKillZombieTrackerDelegate = MustKillZombieTracker(withMustKillZombies: mustKillZombies)
+                
+                for zombie in mustKillZombies{
+                    zombie.move(toParent: worldNode)
+                }
+            }
+           
+            if let rescueCharacters = loadableGameSceneSnapshot.unrescuedCharacters{
+                self.unrescuedCharactersTrackerDelegate = UnrescuedCharacterTracker(with: rescueCharacters)
+                
+                for rescueCharacter in rescueCharacters{
+                    rescueCharacter.move(toParent: worldNode)
+                }
+            }
+            
+            if let requiredCollectibles = loadableGameSceneSnapshot.requiredCollectibles{
+                self.requiredCollectiblesTrackerDelegate = RequiredCollectiblesTracker(with: requiredCollectibles)
+                
+                for requiredCollectible in requiredCollectibles{
+                    requiredCollectible.move(toParent: worldNode)
+                }
+            }
+            
+            
         }
      
     }
+    
+    
+    override func loadPlayer() {
+        
+        if(self.loadableGameSceneSnapshot == nil){
+            super.loadPlayer()
+        } else {
+            
+            guard let loadableGameSceneSnapshot = self.loadableGameSceneSnapshot else {
+                print("Error: found nil while unwrapping loadable game scene snapshot")
+                return
+            }
+            
+            let playerStateSnapshot = loadableGameSceneSnapshot.playerStateSnapshot
+            self.player = Player(playerStateSnapshot: playerStateSnapshot!)
+            self.player.move(toParent: worldNode)
+            
+        }
+    }
+    
     
    
     func loadMissionPanel(){

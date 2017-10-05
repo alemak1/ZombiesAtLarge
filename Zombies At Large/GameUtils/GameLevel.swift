@@ -31,6 +31,23 @@ enum GameLevel: Int{
         }
     }
     
+    func getSKSceneFilename() -> String{
+        switch self {
+        case .Level1:
+            return "backgrounds"
+        case .Level2:
+            return "backgrounds2"
+        case .Level3:
+            return "backgrounds3"
+        case .Level4:
+            return "backgrounds4"
+        case .Level5:
+            return "backgrounds5"
+        default:
+            break
+        }
+    }
+    
     func getMissionHeaderText() -> (title: String,subtitle: String){
         switch self {
         case .Level1:

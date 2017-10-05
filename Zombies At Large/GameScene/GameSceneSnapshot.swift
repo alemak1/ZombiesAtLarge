@@ -64,7 +64,7 @@ class GameSceneSnapshot: NSCoding{
         self.date = aDecoder.decodeObject(forKey: "date") as! Date
         
         let gameLevelRawValue = aDecoder.decodeObject(forKey: "gameLevelRawValue") as! Int
-        self.gameLevelRawValue = GameLevel(rawValue: gameLevelRawValue)!
+        self.gameLevelRawValue = gameLevelRawValue
         
         self.worldNodeSnapshot = aDecoder.decodeObject(forKey: "worldNodeSnapshot") as! WorldNodeSnapshot
         self.playerStateSnapshot = aDecoder.decodeObject(forKey: "playerStateSnapshot") as! PlayerStateSnapShot
