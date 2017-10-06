@@ -32,66 +32,66 @@ enum PlayerType: String{
     }
 
     
-    static let allPlayerTypes: [PlayerType] = [.manBlue,.manRed,.manBrown,.survivor1,.survivor2,.hitman1,.womanOld,.womanGreen,.soldier1,.soldier2]
+    static let allPlayerTypes: [PlayerType] = [.manRed,.manBrown,.survivor1,.survivor2,.hitman1,.womanOld,.womanGreen,.soldier1,.soldier2,.manBlue]
     
     init(withIntegerValue intValue: Int){
         switch intValue {
         case 1:
-            self = .manBlue
-            break
-        case 2:
             self = .manRed
             break
-        case 3:
+        case 2:
             self = .manBrown
             break
-        case 4:
+        case 3:
             self = .survivor1
             break
-        case 5:
+        case 4:
             self = .survivor2
             break
-        case 6:
+        case 5:
             self = .hitman1
             break
-        case 7:
+        case 6:
             self = .womanOld
             break
-        case 8:
+        case 7:
             self = .womanGreen
             break
-        case 9:
+        case 8:
             self = .soldier1
             break
-        case 10:
+        case 9:
             self = .soldier2
             break
-        default:
+        case 10:
             self = .manBlue
+            break
+        default:
+            self = .soldier1
         }
     }
     
     func getIntegerValue() -> Int{
         switch self {
-        case .manBlue:
-            return 1
         case .manRed:
-            return 2
+            return 1
         case .manBrown:
-            return 3
+            return 2
         case .survivor1:
-            return 4
+            return 3
         case .survivor2:
-            return 5
+            return 4
         case .hitman1:
-            return 6
+            return 5
         case .womanOld:
-            return 7
+            return 6
         case .womanGreen:
-            return 8
+            return 7
         case .soldier1:
-            return 9
+            return 8
         case .soldier2:
+            return 9
+        case .manBlue:
             return 10
   
         }

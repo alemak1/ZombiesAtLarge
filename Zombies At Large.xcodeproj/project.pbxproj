@@ -97,6 +97,7 @@
 		BD45E3DA1F7D2F40001C6853 /* rumble1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD45E3D71F7D2F30001C6853 /* rumble1.wav */; };
 		BD45E3DC1F7D403A001C6853 /* GameViewController+GameplayUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD45E3DB1F7D403A001C6853 /* GameViewController+GameplayUI.swift */; };
 		BD45E3DF1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD45E3DE1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift */; };
+		BD47216A1F87CDA3008A06E7 /* PlayerProfileViewController+HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4721691F87CDA3008A06E7 /* PlayerProfileViewController+HelperFunctions.swift */; };
 		BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD47350F1F6AA5AC00D91819 /* MapLocation.swift */; };
 		BD4735121F6AA6E400D91819 /* MapLocationSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */; };
 		BD4967971F73FF2F00230AB8 /* MainMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4967961F73FF2F00230AB8 /* MainMenuController.swift */; };
@@ -288,6 +289,7 @@
 		BD45E3D81F7D2F30001C6853 /* rumble3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rumble3.wav; sourceTree = "<group>"; };
 		BD45E3DB1F7D403A001C6853 /* GameViewController+GameplayUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+GameplayUI.swift"; sourceTree = "<group>"; };
 		BD45E3DE1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+CollectionViewHelper.swift"; sourceTree = "<group>"; };
+		BD4721691F87CDA3008A06E7 /* PlayerProfileViewController+HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerProfileViewController+HelperFunctions.swift"; sourceTree = "<group>"; };
 		BD47350F1F6AA5AC00D91819 /* MapLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
 		BD4735111F6AA6E400D91819 /* MapLocationSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSprite.swift; sourceTree = "<group>"; };
 		BD4967961F73FF2F00230AB8 /* MainMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuController.swift; sourceTree = "<group>"; };
@@ -531,7 +533,7 @@
 		BD42C6461F7E53700030588F /* OtherViewController */ = {
 			isa = PBXGroup;
 			children = (
-				BD42C6471F7E53830030588F /* PlayerProfileViewController.swift */,
+				BD4721681F87CD7E008A06E7 /* PlayerProfileViewController */,
 				BD42C64B1F7E57150030588F /* SpecialWeaponCell.swift */,
 				BD42C64D1F7E57270030588F /* UpgradeObjectCell.swift */,
 				BD42C6531F7E5C0C0030588F /* PlayerProfileTableViewController.swift */,
@@ -559,6 +561,15 @@
 				BD45E3DE1F7D41BC001C6853 /* GameViewController+CollectionViewHelper.swift */,
 			);
 			path = GameViewController;
+			sourceTree = "<group>";
+		};
+		BD4721681F87CD7E008A06E7 /* PlayerProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BD42C6471F7E53830030588F /* PlayerProfileViewController.swift */,
+				BD4721691F87CDA3008A06E7 /* PlayerProfileViewController+HelperFunctions.swift */,
+			);
+			path = PlayerProfileViewController;
 			sourceTree = "<group>";
 		};
 		BD47350E1F6A8D0900D91819 /* SKSFiles */ = {
@@ -1060,6 +1071,7 @@
 				BD42A8D91F83CF74008773C1 /* Resnet50.mlmodel in Sources */,
 				BDE9FB091F66B12C0056B66E /* ImageFilterObject.swift in Sources */,
 				BD3A51721F693DA800B01850 /* UIPanelGenerator.swift in Sources */,
+				BD47216A1F87CDA3008A06E7 /* PlayerProfileViewController+HelperFunctions.swift in Sources */,
 				BD3A51661F69122500B01850 /* ImageManager.swift in Sources */,
 				BDB259D41F62CA5100CDB8B9 /* Potion.swift in Sources */,
 				BD58039B1F6BA28C0086BBA6 /* GameScene+TouchHandling.swift in Sources */,

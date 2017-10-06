@@ -78,6 +78,8 @@ class SavedGamesViewController: UITableViewController{
             let levelDescription = gameLevel.getFullGameMissionDescription()
             
             cell.missionDescription.text = levelDescription
+            
+            cell.savedGame = savedGame
         
         }
         

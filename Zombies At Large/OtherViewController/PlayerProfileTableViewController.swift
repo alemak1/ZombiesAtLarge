@@ -129,6 +129,16 @@ class PlayerProfileTableViewController: UITableViewController{
             }
         }
         
+        
+        if(segue.identifier == "addNewProfileSegue"){
+            if let modifyProfileVC = segue.destination as? PlayerProfileViewController{
+                
+                modifyProfileVC.willCreateNewProfile = true
+                modifyProfileVC.existingPlayerProfile = self.selectedPlayerProfile
+                
+            }
+        }
+        
         if(segue.identifier == "showGameStatsSegue"){
             if let gameStatsNavigationController = segue.destination as? GameStatsNavigationController{
                 

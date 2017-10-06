@@ -24,7 +24,14 @@ extension Notification.Name{
     static let didRequestNewSortingCriterionNotification = "didRequestNewSortingCriterionNotification"
     static let didRequestCameraOrPhotosNotification = "didRequestCameraOrPhotosNotification"
     static let didSetPickedPictureForPlayer = "didSetPickedPictureForPlayer"
+    static let didRequestSavedGameToBeLoaded = "didRequestSavedGameToBeLoaded"
     
+    
+    static func GetDidRequestSavedGameToBeLoadedNotification() -> Notification.Name{
+        
+        return self.init(Notification.Name.didRequestSavedGameToBeLoaded)
+        
+    }
     
     static func GetDidSetPickedPictureForPlayer() -> Notification.Name{
         

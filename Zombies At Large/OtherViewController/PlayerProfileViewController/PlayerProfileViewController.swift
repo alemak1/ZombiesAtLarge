@@ -18,18 +18,7 @@ enum PlayerProfileCollectionViewTag: Int{
 
 class PlayerProfileViewController: UIViewController{
     
-    @IBOutlet weak var adContainerView: UIView!
-    
-    @IBOutlet weak var bannerViewTopConstraint: NSLayoutConstraint!
-    
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = "ca-app-pub-3595969991114166/3880912913"
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
+
     
     var willCreateNewProfile = false
     
@@ -77,6 +66,23 @@ class PlayerProfileViewController: UIViewController{
     
     /** IB Outlets and Actions **/
     
+    @IBOutlet weak var chooseWeaponLableCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var chooseUpgradeObjectLabelCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var specialWeaponImageView: UIImageView!
+    @IBOutlet weak var specialWeaponLabel: UILabel!
+    @IBOutlet weak var upgradeObjectImageView: UIImageView!
+    @IBOutlet weak var upgradeObjectLabel: UILabel!
+    
+    @IBOutlet weak var specialWeaponCollectionViewCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var specialWeaponDetailVewCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var upgradeObjectDetailViewCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var upgradeObjectCollectionViewCenterXConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var avatarPicker: UIPickerView!
+    @IBOutlet weak var specialWeaponCollectionView: UICollectionView!
+    @IBOutlet weak var upgradeObjectCollectionView: UICollectionView!
+    
     
     @IBAction func submitPlayerName(_ sender: UIButton) {
         
@@ -85,27 +91,10 @@ class PlayerProfileViewController: UIViewController{
             return
         }
         
-    if(nameTextField.isFirstResponder){ nameTextField.resignFirstResponder()
+        if(nameTextField.isFirstResponder){ nameTextField.resignFirstResponder()
         }
     }
-    
-    
-    @IBOutlet weak var chooseWeaponLableCenterXConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var chooseUpgradeObjectLabelCenterXConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var specialWeaponImageView: UIImageView!
-    
-    
-    @IBOutlet weak var specialWeaponLabel: UILabel!
-    
-    
-    @IBOutlet weak var upgradeObjectImageView: UIImageView!
-    
-    @IBOutlet weak var upgradeObjectLabel: UILabel!
-    
     @IBAction func showUpgradeObjectCV(_ sender: UIButton) {
-        
         
         self.upgradeObjectCollectionViewCenterXConstraint.constant += 1000
         self.chooseUpgradeObjectLabelCenterXConstraint.constant -= 1000
@@ -120,9 +109,6 @@ class PlayerProfileViewController: UIViewController{
     
     @IBAction func showSpecialWeaponCV(_ sender: UIButton) {
         
-        
-    
-        
         self.specialWeaponCollectionViewCenterXConstraint.constant += 1000
         self.chooseWeaponLableCenterXConstraint.constant -= 1000
         self.specialWeaponCollectionView.reloadData()
@@ -133,8 +119,6 @@ class PlayerProfileViewController: UIViewController{
         })
         
     }
-    
-    
     
     
     @IBAction func changedWeapon(_ sender: UIButton) {
@@ -166,20 +150,6 @@ class PlayerProfileViewController: UIViewController{
         
     }
     
-    @IBOutlet weak var specialWeaponCollectionViewCenterXConstraint: NSLayoutConstraint!
-    
-    
-    @IBOutlet weak var specialWeaponDetailVewCenterXConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var upgradeObjectDetailViewCenterXConstraint: NSLayoutConstraint!
-    
-    
-    @IBOutlet weak var upgradeObjectCollectionViewCenterXConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var avatarPicker: UIPickerView!
-    @IBOutlet weak var specialWeaponCollectionView: UICollectionView!
-    @IBOutlet weak var upgradeObjectCollectionView: UICollectionView!
     
     var selectedUpgradeItemType: CollectibleType?
     var selectedSpecialWeaponType: CollectibleType?
@@ -211,55 +181,13 @@ class PlayerProfileViewController: UIViewController{
     }
     
     
+   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         
-        self.nameTextField.delegate = self
-        
-        self.avatarPicker.delegate = self
-        self.avatarPicker.dataSource = self
-        
-        self.specialWeaponCollectionView.dataSource = self
-        self.specialWeaponCollectionView.delegate = self
-        self.specialWeaponCollectionView.tag = PlayerProfileCollectionViewTag.SpecialWeaponCV.rawValue
-        self.specialWeaponCollectionView.backgroundColor = UIColor.clear
-        
-        self.upgradeObjectCollectionView.dataSource = self
-        self.upgradeObjectCollectionView.delegate = self
-        self.upgradeObjectCollectionView.tag = PlayerProfileCollectionViewTag.UpgradeObjectCV.rawValue
-        self.upgradeObjectCollectionView.backgroundColor = UIColor.clear
-        
-        
-        if(!willCreateNewProfile){
-            
-
-            
-            self.specialWeaponDetailVewCenterXConstraint.constant = 0
-            self.upgradeObjectDetailViewCenterXConstraint.constant = 0
-            
-            self.chooseWeaponLableCenterXConstraint.constant = -1000
-            self.chooseUpgradeObjectLabelCenterXConstraint.constant = -1000
-            
-            
-            
-            
-            
-        } else {
-            
-            
-            self.specialWeaponDetailVewCenterXConstraint.constant = 1000
-            self.upgradeObjectDetailViewCenterXConstraint.constant = 1000
-            
-            
-        }
-        
-        self.specialWeaponCollectionViewCenterXConstraint.constant = -1000
-        self.upgradeObjectCollectionViewCenterXConstraint.constant = -1000
-        
-        adBannerView.load(GADRequest())
-
-        self.view.layoutIfNeeded()
     }
     
     
@@ -272,107 +200,42 @@ class PlayerProfileViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        bannerViewTopConstraint.constant = -300
+        setDelegateAndDataSourcePropertiesForUIElements()
+        
+        if(!willCreateNewProfile && self.selectedPlayerProfile != nil){
+            
+            /** Detail Views are positioned on screen; namefiled, avatar, special weapon view, and upgrade object view are configured so as to be consistent with selected player profile which the user may modify **/
+            resetNameFieldTextBasedOnPlayerProfile()
+            resetAvatarBasedOnPlayerProfile()
+            resetUpgradeObjectDetailViewBasedOnPlayerProfile()
+            resetSpecialWeaponDetailViewBasedOnPlayerProfile()
+            positionSpecialWeaponDetailViewOnScreen()
+            positionUpgradeObjectDetailViewOnScreen()
+            
+     
+            
+            
+            
+        } else {
+            
+            positionDetailViewsOffScreen()
+        }
+        
+        positionCollectionViewsOffScreen()
+        
+        self.view.layoutIfNeeded()
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         
-        if(self.selectedPlayerProfile != nil){
-            
-            self.nameTextField.text = selectedPlayerProfile!.name
-            self.nameTextField.setNeedsDisplay()
-            
-            
-            var playerTypeIdx = 0
-            
-            for (idx,playerType) in PlayerType.allPlayerTypes.enumerated(){
-                
-                if(playerType.getIntegerValue() == Int(selectedPlayerProfile!.playerType)){
-                    playerTypeIdx = idx
-                }
-            }
-            /**
-            
-
-            
-            var specialWeaponIdx = 0
-            var upgradeItemIdx = 0
-            
-            for (idx,collectibleType) in CollectibleType.SpecialWeaponTypes.enumerated(){
-                
-                if(collectibleType.rawValue == Int(selectedPlayerProfile!.specialWeapon)){
-                    specialWeaponIdx = idx
-                }
-            }
-            
-            for (idx,collectibleType) in CollectibleType.UpgradeItemTypes.enumerated(){
-                
-                if(collectibleType.rawValue == Int(selectedPlayerProfile!.upgradeCollectible)){
-                    upgradeItemIdx = idx
-                }
-            }
-            
-            **/
-            
-            /**
-            let upgradeItemIndexPath = IndexPath(row: upgradeItemIdx, section: 1)
-            let specialWeaponIndexPath = IndexPath(row: specialWeaponIdx, section: 1)
-            
-            self.upgradeObjectCollectionView.selectItem(at: upgradeItemIndexPath, animated: false, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
-            self.specialWeaponCollectionView.selectItem(at: specialWeaponIndexPath, animated: false, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
-            
- 
-            
-          
-            
-            if let upgradeObject = CollectibleType(rawValue: Int(self.selectedPlayerProfile!.upgradeCollectible)){
-                
-                self.upgradeObjectImageView.contentMode = .scaleAspectFit
-                self.upgradeObjectImageView.image = UIImage(cgImage: upgradeObject.getTexture().cgImage())
-                self.upgradeObjectLabel.text = upgradeObject.getCollectibleName()
-            }
-            
-            if let specialWeapon = CollectibleType(rawValue: Int(self.selectedPlayerProfile!.specialWeapon)){
-                
-                specialWeaponImageView.contentMode = .scaleAspectFit
-                self.specialWeaponImageView.image = UIImage(cgImage: specialWeapon.getTexture().cgImage())
-                self.specialWeaponLabel.text = specialWeapon.getCollectibleName()
- 
-            }
-            
-            **/
-            
-            self.specialWeaponDetailVewCenterXConstraint.constant = 0
-            self.upgradeObjectDetailViewCenterXConstraint.constant = 0
-            
-            self.chooseWeaponLableCenterXConstraint.constant = -1000
-            self.chooseUpgradeObjectLabelCenterXConstraint.constant = -1000
-            
-            
-            
-            self.avatarPicker.selectRow(playerTypeIdx, inComponent: 0, animated: true)
-
-            
-        } else {
-            
-            
-            self.specialWeaponDetailVewCenterXConstraint.constant = 1000
-            self.upgradeObjectDetailViewCenterXConstraint.constant = 1000
-            
-            
-        }
-        
-        self.specialWeaponCollectionViewCenterXConstraint.constant = -1000
-        self.upgradeObjectCollectionViewCenterXConstraint.constant = -1000
-        
-        
-        self.view.layoutIfNeeded()
-        
         
     }
 
+    
     func savePlayerProfile(){
         
         
@@ -476,6 +339,12 @@ extension PlayerProfileViewController: UIPickerViewDelegate,UIPickerViewDataSour
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return PlayerType.allPlayerTypes.count
     }
+}
+
+extension PlayerProfileViewController{
+    
+    
+    
 }
 
 
@@ -608,16 +477,7 @@ extension PlayerProfileViewController: GADBannerViewDelegate{
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("Banner loaded successfully")
-        
-        self.adContainerView.addSubview(bannerView)
-        bannerView.frame = self.adContainerView.frame
-        
-        bannerViewTopConstraint.constant += 300
-
-        
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-        }
+   
         
     }
     
@@ -628,3 +488,36 @@ extension PlayerProfileViewController: GADBannerViewDelegate{
     
     
 }
+
+/**
+ 
+ if(!willCreateNewProfile  && self.selectedPlayerProfile != nil){
+ 
+ 
+ 
+ self.specialWeaponDetailVewCenterXConstraint.constant = 0
+ self.upgradeObjectDetailViewCenterXConstraint.constant = 0
+ 
+ self.chooseWeaponLableCenterXConstraint.constant = -1000
+ self.chooseUpgradeObjectLabelCenterXConstraint.constant = -1000
+ 
+ 
+ 
+ 
+ 
+ } else {
+ 
+ 
+ self.specialWeaponDetailVewCenterXConstraint.constant = 1000
+ self.upgradeObjectDetailViewCenterXConstraint.constant = 1000
+ 
+ 
+ }
+ 
+ self.specialWeaponCollectionViewCenterXConstraint.constant = -1000
+ self.upgradeObjectCollectionViewCenterXConstraint.constant = -1000
+ 
+ 
+ self.view.layoutIfNeeded()
+ 
+ **/

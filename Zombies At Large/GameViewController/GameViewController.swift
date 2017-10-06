@@ -17,6 +17,8 @@ import GameplayKit
 class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UINavigationControllerDelegate {
 
     
+    var loadableGameSceneSnapshot: GameSceneSnapshot?
+    
     var selectedGameLevel: GameLevel?
     
     var playerProfile: PlayerProfile? /**{
@@ -369,6 +371,22 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
 
             
         
+        } else if self.loadableGameSceneSnapshot != nil {
+            
+            currentGameScene = GameScene(playerProfile: self.playerProfile!, gameSceneSnapShot: self.loadableGameSceneSnapshot!)
+            
+            guard let scene = self.currentGameScene else {
+                fatalError("Error: failed to load game scene ")
+            }
+            
+            // Set the scale mode to scale to fit the window
+            scene.scaleMode = .aspectFill
+            
+            // Present the scene
+            self.skView.presentScene(scene)
+            
+            
+            
         }
         
     }

@@ -50,17 +50,37 @@ class PlayerStateSnapShot: NSObject, NSCoding{
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.position = aDecoder.decodeCGPoint(forKey: "position")
-        self.currentVelocity = aDecoder.decodeCGVector(forKey: "currentVelocity")
-        self.healthLevel = aDecoder.decodeInteger(forKey: "healthLevel")
-        self.numberOfBullets = aDecoder.decodeInteger(forKey: "numberOfBullets")
+        
+        let position = aDecoder.decodeCGPoint(forKey: "position")
+        self.position = position
+        
+        print("Initialize player with a position of x: \(position.x) and y: \(position.y) ")
+        
+        let currentVelocity = aDecoder.decodeCGVector(forKey: "currentVelocity")
+        self.currentVelocity = currentVelocity
+    
+        print("Initializing player with a current velocity of dx: \(currentVelocity.dx) and dy: \(currentVelocity.dy)")
+        
+        
+        let health = aDecoder.decodeInteger(forKey: "healthLevel")
+        self.healthLevel = health
+        
+        print("Initializing player with a health of \(health)")
+        
+        
+        let numberOfBullets = aDecoder.decodeInteger(forKey: "numberOfBullets")
+        self.numberOfBullets = numberOfBullets
+        
+        print("Initializing player with \(numberOfBullets) bullets")
         
     
         
         self.compassOrientation = CompassDirection(rawValue: Int(aDecoder.decodeInt64(forKey: "compassDirection"))) ?? .east
         
-        let playerInt = (aDecoder.decodeObject(forKey: "playerType") as? Int) ?? 1
+
+        let playerInt = aDecoder.decodeInteger(forKey: "playerType")
         self.playerType = PlayerType(withIntegerValue: playerInt)
+        print("Initializing player with player type of \(playerInt)")
         
         self.collectibleManager = (aDecoder.decodeObject(forKey: "collectibleManager") as? CollectibleManager) ?? CollectibleManager()
         

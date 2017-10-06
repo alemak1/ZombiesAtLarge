@@ -134,6 +134,32 @@ class MainMenuController: UIViewController{
         })
         
           NotificationCenter.default.addObserver(self, selector: #selector(updateProgressBar(notification:)), name: Notification.Name(rawValue:Notification.Name.didMakeProgressTowardsGameLoadingNotification), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadSavedGame(notification:)), name: Notification.Name.GetDidRequestSavedGameToBeLoadedNotification(), object: nil)
+    }
+    
+    @objc func loadSavedGame(notification: Notification?){
+        
+        if let savedGamesController = presentedViewController as? SavedGamesViewController{
+            
+            savedGamesController.dismiss(animated: true, completion: nil)
+            
+        }
+        
+        
+        if let savedGameCell = notification?.object as? SavedGameCell, let savedGame = savedGameCell.savedGame{
+            
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let gameViewController = storyBoard.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
+            
+            gameViewController.loadableGameSceneSnapshot = savedGame.gameSceneSnapshot as! GameSceneSnapshot
+            
+            gameViewController.playerProfile = self.selectedPlayerProfile
+            
+            present(gameViewController, animated: true, completion: nil)
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {

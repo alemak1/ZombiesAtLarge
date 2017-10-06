@@ -11,6 +11,16 @@ import SpriteKit
 
 class RescueCharacter: SKSpriteNode{
     
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        
+    }
+    
+    
     var player: Player!
     var nonPlayerCharacterType: NonplayerCharacterType!
     
@@ -82,9 +92,7 @@ class RescueCharacter: SKSpriteNode{
         super.init(texture: texture, color: color, size: size)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    
     
     func rescueCharacter(){
         self.hasBeenRescued = true

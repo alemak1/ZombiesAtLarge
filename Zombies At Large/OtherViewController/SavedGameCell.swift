@@ -12,6 +12,15 @@ import UIKit
 
 class SavedGameCell: UITableViewCell{
     
+    
+    var savedGame: SavedGame!
+    
+    @IBAction func loadSavedGame(_ sender: UIButton) {
+        
+        
+        NotificationCenter.default.post(name: Notification.Name.GetDidRequestSavedGameToBeLoadedNotification(), object: self, userInfo: nil)
+    }
+    
     @IBOutlet weak var missionDescription: UILabel!
     
 

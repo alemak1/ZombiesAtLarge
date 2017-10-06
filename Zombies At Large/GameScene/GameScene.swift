@@ -232,43 +232,29 @@ class GameScene: BaseScene{
         
         /** If the Game Scene has not been loaded from a saved game, then initialize it from scratch **/
         
+        
+       
+        
         if(self.loadableGameSceneSnapshot == nil){
             print("ALL GAME STAT REVIEW UP TO DATE: ")
 
-        
-        
-            for timeInterval in 1...10{
-            
-                let when = DispatchTime.now() + Double(timeInterval)
-            
-                DispatchQueue.main.asyncAfter(deadline: when, execute: {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: Notification.Name.didMakeProgressTowardsGameLoadingNotification), object: nil, userInfo: ["progressAmount": Float(0.05)])
-                
-                })
-            }
-      
-        
     
             loadMissionPanel()
             loadBackground()
-        
-        
-        
+            
             let xPosControls = UIScreen.main.bounds.width*0.3
             let yPosControls = -UIScreen.main.bounds.height*0.3
             let point = CGPoint(x: xPosControls, y: yPosControls)
             loadControls(atPosition: point)
+            addHUDNode()
+
+       
 
             let camera = CollectibleSprite(collectibleType: .Camera)
             camera.move(toParent: worldNode)
             camera.position = CGPoint(x: 150.0, y: 10.0)
 
-            if let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate{
-                print("The unrescued character count is \(unrescuedCharactersTracker.numberOfUnrescuedCharacters)")
 
-            }
-        
-        
         
         let miniZombie = MiniZombie(zombieType: .zombie2, scale: 1.00, startingHealth: 3, hasDirectionChangeEnabled: true)
         miniZombie.move(toParent: worldNode)
@@ -291,7 +277,6 @@ class GameScene: BaseScene{
             cameraMan.position = CGPoint(x: -100, y: -250.00)
             cameraMan.setTargetPictureString()
         
-            addHUDNode()
 
             //Debug only - remove later
         
@@ -302,6 +287,8 @@ class GameScene: BaseScene{
                     savedGame.showSavedGameInfo()
                 }
             }
+            
+
             
         } else {
             
@@ -315,7 +302,18 @@ class GameScene: BaseScene{
             let levelInt = loadableGameSceneSnapshot.gameLevelRawValue
             self.currentGameLevel = GameLevel(rawValue: levelInt!)!
             
-      
+            
+            loadMissionPanel()
+            loadBackground()
+            
+            let xPosControls = UIScreen.main.bounds.width*0.3
+            let yPosControls = -UIScreen.main.bounds.height*0.3
+            let point = CGPoint(x: xPosControls, y: yPosControls)
+            loadControls(atPosition: point)
+            addHUDNode()
+            
+
+
             /** Depending on the mission level, initialize MustKillZombieTracker, RequiredCollectibleTracker, and RescueCharacterTrackers respectively **/
             
             if let mustKillZombies = loadableGameSceneSnapshot.mustKillZombies{
@@ -343,6 +341,9 @@ class GameScene: BaseScene{
                 }
             }
             
+            addHUDNode()
+
+            
             
         }
      
@@ -352,8 +353,20 @@ class GameScene: BaseScene{
     override func loadPlayer() {
         
         if(self.loadableGameSceneSnapshot == nil){
-            super.loadPlayer()
+           
+            let playerProfile = self.currentPlayerProfile!
+            let playerTypeInt = Int(playerProfile.playerType)
+            let playerType = PlayerType(withIntegerValue: playerTypeInt)
+            
+            player = Player(playerType: playerType, scale: 1.50)
+            player.position = CGPoint(x: 0.00, y: 0.00)
+            player.zPosition = 5
+            worldNode.addChild(player)
+            
+            
         } else {
+            
+            print("Preparing to load player from game scene snapshot....")
             
             guard let loadableGameSceneSnapshot = self.loadableGameSceneSnapshot else {
                 print("Error: found nil while unwrapping loadable game scene snapshot")
@@ -361,6 +374,9 @@ class GameScene: BaseScene{
             }
             
             let playerStateSnapshot = loadableGameSceneSnapshot.playerStateSnapshot
+            
+            print("About to initialize player from game scene snapshot...")
+            
             self.player = Player(playerStateSnapshot: playerStateSnapshot!)
             self.player.move(toParent: worldNode)
             
