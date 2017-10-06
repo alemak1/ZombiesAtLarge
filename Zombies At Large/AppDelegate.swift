@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-
+import GoogleMobileAds
 
 
 @UIApplicationMain
@@ -65,6 +65,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        // deleteSavedGames()
        // deleteGameLevelStats()
         
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-3595969991114166~1431909202")
+
         return true
     }
 

@@ -13,6 +13,16 @@ class Bullet: CollectibleSprite{
     
     var numberOfBullets: Int = 1
     
+    required init?(coder aDecoder: NSCoder) {
+        self.numberOfBullets = aDecoder.decodeInteger(forKey: "numberOfBullets")
+        super.init(coder: aDecoder)
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        super.encode(with: aCoder)
+        aCoder.encode(self.numberOfBullets, forKey: "numberOfBullets")
+    }
+    
     convenience init(numberOfBullets: Int = 1) {
         
         let bulletTexture = CollectibleType.Bullet1.getTexture()
@@ -31,9 +41,7 @@ class Bullet: CollectibleSprite{
         super.init(texture: texture, color: color, size: size)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+   
 }
 
 
@@ -41,6 +49,16 @@ class RedEnvelope: CollectibleSprite{
     
     var monetaryValue: Double = 100
     
+    required init?(coder aDecoder: NSCoder) {
+        self.monetaryValue = aDecoder.decodeDouble(forKey: "monetaryValue")
+        super.init(coder: aDecoder)
+    }
+
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.monetaryValue, forKey: "monetaryValue")
+        super.encode(with: aCoder)
+        
+    }
     convenience init(monetaryValue: Double? = nil) {
         
         let redEnvelopeTexture = CollectibleType.RedEnvelope1.getTexture()
@@ -57,9 +75,6 @@ class RedEnvelope: CollectibleSprite{
         super.init(texture: texture, color: color, size: size)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 class RiceBowl: CollectibleSprite{
@@ -142,7 +157,11 @@ class Bomb: CollectibleSprite{
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        super.encode(with: aCoder)
     }
     
      override func initializePhysicsProperties(withTexture texture: SKTexture) {

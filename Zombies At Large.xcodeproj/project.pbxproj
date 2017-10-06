@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53E80D7583CDA15958AFFF52 /* Pods_Zombies_At_LargeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6624655902D4619E1770F6 /* Pods_Zombies_At_LargeUITests.framework */; };
+		58418F78690C6D63EBFEEDAE /* Pods_Zombies_At_Large.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D4A9C6799F2DDF70786BC61 /* Pods_Zombies_At_Large.framework */; };
+		6784B483DC2EB113968DC585 /* Pods_Zombies_At_LargeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ADD1813A68CE7B76A358368 /* Pods_Zombies_At_LargeTests.framework */; };
 		BD14D87E1F60151E00E19F21 /* ColliderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD14D87D1F60151E00E19F21 /* ColliderType.swift */; };
 		BD2A79241F7DA1AF005598A1 /* rumble2.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD2A79231F7DA1AB005598A1 /* rumble2.wav */; };
 		BD306AFD1F73AFE40067C17F /* MiniZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD306AFC1F73AFE40067C17F /* MiniZombie.swift */; };
@@ -171,6 +174,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D4A9C6799F2DDF70786BC61 /* Pods_Zombies_At_Large.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zombies_At_Large.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B6624655902D4619E1770F6 /* Pods_Zombies_At_LargeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zombies_At_LargeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C3F8A0F4F0AC9379A2E3D6D /* Pods-Zombies At Large.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zombies At Large.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zombies At Large/Pods-Zombies At Large.release.xcconfig"; sourceTree = "<group>"; };
+		3ADD1813A68CE7B76A358368 /* Pods_Zombies_At_LargeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zombies_At_LargeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		556B57A54A264817A30FE13A /* Pods-Zombies At LargeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zombies At LargeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zombies At LargeUITests/Pods-Zombies At LargeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		6868C7E284DA6C1383CAF4D5 /* Pods-Zombies At Large.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zombies At Large.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zombies At Large/Pods-Zombies At Large.debug.xcconfig"; sourceTree = "<group>"; };
+		7789C76744643D9F2F33C844 /* Pods-Zombies At LargeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zombies At LargeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zombies At LargeTests/Pods-Zombies At LargeTests.release.xcconfig"; sourceTree = "<group>"; };
+		79715F1E25B0F6648891DB5D /* Pods-Zombies At LargeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zombies At LargeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zombies At LargeUITests/Pods-Zombies At LargeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		856B8D8D0671066B67105F8D /* Pods-Zombies At LargeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zombies At LargeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zombies At LargeTests/Pods-Zombies At LargeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD14D87D1F60151E00E19F21 /* ColliderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderType.swift; sourceTree = "<group>"; };
 		BD2A79231F7DA1AB005598A1 /* rumble2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rumble2.wav; sourceTree = "<group>"; };
 		BD306AFC1F73AFE40067C17F /* MiniZombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniZombie.swift; sourceTree = "<group>"; };
@@ -340,6 +352,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58418F78690C6D63EBFEEDAE /* Pods_Zombies_At_Large.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +360,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6784B483DC2EB113968DC585 /* Pods_Zombies_At_LargeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,12 +368,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E80D7583CDA15958AFFF52 /* Pods_Zombies_At_LargeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A265C3C9D5EC56ACB3D975F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0D4A9C6799F2DDF70786BC61 /* Pods_Zombies_At_Large.framework */,
+				3ADD1813A68CE7B76A358368 /* Pods_Zombies_At_LargeTests.framework */,
+				1B6624655902D4619E1770F6 /* Pods_Zombies_At_LargeUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		89F88ECE5EBF64C28F7C5009 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6868C7E284DA6C1383CAF4D5 /* Pods-Zombies At Large.debug.xcconfig */,
+				1C3F8A0F4F0AC9379A2E3D6D /* Pods-Zombies At Large.release.xcconfig */,
+				856B8D8D0671066B67105F8D /* Pods-Zombies At LargeTests.debug.xcconfig */,
+				7789C76744643D9F2F33C844 /* Pods-Zombies At LargeTests.release.xcconfig */,
+				79715F1E25B0F6648891DB5D /* Pods-Zombies At LargeUITests.debug.xcconfig */,
+				556B57A54A264817A30FE13A /* Pods-Zombies At LargeUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BD34D5831F83960900A6DFD5 /* GameSaver */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +419,8 @@
 				BD3961B01F5970940060CDB4 /* Zombies At LargeTests */,
 				BD3961BB1F5970940060CDB4 /* Zombies At LargeUITests */,
 				BD3961941F5970940060CDB4 /* Products */,
+				89F88ECE5EBF64C28F7C5009 /* Pods */,
+				3A265C3C9D5EC56ACB3D975F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -688,9 +728,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD3961C11F5970940060CDB4 /* Build configuration list for PBXNativeTarget "Zombies At Large" */;
 			buildPhases = (
+				1B05F3D84466A69440F1D250 /* [CP] Check Pods Manifest.lock */,
 				BD39618F1F5970940060CDB4 /* Sources */,
 				BD3961901F5970940060CDB4 /* Frameworks */,
 				BD3961911F5970940060CDB4 /* Resources */,
+				F5E22670200CAF1C74079951 /* [CP] Embed Pods Frameworks */,
+				6C3EEB56B5D64045870339B9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -705,9 +748,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD3961C41F5970940060CDB4 /* Build configuration list for PBXNativeTarget "Zombies At LargeTests" */;
 			buildPhases = (
+				7B863232731E8EE29D6C9B7B /* [CP] Check Pods Manifest.lock */,
 				BD3961A91F5970940060CDB4 /* Sources */,
 				BD3961AA1F5970940060CDB4 /* Frameworks */,
 				BD3961AB1F5970940060CDB4 /* Resources */,
+				0438F3C7348509455BD4A637 /* [CP] Embed Pods Frameworks */,
+				F36716E27DC6389EAA6B6777 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -723,9 +769,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD3961C71F5970940060CDB4 /* Build configuration list for PBXNativeTarget "Zombies At LargeUITests" */;
 			buildPhases = (
+				B1A20D78FEC5AA5A959B87B4 /* [CP] Check Pods Manifest.lock */,
 				BD3961B41F5970940060CDB4 /* Sources */,
 				BD3961B51F5970940060CDB4 /* Frameworks */,
 				BD3961B61F5970940060CDB4 /* Resources */,
+				5172D7FCE23E297D78DB9751 /* [CP] Embed Pods Frameworks */,
+				61BDA05EC46A3CEF6738BFEF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -842,6 +891,153 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0438F3C7348509455BD4A637 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zombies At LargeTests/Pods-Zombies At LargeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1B05F3D84466A69440F1D250 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Zombies At Large-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5172D7FCE23E297D78DB9751 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zombies At LargeUITests/Pods-Zombies At LargeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61BDA05EC46A3CEF6738BFEF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zombies At LargeUITests/Pods-Zombies At LargeUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6C3EEB56B5D64045870339B9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zombies At Large/Pods-Zombies At Large-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7B863232731E8EE29D6C9B7B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Zombies At LargeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1A20D78FEC5AA5A959B87B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Zombies At LargeUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F36716E27DC6389EAA6B6777 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zombies At LargeTests/Pods-Zombies At LargeTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5E22670200CAF1C74079951 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zombies At Large/Pods-Zombies At Large-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BD39618F1F5970940060CDB4 /* Sources */ = {
@@ -1117,6 +1313,7 @@
 		};
 		BD3961C21F5970940060CDB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6868C7E284DA6C1383CAF4D5 /* Pods-Zombies At Large.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1132,6 +1329,7 @@
 		};
 		BD3961C31F5970940060CDB4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C3F8A0F4F0AC9379A2E3D6D /* Pods-Zombies At Large.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1147,6 +1345,7 @@
 		};
 		BD3961C51F5970940060CDB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 856B8D8D0671066B67105F8D /* Pods-Zombies At LargeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1164,6 +1363,7 @@
 		};
 		BD3961C61F5970940060CDB4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7789C76744643D9F2F33C844 /* Pods-Zombies At LargeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1181,6 +1381,7 @@
 		};
 		BD3961C81F5970940060CDB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79715F1E25B0F6648891DB5D /* Pods-Zombies At LargeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1197,6 +1398,7 @@
 		};
 		BD3961C91F5970940060CDB4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 556B57A54A264817A30FE13A /* Pods-Zombies At LargeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

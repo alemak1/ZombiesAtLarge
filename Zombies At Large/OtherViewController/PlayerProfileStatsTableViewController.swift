@@ -9,12 +9,23 @@
 import Foundation
 import UIKit
 import CoreData
-
+import GoogleMobileAds
 
 class PlayerProfileStatsTableViewController: UITableViewController{
     
     var playerProfile: PlayerProfile?
     
+    
+    lazy var adBannerView: GADBannerView = {
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = "ca-app-pub-3595969991114166/7017431896"
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
+    
+
     var sortingCriterion: PlayerProfile.GameStatSortCriteria? = .GameLevelsAscending {
         didSet{
             
@@ -44,6 +55,8 @@ class PlayerProfileStatsTableViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        adBannerView.load(GADRequest())
+
         tableView.reloadData()
     }
     
@@ -118,4 +131,39 @@ class PlayerProfileStatsTableViewController: UITableViewController{
     @IBAction func unwindBackToPlayerProfileTBViewController(segue: UIStoryboardSegue){
         
     }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return adBannerView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return adBannerView.frame.height
+    }
+
+}
+
+extension PlayerProfileStatsTableViewController: GADBannerViewDelegate{
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        
+        // Reposition the banner ad to create a slide down effect
+        let translateTransform = CGAffineTransform(translationX: 0, y: -bannerView.bounds.size.height)
+        bannerView.transform = translateTransform
+        
+        UIView.animate(withDuration: 0.5) {
+            self.tableView.tableHeaderView?.frame = bannerView.frame
+            bannerView.transform = CGAffineTransform.identity
+            self.tableView.tableHeaderView = bannerView
+        }
+        
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
+    }
+    
+    
 }

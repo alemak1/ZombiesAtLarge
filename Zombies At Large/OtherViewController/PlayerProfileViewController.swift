@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import GoogleMobileAds
 
 enum PlayerProfileCollectionViewTag: Int{
         case SpecialWeaponCV = 1
@@ -17,6 +18,18 @@ enum PlayerProfileCollectionViewTag: Int{
 
 class PlayerProfileViewController: UIViewController{
     
+    @IBOutlet weak var adContainerView: UIView!
+    
+    @IBOutlet weak var bannerViewTopConstraint: NSLayoutConstraint!
+    
+    lazy var adBannerView: GADBannerView = {
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = "ca-app-pub-3595969991114166/3880912913"
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
     
     var selectedPlayerProfile: PlayerProfile?{
     
@@ -94,8 +107,13 @@ class PlayerProfileViewController: UIViewController{
         
         self.upgradeObjectCollectionViewCenterXConstraint.constant += 1000
         self.chooseUpgradeObjectLabelCenterXConstraint.constant -= 1000
-        
         self.upgradeObjectCollectionView.reloadData()
+
+        UIView.animate(withDuration: 0.50, animations: {
+            
+            self.view.layoutIfNeeded()
+        })
+        
     }
     
     @IBAction func showSpecialWeaponCV(_ sender: UIButton) {
@@ -105,8 +123,13 @@ class PlayerProfileViewController: UIViewController{
         
         self.specialWeaponCollectionViewCenterXConstraint.constant += 1000
         self.chooseWeaponLableCenterXConstraint.constant -= 1000
-        
         self.specialWeaponCollectionView.reloadData()
+
+        UIView.animate(withDuration: 0.50, animations: {
+            
+            self.view.layoutIfNeeded()
+        })
+        
     }
     
     
@@ -232,7 +255,8 @@ class PlayerProfileViewController: UIViewController{
         self.specialWeaponCollectionViewCenterXConstraint.constant = -1000
         self.upgradeObjectCollectionViewCenterXConstraint.constant = -1000
         
-        
+        adBannerView.load(GADRequest())
+
         self.view.layoutIfNeeded()
     }
     
@@ -245,6 +269,8 @@ class PlayerProfileViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        bannerViewTopConstraint.constant = -300
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -572,4 +598,31 @@ extension PlayerProfileViewController: UITextFieldDelegate{
     func textFieldDidEndEditing(_ textField: UITextField) {
         nameTextField.resignFirstResponder()
     }
+}
+
+
+
+extension PlayerProfileViewController: GADBannerViewDelegate{
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        
+        self.adContainerView.addSubview(bannerView)
+        bannerView.frame = self.adContainerView.frame
+        
+        bannerViewTopConstraint.constant += 300
+
+        
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
+    }
+    
+    
 }

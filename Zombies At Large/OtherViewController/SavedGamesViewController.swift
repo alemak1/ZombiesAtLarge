@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
-
+import GoogleMobileAds
 
 class SavedGamesViewController: UITableViewController{
     
@@ -21,8 +21,19 @@ class SavedGamesViewController: UITableViewController{
         
     }
     
+    lazy var adBannerView: GADBannerView = {
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = "ca-app-pub-3595969991114166/3880912913"
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        adBannerView.load(GADRequest())
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,4 +80,31 @@ class SavedGamesViewController: UITableViewController{
         
         return cell
     }
+}
+
+
+extension SavedGamesViewController: GADBannerViewDelegate{
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        
+        // Reposition the banner ad to create a slide down effect
+        let translateTransform = CGAffineTransform(translationX: 0, y: -bannerView.bounds.size.height)
+        bannerView.transform = translateTransform
+        
+        UIView.animate(withDuration: 0.5) {
+            self.tableView.tableHeaderView?.frame = bannerView.frame
+            bannerView.transform = CGAffineTransform.identity
+            self.tableView.tableHeaderView = bannerView
+        }
+        
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
+    }
+    
+    
+    
 }
