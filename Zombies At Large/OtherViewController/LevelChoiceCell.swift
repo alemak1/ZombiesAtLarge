@@ -13,6 +13,16 @@ class LevelChoiceCell: UICollectionViewCell{
     @IBAction func loadSelectedLevel(_ sender: UIButton) {
     }
     
+    
+    
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    
+    @IBOutlet weak var levelTitleHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var levelTitleTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var levelThumbnail: UIImageView!
     
     @IBOutlet weak var descriptionLabelCenterXConstraint: NSLayoutConstraint!
@@ -24,12 +34,48 @@ class LevelChoiceCell: UICollectionViewCell{
     
     @IBOutlet weak var levelTitleLabel: UILabel!
     
+    var gameLevel: GameLevel!
+
     func animateConstraintsUponSelection(){
+
+
+        levelTitleTopConstraint.constant += 40
+        descriptionLabelCenterXConstraint.constant += 200
         
+        
+        UIView.animate(withDuration: 0.50, animations: {
+            
+            self.contentView.layoutIfNeeded()
+            
+        })
     }
     
     func animateConstraintsUponDeselection(){
         
+
+        levelTitleTopConstraint.constant -= 40
+        descriptionLabelCenterXConstraint.constant -= 200
+        UIView.animate(withDuration: 0.50, animations: {
+            
+            self.contentView.layoutIfNeeded()
+            
+        })
+    }
+    
+    func resetTitleLabelHeightConstraint(){
+        contentView.constraints.forEach({
+            constraint in
+            
+            if constraint.identifier == "titleHeightConstraint"{
+                constraint.isActive = false
+            }
+            
+            let newConstraint = NSLayoutConstraint(item: self.titleLabel, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.height, multiplier: isSelected ? 0.3:0.8, constant: 0.00)
+            
+            newConstraint.identifier = "titleHeightConstraint"
+            newConstraint.isActive = true
+        })
+
     }
     
 }

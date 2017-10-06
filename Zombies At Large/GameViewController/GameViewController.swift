@@ -17,6 +17,8 @@ import GameplayKit
 class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UINavigationControllerDelegate {
 
     
+    var selectedGameLevel: GameLevel?
+    
     var playerProfile: PlayerProfile? /**{
         
         get{
@@ -278,8 +280,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         NotificationCenter.default.addObserver(self, selector: #selector(openMediaPickerManager(notification:)), name: Notification.Name.GetDidRequestCameraOrPhotosNotification(), object: self.currentGameScene!)
         
     }
-    
-    
+  
     
     
     func showGameStatsView(){
@@ -350,24 +351,25 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
             progressView.isHidden = false
             
             // Load the SKScene from 'GameScene.sks'
-            currentGameScene = GameScene(currentGameLevel: .Level1, playerProfile: self.playerProfile!)
+        
+        if let selectedGameLevel = self.selectedGameLevel{
+            
+        
+            currentGameScene = GameScene(currentGameLevel: selectedGameLevel, playerProfile: self.playerProfile!)
             
             guard let scene = self.currentGameScene else {
                 fatalError("Error: failed to load game scene ")
-                
             }
-            
             
             // Set the scale mode to scale to fit the window
             scene.scaleMode = .aspectFill
             
             // Present the scene
-        
                 self.skView.presentScene(scene)
 
             
         
-        
+        }
         
     }
     

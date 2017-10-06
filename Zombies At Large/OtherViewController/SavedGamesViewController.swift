@@ -32,7 +32,10 @@ class SavedGamesViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        adBannerView.load(GADRequest())
+        
+        let request = GADRequest()
+        request.testDevices = ["3f6b9063183db11d680edcf5f59d8f62"]
+        adBannerView.load(request)
 
     }
     

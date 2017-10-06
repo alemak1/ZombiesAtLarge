@@ -16,6 +16,13 @@ class PlayerProfileStatsTableViewController: UITableViewController{
     var playerProfile: PlayerProfile?
     
     
+    @IBAction func dimissStatsViewController(_ sender: Any) {
+        
+        self.navigationController?.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         adBannerView.adUnitID = "ca-app-pub-3595969991114166/7017431896"

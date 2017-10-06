@@ -123,6 +123,7 @@ class PlayerProfileTableViewController: UITableViewController{
         if(segue.identifier == "modifyProfileSegue"){
             if let modifyProfileVC = segue.destination as? PlayerProfileViewController{
                 
+                modifyProfileVC.willCreateNewProfile = false
                 modifyProfileVC.existingPlayerProfile = self.selectedPlayerProfile
                 
             }

@@ -31,6 +31,8 @@ class PlayerProfileViewController: UIViewController{
         return adBannerView
     }()
     
+    var willCreateNewProfile = false
+    
     var selectedPlayerProfile: PlayerProfile?{
     
         get{
@@ -229,7 +231,7 @@ class PlayerProfileViewController: UIViewController{
         self.upgradeObjectCollectionView.backgroundColor = UIColor.clear
         
         
-        if(self.selectedPlayerProfile != nil){
+        if(!willCreateNewProfile){
             
 
             

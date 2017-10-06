@@ -13,6 +13,13 @@ import SpriteKit
 class MainMenuController: UIViewController{
 
     
+    
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    
+    @IBOutlet weak var activityIndicatorViewCenterYConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var gameStartOptionsBottomConstraint: NSLayoutConstraint!
+    
     /** Unwind segue - allows user to return from CreateProfile and LoadProfile view controller to the profile options view controller **/
     @IBAction func unwindToMainMenuController(segue: UIStoryboardSegue){
     
@@ -76,6 +83,21 @@ class MainMenuController: UIViewController{
     
     @IBAction func startGame(_ sender: Any) {
         
+        self.activityIndicatorViewCenterYConstraint.constant += 1500
+        self.gameStartOptionsBottomConstraint.constant += 1000
+        
+        self.activityIndicatorView.startAnimating()
+        
+        UIView.animate(withDuration: 0.70, animations: {
+            
+            self.view.layoutIfNeeded()
+            
+            self.performSegue(withIdentifier: "startMissionPlaySegue", sender: nil)
+            
+            
+        })
+
+        
     }
     
     
@@ -94,6 +116,8 @@ class MainMenuController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.activityIndicatorViewCenterYConstraint.constant = -1500
         
         self.gameStartOptionsCenterXConstraint.constant = 2000
         
@@ -123,12 +147,56 @@ class MainMenuController: UIViewController{
         }
     }
     
+    /**
+    override func performSegue(withIdentifier identifier: String, sender: Any?) {
+        
+        if identifier == "startMissionPlaySegue"{
+            print("Delaying exectuion of segue...")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.00, execute: {
+                print("Executing segue")
+                super.performSegue(withIdentifier: identifier, sender: sender)
+            })
+        } else {
+            super.performSegue(withIdentifier: identifier, sender: sender)
+        }
+    }
+ **/
+    
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        if(segue.identifier == "loadMarketingPageSegue"){
+            
+            if let marketingPageController = segue.destination as? MarketingPageController{
+                
+                marketingPageController.marketingPageURL = "https://suzhoupanda.github.io"
+                
+            }
+            
+        }
+        
+        if(segue.identifier == "createProfileSegue"){
+            
+            if let profileViewController = segue.destination as? PlayerProfileViewController{
+                
+                profileViewController.willCreateNewProfile = true
+                
+            }
+        }
+        
+        
         if(segue.identifier == "startMissionPlaySegue"){
+            
             
             if let gameViewController = segue.destination as? GameViewController{
                 
+                
+                gameViewController.selectedGameLevel = .Level1
                 gameViewController.playerProfile = self.selectedPlayerProfile
+                
+               
                 
             } else if let navigationController = segue.destination as? GameViewNavigationController{
                 
@@ -142,6 +210,12 @@ class MainMenuController: UIViewController{
                 
                 savedGamesViewController.playerProfile = self.selectedPlayerProfile
                 
+            }
+        }
+        
+        if(segue.identifier == "loadLevelSelectorSegue"){
+            if let levelSelectorViewController = segue.destination as? LevelChoiceViewController{
+                levelSelectorViewController.playerProfile = self.selectedPlayerProfile
             }
         }
     }

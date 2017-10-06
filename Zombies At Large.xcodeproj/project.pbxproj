@@ -38,6 +38,7 @@
 		BD3961CB1F5970BD0060CDB4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3961CA1F5970BD0060CDB4 /* Player.swift */; };
 		BD3961CD1F5971340060CDB4 /* PlayerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3961CC1F5971340060CDB4 /* PlayerType.swift */; };
 		BD3961CF1F59785C0060CDB4 /* user_interface.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD3961CE1F59785C0060CDB4 /* user_interface.sks */; };
+		BD39CDD71F8795520071577E /* MarketingPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39CDD61F8795520071577E /* MarketingPageController.swift */; };
 		BD39D1CB1F7CEF0A00B1E98E /* GameSceneSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39D1CA1F7CEF0A00B1E98E /* GameSceneSnapshot.swift */; };
 		BD39FCF61F68ED0A00209FFD /* coin2.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF51F68ED0200209FFD /* coin2.wav */; };
 		BD39FCF71F68ED0C00209FFD /* coin5.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF11F68ECDA00209FFD /* coin5.wav */; };
@@ -226,6 +227,7 @@
 		BD3961D31F598B310060CDB4 /* Space Cadet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Space Cadet.mp3"; sourceTree = "<group>"; };
 		BD3961D41F598B370060CDB4 /* Night at the Beach.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Night at the Beach.mp3"; sourceTree = "<group>"; };
 		BD3961D51F598B470060CDB4 /* Sad Descent.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Sad Descent.mp3"; sourceTree = "<group>"; };
+		BD39CDD61F8795520071577E /* MarketingPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingPageController.swift; sourceTree = "<group>"; };
 		BD39D1CA1F7CEF0A00B1E98E /* GameSceneSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneSnapshot.swift; sourceTree = "<group>"; };
 		BD39FCF11F68ECDA00209FFD /* coin5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin5.wav; sourceTree = "<group>"; };
 		BD39FCF21F68ECE900209FFD /* coin3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin3.wav; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				BD3C83201F860E4F000AA5B7 /* SavedGameCell.swift */,
 				BD3C83231F862756000AA5B7 /* LevelChoiceViewController.swift */,
 				BD3C83251F862810000AA5B7 /* LevelChoiceCell.swift */,
+				BD39CDD61F8795520071577E /* MarketingPageController.swift */,
 			);
 			path = OtherViewController;
 			sourceTree = "<group>";
@@ -1070,6 +1073,7 @@
 				BD3A516E1F69331A00B01850 /* Avatar.swift in Sources */,
 				BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */,
 				BD3C831E1F860BD7000AA5B7 /* SavedGamesViewController.swift in Sources */,
+				BD39CDD71F8795520071577E /* MarketingPageController.swift in Sources */,
 				BD42A8DD1F83D3B1008773C1 /* RandomObjectStringGenerator.swift in Sources */,
 				BD9B10401F7F5CF300C9A71E /* SceneManager.swift in Sources */,
 				BD7865591F6546620071A14F /* CollectibleType.swift in Sources */,

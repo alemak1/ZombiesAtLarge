@@ -12,11 +12,79 @@ import SpriteKit
 
 class LevelChoiceViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
+    @IBOutlet weak var loadSelectedGameButton: UIButton!
     
-    var selectedLevelChoiceCell: LevelChoiceCell?
+    @IBAction func loadSelectedGame(_ sender: Any) {
+        
+        
+        if self.selectedLevelChoiceCell == nil{
+            
+            let alertViewController = UIAlertController(title: "No Game Level Selected", message: "Choose a Game Level in order to load a game", preferredStyle: .alert)
+            
+            let okay = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            
+            alertViewController.addAction(okay)
+            
+            present(alertViewController, animated: true, completion: nil)
+            
+            return
+            
+        } else {
+            
+            performSegue(withIdentifier: "loadSelectedLevelSegue", sender: nil)
+
+        }
+      
+        
+    
+    }
+    
+    var playerProfile: PlayerProfile?
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        
+        if identifier == "loadSelectedLevelSegue" && self.selectedLevelChoiceCell == nil{
+            return false
+        }
+        
+        return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if(segue.identifier == "loadSelectedLevelSegue"){
+            
+            if let gameViewController = segue.destination as? GameViewController{
+                gameViewController.selectedGameLevel = self.selectedGameLevel
+                gameViewController.playerProfile = self.playerProfile
+                
+            }
+        }
+        
+    }
+    
+    var selectedLevelChoiceCell: LevelChoiceCell?{
+        didSet{
+            
+            if(oldValue != selectedLevelChoiceCell){
+                
+                loadSelectedGameButton.titleLabel?.text = selectedLevelChoiceCell == nil ? "Select Game Level":"Load Selected Level"
+
+            }
+        }
+    }
+    
+    var selectedGameLevel: GameLevel?{
+        
+        guard let gameLevel = selectedLevelChoiceCell?.gameLevel else { return nil }
+        
+        return gameLevel
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
     
     
@@ -25,15 +93,22 @@ class LevelChoiceViewController: UIViewController, UICollectionViewDataSource, U
         
         let cell = collectionView.cellForItem(at: indexPath) as! LevelChoiceCell
         
-        cell.animateConstraintsUponSelection()
+        if cell == self.selectedLevelChoiceCell{
+            return
+        } else {
+
+            cell.animateConstraintsUponSelection()
         
-        self.selectedLevelChoiceCell = cell
+            self.selectedLevelChoiceCell = cell
+        }
         
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
+
         if let previouslySelectedCell = self.selectedLevelChoiceCell{
+
             previouslySelectedCell.animateConstraintsUponDeselection()
             self.selectedLevelChoiceCell = nil
         }
@@ -54,11 +129,15 @@ class LevelChoiceViewController: UIViewController, UICollectionViewDataSource, U
         
         
         let cellInfo = GameLevel.AllGameLevels[indexPath.row]
+        cell.gameLevel = cellInfo
+        
         let gameLevel = cellInfo.rawValue
-        let levelDescription = cellInfo.getFullGameMissionDescription()
         let levelThumbnail = cellInfo.getLevelThumbnail()
         
-        cell.levelDescriptionLabel.text = levelDescription
+        
+        
+        cell.levelDescriptionLabel.text = playerProfile!.hasCompletedGameLevel(gameLevel: cellInfo) ? "Complete":"Incomplete"
+        
         cell.levelTitleLabel.text = "Level \(gameLevel)"
         cell.levelThumbnail.image = levelThumbnail
         

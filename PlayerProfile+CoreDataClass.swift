@@ -235,6 +235,27 @@ public class PlayerProfile: NSManagedObject {
     //MARK: GameLevelStatReview Helper Functions
     
     
+    func hasCompletedGameLevel(gameLevel: GameLevel) -> Bool{
+        
+        var completedGameLevels = Set<GameLevel>()
+        
+        guard let gameStats = getPlayerProfileGameStats(sortedBy: .GameLevelsAscending) else { return false }
+        
+        
+        print("Checking completed game levels for player...")
+
+        for gameLevel in gameStats{
+            print("The player has completed Level \(Int(gameLevel.gameLevel))")
+            
+            let completedGameLevel = GameLevel(rawValue: Int(gameLevel.gameLevel))!
+            completedGameLevels.insert(completedGameLevel)
+            
+        }
+        
+        return completedGameLevels.contains(gameLevel)
+        
+    }
+    
     func getPlayerProfileGameStats(sortedBy sortingCriterion: GameStatSortCriteria) -> [GameLevelStatReview]?{
         
         guard let gameStats = self.gameSessions else { return nil }
