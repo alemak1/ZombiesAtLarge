@@ -30,14 +30,14 @@ class GameSceneSnapshot: NSObject, NSCoding{
     var date: Date!
     var gameLevelRawValue: Int!
     var playerStateSnapshot: PlayerStateSnapShot!
-    var worldNodeSnapshot: WorldNodeSnapshot!
+    var worldNodeSnapshot: WorldNodeSnapshotA!
     
-    var requiredCollectibles: Set<CollectibleSprite>?
-    var mustKillZombies: Set<Zombie>?
-    var unrescuedCharacters: Set<RescueCharacter>?
+    var requiredCollectibles: [CollectibleSnapshot]?
+    var mustKillZombies: [ZombieSnapshot]?
+    var unrescuedCharacters: [RescueCharacterSnapshot]?
     
   
-    init(gameLevel: GameLevel, playerStateSnapshot: PlayerStateSnapShot, worldNodeSnapshot: WorldNodeSnapshot, requiredCollectibles: Set<CollectibleSprite>?, mustKillZombies: Set<Zombie>?, unrescuedCharacters: Set<RescueCharacter>?) {
+    init(gameLevel: GameLevel, playerStateSnapshot: PlayerStateSnapShot, worldNodeSnapshot: WorldNodeSnapshotA, requiredCollectibles: [CollectibleSnapshot]?, mustKillZombies: [ZombieSnapshot]?, unrescuedCharacters:[RescueCharacterSnapshot]? ) {
         
         
         self.date = Date()
@@ -70,15 +70,15 @@ class GameSceneSnapshot: NSObject, NSCoding{
         
         self.date = aDecoder.decodeObject(forKey: "date") as! Date
         
-        let gameLevelRawValue = aDecoder.decodeObject(forKey: "gameLevelRawValue") as! Int
+        let gameLevelRawValue = aDecoder.decodeInteger(forKey: "gameLevelRawValue")
         self.gameLevelRawValue = gameLevelRawValue
         
-        self.worldNodeSnapshot = aDecoder.decodeObject(forKey: "worldNodeSnapshot") as! WorldNodeSnapshot
+        self.worldNodeSnapshot = aDecoder.decodeObject(forKey: "worldNodeSnapshot") as! WorldNodeSnapshotA
         self.playerStateSnapshot = aDecoder.decodeObject(forKey: "playerStateSnapshot") as! PlayerStateSnapShot
         
-        self.unrescuedCharacters = aDecoder.decodeObject(forKey: "unrescuedCharacters") as? Set<RescueCharacter>
-        self.requiredCollectibles = aDecoder.decodeObject(forKey: "requiredCollectibles") as? Set<CollectibleSprite>
-        self.mustKillZombies = aDecoder.decodeObject(forKey: "mustKillZombies") as? Set<Zombie>
+        self.unrescuedCharacters = aDecoder.decodeObject(forKey: "unrescuedCharacters") as? [RescueCharacterSnapshot]
+        self.requiredCollectibles = aDecoder.decodeObject(forKey: "requiredCollectibles") as? [CollectibleSnapshot]
+        self.mustKillZombies = aDecoder.decodeObject(forKey: "mustKillZombies") as? [ZombieSnapshot]
         
         super.init()
     }

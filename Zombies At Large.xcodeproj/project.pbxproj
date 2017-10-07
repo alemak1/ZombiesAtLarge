@@ -45,6 +45,7 @@
 		BD39FCF81F68ED0F00209FFD /* coin1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF41F68ECEB00209FFD /* coin1.wav */; };
 		BD39FCF91F68ED1100209FFD /* coin3.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF21F68ECE900209FFD /* coin3.wav */; };
 		BD39FCFA1F68ED1400209FFD /* coin4.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD39FCF31F68ECE900209FFD /* coin4.wav */; };
+		BD3A4ABC1F87F7C1009C7C96 /* Snapshottable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A4ABB1F87F7C1009C7C96 /* Snapshottable.swift */; };
 		BD3A51661F69122500B01850 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51651F69122500B01850 /* ImageManager.swift */; };
 		BD3A51681F692B7400B01850 /* NonplayerCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51671F692B7400B01850 /* NonplayerCharacter.swift */; };
 		BD3A516A1F692D5D00B01850 /* Talkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51691F692D5D00B01850 /* Talkable.swift */; };
@@ -235,6 +236,7 @@
 		BD39FCF31F68ECE900209FFD /* coin4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin4.wav; sourceTree = "<group>"; };
 		BD39FCF41F68ECEB00209FFD /* coin1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin1.wav; sourceTree = "<group>"; };
 		BD39FCF51F68ED0200209FFD /* coin2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin2.wav; sourceTree = "<group>"; };
+		BD3A4ABB1F87F7C1009C7C96 /* Snapshottable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshottable.swift; sourceTree = "<group>"; };
 		BD3A51651F69122500B01850 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		BD3A51671F692B7400B01850 /* NonplayerCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonplayerCharacter.swift; sourceTree = "<group>"; };
 		BD3A51691F692D5D00B01850 /* Talkable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Talkable.swift; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 				BD82A56F1F80EB190073BD85 /* ZombieMasterLevel.swift */,
 				BD42A8DA1F83D145008773C1 /* Classification.swift */,
 				BD42A8DC1F83D3B1008773C1 /* RandomObjectStringGenerator.swift */,
+				BD3A4ABB1F87F7C1009C7C96 /* Snapshottable.swift */,
 			);
 			path = GameUtils;
 			sourceTree = "<group>";
@@ -1162,6 +1165,7 @@
 				BD41D5421F7E255D0093CDA8 /* GameLevelStatReview+CoreDataProperties.swift in Sources */,
 				BD78655B1F65483D0071A14F /* ImageContainer.swift in Sources */,
 				BD3F94371F7F679D0027FE93 /* MustKillZombieTracker.swift in Sources */,
+				BD3A4ABC1F87F7C1009C7C96 /* Snapshottable.swift in Sources */,
 				BD3F943C1F7F71590027FE93 /* UnrescuedCharacterTracker.swift in Sources */,
 				BD42C64E1F7E57270030588F /* UpgradeObjectCell.swift in Sources */,
 				BD42C6481F7E53830030588F /* PlayerProfileViewController.swift in Sources */,

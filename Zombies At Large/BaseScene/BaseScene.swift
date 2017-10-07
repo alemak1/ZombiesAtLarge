@@ -93,8 +93,6 @@ class BaseScene: SKScene{
         initializeBasicNodeLayers()
         initializePlayerProximity()
         loadCamera()
-        loadPlayer()
-        loadZombieManager()
         loadFireButton()
         
     }

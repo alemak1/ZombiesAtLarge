@@ -46,7 +46,7 @@ class GameSaver{
         savedGame.gameSceneSnapshot = gameSceneSnapshot
         savedGame.playerSnapshot = playerSnapshot
         
-        print("Game Snapshot Info....Game Level: \(gameSceneSnapshot.gameLevelRawValue), Number of MustKill Zombies: \(String(describing: gameSceneSnapshot.mustKillZombies?.count)), Number of Required Collectibles: \(String(describing: gameSceneSnapshot.requiredCollectibles?.count)), Total Number of Collectibles in the World Node: \(gameSceneSnapshot.worldNodeSnapshot.collectibles.count), Total Number of Zombies: \(gameSceneSnapshot.worldNodeSnapshot.zombies.count)")
+       
         
         do {
             try self.managedContext.save()

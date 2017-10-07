@@ -11,7 +11,7 @@ import SpriteKit
 
 
 
-enum NonplayerCharacterType{
+enum NonplayerCharacterType: Int{
     case OldWoman
     case Survivor1
     case Survivor2

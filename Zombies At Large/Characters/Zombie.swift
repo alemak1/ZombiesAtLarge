@@ -9,13 +9,50 @@
 import Foundation
 import SpriteKit
 
+class ZombieSnapshot: NSCoding{
+    
+    var currentHealth: Int
+    var isDamaged: Bool
+    var zombieTypeRawValue: String
+    var physicsBody: SKPhysicsBody
+    var zombieModeRawValue: Int
+    
+    init(zombieModeRawValue: Int, currentHealth: Int, isDamaged: Bool, zombieTypeRawValue: String, physicsBody: SKPhysicsBody){
+        self.currentHealth = currentHealth
+        self.isDamaged = isDamaged
+        self.zombieTypeRawValue = zombieTypeRawValue
+        self.physicsBody = physicsBody
+        self.zombieModeRawValue = zombieModeRawValue
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.currentHealth = aDecoder.decodeInteger(forKey: "currentHealth")
+        self.isDamaged = aDecoder.decodeBool(forKey: "isDamaged")
+        self.zombieTypeRawValue = aDecoder.decodeObject(forKey: "zombieTypeRawValue") as! String
+        self.physicsBody = aDecoder.decodeObject(forKey: "physicsBody") as! SKPhysicsBody
+        self.zombieModeRawValue = aDecoder.decodeInteger(forKey: "zombieModeRawValue")
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.isDamaged, forKey: "isDamaged")
+        aCoder.encode(self.currentHealth, forKey: "currentHealth")
+        aCoder.encode(self.zombieTypeRawValue, forKey: "zombieTypeRawValue")
+        aCoder.encode(self.physicsBody, forKey: "physicsBody")
+        aCoder.encode(self.zombieModeRawValue, forKey: "zombieModeRawValue")
+
+        
+    }
+    
+
+}
 
 enum ZombieType: String{
     case zombie1
     case zombie2
     
+    
     func getDefaultTexture() -> SKTexture{
-        
+    
         let baseStr = self.rawValue
         let finalStr = baseStr.appending("_stand")
         
@@ -50,8 +87,25 @@ enum ZombieType: String{
     }
 }
 
-class Zombie: Shooter{
+class Zombie: Shooter,Snapshottable{
     
+    func getSnapshot() -> NSCoding {
+        
+        let zombieModeRawValue = self.currentMode.rawValue
+        let zombieTypeRawValue = self.zombieType.rawValue
+        
+        return ZombieSnapshot(zombieModeRawValue: zombieModeRawValue, currentHealth: self.currentHealth, isDamaged: self.isDamaged, zombieTypeRawValue: zombieTypeRawValue, physicsBody: self.physicsBody!)
+    }
+    
+    
+    var snapshot: NSCoding{
+        
+        let zombieModeRawValue = self.currentMode.rawValue
+        let zombieTypeRawValue = self.zombieType.rawValue
+        
+        return ZombieSnapshot(zombieModeRawValue: zombieModeRawValue, currentHealth: self.currentHealth, isDamaged: self.isDamaged, zombieTypeRawValue: zombieTypeRawValue, physicsBody: self.physicsBody!)
+
+    }
     
     enum ZombieMode: Int{
         case Latent = 0
@@ -63,6 +117,31 @@ class Zombie: Shooter{
     
      var currentHealth: Int = 3
      var isDamaged: Bool = false
+    
+    /** Helper initializer to allow zombies to be initialized from ZombieSnapShot **/
+    
+    convenience init(withZombieSnapshot zombieSnapshot: ZombieSnapshot){
+
+        let zombieType = ZombieType(rawValue: zombieSnapshot.zombieTypeRawValue)!
+        let defaultTexture = zombieType.getDefaultTexture()
+        
+        self.init(texture: defaultTexture, color: .clear, size: defaultTexture.size())
+
+        self.currentMode = ZombieMode(rawValue: zombieSnapshot.zombieModeRawValue)!
+
+        configurePhysicsProperties(withTexture: defaultTexture, andWithSize: defaultTexture.size())
+        
+        self.zombieType = zombieType
+        self.currentHealth = zombieSnapshot.currentHealth
+        self.xScale *= 1.50
+        self.yScale *= 1.50
+        
+        self.attackInterval = Double(arc4random_uniform(UInt32(3.00))) + 3.00
+        self.followInterval = Double(arc4random_uniform(UInt32(5.00)))
+        self.shootInterval = Double(arc4random_uniform(UInt32(2.0))) + 1.0
+        
+
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

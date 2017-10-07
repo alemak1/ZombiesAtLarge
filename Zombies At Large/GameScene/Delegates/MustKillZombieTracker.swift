@@ -33,6 +33,16 @@ class MustKillZombieTracker: MustKillZombieTrackerDelegate, NSCoding{
     
     var mustKillZombies: Set<Zombie> = []
     
+    var mustKillZombiesSnapshots: [ZombieSnapshot]{
+        
+        return self.mustKillZombies.enumerated().map({ (idx, zombie) in
+            
+            return zombie.getSnapshot() as! ZombieSnapshot
+        })
+        
+
+    }
+    
     var numberOfMustKillZombies: Int{
         return mustKillZombies.count
     }

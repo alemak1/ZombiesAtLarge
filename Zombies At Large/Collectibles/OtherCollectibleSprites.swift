@@ -45,7 +45,39 @@ class Bullet: CollectibleSprite{
 }
 
 
+class RedEnvelopeSnapshot: NSCoding{
+    
+    var monetaryValue: Double
+    var physicsBody: SKPhysicsBody
+    
+    init(monetaryValue: Double, physicsBody: SKPhysicsBody) {
+        self.monetaryValue = monetaryValue
+        self.physicsBody = physicsBody
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.monetaryValue = aDecoder.decodeDouble(forKey: "monetaryValue")
+        self.physicsBody = aDecoder.decodeObject(forKey: "physicsBody") as! SKPhysicsBody
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.monetaryValue, forKey:"monetaryValue")
+        aCoder.encode(self.physicsBody, forKey: "physicsBody")
+    }
+}
+
 class RedEnvelope: CollectibleSprite{
+    
+    
+    override var snapshot: NSCoding{
+        return RedEnvelopeSnapshot(monetaryValue: self.monetaryValue, physicsBody: self.physicsBody!)
+
+    }
+    
+    override func getSnapshot() -> NSCoding {
+        
+        return RedEnvelopeSnapshot(monetaryValue: self.monetaryValue, physicsBody: self.physicsBody!)
+    }
     
     var monetaryValue: Double = 100
     
@@ -59,6 +91,18 @@ class RedEnvelope: CollectibleSprite{
         super.encode(with: aCoder)
         
     }
+    
+    convenience init(redEnveloperSnapshot: RedEnvelopeSnapshot) {
+        
+        let redEnvelopeTexture = CollectibleType.RedEnvelope1.getTexture()
+        
+        self.init(texture: redEnvelopeTexture, color: .clear, size: redEnvelopeTexture.size())
+        initializePhysicsProperties(withTexture: redEnvelopeTexture)
+        self.monetaryValue = redEnveloperSnapshot.monetaryValue
+        self.name = CollectibleType.RedEnvelope1.getCollectibleName()
+        self.collectibleType = CollectibleType.RedEnvelope1
+    }
+    
     convenience init(monetaryValue: Double? = nil) {
         
         let redEnvelopeTexture = CollectibleType.RedEnvelope1.getTexture()
@@ -77,9 +121,54 @@ class RedEnvelope: CollectibleSprite{
     
 }
 
+
+class RiceBowlSnapshot: NSCoding{
+    
+    var healthValue: Int
+    var physicsBody: SKPhysicsBody
+    
+    init(healthValue: Int, physicsBody: SKPhysicsBody) {
+        self.healthValue = healthValue
+        self.physicsBody = physicsBody
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.healthValue = aDecoder.decodeInteger(forKey: "healthValue")
+        self.physicsBody = aDecoder.decodeObject(forKey: "physicsBody") as! SKPhysicsBody
+        
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.healthValue, forKey: "healthValue")
+        aCoder.encode(self.physicsBody, forKey: "physicsBody")
+    }
+    
+}
+
+
 class RiceBowl: CollectibleSprite{
     
     var healthValue: Int = 2
+    
+    
+    override var snapshot: NSCoding{
+        return RiceBowlSnapshot(healthValue: self.healthValue, physicsBody: self.physicsBody!)
+    }
+    
+    override func getSnapshot() -> NSCoding {
+        return RiceBowlSnapshot(healthValue: self.healthValue, physicsBody: self.physicsBody!)
+        
+    }
+    convenience init(riceBowlSnapshot: RiceBowlSnapshot) {
+        
+        let riceBowlTexture = CollectibleType.RiceBowl1.getTexture()
+        
+        self.init(texture: riceBowlTexture, color: .clear, size: riceBowlTexture.size())
+        initializePhysicsProperties(withTexture: riceBowlTexture)
+        self.healthValue = riceBowlSnapshot.healthValue
+        self.name = CollectibleType.RiceBowl1.getCollectibleName()
+        self.collectibleType = CollectibleType.RiceBowl1
+    }
     
     required init?(coder aDecoder: NSCoder) {
         self.healthValue = aDecoder.decodeInteger(forKey: "healthValue")
@@ -110,7 +199,44 @@ class RiceBowl: CollectibleSprite{
     
 }
 
+class BombSnapshot: NSCoding{
+    
+    init() {
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+    
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        
+    }
+}
+
 class Bomb: CollectibleSprite{
+    
+    override var snapshot: NSCoding{
+        return BombSnapshot()
+
+    }
+    
+    override func getSnapshot() -> NSCoding {
+        return BombSnapshot()
+    }
+    
+    convenience init(bombSnapshot: BombSnapshot) {
+        
+        let bombTexture = CollectibleType.Bomb.getTexture()
+        
+        self.init(texture: bombTexture, color: .clear, size: bombTexture.size())
+        self.initializePhysicsProperties(withTexture: bombTexture)
+        self.name = CollectibleType.Bomb.getCollectibleName()
+        self.collectibleType = CollectibleType.Bomb
+        
+        self.xScale *= 1.00
+        self.yScale *= 1.00
+    }
     
     var playBombExplosionSound = SKAction.playSoundFileNamed("explosion2", waitForCompletion: false)
     

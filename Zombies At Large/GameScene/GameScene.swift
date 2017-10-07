@@ -35,7 +35,7 @@ class GameScene: BaseScene{
     var archiveableGameSceneSnapshot: GameSceneSnapshot?{
         get{
             
-            let worldNodeSnapshot = worldNode.getWorldNodeSnapshot(forMustZillZombieTrackerDelegate: self.mustKillZombieTrackerDelegate, andForRequiredCollectibleTrackerDelegate: self.requiredCollectiblesTrackerDelegate, andForUnrescuedCharacterTrackerDelegate: self.unrescuedCharactersTrackerDelegate)
+            let worldNodeSnapshot = worldNode.getWorldNodeSnapshotA(mustKillZombies: self.mustKillZombies, requiredCollectibles: self.requiredCollecribles, rescueCharacters: self.unrescuedCharacters)
             
             print("World Node Snapshot generated: \(worldNodeSnapshot.description)")
             
@@ -47,7 +47,7 @@ class GameScene: BaseScene{
 
             print("Generating Game Scene Snapshot with the following information: Must Kill Zombies \(mustKillZombies?.count), Rescue Characters: \(rescueCharacters?.count), Required Collectibles: \(requiredCollectibles?.count)")
             
-            let gameSceneSnapShot = GameSceneSnapshot(gameLevel: self.currentGameLevel, playerStateSnapshot: self.player.playerStateSnapShot, worldNodeSnapshot: worldNodeSnapshot, requiredCollectibles: requiredCollectibles, mustKillZombies: mustKillZombies, unrescuedCharacters: rescueCharacters)
+            let gameSceneSnapShot = GameSceneSnapshot(gameLevel: self.currentGameLevel, playerStateSnapshot: self.player.playerStateSnapShot, worldNodeSnapshot: worldNodeSnapshot, requiredCollectibles: requiredCollectiblesTrackerDelegate?.requiredCollectiblesSnapshots, mustKillZombies: mustKillZombieTrackerDelegate?.mustKillZombiesSnapshots, unrescuedCharacters: self.unrescuedCharactersTrackerDelegate?.unrescuedCharactersSnapshots)
         
             print("Game Scene Snapshot generated: \(gameSceneSnapShot.description)")
             
@@ -102,8 +102,18 @@ class GameScene: BaseScene{
         
     }()
     
-  
     
+    var unrescuedCharacters: Set<RescueCharacter>?{
+        return self.unrescuedCharactersTrackerDelegate?.getUnrescuedCharacters()
+    }
+  
+    var requiredCollecribles: Set<CollectibleSprite>?{
+        return self.requiredCollectiblesTrackerDelegate?.getRequiredCollectibles()
+    }
+    
+    var mustKillZombies: Set<Zombie>?{
+        return self.mustKillZombieTrackerDelegate?.getMustKillZombies()
+    }
     
     var hudNode: SKNode{
         return HUDManager.sharedManager.getHUD()
@@ -232,64 +242,18 @@ class GameScene: BaseScene{
         
         /** If the Game Scene has not been loaded from a saved game, then initialize it from scratch **/
         
-        
-       
-        
+
         if(self.loadableGameSceneSnapshot == nil){
-            print("ALL GAME STAT REVIEW UP TO DATE: ")
 
-    
             loadMissionPanel()
+            loadPlayer()
+            loadZombieManager()
             loadBackground()
-            
-            let xPosControls = UIScreen.main.bounds.width*0.3
-            let yPosControls = -UIScreen.main.bounds.height*0.3
-            let point = CGPoint(x: xPosControls, y: yPosControls)
-            loadControls(atPosition: point)
+
+            loadGameControls()
             addHUDNode()
-
-       
-
-            let camera = CollectibleSprite(collectibleType: .Camera)
-            camera.move(toParent: worldNode)
-            camera.position = CGPoint(x: 150.0, y: 10.0)
-
-
-        
-        let miniZombie = MiniZombie(zombieType: .zombie2, scale: 1.00, startingHealth: 3, hasDirectionChangeEnabled: true)
-        miniZombie.move(toParent: worldNode)
-        miniZombie.position = CGPoint(x: 100.0, y: 200.00)
-        zombieManager.addDynamicZombie(zombie: miniZombie)
-
-        let miniZombie2 = MiniZombie(zombieType: .zombie1, scale: 1.00, startingHealth: 1, hasDirectionChangeEnabled: true)
-        miniZombie2.move(toParent: worldNode)
-        miniZombie2.position = CGPoint(x: 100.0, y: 250.00)
-        zombieManager.addDynamicZombie(zombie: miniZombie2)
-
-        
-            let miniZombie3 = MiniZombie(zombieType: .zombie1, scale: 1.00, startingHealth: 1, hasDirectionChangeEnabled: true)
-            miniZombie3.move(toParent: worldNode)
-            miniZombie3.position = CGPoint(x: -100.0, y: 250.00)
-            zombieManager.addDynamicZombie(zombie: miniZombie3)
-        
-            let cameraMan = NonplayerCharacter(nonPlayerCharacterType: .Hitman, andName: "CameraMan")
-            cameraMan.move(toParent: worldNode)
-            cameraMan.position = CGPoint(x: -100, y: -250.00)
-            cameraMan.setTargetPictureString()
-        
-
-            //Debug only - remove later
-        
-        
-            if let savedGames = self.currentPlayerProfile?.getSavedGames(){
-            
-                for savedGame in savedGames{
-                    savedGame.showSavedGameInfo()
-                }
-            }
-            
-
-            
+            loadTestItems()
+     
         } else {
             
             guard let loadableGameSceneSnapshot = self.loadableGameSceneSnapshot else {
@@ -302,48 +266,51 @@ class GameScene: BaseScene{
             let levelInt = loadableGameSceneSnapshot.gameLevelRawValue
             self.currentGameLevel = GameLevel(rawValue: levelInt!)!
             
-            
+
             loadMissionPanel()
-            loadBackground()
-            
-            let xPosControls = UIScreen.main.bounds.width*0.3
-            let yPosControls = -UIScreen.main.bounds.height*0.3
-            let point = CGPoint(x: xPosControls, y: yPosControls)
-            loadControls(atPosition: point)
+            loadGameControls()
             addHUDNode()
             
 
 
             /** Depending on the mission level, initialize MustKillZombieTracker, RequiredCollectibleTracker, and RescueCharacterTrackers respectively **/
             
-            if let mustKillZombies = loadableGameSceneSnapshot.mustKillZombies{
-               self.mustKillZombieTrackerDelegate = MustKillZombieTracker(withMustKillZombies: mustKillZombies)
-                
-                for zombie in mustKillZombies{
-                    zombie.move(toParent: worldNode)
-                }
+            if let mustKillZombieSnapshots = loadableGameSceneSnapshot.mustKillZombies{
+               
             }
            
-            if let rescueCharacters = loadableGameSceneSnapshot.unrescuedCharacters{
-                self.unrescuedCharactersTrackerDelegate = UnrescuedCharacterTracker(with: rescueCharacters)
+            if let unrescuedCharacterSnapshots = loadableGameSceneSnapshot.unrescuedCharacters{
                 
-                for rescueCharacter in rescueCharacters{
-                    rescueCharacter.move(toParent: worldNode)
+            }
+            
+            
+            if let requiredCollectibleSnapshots = loadableGameSceneSnapshot.requiredCollectibles{
+               
+            }
+            
+            if let worldNodeSnapshot = loadableGameSceneSnapshot.worldNodeSnapshot{
+                for snapshottable in worldNodeSnapshot.snapshottableNodes{
+                    
                 }
             }
             
             
-            if let requiredCollectibles = loadableGameSceneSnapshot.requiredCollectibles{
-                self.requiredCollectiblesTrackerDelegate = RequiredCollectiblesTracker(with: requiredCollectibles)
-                
-                for requiredCollectible in requiredCollectibles{
-                    requiredCollectible.move(toParent: worldNode)
-                }
-            }
+            
+            print("Preparing to load player from game scene snapshot....")
+            
+            let playerStateSnapshot = loadableGameSceneSnapshot.playerStateSnapshot
+            
+            print("About to initialize player from game scene snapshot...")
+            
+            self.player = Player(playerStateSnapshot: playerStateSnapshot!)
+            self.player.move(toParent: worldNode)
+            
             
             addHUDNode()
 
-            
+            loadZombieManager()
+            loadBackground()
+
             
         }
      
@@ -352,8 +319,7 @@ class GameScene: BaseScene{
     
     override func loadPlayer() {
         
-        if(self.loadableGameSceneSnapshot == nil){
-           
+        
             let playerProfile = self.currentPlayerProfile!
             let playerTypeInt = Int(playerProfile.playerType)
             let playerType = PlayerType(withIntegerValue: playerTypeInt)
@@ -364,26 +330,46 @@ class GameScene: BaseScene{
             worldNode.addChild(player)
             
             
-        } else {
-            
-            print("Preparing to load player from game scene snapshot....")
-            
-            guard let loadableGameSceneSnapshot = self.loadableGameSceneSnapshot else {
-                print("Error: found nil while unwrapping loadable game scene snapshot")
-                return
-            }
-            
-            let playerStateSnapshot = loadableGameSceneSnapshot.playerStateSnapshot
-            
-            print("About to initialize player from game scene snapshot...")
-            
-            self.player = Player(playerStateSnapshot: playerStateSnapshot!)
-            self.player.move(toParent: worldNode)
-            
-        }
+        
     }
     
     
+    func loadTestItems(){
+        let camera = CollectibleSprite(collectibleType: .Camera)
+        camera.move(toParent: worldNode)
+        camera.position = CGPoint(x: 150.0, y: 10.0)
+        
+        
+        
+        let miniZombie = MiniZombie(zombieType: .zombie2, scale: 1.00, startingHealth: 3, hasDirectionChangeEnabled: true)
+        miniZombie.move(toParent: worldNode)
+        miniZombie.position = CGPoint(x: 100.0, y: 200.00)
+        zombieManager.addDynamicZombie(zombie: miniZombie)
+        
+        let miniZombie2 = MiniZombie(zombieType: .zombie1, scale: 1.00, startingHealth: 1, hasDirectionChangeEnabled: true)
+        miniZombie2.move(toParent: worldNode)
+        miniZombie2.position = CGPoint(x: 100.0, y: 250.00)
+        zombieManager.addDynamicZombie(zombie: miniZombie2)
+        
+        
+        let miniZombie3 = MiniZombie(zombieType: .zombie1, scale: 1.00, startingHealth: 1, hasDirectionChangeEnabled: true)
+        miniZombie3.move(toParent: worldNode)
+        miniZombie3.position = CGPoint(x: -100.0, y: 250.00)
+        zombieManager.addDynamicZombie(zombie: miniZombie3)
+        
+        let cameraMan = NonplayerCharacter(nonPlayerCharacterType: .Hitman, andName: "CameraMan")
+        cameraMan.move(toParent: worldNode)
+        cameraMan.position = CGPoint(x: -100, y: -250.00)
+        cameraMan.setTargetPictureString()
+        
+    }
+    
+    func loadGameControls(){
+        let xPosControls = UIScreen.main.bounds.width*0.3
+        let yPosControls = -UIScreen.main.bounds.height*0.3
+        let point = CGPoint(x: xPosControls, y: yPosControls)
+        loadControls(atPosition: point)
+    }
    
     func loadMissionPanel(){
     

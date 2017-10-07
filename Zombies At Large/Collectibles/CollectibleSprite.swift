@@ -9,9 +9,66 @@
 import Foundation
 import SpriteKit
 
-class CollectibleSprite: SKSpriteNode{
+class CollectibleSnapshot: NSCoding{
+    
+    var physicsBody: SKPhysicsBody
+    var collectibleTypeRawValue: Int
+    
+    init(physicsBody: SKPhysicsBody, collectibleTypeRawValue: Int) {
+        
+        self.physicsBody = physicsBody
+        self.collectibleTypeRawValue = collectibleTypeRawValue
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.physicsBody = aDecoder.decodeObject(forKey: "physicsBody") as! SKPhysicsBody
+        self.collectibleTypeRawValue = aDecoder.decodeInteger(forKey: "collectibleTypeRawValue")
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.physicsBody, forKey: "physicsBody")
+        aCoder.encode(self.collectibleTypeRawValue, forKey: "collectibleTypeRawValue")
+    }
+}
 
+class CollectibleSprite: SKSpriteNode, Snapshottable{
+    
      var collectibleType: CollectibleType!
+    
+    var snapshot: NSCoding{
+        
+        let collectibleRawValue = self.collectibleType.rawValue
+
+        return CollectibleSnapshot(physicsBody: self.physicsBody!, collectibleTypeRawValue: collectibleRawValue)
+    }
+    
+    func getSnapshot() -> NSCoding{
+        
+        let collectibleRawValue = self.collectibleType.rawValue
+        
+        return CollectibleSnapshot(physicsBody: self.physicsBody!, collectibleTypeRawValue: collectibleRawValue)
+    }
+    
+    convenience init(collectibleSnapshot: CollectibleSnapshot) {
+        
+        let collectibleTypeRawValue = collectibleSnapshot.collectibleTypeRawValue
+        let collectibleType = CollectibleType(rawValue: collectibleTypeRawValue)!
+        
+        let texture = collectibleType.getTexture()
+        
+        self.init(texture: texture, color: .clear, size: texture.size())
+        
+        self.collectibleType = collectibleType
+        
+        initializePhysicsProperties(withTexture: texture)
+        
+        self.xScale *= 1.00
+        self.yScale *= 1.00
+        
+        
+    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         let collectibleTypeRawValue = aDecoder.decodeInteger(forKey: "collectibleTypeRawValue")

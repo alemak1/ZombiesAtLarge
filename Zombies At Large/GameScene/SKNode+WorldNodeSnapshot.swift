@@ -12,7 +12,28 @@ import SpriteKit
 
 /** Extension to SKNode provides convenience methods for obtaining a snapshot of the world node for the game scene; the world node snapshot can be saved as part of an overall Game Scene snapshot so as to allow for relevant game scene data to be archived and unarchived efficently **/
 
-class WorldNodeSnapshot: NSObject, NSCoding{
+
+class WorldNodeSnapshotA: NSObject, NSCoding{
+    
+    var snapshottableNodes: [NSCoding]
+    
+    init(snapshottableNodes: [NSCoding]){
+        self.snapshottableNodes = snapshottableNodes
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.snapshottableNodes = aDecoder.decodeObject(forKey: "snapshottableNodes") as! [NSCoding]
+    }
+    
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.snapshottableNodes, forKey: "snapshottableNodes")
+    }
+
+}
+
+class WorldNodeSnapshotB: NSObject, NSCoding{
     
     var zombies: [Zombie]
     var collectibles: [CollectibleSprite]
@@ -53,7 +74,7 @@ class WorldNodeSnapshot: NSObject, NSCoding{
 
 extension SKNode{
     
-    func getWorldNodeSnapshot(forMustZillZombieTrackerDelegate mustKillZombieTrackerDelegate: MustKillZombieTrackerDelegate?, andForRequiredCollectibleTrackerDelegate requiredCollectibleTrackerDelegate: RequiredCollectiblesTrackerDelegate?, andForUnrescuedCharacterTrackerDelegate unrescuedCharacterTrackerDelegate: UnrescuedCharacterTrackerDelegate?) -> WorldNodeSnapshot{
+    func getWorldNodeSnapshotB1(forMustZillZombieTrackerDelegate mustKillZombieTrackerDelegate: MustKillZombieTrackerDelegate?, andForRequiredCollectibleTrackerDelegate requiredCollectibleTrackerDelegate: RequiredCollectiblesTrackerDelegate?, andForUnrescuedCharacterTrackerDelegate unrescuedCharacterTrackerDelegate: UnrescuedCharacterTrackerDelegate?) -> WorldNodeSnapshotB{
         
         
         
@@ -121,14 +142,13 @@ extension SKNode{
         
         let finalRescueCharacterArray = unrescuedCharacters.isEmpty ? nil : unrescuedCharacters
         
-        print("Generating world node snapshot with the following properties: zombies \(zombies.count), rescue characters: \(finalRescueCharacterArray?.count), and safety zone information: \(safetyZone.debugDescription)")
         
-        return WorldNodeSnapshot(zombies: zombies, collectibles: collectibles, rescueCharacters: finalRescueCharacterArray, safetyZone: safetyZone)
+        return WorldNodeSnapshotB(zombies: zombies, collectibles: collectibles, rescueCharacters: finalRescueCharacterArray, safetyZone: safetyZone)
     }
         
     
     
-    func getWorldNodeSnapshot(forMustKillZombieTracker mustKillZombieTracker: MustKillZombieTracker, andForRequiredCollectibleTracker requiredCollectibleTracker: RequiredCollectiblesTracker, andForUnrescuedCharacterTracker unrescuedCharacterTracker: UnrescuedCharacterTracker) -> WorldNodeSnapshot{
+    func getWorldNodeSnapshotB2(forMustKillZombieTracker mustKillZombieTracker: MustKillZombieTracker, andForRequiredCollectibleTracker requiredCollectibleTracker: RequiredCollectiblesTracker, andForUnrescuedCharacterTracker unrescuedCharacterTracker: UnrescuedCharacterTracker) -> WorldNodeSnapshotB{
         
         
         var zombies = [Zombie]()
@@ -171,7 +191,39 @@ extension SKNode{
         
         let finalRescueCharacterArray = unrescuedCharacters.isEmpty ? nil : unrescuedCharacters
         
-        return WorldNodeSnapshot(zombies: zombies, collectibles: collectibles, rescueCharacters: finalRescueCharacterArray, safetyZone: safetyZone)
+        return WorldNodeSnapshotB(zombies: zombies, collectibles: collectibles, rescueCharacters: finalRescueCharacterArray, safetyZone: safetyZone)
+    }
+    
+    
+    /** Returns snapshots for all zombies not contained in the must kill zombie array, all collectibles not contained in the required collectibles array, and all rescue characters not contained in the unrescued character array **/
+    
+    func getWorldNodeSnapshotA(mustKillZombies: Set<Zombie>?, requiredCollectibles: Set<CollectibleSprite>?, rescueCharacters: Set<RescueCharacter>?) -> WorldNodeSnapshotA{
+        
+        var snapshottable = [NSCoding]()
+        
+        for node in children{
+            
+        
+                if let node = node as? Zombie, let mkzRemaining = mustKillZombies, !mkzRemaining.contains(node){
+                        snapshottable.append(node.getSnapshot())
+                }
+                
+                
+                if let node = node as? CollectibleSprite, let rqcolRemaining = requiredCollectibles, !rqcolRemaining.contains(node){
+                    snapshottable.append(node.getSnapshot())
+                }
+                
+                
+                if let node = node as? RescueCharacter, let rschRemaining = rescueCharacters, !rschRemaining.contains(node){
+                    
+                    snapshottable.append(node.getSnapshot())
+                }
+               
+            
+        }
+        
+        return WorldNodeSnapshotA(snapshottableNodes: snapshottable)
+        
     }
     
 }
