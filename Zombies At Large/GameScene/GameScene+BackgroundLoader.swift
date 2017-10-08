@@ -119,6 +119,9 @@ extension GameScene{
         
     }
     
+    
+    
+    
     func addWoodfloors(){
         
         guard let woodFloors = SKScene(fileNamed: self.currentGameLevel.getSKSceneFilename())?.childNode(withName: "woodfloors") as? SKTileMapNode else {
@@ -144,6 +147,8 @@ extension GameScene{
             }
          
             }
+        
+        
         
         woodFloorTileMap = woodFloors
         
