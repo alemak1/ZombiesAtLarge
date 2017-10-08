@@ -154,6 +154,7 @@
 		BDE9FB0F1F66BCC80056B66E /* CameraObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */; };
 		BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE9FB101F66BCED0056B66E /* CameraSprite.swift */; };
 		BDEB6F5C1F698309000B3B22 /* Plan in Resources */ = {isa = PBXBuildFile; fileRef = BDEB6F5B1F698309000B3B22 /* Plan */; };
+		BDF38BE11F8ABBB9004376DC /* Airplane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF38BE01F8ABBB9004376DC /* Airplane.swift */; };
 		BDF488121F7CCE9000829CA8 /* ScrollConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF488111F7CCE9000829CA8 /* ScrollConfiguration.swift */; };
 		BDF488141F7CCFEE00829CA8 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF488131F7CCFEE00829CA8 /* Scroll.swift */; };
 		BDF488161F7CD02F00829CA8 /* ScrollManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF488151F7CD02F00829CA8 /* ScrollManager.swift */; };
@@ -349,6 +350,7 @@
 		BDE9FB0E1F66BCC80056B66E /* CameraObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraObject.swift; sourceTree = "<group>"; };
 		BDE9FB101F66BCED0056B66E /* CameraSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSprite.swift; sourceTree = "<group>"; };
 		BDEB6F5B1F698309000B3B22 /* Plan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Plan; sourceTree = "<group>"; };
+		BDF38BE01F8ABBB9004376DC /* Airplane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airplane.swift; sourceTree = "<group>"; };
 		BDF488111F7CCE9000829CA8 /* ScrollConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollConfiguration.swift; sourceTree = "<group>"; };
 		BDF488131F7CCFEE00829CA8 /* Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scroll.swift; sourceTree = "<group>"; };
 		BDF488151F7CD02F00829CA8 /* ScrollManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollManager.swift; sourceTree = "<group>"; };
@@ -659,6 +661,7 @@
 				BD9D75671F73CB4700F6C38D /* Updateable.swift */,
 				BD56B8D61F73D80B00159C7B /* Bystander.swift */,
 				BD3AF9761F89F3AF0096D1EE /* Saveable.swift */,
+				BDF38BE01F8ABBB9004376DC /* Airplane.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -1144,6 +1147,7 @@
 				BD9D75681F73CB4700F6C38D /* Updateable.swift in Sources */,
 				BD93DE6E1F737C2300C271AF /* Notification.Name+Notifications.swift in Sources */,
 				BD56B8D71F73D80B00159C7B /* Bystander.swift in Sources */,
+				BDF38BE11F8ABBB9004376DC /* Airplane.swift in Sources */,
 				BD3FA6301F837751002F7D7F /* SortingCriteriaTableViewController.swift in Sources */,
 				BD3F94421F7F7DB90027FE93 /* GameScene+TrackerDelegates.swift in Sources */,
 				BD3F94401F7F73A50027FE93 /* RequiredCollectiblesTrackerDelegate.swift in Sources */,
