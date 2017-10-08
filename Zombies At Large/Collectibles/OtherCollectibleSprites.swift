@@ -45,7 +45,7 @@ class Bullet: CollectibleSprite{
 }
 
 
-class RedEnvelopeSnapshot: NSCoding{
+class RedEnvelopeSnapshot: NSObject, NSCoding,Saveable{
     
     var monetaryValue: Double
     var physicsBody: SKPhysicsBody
@@ -53,6 +53,7 @@ class RedEnvelopeSnapshot: NSCoding{
     init(monetaryValue: Double, physicsBody: SKPhysicsBody) {
         self.monetaryValue = monetaryValue
         self.physicsBody = physicsBody
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -69,12 +70,12 @@ class RedEnvelopeSnapshot: NSCoding{
 class RedEnvelope: CollectibleSprite{
     
     
-    override var snapshot: NSCoding{
+    override var snapshot: Saveable{
         return RedEnvelopeSnapshot(monetaryValue: self.monetaryValue, physicsBody: self.physicsBody!)
 
     }
     
-    override func getSnapshot() -> NSCoding {
+    override func getSnapshot() -> Saveable {
         
         return RedEnvelopeSnapshot(monetaryValue: self.monetaryValue, physicsBody: self.physicsBody!)
     }
@@ -122,7 +123,7 @@ class RedEnvelope: CollectibleSprite{
 }
 
 
-class RiceBowlSnapshot: NSCoding{
+class RiceBowlSnapshot: NSObject, NSCoding, Saveable{
     
     var healthValue: Int
     var physicsBody: SKPhysicsBody
@@ -130,6 +131,7 @@ class RiceBowlSnapshot: NSCoding{
     init(healthValue: Int, physicsBody: SKPhysicsBody) {
         self.healthValue = healthValue
         self.physicsBody = physicsBody
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -151,11 +153,11 @@ class RiceBowl: CollectibleSprite{
     var healthValue: Int = 2
     
     
-    override var snapshot: NSCoding{
+    override var snapshot: Saveable{
         return RiceBowlSnapshot(healthValue: self.healthValue, physicsBody: self.physicsBody!)
     }
     
-    override func getSnapshot() -> NSCoding {
+    override func getSnapshot() -> Saveable {
         return RiceBowlSnapshot(healthValue: self.healthValue, physicsBody: self.physicsBody!)
         
     }
@@ -199,10 +201,10 @@ class RiceBowl: CollectibleSprite{
     
 }
 
-class BombSnapshot: NSCoding{
+class BombSnapshot: NSObject, NSCoding, Saveable{
     
-    init() {
-        
+    override init() {
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -216,12 +218,12 @@ class BombSnapshot: NSCoding{
 
 class Bomb: CollectibleSprite{
     
-    override var snapshot: NSCoding{
+    override var snapshot: Saveable{
         return BombSnapshot()
 
     }
     
-    override func getSnapshot() -> NSCoding {
+    override func getSnapshot() -> Saveable {
         return BombSnapshot()
     }
     

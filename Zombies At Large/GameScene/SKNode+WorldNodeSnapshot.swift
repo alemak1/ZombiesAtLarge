@@ -13,22 +13,22 @@ import SpriteKit
 /** Extension to SKNode provides convenience methods for obtaining a snapshot of the world node for the game scene; the world node snapshot can be saved as part of an overall Game Scene snapshot so as to allow for relevant game scene data to be archived and unarchived efficently **/
 
 
-class WorldNodeSnapshotA: NSObject, NSCoding{
+class WorldNodeSnapshotA: NSObject, NSCoding,Saveable{
     
-    var snapshottableNodes: [NSCoding]
+    var snapshots: [Saveable]
     
-    init(snapshottableNodes: [NSCoding]){
-        self.snapshottableNodes = snapshottableNodes
+    init(snapshots: [Saveable]){
+        self.snapshots = snapshots
         super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.snapshottableNodes = aDecoder.decodeObject(forKey: "snapshottableNodes") as! [NSCoding]
+        self.snapshots = aDecoder.decodeObject(forKey: "snapshots") as! [Saveable]
     }
     
     
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.snapshottableNodes, forKey: "snapshottableNodes")
+        aCoder.encode(self.snapshots, forKey: "snapshots")
     }
 
 }
@@ -199,30 +199,30 @@ extension SKNode{
     
     func getWorldNodeSnapshotA(mustKillZombies: Set<Zombie>?, requiredCollectibles: Set<CollectibleSprite>?, rescueCharacters: Set<RescueCharacter>?) -> WorldNodeSnapshotA{
         
-        var snapshottable = [NSCoding]()
+        var snapshots = [Saveable]()
         
         for node in children{
             
         
                 if let node = node as? Zombie, let mkzRemaining = mustKillZombies, !mkzRemaining.contains(node){
-                        snapshottable.append(node.getSnapshot())
+                        snapshots.append(node.getSnapshot())
                 }
                 
                 
                 if let node = node as? CollectibleSprite, let rqcolRemaining = requiredCollectibles, !rqcolRemaining.contains(node){
-                    snapshottable.append(node.getSnapshot())
+                    snapshots.append(node.getSnapshot())
                 }
                 
                 
                 if let node = node as? RescueCharacter, let rschRemaining = rescueCharacters, !rschRemaining.contains(node){
                     
-                    snapshottable.append(node.getSnapshot())
+                    snapshots.append(node.getSnapshot())
                 }
                
             
         }
         
-        return WorldNodeSnapshotA(snapshottableNodes: snapshottable)
+        return WorldNodeSnapshotA(snapshots: snapshots)
         
     }
     

@@ -17,7 +17,7 @@ extension GameLevelStatReview {
         return NSFetchRequest<GameLevelStatReview>(entityName: "GameLevelStatReview")
     }
 
-    @NSManaged public var gameLevel: Int16
+    @NSManaged public var gameLevel: Int64
     @NSManaged public var date: NSDate?
     @NSManaged public var numberOfZombiesKilled: Int64
     @NSManaged public var numberOfBulletsFired: Int64

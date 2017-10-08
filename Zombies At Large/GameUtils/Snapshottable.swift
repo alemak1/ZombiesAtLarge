@@ -11,7 +11,7 @@ import SpriteKit
 
 protocol Snapshottable{
     
-    var snapshot: NSCoding{get}
-    func getSnapshot() -> NSCoding
+    var snapshot: Saveable{get}
+    func getSnapshot() -> Saveable
     
 }

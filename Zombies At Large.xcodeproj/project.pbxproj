@@ -54,6 +54,7 @@
 		BD3A51701F693C6500B01850 /* NonplayerCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */; };
 		BD3A51721F693DA800B01850 /* UIPanelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */; };
 		BD3A788A1F6D690D0001804A /* OtherCollectibleSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A78891F6D690D0001804A /* OtherCollectibleSprites.swift */; };
+		BD3AF9771F89F3AF0096D1EE /* Saveable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3AF9761F89F3AF0096D1EE /* Saveable.swift */; };
 		BD3C831E1F860BD7000AA5B7 /* SavedGamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C831D1F860BD7000AA5B7 /* SavedGamesViewController.swift */; };
 		BD3C83211F860E4F000AA5B7 /* SavedGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C83201F860E4F000AA5B7 /* SavedGameCell.swift */; };
 		BD3C83241F862756000AA5B7 /* LevelChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C83231F862756000AA5B7 /* LevelChoiceViewController.swift */; };
@@ -245,6 +246,7 @@
 		BD3A516F1F693C6500B01850 /* NonplayerCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonplayerCharacterType.swift; sourceTree = "<group>"; };
 		BD3A51711F693DA800B01850 /* UIPanelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanelGenerator.swift; sourceTree = "<group>"; };
 		BD3A78891F6D690D0001804A /* OtherCollectibleSprites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherCollectibleSprites.swift; sourceTree = "<group>"; };
+		BD3AF9761F89F3AF0096D1EE /* Saveable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saveable.swift; sourceTree = "<group>"; };
 		BD3C831D1F860BD7000AA5B7 /* SavedGamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedGamesViewController.swift; sourceTree = "<group>"; };
 		BD3C831F1F860D3A000AA5B7 /* ZombieMaster v 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ZombieMaster v 7.xcdatamodel"; sourceTree = "<group>"; };
 		BD3C83201F860E4F000AA5B7 /* SavedGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedGameCell.swift; sourceTree = "<group>"; };
@@ -656,6 +658,7 @@
 				BD9D75651F73B90E00F6C38D /* SpecialZombieType.swift */,
 				BD9D75671F73CB4700F6C38D /* Updateable.swift */,
 				BD56B8D61F73D80B00159C7B /* Bystander.swift */,
+				BD3AF9761F89F3AF0096D1EE /* Saveable.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -1127,6 +1130,7 @@
 				BDE9FB031F668C690056B66E /* CollectibleManager.swift in Sources */,
 				BD5C86011F68C7B000D6E0BF /* ColliderConfiguration.swift in Sources */,
 				BD4735101F6AA5AC00D91819 /* MapLocation.swift in Sources */,
+				BD3AF9771F89F3AF0096D1EE /* Saveable.swift in Sources */,
 				BD42C6541F7E5C0C0030588F /* PlayerProfileTableViewController.swift in Sources */,
 				BD33F3321F84877A00E94337 /* GameViewNavigationController.swift in Sources */,
 				BDE9FB111F66BCED0056B66E /* CameraSprite.swift in Sources */,

@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class RescueCharacterSnapshot: NSCoding{
+class RescueCharacterSnapshot: NSObject, NSCoding,Saveable{
     
     
     var hasBeenRescued: Bool
@@ -22,6 +22,7 @@ class RescueCharacterSnapshot: NSCoding{
         self.compassDirectionRawValue = compassDirectionRawValue
         self.nonplayerCharacterTypeRawValue = nonplayerCharacterTypeRawValue
         self.physicsBody = physicsBody
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,14 +43,17 @@ class RescueCharacterSnapshot: NSCoding{
 
 class RescueCharacter: SKSpriteNode, Snapshottable{
     
-    func getSnapshot() -> NSCoding {
+    var snapshot: Saveable{
         return RescueCharacterSnapshot(physicsBody: self.physicsBody!, hasBeenRescued: self.hasBeenRescued, compassDirectionRawValue: self.compassDirection.rawValue, nonplayerCharacterTypeRawValue: self.nonPlayerCharacterType.rawValue)
     }
     
-    var snapshot: NSCoding{
+    func getSnapshot() -> Saveable {
         return RescueCharacterSnapshot(physicsBody: self.physicsBody!, hasBeenRescued: self.hasBeenRescued, compassDirectionRawValue: self.compassDirection.rawValue, nonplayerCharacterTypeRawValue: self.nonPlayerCharacterType.rawValue)
 
     }
+    
+
+   
     
     convenience init(rescueCharacterSnapshot: RescueCharacterSnapshot, player: Player) {
         

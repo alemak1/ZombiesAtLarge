@@ -13,8 +13,22 @@ import SpriteKit
 
 enum CollectibleType: Int{
     case PowerDrill = 1
+    case Sander = 2
+    case Wrench = 3
+    case SocketWrench = 5
+    case Scraper = 6
+    case DoubleWrench = 7
+    case LockingWrench = 8
+    case Pliers = 9
+    case Chisel = 10
     case PaintBrush = 11
+    case Cutter = 13
+    case RollingBrush = 14
     case Saw = 16
+    case Screw = 18
+    case Tack = 19
+    case Axe = 20
+    case Shovel = 22
     case Pencil = 24
     case Pen = 25
     case FountainPenRed = 27
@@ -22,11 +36,56 @@ enum CollectibleType: Int{
     case FeatherPen = 29
     case ClosedBook = 35
     case Clipboard = 38
+    case Flashlight = 48
+    case Labtop1 = 49
+    case Labtop2 = 50
+    case ScreenMonitor = 51
+    case LEDMonitor = 52
+    case LEDMonitorWide = 53
+    case ComputerTowerGrey = 54
+    case ComputerTowerBeige = 55
+    case Cellphone1 = 63
+    case Cellphone2 = 64
+    case iPod = 66
+    case iPhone = 67
+    case MotherBoard = 75
+    case RAMStick1 = 76
+    case RAMStick2 = 77
+    case RAMStick3 = 78
+    case Joystick1 = 79
+    case Joystick2 = 80
+    case NintendoController = 81
+    case SegaController = 82
+    case Microphone = 83
+    case Headphones =  84
     case CD = 88
+    case Syringe = 93
     case Toothbrush = 95
+    case Bandaid = 100
+    case Bone = 101
     case MedKit = 102
-    case FlaskRed = 107
+    case BeakerRed = 107
     case FlaskGreen = 108
+    case TestTubes = 109
+    case Stethoscope = 110
+    case FryingPan = 116
+    case Salt = 122
+    case Pepper = 123
+    case Coffee = 124
+    case Bottle = 127
+    case Fork = 129
+    case Spoon = 130
+    case Knife = 131
+    case Tongs = 136
+    case Blender = 137
+    case Toaster = 138
+    case CoffeeMaker = 139
+    case Briefcase = 141
+    case SteeringWheel = 147
+    case IDTag = 149
+    case InkBottle = 150
+    case Keys1 = 154
+    case Keys2 = 155
     case Camera = 200
     case WallBullet = 201
     case Microscope = 111
@@ -47,11 +106,12 @@ enum CollectibleType: Int{
     
     static let SpecialWeaponTypes: [CollectibleType] = [
         .Grenade,
-        .Microscope,
-        .Toothbrush,
+        .Syringe,
+        .SilverBullet,
         .PowerDrill,
-        .FeatherPen,
-        .Bomb
+        .Cellphone1,
+        .Bomb,
+       
     ]
     
     static let UpgradeItemTypes: [CollectibleType] = [
@@ -60,7 +120,10 @@ enum CollectibleType: Int{
         .Pen,
         .PaintBrush,
         .Clipboard,
-        .ClosedBook
+        .ClosedBook,
+        .Cellphone2,
+        .NintendoController,
+        .SegaController
     ]
     
     
@@ -144,22 +207,20 @@ enum CollectibleType: Int{
                 return true
             case .SilverBullet:
                 return true
-            case .Clipboard:
-                return false
+            case .Syringe:
+                return true
             case .Camera:
                 return true
-            case .WallBullet:
+            case .PowerDrill:
                 return true
-            case .CD:
+            case .Cellphone1:
                 return true
-            case .FeatherPen:
+            case .Bomb:
                 return true
             case .FlaskGreen:
                 return true
-            case .FlaskRed:
+            default:
                 return false
-        default:
-            return false
         }
     }
     
@@ -199,8 +260,8 @@ enum CollectibleType: Int{
             return "ClosedBook"
         case .FeatherPen:
             return "FeatherPen"
-        case .FlaskRed:
-            return "Red Flask"
+        case .BeakerRed:
+            return "Red Beaker"
         case .FlaskGreen:
             return "Green Flask"
         case .FountainPenBlue:

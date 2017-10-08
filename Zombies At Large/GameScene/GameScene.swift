@@ -161,30 +161,37 @@ class GameScene: BaseScene{
     var npcPostContactBufferTimeInterval = 2.00
     var npcPostContactBufferFrameCount = 0.00
     var npcBufferCounterLastUpdateTime = 0.00
+  
+    var shouldUpatePlayer: Bool = false
     
     /** ***************  GameScene Initializers **/
     
     convenience init(playerProfile: PlayerProfile, gameSceneSnapShot: GameSceneSnapshot) {
         
-        self.init(size: UIScreen.main.bounds.size)
-        self.loadableGameSceneSnapshot = gameSceneSnapShot
-        let gameLevel = GameLevel(rawValue: gameSceneSnapShot.gameLevelRawValue)!
-        self.currentGameLevel = gameLevel
-        self.currentPlayerProfile = playerProfile
 
-         self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: gameLevel, playerProfile: playerProfile)
+        self.init(size: UIScreen.main.bounds.size)
         
+        self.loadableGameSceneSnapshot = gameSceneSnapShot
+
+        let gameLevel = GameLevel(rawValue: gameSceneSnapShot.gameLevelRawValue)!
+        self.currentPlayerProfile = playerProfile
+        self.currentGameLevel = gameLevel
+         self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: gameLevel, playerProfile: playerProfile)
+        self.gameSaver = GameSaver(withGameScene: self)
+
     }
     
     convenience init(currentGameLevel: GameLevel, playerProfile: PlayerProfile) {
+        
+
         self.init(size: UIScreen.main.bounds.size)
         
         self.currentGameLevel = currentGameLevel
         self.currentPlayerProfile = playerProfile
-        
         self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: currentGameLevel, playerProfile: playerProfile)
 
-       
+        self.gameSaver = GameSaver(withGameScene: self)
+
 
     }
     
@@ -222,13 +229,14 @@ class GameScene: BaseScene{
         
         super.init(size: size)
         
-     self.gameSaver = GameSaver(withGameScene: self)
         
         let didKillZombieNotificationName =  NSNotification.Name(rawValue: Notification.Name.didKillMustKillZombieNotification)
         
         NotificationCenter.default.addObserver(self, selector: #selector(removeMustKillZombie(notification:)), name: didKillZombieNotificationName, object: nil)
         
          NotificationCenter.default.addObserver(self, selector: #selector(updateHUDLoadingLevel(notification:)), name: Notification.Name.GetDidFinishLoadingHUDNotification(), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustPlayerMonitoringStatus(notification:)), name: Notification.Name.GetDidActivateCollectibleNotificationName(), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -236,6 +244,20 @@ class GameScene: BaseScene{
     }
     
   
+    @objc func adjustPlayerMonitoringStatus(notification: Notification?){
+        
+        if let userInfo = notification?.userInfo, let rawValue = userInfo["collectibleRawValue"] as? Int,let isActive = userInfo["isActive"] as? Bool{
+            
+            let collectibleType = CollectibleType(rawValue: rawValue)!
+            
+            if(collectibleType == CollectibleType.Syringe){
+                
+                
+                shouldUpatePlayer = isActive ? true : false
+            }
+        }
+    
+    }
     
     override func didMove(to view: SKView) {
        super.didMove(to: view)
@@ -253,7 +275,6 @@ class GameScene: BaseScene{
 
             loadGameControls()
             addHUDNode()
-            loadTestItems()
      
         } else {
             
@@ -290,25 +311,24 @@ class GameScene: BaseScene{
             }
             
             if let worldNodeSnapshot = loadableGameSceneSnapshot.worldNodeSnapshot{
-                for snapshottable in worldNodeSnapshot.snapshottableNodes{
+                for snapshottable in worldNodeSnapshot.snapshots{
                     
                 }
             }
             
             
-            
+        
             print("Preparing to load player from game scene snapshot....")
             
-            let playerStateSnapshot = loadableGameSceneSnapshot.playerStateSnapshot
+            let playerStateSnapshot = loadableGameSceneSnapshot.playerStateSnapshot!
             
             print("About to initialize player from game scene snapshot...")
             
-            self.player = Player(playerStateSnapshot: playerStateSnapshot!)
+            self.player = Player(playerProfile: self.currentPlayerProfile!, playerStateSnapshot: playerStateSnapshot)
             self.player.move(toParent: worldNode)
             
             
             addHUDNode()
-
             loadZombieManager()
             loadBackground()
 
@@ -320,18 +340,12 @@ class GameScene: BaseScene{
     
     override func loadPlayer() {
         
-        
             let playerProfile = self.currentPlayerProfile!
-            let playerTypeInt = Int(playerProfile.playerType)
-            let playerType = PlayerType(withIntegerValue: playerTypeInt)
-            
-            player = Player(playerType: playerType, scale: 1.50)
+            player = Player(playerProfile: playerProfile)
             player.position = CGPoint(x: 0.00, y: 0.00)
             player.zPosition = 5
             worldNode.addChild(player)
-            
-            
-        
+    
     }
     
     
@@ -472,8 +486,14 @@ class GameScene: BaseScene{
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
+
         super.update(currentTime)
 
+        if(shouldUpatePlayer){
+            player.update(currentTime: currentTime)
+        }
+        
+        
         /**
         if(!npcAvailableForDialogue){
             

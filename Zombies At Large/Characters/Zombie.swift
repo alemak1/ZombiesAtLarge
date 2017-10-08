@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class ZombieSnapshot: NSCoding{
+class ZombieSnapshot: NSObject, NSCoding, Saveable{
     
     var currentHealth: Int
     var isDamaged: Bool
@@ -23,6 +23,7 @@ class ZombieSnapshot: NSCoding{
         self.zombieTypeRawValue = zombieTypeRawValue
         self.physicsBody = physicsBody
         self.zombieModeRawValue = zombieModeRawValue
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -89,7 +90,7 @@ enum ZombieType: String{
 
 class Zombie: Shooter,Snapshottable{
     
-    func getSnapshot() -> NSCoding {
+    func getSnapshot() -> Saveable {
         
         let zombieModeRawValue = self.currentMode.rawValue
         let zombieTypeRawValue = self.zombieType.rawValue
@@ -98,7 +99,7 @@ class Zombie: Shooter,Snapshottable{
     }
     
     
-    var snapshot: NSCoding{
+    var snapshot: Saveable{
         
         let zombieModeRawValue = self.currentMode.rawValue
         let zombieTypeRawValue = self.zombieType.rawValue

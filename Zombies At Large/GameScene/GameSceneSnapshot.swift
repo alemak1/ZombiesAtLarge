@@ -39,9 +39,10 @@ class GameSceneSnapshot: NSObject, NSCoding{
   
     init(gameLevel: GameLevel, playerStateSnapshot: PlayerStateSnapShot, worldNodeSnapshot: WorldNodeSnapshotA, requiredCollectibles: [CollectibleSnapshot]?, mustKillZombies: [ZombieSnapshot]?, unrescuedCharacters:[RescueCharacterSnapshot]? ) {
         
+        print("Initializing a new game snapshot with game level raw value equal to \(gameLevel.rawValue)")
         
         self.date = Date()
-        self.gameLevelRawValue = Int(gameLevel.rawValue)
+        self.gameLevelRawValue = gameLevel.rawValue
         self.playerStateSnapshot = playerStateSnapshot
         self.worldNodeSnapshot = worldNodeSnapshot
         
@@ -70,8 +71,8 @@ class GameSceneSnapshot: NSObject, NSCoding{
         
         self.date = aDecoder.decodeObject(forKey: "date") as! Date
         
-        let gameLevelRawValue = aDecoder.decodeInteger(forKey: "gameLevelRawValue")
-        self.gameLevelRawValue = gameLevelRawValue
+        let gameLevelRawValue = aDecoder.decodeInt64(forKey: "gameLevelRawValue")
+        self.gameLevelRawValue = Int(gameLevelRawValue)
         
         self.worldNodeSnapshot = aDecoder.decodeObject(forKey: "worldNodeSnapshot") as! WorldNodeSnapshotA
         self.playerStateSnapshot = aDecoder.decodeObject(forKey: "playerStateSnapshot") as! PlayerStateSnapShot

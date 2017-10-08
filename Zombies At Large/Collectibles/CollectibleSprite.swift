@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class CollectibleSnapshot: NSCoding{
+class CollectibleSnapshot: NSObject, NSCoding, Saveable{
     
     var physicsBody: SKPhysicsBody
     var collectibleTypeRawValue: Int
@@ -36,14 +36,14 @@ class CollectibleSprite: SKSpriteNode, Snapshottable{
     
      var collectibleType: CollectibleType!
     
-    var snapshot: NSCoding{
+    var snapshot: Saveable{
         
         let collectibleRawValue = self.collectibleType.rawValue
 
         return CollectibleSnapshot(physicsBody: self.physicsBody!, collectibleTypeRawValue: collectibleRawValue)
     }
     
-    func getSnapshot() -> NSCoding{
+    func getSnapshot() -> Saveable{
         
         let collectibleRawValue = self.collectibleType.rawValue
         

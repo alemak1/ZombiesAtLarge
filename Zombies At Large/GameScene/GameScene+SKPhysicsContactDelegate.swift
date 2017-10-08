@@ -367,10 +367,9 @@ extension GameScene{
             if let scroll = nonPlayerBody.node as? Scroll{
                 
             }
-            
-
             if let collectibleSprite = nonPlayerBody.node as? CollectibleSprite{
                 
+                self.player.handleUpgradeObjectContact(collectibleSprite: collectibleSprite)
                 
                 if collectibleSprite.name == "RedEnvelope",let redEnvelope = collectibleSprite as? RedEnvelope{
                     

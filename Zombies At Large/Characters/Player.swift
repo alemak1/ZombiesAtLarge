@@ -20,6 +20,8 @@ class PlayerStateSnapShot: NSObject, NSCoding{
     var playerType: PlayerType
     var collectibleManager: CollectibleManager
     
+   
+    
     init(playerType: PlayerType, healthLevel: Int, numberOfBullets: Int, compassOrientation: CompassDirection, position: CGPoint, currentVelocity: CGVector, collectibleManager: CollectibleManager) {
         
         self.playerType = playerType
@@ -33,6 +35,8 @@ class PlayerStateSnapShot: NSObject, NSCoding{
         super.init()
         
     }
+    
+    
     
 
     
@@ -90,6 +94,33 @@ class PlayerStateSnapShot: NSObject, NSCoding{
 
 class Player: Shooter{
     
+    //MARK: Store Properties and Variables
+    
+    /** The Player Profile for this player **/
+    
+    var playerProfile: PlayerProfile!
+
+    var playerUpgradeObject: CollectibleType?{
+        
+        guard let playerProfile = self.playerProfile else { return nil }
+        
+        let rawValue = Int(playerProfile.upgradeCollectible)
+        
+        return CollectibleType(rawValue: rawValue)
+        
+    }
+    
+    
+    var playerSpecialWeapon: CollectibleType?{
+        
+        guard let playerProfile = self.playerProfile else { return nil }
+        
+        let rawValue = Int(playerProfile.specialWeapon)
+        
+        return CollectibleType(rawValue: rawValue)
+        
+    }
+    
     
     var pickedImage: UIImage?{
         didSet{
@@ -109,16 +140,7 @@ class Player: Shooter{
         
     }()
     
-    func configurePlayerState(withPlayerStateSnapshot playerStateSnapshot: PlayerStateSnapShot){
-        
-        self.position = playerStateSnapshot.position
-        self.playerType = playerStateSnapshot.playerType
-        self.compassDirection = playerStateSnapshot.compassOrientation
-        self.health = playerStateSnapshot.healthLevel
-        self.numberOfBullets = playerStateSnapshot.numberOfBullets
-        self.physicsBody?.velocity = playerStateSnapshot.currentVelocity
-        
-    }
+   
     
     private var playerType: PlayerType
     
@@ -144,6 +166,48 @@ class Player: Shooter{
     
     var updatingBulletCount = false
     var isTemporarilyInvulnerable = false
+    var numberOfTimesAcquired = 0
+    
+    var isInvulnerable: Bool = false
+    
+    lazy var frameCount: Double = 0.00
+
+    var lastUpdateTime: Double = 0.00
+    var invulnerabilityInterval = 10.00
+    
+    func update(currentTime: TimeInterval){
+        
+        if(lastUpdateTime == 0.00){
+            lastUpdateTime = currentTime
+        }
+        
+        if(isInvulnerable){
+            
+            frameCount += currentTime - lastUpdateTime
+            
+            print("Player is invulnerable, frameCount is now \(frameCount)")
+            
+            if(frameCount > invulnerabilityInterval){
+                
+                
+                let userInfo: [String:Any] = [
+                    "collectibleRawValue":CollectibleType.Syringe.rawValue,
+                    "isActive": false
+                ]
+                
+                NotificationCenter.default.post(name: Notification.Name.GetDidActivateCollectibleNotificationName(), object: nil, userInfo: userInfo)
+                    
+                collectibleManager.removeCollectible(ofType: .Syringe)
+                
+                frameCount = 0.00
+            }
+            
+        }
+        
+        lastUpdateTime = currentTime
+    }
+    
+    //MARK:     ********* HELPER FUNCTIONS
     
     override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
         
@@ -164,6 +228,16 @@ class Player: Shooter{
         }
     }
 
+    func configurePlayerState(withPlayerStateSnapshot playerStateSnapshot: PlayerStateSnapShot){
+        
+        self.position = playerStateSnapshot.position
+        self.playerType = playerStateSnapshot.playerType
+        self.compassDirection = playerStateSnapshot.compassOrientation
+        self.health = playerStateSnapshot.healthLevel
+        self.numberOfBullets = playerStateSnapshot.numberOfBullets
+        self.physicsBody?.velocity = playerStateSnapshot.currentVelocity
+        
+    }
   
     
     override var playFiringSound: SKAction
@@ -206,109 +280,63 @@ class Player: Shooter{
     }
     
     
-    /**
-    var currentOrientation: Orientation{
-        didSet{
-            
-            guard oldValue != currentOrientation else { return }
-            
-            print("The player orientation has changed")
-            
-            var newRotationAngle: Double
-            
-            switch currentOrientation {
-            case .down:
-                print("The player orientation has changed to down")
-                newRotationAngle = oldValue == .left  ?  Double.pi*3/2 : -Double.pi/2
-                break
-            case .up:
-                print("The player orientation has changed to up")
-                newRotationAngle = Double.pi/2
-                break
-            case .left:
-                print("The player orientation has changed to left")
-                newRotationAngle = oldValue == .down ? -Double.pi : Double.pi
-                break
-            case .right:
-                print("The player orientation has changed to right")
-                newRotationAngle = 0.00
-                break
-            }
-            
-            run(SKAction.rotate(toAngle: CGFloat(newRotationAngle), duration: 0.10))
-        }
-     
-     }
- **/
-    
  
     var collectibleManager = CollectibleManager()
+   
     
-    convenience init(playerType: PlayerType, scale: CGFloat){
-        self.init(playerType: playerType)
+    func equipPlayerWithSpecialWeapon( ){
         
-        self.xScale *= scale
-        self.yScale *= scale
+        print("Equiping player with special weapon...")
         
-        
+        if let specialWeaponType = self.playerSpecialWeapon{
+            
+            let specialWeapon = Collectible(withCollectibleType: specialWeaponType)
+            collectibleManager.addCollectibleItem(newCollectible: specialWeapon, andWithQuantityOf: 5)
+            print("Player has been equipped with \(specialWeapon.getCollectibleName()) for special weapon")
+        }
     }
     
-    convenience init(playerType: PlayerType,startingHealth: Int = 15, numberOfBullets: Int = 30){
+    /*** If the player upgrade object is contacted, then the player's carrying capacity will increase by increasing increments **/
+    
+    func handleUpgradeObjectContact(collectibleSprite: CollectibleSprite){
         
-        let playerTexture = playerType.getTexture(textureType: .gun)
-        
-        self.init(texture: playerTexture, color: .clear, size: playerTexture.size())
-        
-        self.numberOfBullets = numberOfBullets
-        self.health = startingHealth
-        
-        
+        if let playerUpgradeObject = self.playerUpgradeObject,collectibleSprite.collectibleType == playerUpgradeObject{
+            
+            
+                self.numberOfTimesAcquired += 1
+            
+                print("Player has acquired upgrade object \(self.numberOfTimesAcquired) times")
+            
+                switch self.numberOfTimesAcquired{
+                case 1..<5:
+                    collectibleManager.increaseCarryingCapacity(by: 10)
+                    break
+                case 5..<10:
+                    collectibleManager.increaseCarryingCapacity(by: 20)
+                    break
+                case 10..<15:
+                    collectibleManager.increaseCarryingCapacity(by: 30)
+                    break
+                case 15..<20:
+                    collectibleManager.increaseCarryingCapacity(by: 40)
+                    break
+                case 20..<25:
+                    collectibleManager.increaseCarryingCapacity(by: 50)
+                    break
+                case 25...30:
+                    break
+                default:
+                    collectibleManager.increaseCarryingCapacity(by: 60)
+                    break
+                }
+                
+            
+            print("Player carrying capacity has increased to \(self.collectibleManager.carryingCapacity) times")
+
+        }
     }
     
-    convenience init(playerStateSnapshot: PlayerStateSnapShot) {
-        
-        let numberOfBullets = playerStateSnapshot.numberOfBullets
-        let startingHealth = playerStateSnapshot.healthLevel
-        let playerType = playerStateSnapshot.playerType
-        
-        self.init(playerType: playerType, startingHealth: startingHealth, numberOfBullets: numberOfBullets)
-        
-        configurePlayerState(withPlayerStateSnapshot: playerStateSnapshot)
-    }
     
-    
-    
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        
-        let defaultPlayerType = PlayerType(rawValue: "manBlue")!
-        
-        self.playerType = defaultPlayerType
-        self.compassDirection = .east
-        
-        let texture = texture ?? defaultPlayerType.getTexture(textureType: .gun)
-        
-        super.init(texture: texture, color: color, size: size)
-        
-        self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        self.physicsBody?.categoryBitMask = ColliderType.Player.categoryMask
-        self.physicsBody?.collisionBitMask = ColliderType.Player.collisionMask
-        self.physicsBody?.contactTestBitMask = ColliderType.Player.contactMask
-        self.physicsBody?.fieldBitMask = ColliderType.RepulsionField.categoryMask
-        self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.isDynamic = true
-        self.physicsBody?.allowsRotation = false
-        self.physicsBody?.linearDamping = 1.00
-        self.physicsBody?.angularDamping = 0.00
-        
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-  
    
     
     func applyMovementImpulse(withMagnitudeOf forceUnits: CGFloat){
@@ -350,6 +378,11 @@ class Player: Shooter{
     
     public func takeDamage(){
     
+        
+        if(isInvulnerable){
+            return
+        }
+        
         if(isTemporarilyInvulnerable) {
             return
             
@@ -419,7 +452,123 @@ class Player: Shooter{
         
     }
     
+    
+    
+    @objc func activateSpecialWeapon(notification: Notification?){
+        
+        print("Activating special weapon for player...")
+        
+        if let userInfo = notification?.userInfo, let rawValue = userInfo["collectibleRawValue"] as? Int,let isActive = userInfo["isActive"] as? Bool{
+            
 
+            let collectibleType = CollectibleType(rawValue: rawValue)!
+            
+            print("Activated weapon is \(collectibleType.getCollectibleName()) and active status has been changed to \(isActive ? "acitve":"inactive")")
+
+            switch collectibleType{
+                case .FlaskGreen:
+                    break
+                case .Bomb:
+                    break
+                case .PowerDrill:
+                    break
+                case .Cellphone1:
+                    break
+                case .Syringe:
+                    isInvulnerable = isActive ? true : false
+                    break
+                default:
+                    return
+            }
+        }
+        
+        
+    }
+    
+
+    
+    //MARK: ********** Initializers for Player Character
+    
+    convenience init(playerProfile: PlayerProfile) {
+        
+        let rawValue = Int(playerProfile.playerType)
+        let playerType = PlayerType(withIntegerValue: rawValue)
+        
+        self.init(playerType: playerType)
+        self.playerProfile = playerProfile
+        equipPlayerWithSpecialWeapon()
+        
+    }
+    
+    convenience init(playerType: PlayerType, scale: CGFloat){
+        self.init(playerType: playerType)
+        
+        self.xScale *= scale
+        self.yScale *= scale
+        
+        
+    }
+    
+    convenience init(playerType: PlayerType,startingHealth: Int = 15, numberOfBullets: Int = 30){
+        
+        let playerTexture = playerType.getTexture(textureType: .gun)
+        
+        self.init(texture: playerTexture, color: .clear, size: playerTexture.size())
+        
+        self.numberOfBullets = numberOfBullets
+        self.health = startingHealth
+        
+        
+    }
+    
+    convenience init(playerProfile: PlayerProfile, playerStateSnapshot: PlayerStateSnapShot) {
+        
+        let numberOfBullets = playerStateSnapshot.numberOfBullets
+        let startingHealth = playerStateSnapshot.healthLevel
+        let playerType = playerStateSnapshot.playerType
+        
+        self.init(playerType: playerType, startingHealth: startingHealth, numberOfBullets: numberOfBullets)
+        
+        self.playerProfile = playerProfile
+        configurePlayerState(withPlayerStateSnapshot: playerStateSnapshot)
+        equipPlayerWithSpecialWeapon()
+        
+    }
+    
+    
+    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
+        
+        let defaultPlayerType = PlayerType(rawValue: "manBlue")!
+        
+        self.playerType = defaultPlayerType
+        self.compassDirection = .east
+        
+        let texture = texture ?? defaultPlayerType.getTexture(textureType: .gun)
+        
+        super.init(texture: texture, color: color, size: size)
+        
+        self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
+        self.physicsBody?.categoryBitMask = ColliderType.Player.categoryMask
+        self.physicsBody?.collisionBitMask = ColliderType.Player.collisionMask
+        self.physicsBody?.contactTestBitMask = ColliderType.Player.contactMask
+        self.physicsBody?.fieldBitMask = ColliderType.RepulsionField.categoryMask
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.isDynamic = true
+        self.physicsBody?.allowsRotation = false
+        self.physicsBody?.linearDamping = 1.00
+        self.physicsBody?.angularDamping = 0.00
+        
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(activateSpecialWeapon(notification:)), name: Notification.Name.GetDidActivateCollectibleNotificationName(), object: nil)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
 }
 
 

@@ -127,7 +127,7 @@ class GameLevelStatTracker: StatTracker{
         let statReview = GameLevelStatReview(entity: self.entityDescription, insertInto: self.managedContext)
         
         statReview.date = self.date as NSDate
-        statReview.gameLevel = Int16(self.gameLevel.rawValue)
+        statReview.gameLevel = Int64(self.gameLevel.rawValue)
         statReview.numberOfBulletsFired = Int64(self.numberOfBulletsFired)
         statReview.numberOfZombiesKilled = Int64(self.numberOfZombiesKilled)
         statReview.totalNumberOfCollectibles = Int64(self.totalNumberOfCollectibles)

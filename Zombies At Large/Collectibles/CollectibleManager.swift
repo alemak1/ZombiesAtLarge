@@ -18,6 +18,10 @@ class CollectibleManager: NSObject, NSCoding{
         return collectibles.enumerated()
     }
     
+    var collectibleIterator: SetIterator<Collectible>{
+        return collectibles.makeIterator()
+    }
+    
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.collectibles, forKey: "collectibles")
         aCoder.encode(self.carryingCapacity, forKey: "carryingCapacity")
@@ -37,6 +41,7 @@ class CollectibleManager: NSObject, NSCoding{
     
     func addCollectibleItem(newCollectible: Collectible, andWithQuantityOf quantity: Int = 1){
         
+    
         if(self.getTotalMassOfAllCollectibles() + newCollectible.getCollectibleMass() > self.carryingCapacity){
             
             print("Failed to add item: player does not have the carrying capacity to add this item")
@@ -246,5 +251,12 @@ class CollectibleManager: NSObject, NSCoding{
     func removeCollectible(collectible: Collectible){
         
         self.collectibles.remove(collectible)
+        
+    }
+    
+    
+    func increaseCarryingCapacity(by increaseAmount: Double){
+        
+        self.carryingCapacity += increaseAmount
     }
 }

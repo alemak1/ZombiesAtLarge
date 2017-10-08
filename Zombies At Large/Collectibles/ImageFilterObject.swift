@@ -14,7 +14,7 @@ class ImageFilterObject: Collectible{
     var filterConfiguration: FilterConfiguration!
     
     convenience init(filterConfiguration: FilterConfiguration) {
-        self.init(withCollectibleType: .FlaskRed)
+        self.init(withCollectibleType: .BeakerRed)
         self.filterConfiguration = filterConfiguration
     }
     
