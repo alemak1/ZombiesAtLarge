@@ -55,6 +55,13 @@ class UnrescuedCharacterTracker: UnrescuedCharacterTrackerDelegate, NSCoding{
         return self.unrescuedCharacters.contains(character)
     }
     
+    func rescueCharacter(character: RescueCharacter){
+        
+        if let rescueCharacter = self.unrescuedCharacters.remove(character){
+            rescueCharacter.rescueCharacter()
+        }
+    }
+    
     func constraintRescuedCharactersToPlayer(){
         for rescueCharacter in self.unrescuedCharacters{
             rescueCharacter.constrainToPlayer()

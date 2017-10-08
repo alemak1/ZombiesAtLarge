@@ -231,7 +231,6 @@ extension GameScene{
     func addMustKillZombie(tileMapNode: SKTileMapNode, row: Int, column: Int){
      
         guard let mustKillZombieTracker = self.mustKillZombieTrackerDelegate else {
-            print("Error: no must kill zombie tracker available")
             return
         }
         
@@ -360,7 +359,6 @@ extension GameScene{
     func addRequiredCollectible(tileMapNode: SKTileMapNode, row: Int, column: Int){
         
         guard let requiredCollectibleTracker = self.requiredCollectiblesTrackerDelegate else {
-            print("Warning: there either are no required collectibles for this game level or the require collectible tracker failed to initialize ")
             return
         }
         
@@ -492,8 +490,12 @@ extension GameScene{
                 rescueCharacter.move(toParent: worldNode)
                 rescueCharacter.name = "RescueCharacter"
                 rescueCharacter.position = rescueCharPos
+                
+                print("Add an unrescued character...")
+                
                 unrescuedCharactersTracker.addUnrescuedCharacters(rescueCharacter: rescueCharacter)
-
+                
+                print("The current unrescued character count is \(unrescuedCharactersTracker.getUnrescuedCharacters().count)")
              
                 
             }

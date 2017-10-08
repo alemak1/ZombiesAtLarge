@@ -247,6 +247,7 @@ class GameScene: BaseScene{
 
             loadMissionPanel()
             loadPlayer()
+            
             loadZombieManager()
             loadBackground()
 
@@ -473,6 +474,7 @@ class GameScene: BaseScene{
         
         super.update(currentTime)
 
+        /**
         if(!npcAvailableForDialogue){
             
             if(npcBufferCounterLastUpdateTime == 0){
@@ -490,7 +492,7 @@ class GameScene: BaseScene{
             }
             
             npcBufferCounterLastUpdateTime = currentTime
-        }
+        } **/
 }
     
 
@@ -499,13 +501,18 @@ class GameScene: BaseScene{
        super.didSimulatePhysics()
                 
         
-        if let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate,let safetyZone = self.safetyZone{
+        if let unrescuedCharactersTracker = self.unrescuedCharactersTrackerDelegate{
             
             unrescuedCharactersTracker.constraintRescuedCharactersToPlayer()
-            unrescuedCharactersTracker.checkSafetyZoneForRescueCharacterProximity(safetyZone: safetyZone)
-
+           
+            if let safetyZone = self.safetyZone{
+                unrescuedCharactersTracker.checkSafetyZoneForRescueCharacterProximity(safetyZone: safetyZone)
+            }
             
         }
+        
+        
+       
 
     }
     

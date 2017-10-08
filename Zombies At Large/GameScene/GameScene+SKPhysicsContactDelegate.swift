@@ -23,9 +23,6 @@ extension GameScene{
 
         
         switch (contactA.categoryBitMask,contactB.categoryBitMask) {
-        case (let x, let y) where x == ColliderType.RescueCharacter.categoryMask ||  y == ColliderType.RescueCharacter.categoryMask:
-            handleRescueCharacterContacts(contact: contact)
-            break
         case (let x, let y) where x == ColliderType.PlayerBullets.categoryMask ||  y == ColliderType.PlayerBullets.categoryMask:
             handlePlayerBulletContacts(contact: contact)
             break
@@ -47,6 +44,9 @@ extension GameScene{
             handleEnemyBulletContacts(contact: contact)
             break
         case (let x, let y) where x == ColliderType.NonPlayerCharacter.categoryMask || y == ColliderType.NonPlayerCharacter.categoryMask:
+            break
+        case (let x, let y) where x == ColliderType.RescueCharacter.categoryMask ||  y == ColliderType.RescueCharacter.categoryMask:
+            handleRescueCharacterContacts(contact: contact)
             break
         default:
             break
@@ -75,7 +75,6 @@ extension GameScene{
     
         handlePlayerProximityContacts(contact: contact)
         handlePlayerContactsBugfix(contact: contact)
-
         
     }
     
@@ -107,9 +106,10 @@ extension GameScene{
         
         
         switch nonRescueCharacterBody.categoryBitMask {
-        case ColliderType.PlayerProximity.categoryMask:
+        case ColliderType.PlayerProximity.categoryMask, ColliderType.Player.categoryMask:
             print("handleRescueCharacter: The RESCUE CHARACTER has been resuced!!!")
             if let rescueCharacter = rescueCharacterBody.node as? RescueCharacter{
+                print("Character has been rescued")
                 rescueCharacter.rescueCharacter()
             }
             break
@@ -283,6 +283,7 @@ extension GameScene{
             if let rescueCharacter = nonplayerProximityPB.node as? RescueCharacter{
                 print("Character has been rescued")
                 rescueCharacter.rescueCharacter()
+
             }
             break
         case ColliderType.SafetyZone.categoryMask:
@@ -353,6 +354,12 @@ extension GameScene{
             break
         case ColliderType.SafetyZone.categoryMask:
             print("Player HAS REACHED the SAFETY ZONE")
+            break
+        case ColliderType.RescueCharacter.categoryMask:
+            if let rescueCharacter = nonPlayerBody.node as? RescueCharacter{
+                print("Character has been rescued")
+                rescueCharacter.rescueCharacter()
+            }
             break
         case ColliderType.Collectible.categoryMask:
             print("The player has contacted a collectible")

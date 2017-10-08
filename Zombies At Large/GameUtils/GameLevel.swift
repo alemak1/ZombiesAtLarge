@@ -67,6 +67,15 @@ enum GameLevel: Int{
         switch self {
         case .Level1:
             return ("Mission 1:","Microscope Recovery")
+        case .Level2:
+            return ("Mission 2:","Save the Old Ladies")
+        case .Level3:
+            return ("Mission 3:","Accumulate metal")
+        case .Level4:
+            return ("Mission 4:","Kill the red zombies")
+        case .Level5:
+            return ("Mission 5:","Save money")
+
         default:
             return (String(),String())
         }
@@ -145,6 +154,7 @@ enum GameLevel: Int{
     
     func getMissionBodyText() -> (String,String,String,String,String){
         switch self {
+            
         case .Level1:
             return ("Find all of",
                     "the microscopes",
@@ -152,11 +162,19 @@ enum GameLevel: Int{
                     "find a cure for",
                     "the Zombie virus."
                     )
-            
+        case .Level2:
+            return ("Save all of","the little old","ladies.","","")
+        case .Level3:
+            return ("Obtain total","metal content of","over 200 kg.","","")
+        case .Level4:
+            return ("Kill all of","the red zombies.","","","")
+        case .Level5:
+            return ("Get $2000 worth","of collectibles","","","")
         default:
             return (String(),String(),String(),String(),String())
         }
         
+        return (String(),String(),String(),String(),String())
     }
     
   

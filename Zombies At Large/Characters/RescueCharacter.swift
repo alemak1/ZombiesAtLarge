@@ -163,7 +163,10 @@ class RescueCharacter: SKSpriteNode, Snapshottable{
     
     
     func rescueCharacter(){
+        print("Resucing character...")
         self.hasBeenRescued = true
+        print("Character has been rescued...")
+
     }
     
     func unrescueCharacter(){

@@ -17,6 +17,8 @@ protocol UnrescuedCharacterTrackerDelegate{
     
     var numberOfUnrescuedCharacters: Int { get }
     
+    func rescueCharacter(character: RescueCharacter)
+
     func removeUnrescuedCharacter(rescueCharacter: RescueCharacter)
     
     func addUnrescuedCharacters(rescueCharacter: RescueCharacter)
