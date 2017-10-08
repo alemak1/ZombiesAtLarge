@@ -146,6 +146,14 @@ enum GameLevel: Int{
         switch self {
         case .Level1:
             return #imageLiteral(resourceName: "defaultLevelThumbnail")
+        case .Level2:
+            return #imageLiteral(resourceName: "level2")
+        case .Level3:
+            return #imageLiteral(resourceName: "level3")
+        case .Level4:
+            return #imageLiteral(resourceName: "level4")
+        case .Level5:
+            return #imageLiteral(resourceName: "level5")
         default:
             return #imageLiteral(resourceName: "defaultLevelThumbnail")
         }

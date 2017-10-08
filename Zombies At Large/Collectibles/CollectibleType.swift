@@ -108,6 +108,7 @@ enum CollectibleType: Int{
         .Grenade,
         .Syringe,
         .SilverBullet,
+        .BeakerRed,
         .PowerDrill,
         .Cellphone1,
         .Bomb,
@@ -218,6 +219,8 @@ enum CollectibleType: Int{
             case .Bomb:
                 return true
             case .FlaskGreen:
+                return true
+            case .BeakerRed:
                 return true
             default:
                 return false

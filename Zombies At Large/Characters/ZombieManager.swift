@@ -27,6 +27,10 @@ class ZombieManager{
     var frameCount = 0.00
     var lastUpdateTime = 0.00
     
+    var playerIsInvisibileFrameCount = 0.00
+    var playerIsInvisibleInterval = 10.00
+    var playerIsInvisible = false
+    
     var constraintsForActiveZombies: [SKConstraint]?{
         get{
             guard self.player != nil else { return nil}
@@ -48,6 +52,7 @@ class ZombieManager{
         self.player = player
         self.latentZombies = latentZombies
 
+        NotificationCenter.default.addObserver(self, selector: #selector(makePlayerInvisibleToZombies(notification:)), name: Notification.Name.GetDidActivateCollectibleNotificationName(), object: nil)
     }
     
     
@@ -76,6 +81,16 @@ class ZombieManager{
         default:
             print("")
         }
+    }
+    
+    @objc func makePlayerInvisibleToZombies(notification: Notification?){
+        
+       
+        if let userInfo = notification?.userInfo, let rawValue = userInfo["collectibleRawValue"] as? Int, let collectibleType = CollectibleType(rawValue: rawValue), collectibleType == .BeakerRed, let isActive = userInfo["isActive"] as? Bool, isActive{
+            
+            playerIsInvisible = true
+        }
+        
     }
     
   
@@ -127,6 +142,35 @@ class ZombieManager{
         }
         
    
+        if(playerIsInvisible){
+            
+            if(lastUpdateTime == 0){
+                lastUpdateTime = currentTime
+            }
+
+            playerIsInvisibileFrameCount += currentTime - lastUpdateTime
+            
+            print("Player is invisibile with frameCount of \(playerIsInvisibileFrameCount)")
+            
+            if(playerIsInvisibileFrameCount > playerIsInvisibleInterval){
+                
+                playerIsInvisible = false
+                playerIsInvisibileFrameCount = 0.00
+                
+                let userInfo: [String:Any] = [
+                    "collectibleRawValue":CollectibleType.BeakerRed.rawValue,
+                    "isActive": false
+                ]
+                
+                NotificationCenter.default.post(name: Notification.Name.GetDidActivateCollectibleNotificationName(), object: nil, userInfo: userInfo)
+                
+                
+            }
+            
+            lastUpdateTime = currentTime
+
+        }
+        
         
     }
     
@@ -147,7 +191,7 @@ class ZombieManager{
         for zombie in activeZombies {
             
             
-            if zombie.hasBeenActivated(){
+            if zombie.hasBeenActivated() && !playerIsInvisible{
 
                 zombie.constraints = self.constraintsForActiveZombies
                 

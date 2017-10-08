@@ -30,6 +30,7 @@ class GameScene: BaseScene{
     
     //MARK: GameScene Snapshot
     
+    
     var loadableGameSceneSnapshot: GameSceneSnapshot? = nil
     
     var archiveableGameSceneSnapshot: GameSceneSnapshot?{

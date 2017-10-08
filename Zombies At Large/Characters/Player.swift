@@ -171,7 +171,7 @@ class Player: Shooter{
     var isInvulnerable: Bool = false
     
     lazy var frameCount: Double = 0.00
-
+    
     var lastUpdateTime: Double = 0.00
     var invulnerabilityInterval = 10.00
     
@@ -180,6 +180,8 @@ class Player: Shooter{
         if(lastUpdateTime == 0.00){
             lastUpdateTime = currentTime
         }
+        
+        
         
         if(isInvulnerable){
             
@@ -476,6 +478,11 @@ class Player: Shooter{
                     break
                 case .Syringe:
                     isInvulnerable = isActive ? true : false
+                    break
+                case .BeakerRed:
+                    if(!isActive){
+                        collectibleManager.removeCollectible(ofType: .BeakerRed)
+                    }
                     break
                 default:
                     return
