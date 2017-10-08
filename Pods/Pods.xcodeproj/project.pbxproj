@@ -1,0 +1,717 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1F81F709B1E15C6F8EEF57739DFF7963 /* Pods-Zombies At LargeTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EB97D72CE16292837162E7C2ECEB638B /* Pods-Zombies At LargeTests-dummy.m */; };
+		41DDD3B0332273EEA3C04EDCF9F48F95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		8BFDE17BB9F657CB11A6554AA83D4620 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		992F66F6DD039559F651D8E34FE1FA48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		9C365C9DABC5A11DB4DB2E9FC319B2AA /* Pods-Zombies At LargeUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 196218BFE81933F077BC06B929D1A442 /* Pods-Zombies At LargeUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9E2D1A1E1DD9A63517EC7427BB3A016 /* Pods-Zombies At Large-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B8357C6CEF068B4032EF904607FDE8BD /* Pods-Zombies At Large-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DF74A0890AA0FA1449E0F22AFD858741 /* Pods-Zombies At Large-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2505D6EEBA34F0050C78C48BC74CFE /* Pods-Zombies At Large-dummy.m */; };
+		EABE0347AA64B4872979DD7757D7821D /* Pods-Zombies At LargeUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CCCEBA76F418AED7F0462D1EDA909824 /* Pods-Zombies At LargeUITests-dummy.m */; };
+		FFB9B7AA325DD147E4FAD05A7E7E384C /* Pods-Zombies At LargeTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4D243EF5416230D704E5C8111F25AF /* Pods-Zombies At LargeTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		024044C25CD50FA04FAFAAE6BE08140A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0795AD99976397EA7DE39803837D7A73 /* Pods-Zombies At LargeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Zombies At LargeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		105EB7DF625B46397FA24A0ADE54116A /* Pods-Zombies At LargeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Zombies At LargeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		126718767B6BA8149A2574D62D567245 /* Pods_Zombies_At_Large.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zombies_At_Large.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		17FCD26E2C1C69C50F2C04C116291E3D /* Pods-Zombies At LargeUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Zombies At LargeUITests-resources.sh"; sourceTree = "<group>"; };
+		196218BFE81933F077BC06B929D1A442 /* Pods-Zombies At LargeUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Zombies At LargeUITests-umbrella.h"; sourceTree = "<group>"; };
+		1D3D07D0B2A1DD4DB20D59E588D996F2 /* Pods-Zombies At LargeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Zombies At LargeTests.release.xcconfig"; sourceTree = "<group>"; };
+		1F275D988C21E7FF0978227649B7362E /* Pods-Zombies At LargeTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Zombies At LargeTests.modulemap"; sourceTree = "<group>"; };
+		24CDBA30DE99761D224CBE7B37687C97 /* Pods-Zombies At LargeUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Zombies At LargeUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		2B2505D6EEBA34F0050C78C48BC74CFE /* Pods-Zombies At Large-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Zombies At Large-dummy.m"; sourceTree = "<group>"; };
+		51E9456582B8BF5043D859EAC5E71600 /* Pods-Zombies At LargeUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Zombies At LargeUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		59FEF23AF6A90AECF86FDFB14176CA70 /* Pods-Zombies At Large-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Zombies At Large-frameworks.sh"; sourceTree = "<group>"; };
+		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6D7D60490E1968CBCDBFA13E3FD424C1 /* Pods_Zombies_At_LargeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zombies_At_LargeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E7DFE53A0780B00D5FBBD686493CE24 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		780744217F8503BCDAD137576D1AAF82 /* Pods-Zombies At LargeTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Zombies At LargeTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		7B4D243EF5416230D704E5C8111F25AF /* Pods-Zombies At LargeTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Zombies At LargeTests-umbrella.h"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A1AF8A24B769840D4A2CDCB3C68ACF88 /* Pods-Zombies At LargeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Zombies At LargeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B0D4802CA61A6811D2C95E41026F5F31 /* Pods-Zombies At Large.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Zombies At Large.debug.xcconfig"; sourceTree = "<group>"; };
+		B4313515717199FFFAC348D447853675 /* Pods-Zombies At LargeTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Zombies At LargeTests-frameworks.sh"; sourceTree = "<group>"; };
+		B81026BB3FE3C2EA29778301545EF695 /* Pods-Zombies At Large-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Zombies At Large-resources.sh"; sourceTree = "<group>"; };
+		B8357C6CEF068B4032EF904607FDE8BD /* Pods-Zombies At Large-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Zombies At Large-umbrella.h"; sourceTree = "<group>"; };
+		B8E716372A42849FED61D8A6E65AA014 /* Pods-Zombies At LargeUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Zombies At LargeUITests.modulemap"; sourceTree = "<group>"; };
+		BE09C139273F52642ABDEF6D941BA518 /* Pods-Zombies At LargeUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Zombies At LargeUITests-frameworks.sh"; sourceTree = "<group>"; };
+		C10388D14281187A52E40595D8112E2B /* Pods-Zombies At LargeTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Zombies At LargeTests-resources.sh"; sourceTree = "<group>"; };
+		C2CD2620E18A1B02CC1389DB4042487B /* Pods-Zombies At LargeTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Zombies At LargeTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		C4A614B0E7816C6935AD820ECE8008F4 /* Pods-Zombies At Large-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Zombies At Large-acknowledgements.markdown"; sourceTree = "<group>"; };
+		C94AB33B6C243E5187F52B5239D6375A /* Pods-Zombies At Large.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Zombies At Large.modulemap"; sourceTree = "<group>"; };
+		CCCEBA76F418AED7F0462D1EDA909824 /* Pods-Zombies At LargeUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Zombies At LargeUITests-dummy.m"; sourceTree = "<group>"; };
+		D0FC58A46A71D62B3D9D7331C2374332 /* Pods-Zombies At Large.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Zombies At Large.release.xcconfig"; sourceTree = "<group>"; };
+		DBAC09D3AA04568D396A7631EBD2FE69 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4441BAAB29551C58890B07BD96A6BFD /* Pods-Zombies At Large-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Zombies At Large-acknowledgements.plist"; sourceTree = "<group>"; };
+		EB97D72CE16292837162E7C2ECEB638B /* Pods-Zombies At LargeTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Zombies At LargeTests-dummy.m"; sourceTree = "<group>"; };
+		F4B736C63D274465CFB08A18D5BD6C85 /* Pods_Zombies_At_LargeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zombies_At_LargeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F87BBE855D70C2F87C02A1CCA30E262D /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		200D7FC7FD40FE314226DF80233A4FCC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41DDD3B0332273EEA3C04EDCF9F48F95 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BD073BBE6747BF3BF611E95C1DBB8BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				992F66F6DD039559F651D8E34FE1FA48 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E653BEA57FC608C75412B2C37631D404 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8BFDE17BB9F657CB11A6554AA83D4620 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				820FBBDA65C5B1A6A4C379A893C27235 /* Pods */,
+				F2E6685936D6B43C2CD2C0C29F6E461E /* Products */,
+				D6E70BCB25F366640AB69DD7A0A97F9D /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		820FBBDA65C5B1A6A4C379A893C27235 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E91D6015731707498AAA5817D350B87B /* Google-Mobile-Ads-SDK */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		953FD61A3CECC96530CB5CA297A086C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F87BBE855D70C2F87C02A1CCA30E262D /* GoogleMobileAds.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		D6E70BCB25F366640AB69DD7A0A97F9D /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				DEA0BB2749CD0F25BDC0832D8C172B38 /* Pods-Zombies At Large */,
+				DA853E1E8046B5505D7F5BA679854E13 /* Pods-Zombies At LargeTests */,
+				E42E054DD48F5DD2378C0D8E99684960 /* Pods-Zombies At LargeUITests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		DA853E1E8046B5505D7F5BA679854E13 /* Pods-Zombies At LargeTests */ = {
+			isa = PBXGroup;
+			children = (
+				024044C25CD50FA04FAFAAE6BE08140A /* Info.plist */,
+				1F275D988C21E7FF0978227649B7362E /* Pods-Zombies At LargeTests.modulemap */,
+				C2CD2620E18A1B02CC1389DB4042487B /* Pods-Zombies At LargeTests-acknowledgements.markdown */,
+				780744217F8503BCDAD137576D1AAF82 /* Pods-Zombies At LargeTests-acknowledgements.plist */,
+				EB97D72CE16292837162E7C2ECEB638B /* Pods-Zombies At LargeTests-dummy.m */,
+				B4313515717199FFFAC348D447853675 /* Pods-Zombies At LargeTests-frameworks.sh */,
+				C10388D14281187A52E40595D8112E2B /* Pods-Zombies At LargeTests-resources.sh */,
+				7B4D243EF5416230D704E5C8111F25AF /* Pods-Zombies At LargeTests-umbrella.h */,
+				0795AD99976397EA7DE39803837D7A73 /* Pods-Zombies At LargeTests.debug.xcconfig */,
+				1D3D07D0B2A1DD4DB20D59E588D996F2 /* Pods-Zombies At LargeTests.release.xcconfig */,
+			);
+			name = "Pods-Zombies At LargeTests";
+			path = "Target Support Files/Pods-Zombies At LargeTests";
+			sourceTree = "<group>";
+		};
+		DEA0BB2749CD0F25BDC0832D8C172B38 /* Pods-Zombies At Large */ = {
+			isa = PBXGroup;
+			children = (
+				DBAC09D3AA04568D396A7631EBD2FE69 /* Info.plist */,
+				C94AB33B6C243E5187F52B5239D6375A /* Pods-Zombies At Large.modulemap */,
+				C4A614B0E7816C6935AD820ECE8008F4 /* Pods-Zombies At Large-acknowledgements.markdown */,
+				E4441BAAB29551C58890B07BD96A6BFD /* Pods-Zombies At Large-acknowledgements.plist */,
+				2B2505D6EEBA34F0050C78C48BC74CFE /* Pods-Zombies At Large-dummy.m */,
+				59FEF23AF6A90AECF86FDFB14176CA70 /* Pods-Zombies At Large-frameworks.sh */,
+				B81026BB3FE3C2EA29778301545EF695 /* Pods-Zombies At Large-resources.sh */,
+				B8357C6CEF068B4032EF904607FDE8BD /* Pods-Zombies At Large-umbrella.h */,
+				B0D4802CA61A6811D2C95E41026F5F31 /* Pods-Zombies At Large.debug.xcconfig */,
+				D0FC58A46A71D62B3D9D7331C2374332 /* Pods-Zombies At Large.release.xcconfig */,
+			);
+			name = "Pods-Zombies At Large";
+			path = "Target Support Files/Pods-Zombies At Large";
+			sourceTree = "<group>";
+		};
+		E42E054DD48F5DD2378C0D8E99684960 /* Pods-Zombies At LargeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6E7DFE53A0780B00D5FBBD686493CE24 /* Info.plist */,
+				B8E716372A42849FED61D8A6E65AA014 /* Pods-Zombies At LargeUITests.modulemap */,
+				51E9456582B8BF5043D859EAC5E71600 /* Pods-Zombies At LargeUITests-acknowledgements.markdown */,
+				24CDBA30DE99761D224CBE7B37687C97 /* Pods-Zombies At LargeUITests-acknowledgements.plist */,
+				CCCEBA76F418AED7F0462D1EDA909824 /* Pods-Zombies At LargeUITests-dummy.m */,
+				BE09C139273F52642ABDEF6D941BA518 /* Pods-Zombies At LargeUITests-frameworks.sh */,
+				17FCD26E2C1C69C50F2C04C116291E3D /* Pods-Zombies At LargeUITests-resources.sh */,
+				196218BFE81933F077BC06B929D1A442 /* Pods-Zombies At LargeUITests-umbrella.h */,
+				A1AF8A24B769840D4A2CDCB3C68ACF88 /* Pods-Zombies At LargeUITests.debug.xcconfig */,
+				105EB7DF625B46397FA24A0ADE54116A /* Pods-Zombies At LargeUITests.release.xcconfig */,
+			);
+			name = "Pods-Zombies At LargeUITests";
+			path = "Target Support Files/Pods-Zombies At LargeUITests";
+			sourceTree = "<group>";
+		};
+		E91D6015731707498AAA5817D350B87B /* Google-Mobile-Ads-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				953FD61A3CECC96530CB5CA297A086C1 /* Frameworks */,
+			);
+			path = "Google-Mobile-Ads-SDK";
+			sourceTree = "<group>";
+		};
+		F2E6685936D6B43C2CD2C0C29F6E461E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				126718767B6BA8149A2574D62D567245 /* Pods_Zombies_At_Large.framework */,
+				6D7D60490E1968CBCDBFA13E3FD424C1 /* Pods_Zombies_At_LargeTests.framework */,
+				F4B736C63D274465CFB08A18D5BD6C85 /* Pods_Zombies_At_LargeUITests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		18E927E2D9C4D18A3971391738B1ACED /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C365C9DABC5A11DB4DB2E9FC319B2AA /* Pods-Zombies At LargeUITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D7DD140D13258E1FCD1351D31144FA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFB9B7AA325DD147E4FAD05A7E7E384C /* Pods-Zombies At LargeTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9599F9250F8683DCD27D7C247CAD2FA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9E2D1A1E1DD9A63517EC7427BB3A016 /* Pods-Zombies At Large-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		754795D043F57A39E6A8707FD7C203B8 /* Pods-Zombies At LargeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4B72CE2C845E7B9310CC6B371E47B9A /* Build configuration list for PBXNativeTarget "Pods-Zombies At LargeTests" */;
+			buildPhases = (
+				6DBE96A044D8ECCF0AB6F07D76CD5D68 /* Sources */,
+				E653BEA57FC608C75412B2C37631D404 /* Frameworks */,
+				66D7DD140D13258E1FCD1351D31144FA /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-Zombies At LargeTests";
+			productName = "Pods-Zombies At LargeTests";
+			productReference = 6D7D60490E1968CBCDBFA13E3FD424C1 /* Pods_Zombies_At_LargeTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		9D7EBCA7B2F59F1A9A8BFBF82851E687 /* Pods-Zombies At LargeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 88357AC5CEDD2F59A2C2F371BDE54002 /* Build configuration list for PBXNativeTarget "Pods-Zombies At LargeUITests" */;
+			buildPhases = (
+				EBD569257D463DAA781E83C52ADA9AF2 /* Sources */,
+				200D7FC7FD40FE314226DF80233A4FCC /* Frameworks */,
+				18E927E2D9C4D18A3971391738B1ACED /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-Zombies At LargeUITests";
+			productName = "Pods-Zombies At LargeUITests";
+			productReference = F4B736C63D274465CFB08A18D5BD6C85 /* Pods_Zombies_At_LargeUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		F61F5F9B983BF9038C95FE58A9C65F87 /* Pods-Zombies At Large */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB95035BA97344139157D2EBBCA51585 /* Build configuration list for PBXNativeTarget "Pods-Zombies At Large" */;
+			buildPhases = (
+				2725B44B7E49EC5E7FFCC7EC49C8B53A /* Sources */,
+				4BD073BBE6747BF3BF611E95C1DBB8BE /* Frameworks */,
+				E9599F9250F8683DCD27D7C247CAD2FA /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-Zombies At Large";
+			productName = "Pods-Zombies At Large";
+			productReference = 126718767B6BA8149A2574D62D567245 /* Pods_Zombies_At_Large.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0900;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = F2E6685936D6B43C2CD2C0C29F6E461E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F61F5F9B983BF9038C95FE58A9C65F87 /* Pods-Zombies At Large */,
+				754795D043F57A39E6A8707FD7C203B8 /* Pods-Zombies At LargeTests */,
+				9D7EBCA7B2F59F1A9A8BFBF82851E687 /* Pods-Zombies At LargeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2725B44B7E49EC5E7FFCC7EC49C8B53A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF74A0890AA0FA1449E0F22AFD858741 /* Pods-Zombies At Large-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6DBE96A044D8ECCF0AB6F07D76CD5D68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F81F709B1E15C6F8EEF57739DFF7963 /* Pods-Zombies At LargeTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBD569257D463DAA781E83C52ADA9AF2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EABE0347AA64B4872979DD7757D7821D /* Pods-Zombies At LargeUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1A41B15D3AA834993ADDD808FA9D8764 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		23EB482010AB5B0B6C11A494052B25C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0FC58A46A71D62B3D9D7331C2374332 /* Pods-Zombies At Large.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Zombies At Large/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Zombies At Large/Pods-Zombies At Large.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Zombies_At_Large;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		37A9EACBE9B8C8D3BB30652094BFD9E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0795AD99976397EA7DE39803837D7A73 /* Pods-Zombies At LargeTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Zombies At LargeTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Zombies At LargeTests/Pods-Zombies At LargeTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Zombies_At_LargeTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		55BA331D0415604C72767727D92AA392 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 105EB7DF625B46397FA24A0ADE54116A /* Pods-Zombies At LargeUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Zombies At LargeUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Zombies At LargeUITests/Pods-Zombies At LargeUITests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Zombies_At_LargeUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		79F52837515E174672D1187A837DF3D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0D4802CA61A6811D2C95E41026F5F31 /* Pods-Zombies At Large.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Zombies At Large/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Zombies At Large/Pods-Zombies At Large.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Zombies_At_Large;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B267C64B5BB1EDAD919570185A0BB411 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1AF8A24B769840D4A2CDCB3C68ACF88 /* Pods-Zombies At LargeUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Zombies At LargeUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Zombies At LargeUITests/Pods-Zombies At LargeUITests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Zombies_At_LargeUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		BC80BBB5C066539FFFC0B2127CA5D3C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		CAC36FBC9CB5D83A6F10025E4D43EE14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D3D07D0B2A1DD4DB20D59E588D996F2 /* Pods-Zombies At LargeTests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Zombies At LargeTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Zombies At LargeTests/Pods-Zombies At LargeTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Zombies_At_LargeTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC80BBB5C066539FFFC0B2127CA5D3C4 /* Debug */,
+				1A41B15D3AA834993ADDD808FA9D8764 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		88357AC5CEDD2F59A2C2F371BDE54002 /* Build configuration list for PBXNativeTarget "Pods-Zombies At LargeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B267C64B5BB1EDAD919570185A0BB411 /* Debug */,
+				55BA331D0415604C72767727D92AA392 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB95035BA97344139157D2EBBCA51585 /* Build configuration list for PBXNativeTarget "Pods-Zombies At Large" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79F52837515E174672D1187A837DF3D1 /* Debug */,
+				23EB482010AB5B0B6C11A494052B25C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4B72CE2C845E7B9310CC6B371E47B9A /* Build configuration list for PBXNativeTarget "Pods-Zombies At LargeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37A9EACBE9B8C8D3BB30652094BFD9E1 /* Debug */,
+				CAC36FBC9CB5D83A6F10025E4D43EE14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
