@@ -12,9 +12,7 @@ import SpriteKit
 protocol MustKillZombieTrackerDelegate{
     
     var mustKillZombies: Set<Zombie> {set get}
-    
-    var mustKillZombiesSnapshots: [ZombieSnapshot]{get}
-    
+        
     var numberOfMustKillZombies: Int{get}
     
     func getNumberOfUnkilledZombies() -> Int

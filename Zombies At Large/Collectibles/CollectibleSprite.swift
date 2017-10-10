@@ -9,65 +9,23 @@
 import Foundation
 import SpriteKit
 
-class CollectibleSnapshot: NSObject, NSCoding, Saveable{
-    
-    var physicsBody: SKPhysicsBody
-    var collectibleTypeRawValue: Int
-    
-    init(physicsBody: SKPhysicsBody, collectibleTypeRawValue: Int) {
-        
-        self.physicsBody = physicsBody
-        self.collectibleTypeRawValue = collectibleTypeRawValue
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        self.physicsBody = aDecoder.decodeObject(forKey: "physicsBody") as! SKPhysicsBody
-        self.collectibleTypeRawValue = aDecoder.decodeInteger(forKey: "collectibleTypeRawValue")
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.physicsBody, forKey: "physicsBody")
-        aCoder.encode(self.collectibleTypeRawValue, forKey: "collectibleTypeRawValue")
-    }
+
+struct CollectibleSpriteConfiguration{
+    var collectibleTypeRawValue: Int64
+    var isRequired: Bool
+    var position: CGPoint
 }
 
-class CollectibleSprite: SKSpriteNode, Snapshottable{
+class CollectibleSprite: SKSpriteNode{
     
-     var collectibleType: CollectibleType!
+    var collectibleType: CollectibleType!
+    var isRequired: Bool = false
     
-    var snapshot: Saveable{
-        
-        let collectibleRawValue = self.collectibleType.rawValue
-
-        return CollectibleSnapshot(physicsBody: self.physicsBody!, collectibleTypeRawValue: collectibleRawValue)
+    func getCollectibleSpriteConfiguration() -> CollectibleSpriteConfiguration{
+    
+        return CollectibleSpriteConfiguration(collectibleTypeRawValue: Int64(self.collectibleType.rawValue), isRequired: self.isRequired, position: self.position)
     }
     
-    func getSnapshot() -> Saveable{
-        
-        let collectibleRawValue = self.collectibleType.rawValue
-        
-        return CollectibleSnapshot(physicsBody: self.physicsBody!, collectibleTypeRawValue: collectibleRawValue)
-    }
-    
-    convenience init(collectibleSnapshot: CollectibleSnapshot) {
-        
-        let collectibleTypeRawValue = collectibleSnapshot.collectibleTypeRawValue
-        let collectibleType = CollectibleType(rawValue: collectibleTypeRawValue)!
-        
-        let texture = collectibleType.getTexture()
-        
-        self.init(texture: texture, color: .clear, size: texture.size())
-        
-        self.collectibleType = collectibleType
-        
-        initializePhysicsProperties(withTexture: texture)
-        
-        self.xScale *= 1.00
-        self.yScale *= 1.00
-        
-        
-    }
     
     
     required init?(coder aDecoder: NSCoder) {

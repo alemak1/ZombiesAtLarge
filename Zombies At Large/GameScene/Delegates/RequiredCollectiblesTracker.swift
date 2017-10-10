@@ -30,16 +30,7 @@ class RequiredCollectiblesTracker: RequiredCollectiblesTrackerDelegate, NSCoding
     
     var requiredCollectibles: Set<CollectibleSprite> = []
     
-    
-    var requiredCollectiblesSnapshots: [CollectibleSnapshot]{
-        
-        return self.requiredCollectibles.enumerated().map({ (idx, reqCollectible) in
-            
-            return reqCollectible.getSnapshot() as! CollectibleSnapshot
-        })
-        
-        
-    }
+
     
     
     var numberOfRequiredCollectibles: Int{

@@ -12,9 +12,7 @@ import SpriteKit
 protocol RequiredCollectiblesTrackerDelegate{
     
     var requiredCollectibles: Set<CollectibleSprite> {set get }
-    
-    var requiredCollectiblesSnapshots: [CollectibleSnapshot]{get}
-    
+        
     var numberOfRequiredCollectibles: Int{ get }
     
     func removeRequiredCollectible(requiredCollectible: CollectibleSprite)

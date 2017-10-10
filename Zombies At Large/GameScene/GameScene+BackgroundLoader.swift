@@ -187,8 +187,9 @@ extension GameScene{
             
             randomCollectibleSprite.position = collectiblePos
             randomCollectibleSprite.zPosition = 10
+            randomCollectibleSprite.isRequired = false
+
             randomCollectibleSprite.move(toParent: worldNode)
-            
             
         }
     }
@@ -226,6 +227,7 @@ extension GameScene{
             
             let newZombie = Zombie(zombieType: .zombie1)
             newZombie.position = zombiePos
+            newZombie.isMustKill = false
             newZombie.move(toParent: worldNode)
             zombieManager.addLatentZombie(zombie: newZombie)
             
@@ -272,6 +274,7 @@ extension GameScene{
                 }
                 
                     print("Adding must kill zombie to games scene")
+                    mustKillZombie!.isMustKill = true
                     mustKillZombie!.position = mustKillZombiePos
                     mustKillZombie!.move(toParent: worldNode)
                     mustKillZombie!.name = "MustKillZombie\(mustKillZombieTracker.getNumberOfUnkilledZombies())"
@@ -389,6 +392,7 @@ extension GameScene{
                 collectibleSprite.name = "RequiredCollectible"
                 collectibleSprite.position = requiredCollectiblePos
                 collectibleSprite.zPosition = 30
+                collectibleSprite.isRequired = true
                 
                 requiredCollectibleTracker.addRequiredCollectible(requiredCollectible: collectibleSprite)
                 

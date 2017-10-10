@@ -9,6 +9,10 @@
 import Foundation
 import SpriteKit
 
+
+class GameSceneSnapshot{
+    
+}
 /**
  Player Information:
      player type,
@@ -24,6 +28,7 @@ import SpriteKit
  
  **/
 
+/**
 class GameSceneSnapshot: NSObject, NSCoding{
     
     
@@ -33,7 +38,6 @@ class GameSceneSnapshot: NSObject, NSCoding{
     var worldNodeSnapshot: WorldNodeSnapshotA!
     
     var requiredCollectibles: [CollectibleSnapshot]?
-    var mustKillZombies: [ZombieSnapshot]?
     var unrescuedCharacters: [RescueCharacterSnapshot]?
     
   
@@ -84,3 +88,4 @@ class GameSceneSnapshot: NSObject, NSCoding{
         super.init()
     }
 }
+**/

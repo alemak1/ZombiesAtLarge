@@ -16,6 +16,8 @@ import SpriteKit
 import GameplayKit
 import CoreData
 
+
+
 /**
  
      For the GameScene snapshot, need to save the following information:
@@ -27,13 +29,12 @@ import CoreData
 
 class GameScene: BaseScene{
     
-    
-    //MARK: GameScene Snapshot
-    
-    
+        
+  
+
     var loadableGameSceneSnapshot: GameSceneSnapshot? = nil
     
-    var archiveableGameSceneSnapshot: GameSceneSnapshot?{
+    var archiveableGameSceneSnapshot: GameSceneSnapshot? /**{
         get{
             
             let worldNodeSnapshot = worldNode.getWorldNodeSnapshotA(mustKillZombies: self.mustKillZombies, requiredCollectibles: self.requiredCollecribles, rescueCharacters: self.unrescuedCharacters)
@@ -55,8 +56,8 @@ class GameScene: BaseScene{
             return gameSceneSnapShot
         }
     }
-    
-    
+    **/
+
 
 
     //MARK: Variables: Current Level Properties
@@ -174,10 +175,10 @@ class GameScene: BaseScene{
         
         self.loadableGameSceneSnapshot = gameSceneSnapShot
 
-        let gameLevel = GameLevel(rawValue: gameSceneSnapShot.gameLevelRawValue)!
+        let gameLevel = GameLevel(rawValue: 1)!
         self.currentPlayerProfile = playerProfile
         self.currentGameLevel = gameLevel
-         self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: gameLevel, playerProfile: playerProfile)
+        self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: gameLevel, playerProfile: playerProfile)
         self.gameSaver = GameSaver(withGameScene: self)
 
     }
@@ -286,6 +287,7 @@ class GameScene: BaseScene{
             
             /** Initialize the current game level **/
             
+            /**
             let levelInt = loadableGameSceneSnapshot.gameLevelRawValue
             self.currentGameLevel = GameLevel(rawValue: levelInt!)!
             
@@ -333,7 +335,7 @@ class GameScene: BaseScene{
             loadZombieManager()
             loadBackground()
 
-            
+            **/
         }
      
     }

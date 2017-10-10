@@ -2,6 +2,36 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/PlayerCollectibleConfiguration+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/PlayerCollectibleConfiguration+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/ZombieSnapshot+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/ZombieSnapshot+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/ZombieSnapshotGroup+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/ZombieSnapshotGroup+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/CollectibleSpriteSnapshotGroup+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/CollectibleSpriteSnapshotGroup+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/CollectibleSpriteSnapshot+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/CollectibleSpriteSnapshot+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:Zombies At Large.xcodeproj">
    </FileRef>
    <FileRef

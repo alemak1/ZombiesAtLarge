@@ -153,7 +153,6 @@ class MainMenuController: UIViewController{
             
             let gameViewController = storyBoard.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
             
-            gameViewController.loadableGameSceneSnapshot = savedGame.gameSceneSnapshot as! GameSceneSnapshot
             
             gameViewController.playerProfile = self.selectedPlayerProfile
             

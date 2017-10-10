@@ -65,6 +65,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        // deleteSavedGames()
        // deleteGameLevelStats()
         
+        
+        showSavedGameInfo()
+    
         GADMobileAds.configure(withApplicationID: "ca-app-pub-3595969991114166~1431909202")
 
         return true
@@ -157,6 +160,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    func showZombieSnapshotGroupInfo(){
+        
+        let fetchRequest = NSFetchRequest<ZombieSnapshotGroup>(entityName: "ZombieSnapshotGroup")
+
+        print("Getting debug information for zombie snapshot group....")
+        
+        do {
+            
+            print("Debug info for zombie snapshot group about to be displayed...")
+
+            let zombieSnapshotGroups = try persistentContainer.viewContext.fetch(fetchRequest)
+            
+            for zSnapshotGroup in zombieSnapshotGroups{
+                
+                let str = zSnapshotGroup.getSnapShotGroupDebugString()
+                
+                print(str)
+                
+            }
+            
+        } catch let error as NSError {
+            print("Error occurred: \(error.localizedDescription)")
+        }
+    }
+    
+    func showCollectibleSpriteGroupInfo(){
+    
+    let fetchRequest = NSFetchRequest<CollectibleSpriteSnapshotGroup>(entityName: "CollectibleSpriteSnapshotGroup")
+    
+    print("Getting debug information for zombie snapshot group....")
+    
+    do {
+    
+    print("Debug info for zombie snapshot group about to be displayed...")
+    
+    let cSnapshotGroups = try persistentContainer.viewContext.fetch(fetchRequest)
+    
+    for cSnapshotGroup in cSnapshotGroups{
+    
+        cSnapshotGroup.showCollectibleSpriteSnapshotGroupDebugInfo()
+    
+    
+    }
+    
+    } catch let error as NSError {
+    print("Error occurred: \(error.localizedDescription)")
+    }
+    }
+    
     
     func deleteSavedGames(){
     
@@ -196,7 +248,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
         } catch let error as NSError {
-            print("Error occurred while deleting players")
+            print("Error occurred while deleting players \(error.localizedDescription), \(error.localizedFailureReason)")
         }
         
         
@@ -246,6 +298,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+    }
+    
+    func showSavedGameInfo(){
+        
+        let managedContext = persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<SavedGame>(entityName: "SavedGame")
+        
+        do {
+            
+            if let savedGames = try? managedContext.fetch(fetchRequest){
+            
+                print("Debug info for saved games: \(savedGames.debugDescription)")
+                
+                savedGames.forEach({
+                
+                savedGame in
+                
+                savedGame.showSavedGameInfo()
+                
+                })
+            } else {
+                print("No saved games available")
+            }
+            
+        } catch let error as NSError {
+            print("Error occurred with information \(error.localizedDescription)")
+        }
+        
+    
     }
     
     func insertSamplePlayerProfiles(){

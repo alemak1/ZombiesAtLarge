@@ -12,9 +12,7 @@ import SpriteKit
 protocol UnrescuedCharacterTrackerDelegate{
     
     var unrescuedCharacters: Set<RescueCharacter> {set get}
-    
-    var unrescuedCharactersSnapshots: [RescueCharacterSnapshot]{get}
-    
+        
     var numberOfUnrescuedCharacters: Int { get }
     
     func rescueCharacter(character: RescueCharacter)
