@@ -19,9 +19,13 @@ extension SavedGame {
 
     @NSManaged public var date: NSDate?
     @NSManaged public var level: Int16
+    @NSManaged public var frameCount: Double
     @NSManaged public var playerProfile: PlayerProfile?
     @NSManaged public var playerSnapshot: NSObject
     @NSManaged public var zombieSnapshotGroup: ZombieSnapshotGroup?
     @NSManaged public var collectibleSpriteSnapshotGroup: CollectibleSpriteSnapshotGroup?
     @NSManaged public var playerCollectibles: NSSet?
+    @NSManaged public var requiredCollectibles: NSSet?
+    @NSManaged public var mustKillZombies: NSSet?
+    @NSManaged public var unrescuedCharacters: NSSet?
 }

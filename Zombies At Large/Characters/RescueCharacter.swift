@@ -9,80 +9,8 @@
 import Foundation
 import SpriteKit
 
-class RescueCharacterSnapshot: NSObject, NSCoding,Saveable{
-    
-    
-    var hasBeenRescued: Bool
-    var compassDirectionRawValue: Int
-    var nonplayerCharacterTypeRawValue: Int
-    var physicsBody: SKPhysicsBody
-    
-    init(physicsBody: SKPhysicsBody, hasBeenRescued: Bool, compassDirectionRawValue: Int, nonplayerCharacterTypeRawValue: Int) {
-        self.hasBeenRescued = hasBeenRescued
-        self.compassDirectionRawValue = compassDirectionRawValue
-        self.nonplayerCharacterTypeRawValue = nonplayerCharacterTypeRawValue
-        self.physicsBody = physicsBody
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        self.hasBeenRescued = aDecoder.decodeBool(forKey: "hasBeenRescued")
-        self.compassDirectionRawValue = aDecoder.decodeInteger(forKey: "compassDirectionRawValue")
-        self.nonplayerCharacterTypeRawValue = aDecoder.decodeInteger(forKey: "nonplayerCharacterTypeRawValue")
-        self.physicsBody = aDecoder.decodeObject(forKey: "physicsBody") as! SKPhysicsBody
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.hasBeenRescued, forKey: "hasBeenRescued")
-        aCoder.encode(self.compassDirectionRawValue, forKey: "compassDirectionRawValue")
-        aCoder.encode(self.nonplayerCharacterTypeRawValue, forKey: "nonplayerCharacterTypeRawValue")
-        aCoder.encode(self.physicsBody, forKey: "physicsBody")
-    }
-}
 
-
-class RescueCharacter: SKSpriteNode, Snapshottable{
-    
-    var snapshot: Saveable{
-        return RescueCharacterSnapshot(physicsBody: self.physicsBody!, hasBeenRescued: self.hasBeenRescued, compassDirectionRawValue: self.compassDirection.rawValue, nonplayerCharacterTypeRawValue: self.nonPlayerCharacterType.rawValue)
-    }
-    
-    func getSnapshot() -> Saveable {
-        return RescueCharacterSnapshot(physicsBody: self.physicsBody!, hasBeenRescued: self.hasBeenRescued, compassDirectionRawValue: self.compassDirection.rawValue, nonplayerCharacterTypeRawValue: self.nonPlayerCharacterType.rawValue)
-
-    }
-    
-
-   
-    
-    convenience init(rescueCharacterSnapshot: RescueCharacterSnapshot, player: Player) {
-        
-        let rawValue = rescueCharacterSnapshot.nonplayerCharacterTypeRawValue
-        let nonPlayerCharacterType = NonplayerCharacterType(rawValue: rawValue)!
-        
-        guard let texture = nonPlayerCharacterType.getTexture() else {
-            fatalError("Error: Failed to located the texture for the nonPlayerCharacterType")
-        }
-        
-        self.init(texture: texture, color: .clear, size: texture.size())
-        
-        self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        self.physicsBody?.categoryBitMask = ColliderType.RescueCharacter.categoryMask
-        self.physicsBody?.collisionBitMask = ColliderType.RescueCharacter.collisionMask
-        self.physicsBody?.contactTestBitMask = ColliderType.RescueCharacter.contactMask
-        
-        self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.isDynamic = true
-        self.physicsBody?.allowsRotation = false
-        self.physicsBody?.linearDamping = 1.00
-        self.physicsBody?.angularDamping = 0.00
-        
-        self.nonPlayerCharacterType = nonPlayerCharacterType
-        
-        let compassDirectionRawValue = rescueCharacterSnapshot.compassDirectionRawValue
-        self.compassDirection = CompassDirection(rawValue: compassDirectionRawValue)!
-        self.player = player
-    }
+class RescueCharacter: SKSpriteNode{
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

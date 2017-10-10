@@ -34,6 +34,12 @@ class GameSaver{
         return entityDescription
     }
     
+    var rescueCharConfigurationEntityDescription: NSEntityDescription{
+        let entityDescription = NSEntityDescription.entity(forEntityName: "RescueCharConfiguration", in: self.managedContext)!
+        
+        return entityDescription
+    }
+    
     var playerCollectibleConfigurationEntityDescription: NSEntityDescription{
         let entityDescription = NSEntityDescription.entity(forEntityName: "PlayerCollectibleConfiguration", in: self.managedContext)!
         
@@ -85,7 +91,7 @@ class GameSaver{
         
         let zombieConfigs = self.gameScene.getWorldNodeConfiguration().zombieConfigurations
         
-        print("ombie sprite configs: \(zombieConfigs.debugDescription)")
+        print("zombie sprite configs: \(zombieConfigs.debugDescription)")
 
         
         let zg = ZombieSnapshotGroup(entity: self.zombieSnapShotGroupEntityDescription, insertInto: self.managedContext)
@@ -93,32 +99,46 @@ class GameSaver{
         let cg = CollectibleSpriteSnapshotGroup(entity: self.collectibleSpriteSnapshotGroupEntityDescription, insertInto: self.managedContext)
         
         
-        for collectibleSpriteConfig in collectibleSpriteConfigs{
-            
-            let cSnapshot = CollectibleSpriteSnapshot(entity: self.collectibleSpriteSnapshotEntityDescription, insertInto: self.managedContext)
-            
-            cSnapshot.position = collectibleSpriteConfig.position as NSObject
-            cSnapshot.collectibleTypeRawValue = Int32(collectibleSpriteConfig.collectibleTypeRawValue)
-            cSnapshot.isRequired = collectibleSpriteConfig.isRequired
-            cSnapshot.collectibleSpriteSnapshotGroup = cg
-            
-        }
         
-        for zombieConfig in zombieConfigs{
+        collectibleSpriteConfigs.forEach({
             
-            let zSnapshot = ZombieSnapshot(entity: self.zombieSnapshotEntityDescription, insertInto: self.managedContext)
+            collectibleSpriteConfig in
             
-            zSnapshot.currentHealth = zombieConfig.currentHealth
-            zSnapshot.currentModeRawValue = zombieConfig.currentModeRawValue
-            zSnapshot.frameCount = zombieConfig.frameCount
-            zSnapshot.isActive = zombieConfig.isActive
-            zSnapshot.isDamaged = zombieConfig.isDamaged
-            zSnapshot.position = zombieConfig.position as NSObject
-            zSnapshot.shootingFrameCount = zombieConfig.shootingFrameCount
-            zSnapshot.zombieTypeRawValue = zombieConfig.zombieTypeRawValue
+            if !collectibleSpriteConfig.isRequired{
+                
+                let cSnapshot = CollectibleSpriteSnapshot(entity: self.collectibleSpriteSnapshotEntityDescription, insertInto: self.managedContext)
+            
+                cSnapshot.position = collectibleSpriteConfig.position as NSObject
+                cSnapshot.collectibleTypeRawValue = Int32(collectibleSpriteConfig.collectibleTypeRawValue)
+                cSnapshot.isRequired = collectibleSpriteConfig.isRequired
+                cSnapshot.collectibleSpriteSnapshotGroup = cg
+            }
+            
+        })
+        
+        
+        zombieConfigs.forEach({
+            
+            zombieConfig in
+            
+            if !zombieConfig.isMustKill{
+                let zSnapshot = ZombieSnapshot(entity: self.zombieSnapshotEntityDescription, insertInto: self.managedContext)
+            
+                zSnapshot.currentHealth = zombieConfig.currentHealth
+                zSnapshot.currentModeRawValue = zombieConfig.currentModeRawValue
+                zSnapshot.frameCount = zombieConfig.frameCount
+                zSnapshot.isActive = zombieConfig.isActive
+                zSnapshot.isDamaged = zombieConfig.isDamaged
+                zSnapshot.position = zombieConfig.position as NSObject
+                zSnapshot.shootingFrameCount = zombieConfig.shootingFrameCount
+                zSnapshot.zombieTypeRawValue = zombieConfig.zombieTypeRawValue
             
             zSnapshot.zombieSnapshotGroup = zg
-        }
+            }
+            
+        })
+        
+        
        
         
       self.gameScene.player.collectibleManager.getCollectiblesArray().forEach({
@@ -135,9 +155,65 @@ class GameSaver{
         newCollectibleConfiguration.savedGame = savedGame
         
       })
-            
-            
         
+        
+        
+        var requiredCollectibleSnapshots = Set<CollectibleSpriteSnapshot>()
+        
+        self.gameScene.requiredCollecribles?.forEach({
+            
+            requiredCollectible in
+            
+            
+            let requiredCollectibleSnapshot = CollectibleSpriteSnapshot(entity: self.collectibleSpriteSnapshotEntityDescription, insertInto: self.managedContext)
+            
+            requiredCollectibleSnapshot.isRequired = requiredCollectible.isRequired
+            requiredCollectibleSnapshot.position = requiredCollectible.position as NSObject
+            requiredCollectibleSnapshot.collectibleTypeRawValue = Int32(requiredCollectible.collectibleType.rawValue)
+            
+            requiredCollectibleSnapshots.insert(requiredCollectibleSnapshot)
+            
+        })
+        
+        savedGame.requiredCollectibles = requiredCollectibleSnapshots as NSSet
+        
+        
+        var mustKillZombieSnapshots  = Set<ZombieSnapshot>()
+
+        self.gameScene.mustKillZombies?.map({$0.getZombieConfiguration()}).forEach({
+            
+            mustKillZombie in
+            
+            let zombieSnapshot = ZombieSnapshot(entity: self.zombieSnapshotEntityDescription, insertInto: self.managedContext)
+            
+            zombieSnapshot.isActive = mustKillZombie.isActive
+            zombieSnapshot.isDamaged = mustKillZombie.isDamaged
+            zombieSnapshot.frameCount = mustKillZombie.frameCount
+            zombieSnapshot.shootingFrameCount = mustKillZombie.shootingFrameCount
+            zombieSnapshot.currentHealth = mustKillZombie.currentHealth
+            zombieSnapshot.currentModeRawValue = mustKillZombie.currentModeRawValue
+            zombieSnapshot.zombieTypeRawValue = mustKillZombie.zombieTypeRawValue
+            
+            
+        })
+        
+        savedGame.mustKillZombies = mustKillZombieSnapshots as NSSet
+        
+        
+        
+        self.gameScene.unrescuedCharacters?.forEach({
+            
+            rescueCharacter in
+            
+           let rescueCharConfiguration = RescueCharConfiguration(entity: self.rescueCharConfigurationEntityDescription, insertInto: self.managedContext)
+            
+            rescueCharConfiguration.compassDirectionRawValue = Int64(rescueCharacter.compassDirection.rawValue)
+            rescueCharConfiguration.hasBeenRescued = rescueCharacter.hasBeenRescued
+            rescueCharConfiguration.nonplayerTypeCharacter = Int64(rescueCharacter.nonPlayerCharacterType.rawValue)
+            
+            rescueCharConfiguration.savedGame = savedGame
+            
+        })
         
         savedGame.collectibleSpriteSnapshotGroup = cg
         savedGame.zombieSnapshotGroup = zg

@@ -31,15 +31,6 @@ class UnrescuedCharacterTracker: UnrescuedCharacterTrackerDelegate, NSCoding{
     var unrescuedCharacters: Set<RescueCharacter> = []
     
     
-    var unrescuedCharactersSnapshots: [RescueCharacterSnapshot]{
-        
-        return self.unrescuedCharacters.enumerated().map({ (idx, rescueCharacter) in
-            
-            return rescueCharacter.getSnapshot() as! RescueCharacterSnapshot
-        })
-        
-        
-    }
     
     
     var numberOfUnrescuedCharacters: Int{

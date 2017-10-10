@@ -46,11 +46,14 @@ public class SavedGame: NSManagedObject {
         
         print("Saved Game for Date: \(dateString), Game Level: \(gameLevel), for Player Name: \(playerName), with health of \(health), total bullets remaining of \(numberOfBullets), and at position x: \(position.x) and y: \(position.y), with total unique items of \(numberOfUniqueItems), total collectibles of \(numberOfAllItems), and total value of all collectibles \(totalValueOfCollectibles)")
         
-        self.collectibleSpriteSnapshotGroup?.showCollectibleSpriteSnapshotGroupDebugInfo()
+        print(self.collectibleSpriteSnapshotGroup.debugDescription)
+        print(self.zombieSnapshotGroup.debugDescription)
+        print(self.requiredCollectibles)
+        print(self.mustKillZombies)
+        print(self.unrescuedCharacters)
+        print(self.frameCount)
         
-        if let zStr = self.zombieSnapshotGroup?.getSnapShotGroupDebugString(){
-            print(zStr)
-        }
+       
         
         
     }

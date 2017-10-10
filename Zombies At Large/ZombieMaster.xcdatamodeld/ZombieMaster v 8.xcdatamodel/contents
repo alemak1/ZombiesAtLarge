@@ -36,13 +36,23 @@
         <relationship name="gameSessions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GameLevelStatReview" inverseName="playerProfile" inverseEntity="GameLevelStatReview" syncable="YES"/>
         <relationship name="savedGames" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SavedGame" inverseName="playerProfile" inverseEntity="SavedGame" syncable="YES"/>
     </entity>
+    <entity name="RescueCharConfiguration" representedClassName="RescueCharConfiguration" syncable="YES">
+        <attribute name="compassDirectionRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="hasBeenRescued" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="nonplayerTypeCharacter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="savedGame" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedGame" inverseName="unrescuedCharacters" inverseEntity="SavedGame" syncable="YES"/>
+    </entity>
     <entity name="SavedGame" representedClassName="SavedGame" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="frameCount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="playerSnapshot" attributeType="Transformable" syncable="YES"/>
         <relationship name="collectibleSpriteSnapshotGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CollectibleSpriteSnapshotGroup" syncable="YES"/>
+        <relationship name="mustKillZombies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZombieSnapshot" syncable="YES"/>
         <relationship name="playerCollectibles" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlayerCollectibleConfiguration" inverseName="savedGame" inverseEntity="PlayerCollectibleConfiguration" syncable="YES"/>
         <relationship name="playerProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlayerProfile" inverseName="savedGames" inverseEntity="PlayerProfile" syncable="YES"/>
+        <relationship name="requiredCollectibles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CollectibleSpriteSnapshot" syncable="YES"/>
+        <relationship name="unrescuedCharacters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RescueCharConfiguration" inverseName="savedGame" inverseEntity="RescueCharConfiguration" syncable="YES"/>
         <relationship name="zombieSnapshotGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZombieSnapshotGroup" syncable="YES"/>
     </entity>
     <entity name="ZombieSnapshot" representedClassName="ZombieSnapshot" syncable="YES">
@@ -63,10 +73,11 @@
         <element name="CollectibleSpriteSnapshot" positionX="-45" positionY="108" width="128" height="105"/>
         <element name="CollectibleSpriteSnapshotGroup" positionX="-36" positionY="117" width="128" height="60"/>
         <element name="GameLevelStatReview" positionX="-54" positionY="18" width="128" height="180"/>
+        <element name="PlayerCollectibleConfiguration" positionX="-36" positionY="144" width="128" height="120"/>
         <element name="PlayerProfile" positionX="-54" positionY="81" width="128" height="150"/>
-        <element name="SavedGame" positionX="-45" positionY="99" width="128" height="150"/>
+        <element name="SavedGame" positionX="-45" positionY="99" width="128" height="210"/>
         <element name="ZombieSnapshot" positionX="-27" positionY="126" width="128" height="180"/>
         <element name="ZombieSnapshotGroup" positionX="-18" positionY="162" width="128" height="60"/>
-        <element name="PlayerCollectibleConfiguration" positionX="-36" positionY="144" width="128" height="120"/>
+        <element name="RescueCharConfiguration" positionX="-36" positionY="144" width="128" height="105"/>
     </elements>
 </model>

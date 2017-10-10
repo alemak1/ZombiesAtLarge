@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/RescueCharConfiguration+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yongrenwang/Desktop/Zombies At Large/RescueCharConfiguration+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:/Users/yongrenwang/Desktop/Zombies At Large/PlayerCollectibleConfiguration+CoreDataClass.swift">
    </FileRef>
    <FileRef

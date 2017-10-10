@@ -1,3 +1,10 @@
+use sort descriptors to sort game statistics
+
+New to save mustKillZombies and rescueCharacters in savedGame
+var hasBeenRescued: Bool
+var compassDirectionRawValue: Int
+var nonplayerCharacterTypeRawValue: Int
+
 
 AdMob App ID
 ca-app-pub-3595969991114166~1431909202
