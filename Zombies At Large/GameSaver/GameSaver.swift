@@ -154,9 +154,10 @@ class GameSaver{
         
         newCollectibleConfiguration.savedGame = savedGame
         
+        
       })
-        
-        
+    
+       
         
         var requiredCollectibleSnapshots = Set<CollectibleSpriteSnapshot>()
         

@@ -133,6 +133,7 @@ class Collectible: NSObject, NSCoding{
     }
     
     
+    
     static func == (lhs: Collectible, rhs: Collectible) -> Bool{
         
         return lhs.collectibleType.rawValue == rhs.collectibleType.rawValue

@@ -272,7 +272,7 @@ class GameScene: BaseScene{
             
             loadMissionPanel()
             loadPlayer(fromSavedGame: savedGame)
-           // loadPlayerCollectibles(forSavedGame: savedGame)
+            loadPlayerCollectibles(forSavedGame: savedGame)
             loadBackground()
             loadGameControls()
             loadRequiredCollectibles(fromSavedGame: savedGame)
@@ -300,7 +300,8 @@ class GameScene: BaseScene{
         
         print("Loading player collectibles...")
         
-        if let playerCollectibleConfigs = savedGame.playerCollectibles as? Set<PlayerCollectibleConfiguration>{
+        
+        if let playerCollectibleConfigs = savedGame.playerCollectibles?.allObjects as? [PlayerCollectibleConfiguration]{
             
             print("Getting player collectible configurations...")
             

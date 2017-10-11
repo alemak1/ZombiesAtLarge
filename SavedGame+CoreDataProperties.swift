@@ -29,3 +29,5 @@ extension SavedGame {
     @NSManaged public var mustKillZombies: NSSet?
     @NSManaged public var unrescuedCharacters: NSSet?
 }
+
+
