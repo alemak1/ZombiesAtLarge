@@ -136,7 +136,10 @@ class Player: Shooter{
         
         let velocity = self.physicsBody?.velocity ?? CGVector.zero
         
-        return PlayerStateSnapShot(playerType: self.playerType, healthLevel: self.health, numberOfBullets: self.numberOfBullets, compassOrientation: self.compassDirection, position: self.position, currentVelocity: velocity, collectibleManager: self.collectibleManager)
+        let playerTypeRawValue = Int(playerProfile.playerType)
+        let playerType = PlayerType(withIntegerValue: playerTypeRawValue)
+        
+        return PlayerStateSnapShot(playerType: playerType, healthLevel: self.health, numberOfBullets: self.numberOfBullets, compassOrientation: self.compassDirection, position: self.position, currentVelocity: velocity, collectibleManager: self.collectibleManager)
         
     }()
     

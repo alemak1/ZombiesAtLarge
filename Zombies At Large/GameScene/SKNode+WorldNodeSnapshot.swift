@@ -22,18 +22,12 @@ extension SKNode{
     
     func getWorldNodeConfiguration() -> WorldNodeConfiguration{
         
-        var zombieConfigurations = [ZombieConfiguration]()
-        var collectibleSpriteConfigurations = [CollectibleSpriteConfiguration]()
+        let zombies = children.filter({$0.isKind(of: Zombie.self)}) as! [Zombie]
+        let collectibleSprites = children.filter({$0.isKind(of: CollectibleSprite.self)}) as! [CollectibleSprite]
         
-        for node in children{
-            if let node = node as? Zombie{
-                zombieConfigurations.append(node.getZombieConfiguration())
-            }
-            
-            if let node = node as? CollectibleSprite{
-                collectibleSpriteConfigurations.append(node.getCollectibleSpriteConfiguration())
-            }
-        }
+        let zombieConfigurations = zombies.map({$0.getZombieConfiguration()})
+        let collectibleSpriteConfigurations = collectibleSprites.map({$0.getCollectibleSpriteConfiguration()})
+        
         
         return WorldNodeConfiguration(zombieConfigurations: zombieConfigurations, collectibleSpriteConfigurations: collectibleSpriteConfigurations)
     }

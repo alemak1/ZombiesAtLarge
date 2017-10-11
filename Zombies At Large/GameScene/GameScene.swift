@@ -30,35 +30,10 @@ import CoreData
 class GameScene: BaseScene{
     
         
-  
+    //MARK: Reference to saved game object used to load a previously saved level
 
-    var loadableGameSceneSnapshot: GameSceneSnapshot? = nil
+    var savedGame: SavedGame? = nil
     
-    var archiveableGameSceneSnapshot: GameSceneSnapshot? /**{
-        get{
-            
-            let worldNodeSnapshot = worldNode.getWorldNodeSnapshotA(mustKillZombies: self.mustKillZombies, requiredCollectibles: self.requiredCollecribles, rescueCharacters: self.unrescuedCharacters)
-            
-            print("World Node Snapshot generated: \(worldNodeSnapshot.description)")
-            
-            let mustKillZombies = mustKillZombieTrackerDelegate?.getMustKillZombies()
-            
-            let rescueCharacters = unrescuedCharactersTrackerDelegate?.getUnrescuedCharacters()
-            
-            let requiredCollectibles = requiredCollectiblesTrackerDelegate?.getRequiredCollectibles()
-
-            print("Generating Game Scene Snapshot with the following information: Must Kill Zombies \(mustKillZombies?.count), Rescue Characters: \(rescueCharacters?.count), Required Collectibles: \(requiredCollectibles?.count)")
-            
-            let gameSceneSnapShot = GameSceneSnapshot(gameLevel: self.currentGameLevel, playerStateSnapshot: self.player.playerStateSnapShot, worldNodeSnapshot: worldNodeSnapshot, requiredCollectibles: requiredCollectiblesTrackerDelegate?.requiredCollectiblesSnapshots, mustKillZombies: mustKillZombieTrackerDelegate?.mustKillZombiesSnapshots, unrescuedCharacters: self.unrescuedCharactersTrackerDelegate?.unrescuedCharactersSnapshots)
-        
-            print("Game Scene Snapshot generated: \(gameSceneSnapShot.description)")
-            
-            return gameSceneSnapShot
-        }
-    }
-    **/
-
-
 
     //MARK: Variables: Current Level Properties
     
@@ -168,17 +143,25 @@ class GameScene: BaseScene{
     
     /** ***************  GameScene Initializers **/
     
-    convenience init(playerProfile: PlayerProfile, gameSceneSnapShot: GameSceneSnapshot) {
+    convenience init(playerProfile: PlayerProfile, savedGame: SavedGame) {
         
-
+        print("Initializing game scene from saved game...")
+        
         self.init(size: UIScreen.main.bounds.size)
         
-        self.loadableGameSceneSnapshot = gameSceneSnapShot
+        
+        self.savedGame = savedGame
 
-        let gameLevel = GameLevel(rawValue: 1)!
+        let gameLevelRawValue = Int(savedGame.level)
+        let gameLevel = GameLevel(rawValue: gameLevelRawValue)!
+        
         self.currentPlayerProfile = playerProfile
         self.currentGameLevel = gameLevel
+        self.frameCount = savedGame.frameCount
+    
+        
         self.gameLevelStatTracker = GameLevelStatTracker(gameLevel: gameLevel, playerProfile: playerProfile)
+
         self.gameSaver = GameSaver(withGameScene: self)
 
     }
@@ -267,7 +250,7 @@ class GameScene: BaseScene{
         /** If the Game Scene has not been loaded from a saved game, then initialize it from scratch **/
         
 
-        if(self.loadableGameSceneSnapshot == nil){
+        if(self.savedGame == nil){
 
             loadMissionPanel()
             loadPlayer()
@@ -280,10 +263,49 @@ class GameScene: BaseScene{
      
         } else {
             
-            guard let loadableGameSceneSnapshot = self.loadableGameSceneSnapshot else {
-                print("Error: found nil while unwrapping loadable game scene snapshot")
+            print("Loading scene from saved game...")
+            
+            guard let savedGame = self.savedGame else {
+                print("Error: found nil while unwrapping saved game object")
                 return
             }
+            
+            print("Loading mission panel...")
+            
+            loadMissionPanel()
+            
+            let playerStateSnapshot = savedGame.playerSnapshot as! PlayerStateSnapShot
+            let player = Player(playerProfile: self.currentPlayerProfile!, playerStateSnapshot: playerStateSnapshot)
+            
+            player.move(toParent: worldNode)
+            self.player = player
+        
+            
+            loadBackground()
+            loadGameControls()
+
+            loadRequiredCollectibles(fromSavedGame: savedGame)
+            loadGeneralCollectibles(fromSavedGame: savedGame)
+            
+            self.zombieManager = ZombieManager(withPlayer: self.player, andWithLatentZombies: [])
+            
+            
+            loadZombies(fromSavedGame: savedGame)
+
+            
+            if let mustKillZombies = savedGame.mustKillZombies as? Set<Zombie>{
+                self.mustKillZombieTrackerDelegate = MustKillZombieTracker(withMustKillZombies: mustKillZombies)
+            }
+            
+            if let rescueCharacters = savedGame.unrescuedCharacters as? Set<RescueCharacter>{
+                self.unrescuedCharactersTrackerDelegate = UnrescuedCharacterTracker(with: rescueCharacters)
+            }
+            
+          
+            
+           
+            
+
             
             /** Initialize the current game level **/
             
@@ -340,6 +362,92 @@ class GameScene: BaseScene{
      
     }
     
+    
+    func loadZombies(fromSavedGame savedGame: SavedGame){
+    
+        
+        guard let zombieSnapshots = savedGame.zombieSnapshotGroup?.zombieSnapshots?.allObjects as? [ZombieSnapshot]  else {
+            fatalError("Error: found nil while attempting to unwrap the zombie snapshot set associated with this game level")
+        }
+        
+        print("Loading zombies based on zombie snapshots from saved game...")
+        
+        zombieSnapshots.forEach({
+            
+            zombieSnapshot in
+            
+            print("Retrieving zombie snapshot from saved game...\(zombieSnapshot.debugDescription)")
+            
+            let reloadedZombie = zombieSnapshot.getZombieRestoredFromZombieSnapshot()
+            
+            if(zombieSnapshot.isActive){
+                reloadedZombie.activateZombie()
+                zombieManager.activateZombie(zombie: reloadedZombie)
+            }
+            
+            reloadedZombie.move(toParent: worldNode)
+          
+            
+            print("Reloaded zombie initialized.  Now positioned at x: \(reloadedZombie.position.x), y: \(reloadedZombie.position.y)")
+            
+        })
+        
+        
+        
+    }
+    
+    func loadGeneralCollectibles(fromSavedGame savedGame: SavedGame){
+        
+        if let generalCollectibles = savedGame.collectibleSpriteSnapshotGroup?.collectibleSpriteSnapshots as? Set<CollectibleSpriteSnapshot>{
+            
+            let collectibleSprites = generalCollectibles.map({
+                
+                collectibleSpriteSnapshot in
+                
+                return collectibleSpriteSnapshot.getCollectibleSpriteRestoredFromSnapshot()
+                
+            })
+            
+            
+            
+            collectibleSprites.forEach({
+                
+                collectibleSprite in
+                
+                collectibleSprite.move(toParent: worldNode)
+                
+            })
+            
+        }
+    }
+    
+    func loadRequiredCollectibles(fromSavedGame savedGame: SavedGame){
+        if let requiredCollectibles = savedGame.requiredCollectibles as? Set<CollectibleSpriteSnapshot>{
+            
+            let collectibleSprites = requiredCollectibles.map({
+                
+                collectibleSpriteSnapshot in
+                
+                return collectibleSpriteSnapshot.getCollectibleSpriteRestoredFromSnapshot()
+                
+            })
+            
+            
+            let set = NSSet(array: collectibleSprites) as! Set<CollectibleSprite>
+            
+            self.requiredCollectiblesTrackerDelegate = RequiredCollectiblesTracker(with: set)
+            
+            collectibleSprites.forEach({
+                
+                collectibleSprite in
+                
+                collectibleSprite.move(toParent: worldNode)
+                
+            })
+            
+        }
+
+    }
     
     override func loadPlayer() {
         

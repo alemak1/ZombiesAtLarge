@@ -65,6 +65,7 @@ class SavedGamesViewController: UITableViewController{
             
             let savedGame = savedGames[indexPath.row]
             
+        
             let dateStr = savedGame.getFormattedDateString()
             
             cell.dateSaved.text = dateStr
@@ -80,6 +81,10 @@ class SavedGamesViewController: UITableViewController{
             cell.missionDescription.text = levelDescription
             
             cell.savedGame = savedGame
+            
+            
+            
+            
         
         }
         

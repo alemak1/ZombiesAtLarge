@@ -17,7 +17,7 @@ import GameplayKit
 class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UINavigationControllerDelegate {
 
     
-    var loadableGameSceneSnapshot: GameSceneSnapshot?
+    var savedGame: SavedGame?
     
     var selectedGameLevel: GameLevel?
     
@@ -279,7 +279,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         becomeFirstResponder()
         
     
-        NotificationCenter.default.addObserver(self, selector: #selector(openMediaPickerManager(notification:)), name: Notification.Name.GetDidRequestCameraOrPhotosNotification(), object: self.currentGameScene!)
+       // NotificationCenter.default.addObserver(self, selector: #selector(openMediaPickerManager(notification:)), name: Notification.Name.GetDidRequestCameraOrPhotosNotification(), object: self.currentGameScene!)
         
     }
   
@@ -371,9 +371,9 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
 
             
         
-        } else if self.loadableGameSceneSnapshot != nil {
+        } else if self.savedGame != nil {
             
-            currentGameScene = GameScene(playerProfile: self.playerProfile!, gameSceneSnapShot: self.loadableGameSceneSnapshot!)
+            currentGameScene = GameScene(playerProfile: self.playerProfile!, savedGame: self.savedGame!)
             
             guard let scene = self.currentGameScene else {
                 fatalError("Error: failed to load game scene ")

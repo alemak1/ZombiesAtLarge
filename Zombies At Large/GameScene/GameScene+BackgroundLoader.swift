@@ -71,7 +71,7 @@ extension GameScene{
         }
         
         
-        if(loadableGameSceneSnapshot == nil){
+        if(self.savedGame == nil){
 
             let grassRows = grass.numberOfRows
             let grassCols = grass.numberOfColumns
@@ -134,7 +134,7 @@ extension GameScene{
         woodFloors.position = CGPoint(x: 0.00, y: 0.00)
         
         
-        if(loadableGameSceneSnapshot == nil){
+        if(self.savedGame == nil){
 
             let woodRows = woodFloors.numberOfRows
             let woodCols = woodFloors.numberOfColumns
@@ -146,7 +146,7 @@ extension GameScene{
             
             }
          
-            }
+        }
         
         
         

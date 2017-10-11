@@ -153,8 +153,9 @@ class MainMenuController: UIViewController{
             
             let gameViewController = storyBoard.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
             
-            
+        
             gameViewController.playerProfile = self.selectedPlayerProfile
+            gameViewController.savedGame = savedGame
             
             present(gameViewController, animated: true, completion: nil)
             

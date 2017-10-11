@@ -46,11 +46,26 @@ public class SavedGame: NSManagedObject {
         
         print("Saved Game for Date: \(dateString), Game Level: \(gameLevel), for Player Name: \(playerName), with health of \(health), total bullets remaining of \(numberOfBullets), and at position x: \(position.x) and y: \(position.y), with total unique items of \(numberOfUniqueItems), total collectibles of \(numberOfAllItems), and total value of all collectibles \(totalValueOfCollectibles)")
         
-        print(self.collectibleSpriteSnapshotGroup.debugDescription)
-        print(self.zombieSnapshotGroup.debugDescription)
-        print(self.requiredCollectibles)
-        print(self.mustKillZombies)
-        print(self.unrescuedCharacters)
+        print("The Game Scene collectibles are as follows: ")
+        
+        let csSnapshots = self.collectibleSpriteSnapshotGroup?.collectibleSpriteSnapshots?.allObjects as! [CollectibleSpriteSnapshot]
+        
+        csSnapshots.forEach({
+            print($0.getCollectibleSpriteSnapshotDebugString())
+        })
+        
+        print("The game scene zombies have the following information: ")
+        
+        let zSnapshots = self.zombieSnapshotGroup?.zombieSnapshots?.allObjects as! [ZombieSnapshot]
+        
+        zSnapshots.forEach({
+            print($0.getZombieInformation())
+        })
+        
+        print(self.requiredCollectibles.debugDescription)
+        print(self.mustKillZombies.debugDescription)
+        print(self.unrescuedCharacters.debugDescription)
+        
         print(self.frameCount)
         
        

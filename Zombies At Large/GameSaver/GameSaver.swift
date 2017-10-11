@@ -85,11 +85,11 @@ class GameSaver{
         savedGame.playerProfile = self.gameScene.currentPlayerProfile
         
         
-        let collectibleSpriteConfigs = self.gameScene.getWorldNodeConfiguration().collectibleSpriteConfigurations
+        let collectibleSpriteConfigs = self.gameScene.worldNode.getWorldNodeConfiguration().collectibleSpriteConfigurations
         
         print("Collectible sprite configs: \(collectibleSpriteConfigs.debugDescription)")
         
-        let zombieConfigs = self.gameScene.getWorldNodeConfiguration().zombieConfigurations
+        let zombieConfigs = self.gameScene.worldNode.getWorldNodeConfiguration().zombieConfigurations
         
         print("zombie sprite configs: \(zombieConfigs.debugDescription)")
 
