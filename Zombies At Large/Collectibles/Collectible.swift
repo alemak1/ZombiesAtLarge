@@ -71,6 +71,16 @@ class Collectible: NSObject, NSCoding{
      
     }
     
+    
+    func setActivatedStatus(to activatedStatus: Bool){
+            self.isActive = activatedStatus
+    }
+    
+    
+    func setCanBeActivatedStatus(to canBeActivatedStatus: Bool){
+        self.canBeActivated = canBeActivatedStatus
+    }
+    
     public func getCanBeActivatedStatus() -> Bool{
         return self.canBeActivated
     }

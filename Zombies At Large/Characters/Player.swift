@@ -301,6 +301,15 @@ class Player: Shooter{
         }
     }
     
+    func addCollectibles(collectibles: [Collectible]){
+        collectibles.forEach({ self.collectibleManager.addCollectibleItem(newCollectible: $0) })
+    }
+    
+    func addCollectible(collectible: Collectible){
+        
+        self.collectibleManager.addCollectibleItem(newCollectible: collectible)
+    }
+    
     /*** If the player upgrade object is contacted, then the player's carrying capacity will increase by increasing increments **/
     
     func handleUpgradeObjectContact(collectibleSprite: CollectibleSprite){

@@ -263,105 +263,112 @@ class GameScene: BaseScene{
      
         } else {
             
-            print("Loading scene from saved game...")
             
             guard let savedGame = self.savedGame else {
                 print("Error: found nil while unwrapping saved game object")
                 return
             }
             
-            print("Loading mission panel...")
             
             loadMissionPanel()
-            
-            let playerStateSnapshot = savedGame.playerSnapshot as! PlayerStateSnapShot
-            let player = Player(playerProfile: self.currentPlayerProfile!, playerStateSnapshot: playerStateSnapshot)
-            
-            player.move(toParent: worldNode)
-            self.player = player
-        
-            
+            loadPlayer(fromSavedGame: savedGame)
+           // loadPlayerCollectibles(forSavedGame: savedGame)
             loadBackground()
             loadGameControls()
-
             loadRequiredCollectibles(fromSavedGame: savedGame)
             loadGeneralCollectibles(fromSavedGame: savedGame)
-            
-            self.zombieManager = ZombieManager(withPlayer: self.player, andWithLatentZombies: [])
-            
-            
-            loadZombies(fromSavedGame: savedGame)
-
-            
-            if let mustKillZombies = savedGame.mustKillZombies as? Set<Zombie>{
-                self.mustKillZombieTrackerDelegate = MustKillZombieTracker(withMustKillZombies: mustKillZombies)
-            }
-            
-            if let rescueCharacters = savedGame.unrescuedCharacters as? Set<RescueCharacter>{
-                self.unrescuedCharactersTrackerDelegate = UnrescuedCharacterTracker(with: rescueCharacters)
-            }
-            
-          
-            
-           
-            
-
-            
-            /** Initialize the current game level **/
-            
-            /**
-            let levelInt = loadableGameSceneSnapshot.gameLevelRawValue
-            self.currentGameLevel = GameLevel(rawValue: levelInt!)!
-            
-
-            loadMissionPanel()
-            loadGameControls()
-            addHUDNode()
-            
-
-
-            /** Depending on the mission level, initialize MustKillZombieTracker, RequiredCollectibleTracker, and RescueCharacterTrackers respectively **/
-            
-            if let mustKillZombieSnapshots = loadableGameSceneSnapshot.mustKillZombies{
-               
-            }
-           
-            if let unrescuedCharacterSnapshots = loadableGameSceneSnapshot.unrescuedCharacters{
-                
-            }
-            
-            
-            if let requiredCollectibleSnapshots = loadableGameSceneSnapshot.requiredCollectibles{
-               
-            }
-            
-            if let worldNodeSnapshot = loadableGameSceneSnapshot.worldNodeSnapshot{
-                for snapshottable in worldNodeSnapshot.snapshots{
-                    
-                }
-            }
-            
-            
-        
-            print("Preparing to load player from game scene snapshot....")
-            
-            let playerStateSnapshot = loadableGameSceneSnapshot.playerStateSnapshot!
-            
-            print("About to initialize player from game scene snapshot...")
-            
-            self.player = Player(playerProfile: self.currentPlayerProfile!, playerStateSnapshot: playerStateSnapshot)
-            self.player.move(toParent: worldNode)
-            
-            
-            addHUDNode()
+            loadRescueCharacters(forSavedGame: savedGame)
             loadZombieManager()
-            loadBackground()
-
-            **/
+            loadZombies(fromSavedGame: savedGame)
+            loadMustKillZombies(forSavedGame: savedGame)
+            addHUDNodeForSavedGame()
+        
         }
      
     }
     
+    
+    func loadPlayer(fromSavedGame savedGame: SavedGame){
+        let playerStateSnapshot = savedGame.playerSnapshot as! PlayerStateSnapShot
+        let player = Player(playerProfile: self.currentPlayerProfile!, playerStateSnapshot: playerStateSnapshot)
+        
+        player.move(toParent: worldNode)
+        self.player = player
+    }
+    
+    func loadPlayerCollectibles(forSavedGame savedGame: SavedGame){
+        
+        print("Loading player collectibles...")
+        
+        if let playerCollectibleConfigs = savedGame.playerCollectibles as? Set<PlayerCollectibleConfiguration>{
+            
+            print("Getting player collectible configurations...")
+            
+            let collectibles = playerCollectibleConfigs.map({$0.getRestoredCollectibleFromPlayerCollectibleConfiguration()})
+        
+            self.player.addCollectibles(collectibles: collectibles)
+        
+        }
+    }
+    
+    func loadRescueCharacters(forSavedGame savedGame: SavedGame){
+       
+        print("About to load unrescued characters...")
+        
+        if let rescueCharConfigurations = savedGame.unrescuedCharacters as? Set<RescueCharConfiguration>{
+            
+            var rescueCharacters = [RescueCharacter]()
+            
+            rescueCharConfigurations.forEach({
+                
+                rescueCharConfiguration in
+                
+                print("Retrieving rescue character configuration...\(rescueCharConfiguration.description)")
+                
+                let nonplayerCharRawValue = Int(rescueCharConfiguration.nonplayerTypeCharacter)
+                let nonplayerCharType = NonplayerCharacterType(rawValue: nonplayerCharRawValue)!
+                
+                let newRescueCharacter = RescueCharacter(withPlayer: self.player, nonPlayerCharacterType: nonplayerCharType)
+                
+                newRescueCharacter.hasBeenRescued = rescueCharConfiguration.hasBeenRescued
+                
+                let compassDirectionRawValue = Int(rescueCharConfiguration.compassDirectionRawValue)
+                newRescueCharacter.compassDirection = CompassDirection(rawValue: compassDirectionRawValue)!
+                
+                rescueCharacters.append(newRescueCharacter)
+                newRescueCharacter.move(toParent: worldNode)
+            })
+            
+            
+            let set = NSSet(array: rescueCharacters) as! Set<RescueCharacter>
+            
+            self.unrescuedCharactersTrackerDelegate = UnrescuedCharacterTracker(with: set)
+            
+   
+        }
+    
+    }
+        
+        //MARK: ******* NOT YET IMPLEMENTED
+    func loadMustKillZombies(forSavedGame savedGame: SavedGame){
+       
+        print("About to load unrescued characters...")
+        
+        if let zombieSnapShots = savedGame.mustKillZombies as? Set<ZombieSnapshot>{
+            
+            let reloadedZombies = zombieSnapShots.map({$0.getZombieRestoredFromZombieSnapshot()})
+
+            reloadedZombies.forEach({
+                $0.move(toParent: worldNode)
+                
+            })
+            
+            let set = NSSet(array: reloadedZombies) as! Set<Zombie>
+            
+            self.mustKillZombieTrackerDelegate = MustKillZombieTracker(withMustKillZombies: set)
+            
+        }
+    }
     
     func loadZombies(fromSavedGame savedGame: SavedGame){
     
@@ -587,11 +594,20 @@ class GameScene: BaseScene{
         let xPos = -UIScreen.main.bounds.size.width*0.1
         let yPos = UIScreen.main.bounds.size.height*0.36
         hudNode.position = CGPoint(x: xPos, y: yPos)
-        
-        
+
         
     }
    
+    func addHUDNodeForSavedGame(){
+        
+        HUDManager.sharedManager.updateBulletCount(withUnits: self.player.getCurrentHealth())
+        HUDManager.sharedManager.updateHealthCount(withUnits: self.player.getNumberOfBulletsFired())
+        
+        addHUDNode()
+        
+   
+      
+    }
   
     
     override func update(_ currentTime: TimeInterval) {

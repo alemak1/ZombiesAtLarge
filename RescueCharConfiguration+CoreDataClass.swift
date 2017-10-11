@@ -12,4 +12,5 @@ import CoreData
 @objc(RescueCharConfiguration)
 public class RescueCharConfiguration: NSManagedObject {
 
+    
 }

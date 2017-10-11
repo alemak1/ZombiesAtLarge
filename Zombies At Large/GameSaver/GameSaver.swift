@@ -193,7 +193,9 @@ class GameSaver{
             zombieSnapshot.currentHealth = mustKillZombie.currentHealth
             zombieSnapshot.currentModeRawValue = mustKillZombie.currentModeRawValue
             zombieSnapshot.zombieTypeRawValue = mustKillZombie.zombieTypeRawValue
+            zombieSnapshot.position = mustKillZombie.position as NSObject
             
+            mustKillZombieSnapshots.insert(zombieSnapshot)
             
         })
         
