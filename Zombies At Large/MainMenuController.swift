@@ -83,19 +83,26 @@ class MainMenuController: UIViewController{
     
     @IBAction func startGame(_ sender: Any) {
         
+        
         self.activityIndicatorViewCenterYConstraint.constant += 1500
         self.gameStartOptionsBottomConstraint.constant += 1000
         
         self.activityIndicatorView.startAnimating()
         
-        UIView.animate(withDuration: 0.70, animations: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.20, execute: {
             
-            self.view.layoutIfNeeded()
-            
-            self.performSegue(withIdentifier: "startMissionPlaySegue", sender: nil)
-            
+            UIView.animate(withDuration: 0.70, animations: {
+                
+                self.view.layoutIfNeeded()
+                
+                self.performSegue(withIdentifier: "startMissionPlaySegue", sender: nil)
+                
+                
+            })
+
             
         })
+        
 
         
     }

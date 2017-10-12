@@ -260,6 +260,7 @@ class GameScene: BaseScene{
 
             loadGameControls()
             addHUDNode()
+            //loadTestItems()
      
         } else {
             

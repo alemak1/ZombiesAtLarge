@@ -12,6 +12,14 @@ import SpriteKit
 
 class LevelChoiceViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
+    
+    @IBOutlet weak var activityIndicatorCenterXConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var collectionViewCenterXConstraint: NSLayoutConstraint!
+    
+    
     @IBOutlet weak var loadSelectedGameButton: UIButton!
     
     @IBAction func loadSelectedGame(_ sender: Any) {
@@ -31,7 +39,14 @@ class LevelChoiceViewController: UIViewController, UICollectionViewDataSource, U
             
         } else {
             
-            performSegue(withIdentifier: "loadSelectedLevelSegue", sender: nil)
+            showActivityIndicator()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.20, execute: {
+                
+                self.performSegue(withIdentifier: "loadSelectedLevelSegue", sender: nil)
+                
+            })
+            
 
         }
       
@@ -85,8 +100,36 @@ class LevelChoiceViewController: UIViewController, UICollectionViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.activityIndicatorCenterXConstraint.constant = -2000
+        
     }
     
+    
+    func showActivityIndicator(){
+        
+        self.activityIndicator.startAnimating()
+        self.activityIndicatorCenterXConstraint.constant += 2000
+        self.collectionViewCenterXConstraint.constant += 2000
+        
+        UIView.animate(withDuration: 0.50, animations: {
+            
+            self.view.layoutIfNeeded()
+        })
+
+    }
+    
+    func removeActivityIndicator(){
+        
+        self.activityIndicator.stopAnimating()
+
+        self.activityIndicatorCenterXConstraint.constant -= 2000
+        self.collectionViewCenterXConstraint.constant -= 2000
+        
+        UIView.animate(withDuration: 0.50, animations: {
+            
+            self.view.layoutIfNeeded()
+        })
+    }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -184,7 +184,8 @@ extension GameScene{
                         
                         self.gameSaver.saveGame()
                         
-                        print("Game Saved!!")
+                         NotificationCenter.default.post(name: Notification.Name.GetDidSaveGameNotification(), object: nil, userInfo: nil)
+                        
                     }
                     
                     if(selectedNode.name == "BackToMainMenu"){

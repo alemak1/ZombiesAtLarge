@@ -212,21 +212,58 @@
                                     <outlet property="delegate" destination="Nh6-JH-2t7" id="RTa-zl-caQ"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7X-ec-3vr">
+                                <rect key="frame" x="0.0" y="128" width="414" height="474"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="nYF-ty-IkM">
+                                        <rect key="frame" x="197" y="227" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x1U-1D-0j7">
+                                        <rect key="frame" x="62" y="101.33333333333336" width="290" height="94.666666666666643"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Loading Game...">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="24" name="Didot"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.100070335" green="0.73665314910000002" blue="0.61070448160000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="x1U-1D-0j7" firstAttribute="centerX" secondItem="nYF-ty-IkM" secondAttribute="centerX" id="0SJ-QL-XkV"/>
+                                    <constraint firstItem="nYF-ty-IkM" firstAttribute="centerY" secondItem="c7X-ec-3vr" secondAttribute="centerY" id="1kQ-qb-868"/>
+                                    <constraint firstItem="nYF-ty-IkM" firstAttribute="top" secondItem="x1U-1D-0j7" secondAttribute="bottom" constant="31" id="Sg2-G2-kWO"/>
+                                    <constraint firstItem="nYF-ty-IkM" firstAttribute="centerX" secondItem="c7X-ec-3vr" secondAttribute="centerX" id="Y6x-mk-IdJ"/>
+                                    <constraint firstItem="x1U-1D-0j7" firstAttribute="height" secondItem="c7X-ec-3vr" secondAttribute="height" multiplier="0.2" id="lZy-Le-c2W"/>
+                                    <constraint firstItem="x1U-1D-0j7" firstAttribute="width" secondItem="c7X-ec-3vr" secondAttribute="width" multiplier="0.7" id="lfb-ay-jmm"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.100070335" green="0.73665314910000002" blue="0.61070448160000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="vc1-MX-3El" firstAttribute="centerX" secondItem="3BD-ir-WKl" secondAttribute="centerX" id="4Kf-2g-iOO"/>
+                            <constraint firstItem="c7X-ec-3vr" firstAttribute="width" secondItem="9od-Rh-ImO" secondAttribute="width" id="5Sa-us-l0X"/>
+                            <constraint firstItem="c7X-ec-3vr" firstAttribute="centerY" secondItem="9od-Rh-ImO" secondAttribute="centerY" id="AX9-3B-HDi"/>
                             <constraint firstItem="CcI-ga-S6a" firstAttribute="centerX" secondItem="3BD-ir-WKl" secondAttribute="centerX" id="F0Z-6b-uVR"/>
                             <constraint firstItem="9od-Rh-ImO" firstAttribute="centerX" secondItem="3BD-ir-WKl" secondAttribute="centerX" id="Grr-jz-xaH"/>
                             <constraint firstItem="9od-Rh-ImO" firstAttribute="width" secondItem="3BD-ir-WKl" secondAttribute="width" id="NNi-uo-rJw"/>
+                            <constraint firstItem="c7X-ec-3vr" firstAttribute="centerX" secondItem="fx1-4Z-nft" secondAttribute="centerX" id="YVG-lR-6bw"/>
                             <constraint firstItem="9od-Rh-ImO" firstAttribute="top" secondItem="vc1-MX-3El" secondAttribute="bottom" constant="8" id="aJc-gN-h0C"/>
                             <constraint firstItem="vc1-MX-3El" firstAttribute="top" secondItem="fx1-4Z-nft" secondAttribute="top" id="h8c-ki-Um4"/>
+                            <constraint firstItem="c7X-ec-3vr" firstAttribute="height" secondItem="9od-Rh-ImO" secondAttribute="height" id="jMn-7K-dfT"/>
                             <constraint firstItem="CcI-ga-S6a" firstAttribute="top" secondItem="9od-Rh-ImO" secondAttribute="bottom" constant="24" id="lwi-cS-e9l"/>
                             <constraint firstItem="fx1-4Z-nft" firstAttribute="bottom" secondItem="CcI-ga-S6a" secondAttribute="bottom" constant="10" id="wcA-8e-3rf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fx1-4Z-nft"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="nYF-ty-IkM" id="kF1-bD-ssm"/>
+                        <outlet property="activityIndicatorCenterXConstraint" destination="YVG-lR-6bw" id="BaS-sb-bf7"/>
+                        <outlet property="collectionViewCenterXConstraint" destination="Grr-jz-xaH" id="Wan-O9-G2a"/>
                         <outlet property="loadSelectedGameButton" destination="vc1-MX-3El" id="Zed-fg-2VA"/>
                         <segue destination="2oo-jy-2Gw" kind="show" identifier="loadSelectedLevelSegue" id="P1l-Su-OK9"/>
                     </connections>
@@ -234,7 +271,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bku-eB-O3Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="D1h-Ot-MI2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1045" y="232"/>
+            <point key="canvasLocation" x="-972" y="227"/>
         </scene>
         <!--Main Menu Controller-->
         <scene sceneID="Xmb-j7-psI">
@@ -1895,6 +1932,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="j5g-BR-tik"/>
-        <segue reference="Pbr-M0-xdb"/>
+        <segue reference="P1l-Su-OK9"/>
     </inferredMetricsTieBreakers>
 </document>

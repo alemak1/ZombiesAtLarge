@@ -278,12 +278,17 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
         becomeFirstResponder()
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showGameSavedConfirmation(notification:)), name: Notification.Name.GetDidSaveGameNotification(), object: nil)
+
     
-       // NotificationCenter.default.addObserver(self, selector: #selector(openMediaPickerManager(notification:)), name: Notification.Name.GetDidRequestCameraOrPhotosNotification(), object: self.currentGameScene!)
         
     }
   
     
+    @objc func showGameSavedConfirmation(notification: Notification?){
+        self.showAlertController(title: "Game Saved!", message: "Game Session for Level \(self.currentGameScene!.currentGameLevel.rawValue) has been saved!", buttonTitle: "Okay", buttonHandler: nil, completion: nil)
+    }
     
     func showGameStatsView(){
         
@@ -442,31 +447,50 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     
     @objc func dismissCurrentViewController(notification: Notification?){
         
-         let alertViewController = UIAlertController(title: "Would you like to save", message: "Click save to save your game before you quit.", preferredStyle: .alert)
-        
-        
-        let okay = UIAlertAction(title: "Save", style: .default, handler: {
+        let removeActivityIndicator = {
             
-            _ in
+            if let menuViewController = self.presentingViewController as? MainMenuController{
+                
+                menuViewController.activityIndicatorView.stopAnimating()
+                
+                menuViewController.activityIndicatorViewCenterYConstraint.constant = -1500
+                menuViewController.gameStartOptionsBottomConstraint.constant = 0
+                
+            }
             
-            //TODO: Implement game saving here
-        })
-        
-        let cancel = UIAlertAction(title: "No thanks", style: .cancel, handler: nil)
-        
-        alertViewController.addAction(okay)
-        alertViewController.addAction(cancel)
-        
-        
-        
-        present(alertViewController, animated: false, completion: {
             
+            if let levelChoiceController = self.presentingViewController as? LevelChoiceViewController{
+                
+                levelChoiceController.removeActivityIndicator()
+                
+            }
+        }
+        
+        self.showAlertController(title: "Are you sure you want to quit?", message: "Click quit to go back to the main menu", confirmationTitle: "Quit", cancellationTitle: "Cancel", confirmationHandler: {
+    
+            alertAction in
+            
+
             self.currentGameScene?.isPaused = true
             self.currentGameScene = nil
-    
-            self.dismiss(animated: true, completion: nil)
-        
+            self.skView.removeFromSuperview()
+            
+            
+          
+            
+            self.dismiss(animated: true, completion:{
+                
+              
+              
+            })
+            
+        }, cancellationHandler: nil, completion: {
+            
+            removeActivityIndicator()
+            
         })
+        
+    
     }
     
    
@@ -518,6 +542,18 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     }
     
    
+    
+    func showAlertController(title: String, message: String, buttonTitle: String, buttonHandler:((UIAlertAction) -> Void)?, completion: (()->(Void))?){
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        
+        let okay = UIAlertAction(title: buttonTitle, style: .default, handler: buttonHandler)
+        
+        alertController.addAction(okay)
+        
+        present(alertController, animated: true, completion: completion)
+    }
     
     func showAlertController(title: String, message: String, confirmationTitle: String, cancellationTitle: String, confirmationHandler: ((UIAlertAction) -> Void)?, cancellationHandler: ((UIAlertAction) -> Void)?, completion: (() -> Void)?){
         
