@@ -58,6 +58,16 @@ enum GameLevel: Int{
             return "backgrounds4"
         case .Level5:
             return "backgrounds5"
+        case .Level6:
+            return "backgrounds6"
+        case .Level7:
+            return "backgrounds7"
+        case .Level8:
+            return "backgrounds8"
+        case .Level9:
+            return "backgrounds9"
+        case .Level10:
+            return "backgrounds10"
         default:
             return "backgrounds"
         }
@@ -75,7 +85,16 @@ enum GameLevel: Int{
             return ("Mission 4:","Kill the red zombies")
         case .Level5:
             return ("Mission 5:","Save money")
-
+        case .Level6:
+            return ("Mission 6:","Save money")
+        case .Level7:
+            return ("Mission 7:","Save money")
+        case .Level8:
+            return ("Mission 8:","Save money")
+        case .Level9:
+            return ("Mission 9:","Save money")
+        case .Level10:
+            return ("Mission 10:","Save money")
         default:
             return (String(),String())
         }

@@ -125,6 +125,11 @@
 		BD58039B1F6BA28C0086BBA6 /* GameScene+TouchHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58039A1F6BA28C0086BBA6 /* GameScene+TouchHandling.swift */; };
 		BD58039D1F6BFDE90086BBA6 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58039C1F6BFDE90086BBA6 /* HUD.swift */; };
 		BD5C86011F68C7B000D6E0BF /* ColliderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C86001F68C7B000D6E0BF /* ColliderConfiguration.swift */; };
+		BD5E86F11F9065D6005F9D12 /* backgrounds6.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD5E86F01F9065D6005F9D12 /* backgrounds6.sks */; };
+		BD5E86F31F9065E9005F9D12 /* backgrounds7.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD5E86F21F9065E9005F9D12 /* backgrounds7.sks */; };
+		BD5E86F51F906600005F9D12 /* backgrounds8.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD5E86F41F906600005F9D12 /* backgrounds8.sks */; };
+		BD5E86F71F90660C005F9D12 /* backgrounds9.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD5E86F61F90660C005F9D12 /* backgrounds9.sks */; };
+		BD5E86F91F906617005F9D12 /* backgrounds10.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD5E86F81F906617005F9D12 /* backgrounds10.sks */; };
 		BD6378971F5FA8C60057BFD6 /* basicBackground.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD6378961F5FA8C60057BFD6 /* basicBackground.sks */; };
 		BD6378991F5FAA670057BFD6 /* backgrounds.sks in Resources */ = {isa = PBXBuildFile; fileRef = BD6378981F5FAA670057BFD6 /* backgrounds.sks */; };
 		BD7865571F6544090071A14F /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7865561F6544090071A14F /* Collectible.swift */; };
@@ -332,6 +337,11 @@
 		BD58039A1F6BA28C0086BBA6 /* GameScene+TouchHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+TouchHandling.swift"; sourceTree = "<group>"; };
 		BD58039C1F6BFDE90086BBA6 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		BD5C86001F68C7B000D6E0BF /* ColliderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderConfiguration.swift; sourceTree = "<group>"; };
+		BD5E86F01F9065D6005F9D12 /* backgrounds6.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = backgrounds6.sks; sourceTree = "<group>"; };
+		BD5E86F21F9065E9005F9D12 /* backgrounds7.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = backgrounds7.sks; sourceTree = "<group>"; };
+		BD5E86F41F906600005F9D12 /* backgrounds8.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = backgrounds8.sks; sourceTree = "<group>"; };
+		BD5E86F61F90660C005F9D12 /* backgrounds9.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = backgrounds9.sks; sourceTree = "<group>"; };
+		BD5E86F81F906617005F9D12 /* backgrounds10.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = backgrounds10.sks; sourceTree = "<group>"; };
 		BD6378961F5FA8C60057BFD6 /* basicBackground.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = basicBackground.sks; sourceTree = "<group>"; };
 		BD6378981F5FAA670057BFD6 /* backgrounds.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = backgrounds.sks; sourceTree = "<group>"; };
 		BD7865561F6544090071A14F /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
@@ -625,6 +635,11 @@
 				BD9659CD1F7623E4009A7F0B /* backgrounds4.sks */,
 				BD9659CF1F7627DC009A7F0B /* backgrounds5.sks */,
 				BD4C1D8E1F76A7E20017A8F4 /* masterBackground.sks */,
+				BD5E86F01F9065D6005F9D12 /* backgrounds6.sks */,
+				BD5E86F21F9065E9005F9D12 /* backgrounds7.sks */,
+				BD5E86F41F906600005F9D12 /* backgrounds8.sks */,
+				BD5E86F61F90660C005F9D12 /* backgrounds9.sks */,
+				BD5E86F81F906617005F9D12 /* backgrounds10.sks */,
 			);
 			path = SKSFiles;
 			sourceTree = "<group>";
@@ -897,6 +912,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD39FCFA1F68ED1400209FFD /* coin4.wav in Resources */,
+				BD5E86F51F906600005F9D12 /* backgrounds8.sks in Resources */,
+				BD5E86F91F906617005F9D12 /* backgrounds10.sks in Resources */,
 				BD395A821F67079700684AB9 /* explosion4.wav in Resources */,
 				BD395A871F6707AE00684AB9 /* killHim.wav in Resources */,
 				BD6378991F5FAA670057BFD6 /* backgrounds.sks in Resources */,
@@ -914,6 +931,7 @@
 				BD41B0F21F80A1E700E043B4 /* wordLevelBackgrounds4.sks in Resources */,
 				BD3D72AC1F6E928D00E442C2 /* missionFailed.wav in Resources */,
 				BD41B0F01F80A1D800E043B4 /* wordLevelBackgrounds3.sks in Resources */,
+				BD5E86F71F90660C005F9D12 /* backgrounds9.sks in Resources */,
 				BD41B0EC1F80A0F700E043B4 /* wordLevelBackgrounds1.sks in Resources */,
 				BD39FCF91F68ED1100209FFD /* coin3.wav in Resources */,
 				BD39FCF71F68ED0C00209FFD /* coin5.wav in Resources */,
@@ -926,10 +944,12 @@
 				BD5143281F62EB3C00294559 /* laser1.wav in Resources */,
 				BD9659D01F7627DC009A7F0B /* backgrounds5.sks in Resources */,
 				BD4C1D8F1F76A7E20017A8F4 /* masterBackground.sks in Resources */,
+				BD5E86F11F9065D6005F9D12 /* backgrounds6.sks in Resources */,
 				BD395A811F67079300684AB9 /* explosion3.wav in Resources */,
 				BD41B0EE1F80A1BF00E043B4 /* wordLevelBackgrounds2.sks in Resources */,
 				BD41B0F41F80A1FC00E043B4 /* wordLevelBackgrounds5.sks in Resources */,
 				BDEB6F5C1F698309000B3B22 /* Plan in Resources */,
+				BD5E86F31F9065E9005F9D12 /* backgrounds7.sks in Resources */,
 				BD395A831F67079A00684AB9 /* explosion5.wav in Resources */,
 				BDE125501F63C99D0092E561 /* laser7.wav in Resources */,
 			);

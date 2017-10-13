@@ -210,10 +210,21 @@ class MainMenuController: UIViewController{
             
         }
         
+        if(segue.identifier == "createNewProfileSegue"){
+            
+            if let createProfileController = segue.destination as? PlayerProfileViewController{
+                selectedPlayerProfile = nil
+                createProfileController.selectedPlayerProfile = nil
+                createProfileController.willCreateNewProfile = true
+            }
+        }
+        
         if(segue.identifier == "createProfileSegue"){
             
             if let profileViewController = segue.destination as? PlayerProfileViewController{
                 
+                selectedPlayerProfile = nil
+                profileViewController.selectedPlayerProfile = nil
                 profileViewController.willCreateNewProfile = true
                 
             }

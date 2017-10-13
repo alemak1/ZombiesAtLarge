@@ -29,36 +29,51 @@ class PlayerProfileViewController: UIViewController{
             
                 return mainMenuController.selectedPlayerProfile
             
-            } else if let profileTableViewVC = self.presentingViewController as? PlayerProfileTableViewController{
+            }
+            
+            if let profileTableViewVC = self.presentingViewController as? PlayerProfileTableViewController{
             
                 return profileTableViewVC.selectedPlayerProfile
                 
-            } else if let playerProfileNavigationController = self.presentingViewController as? PlayerProfileNavigationController {
+            }
+            
+            if let playerProfileNavigationController = self.presentingViewController as? PlayerProfileNavigationController {
                 
                 return playerProfileNavigationController.selectedPlayerProfile
 
-            } else if let rootViewController = self.navigationController?.viewControllers.first as? PlayerProfileNavigationController  {
-                return rootViewController.selectedPlayerProfile
-            } else {
-                return nil
             }
+            
+            if let rootViewController = self.navigationController?.viewControllers.first as? PlayerProfileNavigationController  {
+                return rootViewController.selectedPlayerProfile
+            }
+            
+            return nil
+            
         }
         
         set(newPlayerProfile){
+            
             if let mainMenuController = self.presentingViewController as? MainMenuController{
                 
                 mainMenuController.selectedPlayerProfile = newPlayerProfile
                 
-            } else if let profileTableViewVC = self.presentingViewController as? PlayerProfileTableViewController{
+            }
+            
+            if let profileTableViewVC = self.presentingViewController as? PlayerProfileTableViewController{
                 
                 profileTableViewVC.selectedPlayerProfile = newPlayerProfile
                 
-            } else if let playerProfileNavigationController = self.presentingViewController as? PlayerProfileNavigationController {
+            }
+            
+            if let playerProfileNavigationController = self.presentingViewController as? PlayerProfileNavigationController {
                 
                  playerProfileNavigationController.selectedPlayerProfile = newPlayerProfile
                 
-            } else if let rootViewController = self.navigationController?.viewControllers.first as? PlayerProfileNavigationController  {
-                return rootViewController.selectedPlayerProfile = newPlayerProfile
+            }
+            
+            if let rootViewController = self.navigationController?.viewControllers.first as? PlayerProfileNavigationController  {
+                
+                rootViewController.selectedPlayerProfile = newPlayerProfile
             }
             
         }
@@ -259,8 +274,9 @@ class PlayerProfileViewController: UIViewController{
             showMessage(title: "Error: No Player Type Selected", message: "Please select a player type in order to save the player profile")
             return
         }
+    
         
-        if selectedPlayerProfile == nil{
+        if willCreateNewProfile{
             
               let playerProfile = PlayerProfile(entity: self.entityDescription, insertInto: self.managedObjectContext)
             
