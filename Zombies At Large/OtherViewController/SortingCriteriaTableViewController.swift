@@ -40,7 +40,11 @@ class SortingCriteriaTableViewController: UITableViewController{
         
         print("The selected criterion has been reset to \(self.selectedCriterion?.getSortingClosureName())")
         
-      NotificationCenter.default.post(name: Notification.Name.GetDidRequestNewSortingCriterionNotification(), object: self, userInfo: nil)
+        if let playerProfileStatsController = self.navigationController?.viewControllers.first as? PlayerProfileStatsTableViewController{
+            playerProfileStatsController.sortingCriterion = self.selectedCriterion
+        }
+        
+
   
     }
     

@@ -120,6 +120,37 @@ public class PlayerProfile: NSManagedObject {
         }
         
         
+        func getSortDescriptor() -> NSSortDescriptor{
+            
+            switch self {
+            case .GameLevelsAscending:
+                return NSSortDescriptor(key: "gameLevel", ascending: true)
+            case .GameLevelsDescending:
+                return NSSortDescriptor(key: "gameLevel", ascending: false)
+            case .GameSessionDateAscending:
+                return NSSortDescriptor(key: "date", ascending: true)
+            case .GameSessionDateDescending:
+                return NSSortDescriptor(key: "date", ascending: false)
+            case .IncreasingCollectibleValue:
+                return NSSortDescriptor(key: "totalValueOfCollectibles", ascending: true)
+            case .DecreasingCollectibleValue:
+                return NSSortDescriptor(key: "totalValueOfCollectibles", ascending: false)
+            case .IncreasingMoney:
+                return NSSortDescriptor(key: "totalMoney", ascending: true)
+            case .DecreasingMoney:
+                return NSSortDescriptor(key: "totalMoney", ascending: false)
+            case .DecreasingTotalCollectibles:
+                return NSSortDescriptor(key: "totalNumberOfCollectibles", ascending: false)
+            case .IncreasingTotalCollectibles:
+                return NSSortDescriptor(key: "totalNumberOfCollectibles", ascending: true)
+            case .IncreasingTotalZombieKills:
+                return NSSortDescriptor(key: "numberOfZombiesKilled", ascending: true)
+            case .DecreasingTotalZombieKills:
+                return NSSortDescriptor(key: "numberOfZombiesKilled", ascending: false)
+            default:
+                break
+            }
+        }
         
         func getSortingClosure() -> SortingClosure{
             
@@ -221,6 +252,27 @@ public class PlayerProfile: NSManagedObject {
 
     /** Helper functions for Saved Games - aggregation operations **/
 
+    func getGameStatReviews(forSortingCriteria sortingCriterion: GameStatSortCriteria) -> [GameLevelStatReview]?{
+        
+        print("Preparing fetch request to obtain game stats for this particular player profile...")
+
+        let fetchRequest = NSFetchRequest<GameLevelStatReview>(entityName: "GameLevelStatReview")
+        
+        fetchRequest.predicate = NSPredicate(format: "playerProfile == %@", self)
+        let sortDescriptor = sortingCriterion.getSortDescriptor()
+        
+        print("The sort descriptor to be used is as follows: \(sortDescriptor.debugDescription)")
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        do {
+            return try self.managedObjectContext?.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("An error occurred while performing the fetch request for all game level stat descriptions associated with this player profile \(error.localizedDescription), \(error.localizedFailureReason)")
+            return nil
+        }
+    }
+    
     func getSavedGames(sortedBy sortingCriterion: SavedGameSortCriteria = .DateSavedAscending) -> [SavedGame]?{
         
         guard let savedGames = self.savedGames else { return nil }

@@ -37,17 +37,35 @@ class PlayerProfileStatsTableViewController: UITableViewController{
         didSet{
             
             if(oldValue != sortingCriterion){
-                
+    
+                _gameLevelStatReviews = nil
                 tableView.reloadData()
             }
         }
     }
     
+    private var _gameLevelStatReviews: [GameLevelStatReview]? = nil
+        
+    
     var gameLevelStatReviews: [GameLevelStatReview]?{
         
-        guard let playerProfile = self.playerProfile, let sortingCriterion = self.sortingCriterion else { return nil }
-        
-        return playerProfile.getPlayerProfileGameStats(sortedBy: sortingCriterion)
+        get{
+            if(_gameLevelStatReviews != nil){
+                return _gameLevelStatReviews
+            } else {
+                
+                guard let playerProfile = self.playerProfile, let sortingCriterion = self.sortingCriterion else { return nil }
+            
+                 _gameLevelStatReviews = playerProfile.getGameStatReviews(forSortingCriteria: sortingCriterion)
+                
+                return _gameLevelStatReviews
+                
+            }
+        }
+       
+        set(newValue){
+            _gameLevelStatReviews = newValue
+        }
     
     }
     
@@ -74,9 +92,15 @@ class PlayerProfileStatsTableViewController: UITableViewController{
         
         if let sortingCriteriaTBViewController = notification?.object as? SortingCriteriaTableViewController{
             
+            self.gameLevelStatReviews = nil
+            self.sortingCriterion = nil
             self.sortingCriterion = sortingCriteriaTBViewController.selectedCriterion
             
+            let _ = self.gameLevelStatReviews
+            
             print("Sorting criterion has been reset to \(self.sortingCriterion!.getSortingClosureName())")
+            
+            self.tableView.reloadData()
 
         }
     }
@@ -86,6 +110,7 @@ class PlayerProfileStatsTableViewController: UITableViewController{
         
         if playerProfile != nil{
             print("Game stats have been request for player profile with name: \(playerProfile!.name), created on : \(playerProfile!.getFormattedDateString())")
+            tableView.reloadData()
         } else {
             print("No player profile stats available")
         }
