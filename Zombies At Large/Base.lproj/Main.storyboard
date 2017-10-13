@@ -560,6 +560,7 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="KZH-Xv-pZo" id="6pI-6P-c2y"/>
                             <outlet property="delegate" destination="KZH-Xv-pZo" id="LPW-x7-8hm"/>

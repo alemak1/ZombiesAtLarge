@@ -21,7 +21,7 @@ enum GameLevel: Int{
     
     static let AllGameLevels: [GameLevel] = [
     
-        .Level1, .Level2, .Level3, .Level4, .Level5
+        .Level1, .Level2, .Level3, .Level4, .Level5, .Level6, .Level7, .Level8, .Level9, .Level10
     ]
     
     func getNextLevel() -> GameLevel{
@@ -86,17 +86,15 @@ enum GameLevel: Int{
         case .Level5:
             return ("Mission 5:","Save money")
         case .Level6:
-            return ("Mission 6:","Save money")
+            return ("Mission 6:","Rescue the Scientists")
         case .Level7:
-            return ("Mission 7:","Save money")
+            return ("Mission 7:","Memory Chips")
         case .Level8:
-            return ("Mission 8:","Save money")
+            return ("Mission 8:","Go to the Research Station")
         case .Level9:
-            return ("Mission 9:","Save money")
+            return ("Mission 9:","Zombie Antidote")
         case .Level10:
-            return ("Mission 10:","Save money")
-        default:
-            return (String(),String())
+            return ("Mission 10:","Zombie Master's Last Stand")
         }
     }
     
@@ -114,6 +112,8 @@ enum GameLevel: Int{
         switch self {
         case .Level4:
             return 5
+        case .Level10:
+            return 1
         default:
             return 0
         }
@@ -124,6 +124,10 @@ enum GameLevel: Int{
         switch self {
         case .Level1:
             return CollectibleType.Microscope
+        case .Level7:
+            return CollectibleType.RAMStick2
+        case .Level9:
+            return CollectibleType.RedPills
         default:
             return nil
         }
@@ -135,17 +139,21 @@ enum GameLevel: Int{
             return .OldWoman
         case .Level3:
             return .GreenWoman
+        case .Level6:
+            return .Survivor2
         default:
             return .GreenWoman
         }
     }
-    
+
     func getNumberOfUnrescuedCharacter() -> Int{
         switch self {
         case .Level1:
             return 6
         case .Level2:
             return 3
+        case .Level6:
+            return 15
         default:
             return 0
         }
@@ -155,6 +163,10 @@ enum GameLevel: Int{
         switch self {
         case .Level1:
             return 7
+        case .Level7:
+            return 5
+        case .Level9:
+            return 10
         default:
             return 0
         }
@@ -190,18 +202,59 @@ enum GameLevel: Int{
                     "the Zombie virus."
                     )
         case .Level2:
-            return ("Save all of","the little old","ladies.","","")
+            return ("Save all of","the retired",
+                    "baby-boomer grandmas.",
+                    "Onlly they remember",
+                    "how the infection started")
         case .Level3:
-            return ("Obtain total","metal content of","over 200 kg.","","")
+            return ("Zombie anti-virus researchers",
+                    "need to build a lab.",
+                    "Obtain total.","metal content of","over 200 kg")
         case .Level4:
-            return ("Kill all of","the red zombies.","","","")
+            return ("A new breed of",
+                    "mutant zombies",
+                    "has been spawned.",
+                    "Find them",
+                    "and eliminate them.")
         case .Level5:
-            return ("Get $2000 worth","of collectibles","","","")
-        default:
-            return (String(),String(),String(),String(),String())
+            return ("Funding for the",
+                    "anti-virus research lab",
+                    "is still lacking",
+                    "Get $2000 worth",
+                    "of collectibles")
+        case .Level6:
+            return ("The zombie-virus researchers",
+                    "are in trouble.",
+                    "Find the scientists",
+                    "and take all of them",
+                    "to the safety zone.")
+        case .Level7:
+            return ("The anti-virus formula",
+                    "data is stored",
+                    "on secret memory cards.",
+                    "Find all of",
+                    "the memory chips.")
+        case .Level8:
+            return ("You have found",
+                    "the memory cards.",
+                    "Now quickly",
+                    "to the",
+                    "research station.")
+        case .Level9:
+            return ("The zombie virus",
+                    "has been cured.",
+                    "Find and collect",
+                    "all of the",
+                    "red pills.")
+        case .Level10:
+            return ("The zombie virus",
+                    "is mutating.",
+                    "Find the zombie master",
+                    "and kill him before",
+                    "the virus can mutate.")
+
         }
         
-        return (String(),String(),String(),String(),String())
     }
     
   

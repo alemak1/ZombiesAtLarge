@@ -61,6 +61,7 @@ enum CollectibleType: Int{
     case CD = 88
     case Syringe = 93
     case Toothbrush = 95
+    case RedPills = 99
     case Bandaid = 100
     case Bone = 101
     case MedKit = 102

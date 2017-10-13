@@ -43,6 +43,32 @@ class SavedGamesViewController: UITableViewController{
         super.didReceiveMemoryWarning()
     }
     
+    @objc func dismissSavedGamesController(){
+        
+        self.dismiss(animated: true, completion: nil)
+    
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let footerButton = UIButton(type: .custom)
+        
+        footerButton.setBackgroundImage(#imageLiteral(resourceName: "redBox200w100h"), for: .normal)
+        footerButton.setTitle("Back to Game Options", for: .normal)
+        footerButton.setTitleColor(UIColor.blue, for: .normal)
+        
+        footerButton.addTarget(self, action: #selector(dismissSavedGamesController), for: .allEvents)
+        
+        return footerButton
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 100.00
+
+        }
+  
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -105,7 +131,7 @@ extension SavedGamesViewController: GADBannerViewDelegate{
         UIView.animate(withDuration: 0.5) {
             self.tableView.tableHeaderView?.frame = bannerView.frame
             bannerView.transform = CGAffineTransform.identity
-            self.tableView.tableHeaderView = bannerView
+            self.tableView.tableFooterView = bannerView
         }
         
     }
