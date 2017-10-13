@@ -171,15 +171,7 @@ extension GameScene{
                         
                         NotificationCenter.default.post(name: Notification.Name.GetDidRequestGameRestartNotification(), object: self, userInfo: nil)
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.10, execute: {
-                            
-                            let transition = SKTransition.crossFade(withDuration: 2.00)
-                            
-                            let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel, playerProfile: self.currentPlayerProfile!)
-                            
-                            self.view!.presentScene(currentGameScene, transition: transition)
-                            
-                        })
+                        
                      
                     }
                     
@@ -313,13 +305,10 @@ extension GameScene{
                 
                 if node.name == "NextLevel"{
                 
-                    print("Proceeding to load next level....")
-                    let nextLevel = currentGameLevel.getNextLevel()
-                
-                    let nextGameScene = GameScene(currentGameLevel: nextLevel, playerProfile: self.currentPlayerProfile!)
-                
-                    self.view!.presentScene(nextGameScene)
-                
+                    
+                    
+                    NotificationCenter.default.post(name: Notification.Name.GetDidRequestGameRestartNotification(), object: self, userInfo: ["getNextLevel":true])
+                    
                     return
                 }
             
@@ -328,16 +317,17 @@ extension GameScene{
                     print("Proceeding to return to the main menu....")
 
                     self.isPaused = true
-                
+                    
                     NotificationCenter.default.post(name: Notification.Name.GetDidRequestBackToMainMenuNotification(), object: nil, userInfo: nil)
                     }
-            }
             
-        }
+                }
+            }
         
-        if completion != nil{
-            completion!()
-        }
+            if completion != nil{
+                completion!()
+            }
+        
         
     }
     
@@ -353,23 +343,33 @@ extension GameScene{
 
                     if node.name == "StartAgain"{
                         print("Restarting level....")
+                        
+                        gameLossPrompt!.removeFromParent()
+                        gameLossPrompt = nil
+                        
+                        NotificationCenter.default.post(name: Notification.Name.GetDidRequestGameRestartNotification(), object: self, userInfo: nil)
+                        
                     }
             
             
                     if node.name == "MainMenu"{
                         print("Returning to main menu...")
+                        
+                        self.isPaused = true
+                        
+                        NotificationCenter.default.post(name: Notification.Name.GetDidRequestBackToMainMenuNotification(), object: nil, userInfo: nil)
                 
                     }
-            }
+                }
             
-        }
         
         
-        if completion != nil{
-            completion!()
+        
+            if completion != nil{
+                completion!()
+            }
         }
     }
-    
 
     func handleMissionPanelTouch(atOverlayNodeTouchLocation touchLocation: CGPoint){
         

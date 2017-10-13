@@ -456,7 +456,7 @@ extension GameScene{
             tilePB.affectedByGravity = false
             pbNode.physicsBody = tilePB
             
-           tileMapNode.addChild(pbNode)
+           //tileMapNode.addChild(pbNode)
             
             
             

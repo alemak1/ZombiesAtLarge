@@ -117,10 +117,23 @@ class LevelChoiceViewController: UIViewController, UICollectionViewDataSource, U
         
         
         restartLevel = restartGameScene.currentGameLevel
+
         
-        if let gameViewController  = self.presentedViewController as? GameViewController, let currentGameScene = gameViewController.currentGameScene, let restartGameLevel = currentGameScene.currentGameLevel{
+        if let getNextLevel = notification?.userInfo?["getNextLevel"] as? Bool{
             
-            restartLevel = restartGameLevel
+            if(getNextLevel){
+                
+                restartLevel = restartGameScene.currentGameLevel.getNextLevel()
+                
+            }
+            
+        }
+            
+
+        
+        
+        if let gameViewController  = self.presentedViewController as? GameViewController{
+            
             
             gameViewController.dismiss(animated: true, completion: nil)
             
