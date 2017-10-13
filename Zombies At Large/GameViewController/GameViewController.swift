@@ -15,8 +15,8 @@ import GameplayKit
 /** TODO: Use delegates to manage the unrescued characters, the required collectibles, and the must kill zombies **/
 
 class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UINavigationControllerDelegate {
-
     
+  
     var savedGame: SavedGame?
     
     var selectedGameLevel: GameLevel?
@@ -280,11 +280,38 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(showGameSavedConfirmation(notification:)), name: Notification.Name.GetDidSaveGameNotification(), object: nil)
+        
+        
+        /**
+        NotificationCenter.default.addObserver(self, selector: #selector(showActivityIndicator(notification:)), name: Notification.Name.GetDidRequestGameRestartNotification(), object: nil)
 
-    
+
+        NotificationCenter.default.addObserver(self, selector: #selector(removeActivityIndicator), name: Notification.Name.GetDidFinishRestartingGameNotification(), object: nil)
+        **/
         
     }
   
+    
+    /**
+    @objc func removeActivityIndicator(){
+        
+        if(self.activityIndicatorIsRunning){
+            self.restartActivityIndicator.stopAnimating()
+            self.activityIndicatorCenterXConstraint.constant = 2000
+            self.activityIndicatorIsRunning = false
+        }
+        
+    }
+    
+    @objc func showActivityIndicator(notification: Notification?){
+        
+        self.restartActivityIndicator.startAnimating()
+        self.activityIndicatorCenterXConstraint.constant -= 2000
+        self.activityIndicatorIsRunning = true
+        
+    }
+ 
+     **/
     
     @objc func showGameSavedConfirmation(notification: Notification?){
         self.showAlertController(title: "Game Saved!", message: "Game Session for Level \(self.currentGameScene!.currentGameLevel.rawValue) has been saved!", buttonTitle: "Okay", buttonHandler: nil, completion: nil)

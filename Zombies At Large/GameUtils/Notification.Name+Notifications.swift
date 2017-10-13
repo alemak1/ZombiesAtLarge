@@ -26,11 +26,24 @@ extension Notification.Name{
     static let didSetPickedPictureForPlayer = "didSetPickedPictureForPlayer"
     static let didRequestSavedGameToBeLoaded = "didRequestSavedGameToBeLoaded"
     static let didSaveGameNotification = "didSaveGameNotification"
+    static let didRequestGameRestartNotification = "didRequestGameRestartNotification"
+    static let didFinishRestartingGameNotification = "didFinishRestartingGameNotification"
     
     
+    static func GetDidFinishRestartingGameNotification() -> Notification.Name{
+        
+        return self.init(Notification.Name.didFinishRestartingGameNotification)
+        
+    }
+    
+    static func GetDidRequestGameRestartNotification() -> Notification.Name{
+        
+        return self.init(Notification.Name.didRequestGameRestartNotification)
+        
+    }
     static func GetDidSaveGameNotification() -> Notification.Name{
         
-        return self.init(Notification.Name.didRequestSavedGameToBeLoaded)
+        return self.init(Notification.Name.didSaveGameNotification)
         
     }
     

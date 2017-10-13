@@ -169,11 +169,18 @@ extension GameScene{
                         menuOptionsPanel!.removeFromParent()
                         menuOptionsPanel = nil
                         
-                        let transition = SKTransition.crossFade(withDuration: 2.00)
+                        NotificationCenter.default.post(name: Notification.Name.GetDidRequestGameRestartNotification(), object: self, userInfo: nil)
                         
-                        let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel, playerProfile: self.currentPlayerProfile!)
-                        
-                        view!.presentScene(currentGameScene, transition: transition)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.10, execute: {
+                            
+                            let transition = SKTransition.crossFade(withDuration: 2.00)
+                            
+                            let currentGameScene = GameScene(currentGameLevel: self.currentGameLevel, playerProfile: self.currentPlayerProfile!)
+                            
+                            self.view!.presentScene(currentGameScene, transition: transition)
+                            
+                        })
+                     
                     }
                     
                     if(selectedNode.name == "CurrentMission"){

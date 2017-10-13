@@ -250,6 +250,7 @@ class GameScene: BaseScene{
         /** If the Game Scene has not been loaded from a saved game, then initialize it from scratch **/
         
 
+       
         if(self.savedGame == nil){
 
             loadMissionPanel()
@@ -286,6 +287,8 @@ class GameScene: BaseScene{
         
         }
      
+        
+        
     }
     
     

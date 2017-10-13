@@ -81,13 +81,12 @@ class MainMenuController: UIViewController{
     }
     
     
+    
+    
     @IBAction func startGame(_ sender: Any) {
         
         
-        self.activityIndicatorViewCenterYConstraint.constant += 1500
-        self.gameStartOptionsBottomConstraint.constant += 1000
-        
-        self.activityIndicatorView.startAnimating()
+        showActivityIndicator()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.20, execute: {
             
@@ -104,6 +103,16 @@ class MainMenuController: UIViewController{
         })
         
 
+        
+    }
+    
+    
+    func showActivityIndicator(){
+        
+        self.activityIndicatorViewCenterYConstraint.constant += 1500
+        self.gameStartOptionsBottomConstraint.constant += 1000
+        
+        self.activityIndicatorView.startAnimating()
         
     }
     
@@ -140,9 +149,53 @@ class MainMenuController: UIViewController{
             
         })
         
-          NotificationCenter.default.addObserver(self, selector: #selector(updateProgressBar(notification:)), name: Notification.Name(rawValue:Notification.Name.didMakeProgressTowardsGameLoadingNotification), object: nil)
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadSavedGame(notification:)), name: Notification.Name.GetDidRequestSavedGameToBeLoadedNotification(), object: nil)
+        
+      
+        NotificationCenter.default.addObserver(self, selector: #selector(restartCurrentGame(notification:)), name: Notification.Name.GetDidRequestGameRestartNotification(), object: nil)
+        
+        
+    }
+    
+    @objc func restartCurrentGame(notification: Notification?){
+        
+        var restartLevel: GameLevel = .Level1
+        
+        guard let restartGameScene = notification?.object as? GameScene else {
+            
+            return
+        }
+        
+        
+        restartLevel = restartGameScene.currentGameLevel
+    
+        if let gameViewController  = self.presentedViewController as? GameViewController, let currentGameScene = gameViewController.currentGameScene, let restartGameLevel = currentGameScene.currentGameLevel{
+            
+            restartLevel = restartGameLevel
+
+            gameViewController.dismiss(animated: true, completion: nil)
+
+        } else {
+            
+            return
+        }
+        
+        
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let gameViewController = storyBoard.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
+        
+        
+        gameViewController.playerProfile = self.selectedPlayerProfile
+        gameViewController.savedGame = nil
+        gameViewController.selectedGameLevel = restartLevel
+
+        present(gameViewController, animated: true, completion: nil)
+        
+        
+        
     }
     
     @objc func loadSavedGame(notification: Notification?){
@@ -164,7 +217,13 @@ class MainMenuController: UIViewController{
             gameViewController.playerProfile = self.selectedPlayerProfile
             gameViewController.savedGame = savedGame
             
-            present(gameViewController, animated: true, completion: nil)
+            showActivityIndicator()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.20, execute: {
+                
+                self.present(gameViewController, animated: true, completion: nil)
+
+            })
             
         }
     }

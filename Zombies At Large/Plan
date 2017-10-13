@@ -2,7 +2,6 @@
 saved games controller - add a footer with a button that allows for view to be dismissed
 restart button from main menu option
 upon game completion - next level, menu, and restart buttons - add activity indicators
-make sure create new player doesn't modify the selected player - need to clear
 add about 5 new levels
 make sure text is size properly
 make sure images can be found for all collectibles
