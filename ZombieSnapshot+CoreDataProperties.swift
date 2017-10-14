@@ -25,5 +25,6 @@ extension ZombieSnapshot {
     @NSManaged public var shootingFrameCount: Double
     @NSManaged public var zombieTypeRawValue: String?
     @NSManaged public var zombieSnapshotGroup: ZombieSnapshotGroup?
-
+    @NSManaged public var specialType: Int64
+    
 }

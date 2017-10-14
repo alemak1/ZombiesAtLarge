@@ -220,10 +220,20 @@ extension GameScene{
         let tileDef = tileMapNode.tileDefinition(atColumn: column, row: row)
         
         let hasZombie = tileDef?.userData?["hasZombie"] as? Bool
-        
+        let isMoving = tileDef?.userData?["isMoving"] as? Bool
+
         
         if(hasZombie ?? false){
             let zombiePos = tileMapNode.centerOfTile(atColumn: column, row: row)
+            
+            if(isMoving ?? false){
+                let newZombie = MiniZombie(zombieType: .zombie2, scale: 1.20, startingHealth: 6, hasDirectionChangeEnabled: true)
+                newZombie.position = zombiePos
+                newZombie.isMustKill = false
+                newZombie.move(toParent: worldNode)
+                zombieManager.addDynamicZombie(zombie: newZombie)
+                return
+            }
             
             let newZombie = Zombie(zombieType: .zombie1)
             newZombie.position = zombiePos
@@ -262,11 +272,13 @@ extension GameScene{
                 
                 switch mustKillZombieType{
                     case is GiantZombie.Type:
-                        mustKillZombie = GiantZombie(zombieType: .zombie1, scale: 2.00, startingHealth: 6)
+                        mustKillZombie = GiantZombie(zombieType: .zombie1, scale: 2.00, startingHealth: 3)
                         break
                     case is CamouflageZombie.Type:
+                        mustKillZombie = CamouflageZombie(zombieType: .zombie1, scale: 1.40, startingHealth: 3)
                         break
                     case is MiniZombie.Type:
+                        mustKillZombie = MiniZombie(zombieType: .zombie2, scale: 1.40, startingHealth: 4, hasDirectionChangeEnabled: true)
                         break
                     default:
                         mustKillZombie = Zombie(zombieType: .zombie1, scale: 1.00, startingHealth: 6)

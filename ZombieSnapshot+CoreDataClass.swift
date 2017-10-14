@@ -26,7 +26,26 @@ public class ZombieSnapshot: NSManagedObject {
         
         
         let zombieType = ZombieType(rawValue: self.zombieTypeRawValue!)!
-        let reloadedZombie = Zombie(zombieType: zombieType)
+        
+        var reloadedZombie: Zombie
+        
+        switch self.specialType {
+            case 0:
+                reloadedZombie = Zombie(zombieType: zombieType)
+                break
+            case 1:
+                reloadedZombie = GiantZombie(zombieType: zombieType)
+                break
+            case 2:
+                reloadedZombie = MiniZombie(zombieType: zombieType)
+                break
+            case 3:
+                reloadedZombie = CamouflageZombie(zombieType: zombieType)
+                break
+            default:
+                reloadedZombie = Zombie(zombieType: zombieType)
+                break
+        }
         
         reloadedZombie.currentHealth = Int(self.currentHealth)
         reloadedZombie.currentMode = Zombie.ZombieMode(rawValue: Int(self.currentModeRawValue))!

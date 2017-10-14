@@ -26,10 +26,10 @@ class MiniZombie: Zombie, Updateable{
         aCoder.encode(self.compassDirection.rawValue, forKey: "compassDirectionRawValue")
     }
     
-    var impulseInterval: TimeInterval = 1.00
+    var impulseInterval: TimeInterval = 1.50
     var impulseFrameCount: TimeInterval = 0.00
     var directionChangeFrameCount: TimeInterval = 0.00
-    var directionChangeInterval: TimeInterval = 2.00
+    var directionChangeInterval: TimeInterval = 0.50
     var lastImpulseUpdateTime: TimeInterval = 0.00
     
     var hasDirectionChangeEnabled = false
@@ -66,6 +66,7 @@ class MiniZombie: Zombie, Updateable{
         
         self.physicsBody?.allowsRotation = false
         
+        self.specialType = 2
         self.zombieType = zombieType
         self.currentHealth = startingHealth
         self.hasDirectionChangeEnabled = false
@@ -85,7 +86,14 @@ class MiniZombie: Zombie, Updateable{
         }
     
         impulseFrameCount += currentTime - lastImpulseUpdateTime
-       
+        directionChangeFrameCount += currentTime - lastImpulseUpdateTime
+        
+        
+        if(directionChangeFrameCount > directionChangeInterval){
+            hasDirectionChangeEnabled = !hasDirectionChangeEnabled
+            directionChangeFrameCount = 0.00
+        }
+        
         if(impulseFrameCount > impulseInterval){
             
     

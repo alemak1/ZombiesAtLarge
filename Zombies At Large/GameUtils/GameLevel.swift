@@ -41,10 +41,30 @@ enum GameLevel: Int{
         switch self {
         case .Level1:
             return "Help scientists cure the zombie virus.  Find all the microscopes."
+        case .Level2:
+            return "Save all of the retired baby-boomer grandmas. Only they remember how the infection started"
+        case .Level3:
+            return "Zombie anti-virus researchers need to build a lab. Obtain total metal content of over 200 kg."
+        case .Level4:
+            return "A new breed of mutant zombies has been spawned. Find them and eliminate them."
+        case .Level5:
+            return "Funding for the anti-virus research lab is still lacking. Get $2000 worth of collectibles"
+        case .Level6:
+            return "The zombie-virus researchers are in trouble. Find the scientists and take all them to the safety zone."
+        case .Level7:
+            return "The anti-virus formula data is stored on secret memory cards. Find all of the memory chips"
+        case .Level8:
+            return "You have found the memory cards. Now quickly go to the research station."
+        case .Level9:
+            return "The zombie virus has been cured. Find and collect all of the red pills."
+        case .Level10:
+            return "The zombie virus is mutating. Kill at least 20 zombies to ensure the virus is gone."
         default:
             return "Kill the zombies!"
         }
     }
+   
+   
     
     func getSKSceneFilename() -> String{
         switch self {
@@ -78,7 +98,7 @@ enum GameLevel: Int{
         case .Level1:
             return ("Mission 1:","Microscope Recovery")
         case .Level2:
-            return ("Mission 2:","Save the Old Ladies")
+            return ("Mission 2:","Save the Survivors")
         case .Level3:
             return ("Mission 3:","Accumulate metal")
         case .Level4:
@@ -94,7 +114,7 @@ enum GameLevel: Int{
         case .Level9:
             return ("Mission 9:","Zombie Antidote")
         case .Level10:
-            return ("Mission 10:","Zombie Master's Last Stand")
+            return ("Mission 10:","Zombies' Last Stand")
         }
     }
     
@@ -103,8 +123,10 @@ enum GameLevel: Int{
         switch self {
         case .Level4:
             return GiantZombie.self
+        case .Level10:
+            return CamouflageZombie.self
         default:
-            return GiantZombie.self
+            return MiniZombie.self
         }
     }
     
@@ -113,7 +135,7 @@ enum GameLevel: Int{
         case .Level4:
             return 5
         case .Level10:
-            return 1
+            return 4
         default:
             return 0
         }
@@ -204,7 +226,7 @@ enum GameLevel: Int{
         case .Level2:
             return ("Save all of","the retired",
                     "baby-boomer grandmas.",
-                    "Onlly they remember",
+                    "Only they remember",
                     "how the infection started")
         case .Level3:
             return ("Zombie anti-virus researchers",
@@ -249,9 +271,9 @@ enum GameLevel: Int{
         case .Level10:
             return ("The zombie virus",
                     "is mutating.",
-                    "Find the zombie master",
-                    "and kill him before",
-                    "the virus can mutate.")
+                    "Kill at least 20",
+                    "zombies to ensure",
+                    "the virus is gone.")
 
         }
         

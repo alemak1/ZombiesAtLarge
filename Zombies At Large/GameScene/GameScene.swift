@@ -267,8 +267,7 @@ class GameScene: BaseScene{
 
             loadGameControls()
             addHUDNode()
-            //loadTestItems()
-     
+                 
         } else {
             
             
@@ -290,6 +289,11 @@ class GameScene: BaseScene{
             loadZombies(fromSavedGame: savedGame)
             loadMustKillZombies(forSavedGame: savedGame)
             addHUDNodeForSavedGame()
+            
+            
+            HUDManager.sharedManager.updateBulletCount(withUnits: self.player.getCurrentHealth())
+            HUDManager.sharedManager.updateHealthCount(withUnits: self.player.getNumberOfBulletsFired())
+            
         
         }
      
@@ -371,7 +375,7 @@ class GameScene: BaseScene{
 
             reloadedZombies.forEach({
                 $0.move(toParent: worldNode)
-                
+                zombieManager.addDynamicZombie(zombie: $0 as! Updateable)
             })
             
             let set = NSSet(array: reloadedZombies) as! Set<Zombie>
@@ -484,7 +488,25 @@ class GameScene: BaseScene{
         camera.position = CGPoint(x: 150.0, y: 10.0)
         
         
+        let cameraMan = NonplayerCharacter(nonPlayerCharacterType: .Hitman, andName: "CameraMan")
+        cameraMan.move(toParent: worldNode)
+        cameraMan.position = CGPoint(x: -100, y: -250.00)
+        cameraMan.setTargetPictureString()
+
         
+    }
+    
+    
+    func loadTestItems2(){
+        
+        let camouflageZombie = CamouflageZombie(zombieType: .zombie1)
+        camouflageZombie.move(toParent: worldNode)
+        camouflageZombie.position = CGPoint(x: -100.0, y: 100.00)
+        zombieManager.addDynamicZombie(zombie: camouflageZombie)
+        
+    }
+    
+    func loadTestItems3(){
         let miniZombie = MiniZombie(zombieType: .zombie2, scale: 1.00, startingHealth: 3, hasDirectionChangeEnabled: true)
         miniZombie.move(toParent: worldNode)
         miniZombie.position = CGPoint(x: 100.0, y: 200.00)
@@ -500,12 +522,6 @@ class GameScene: BaseScene{
         miniZombie3.move(toParent: worldNode)
         miniZombie3.position = CGPoint(x: -100.0, y: 250.00)
         zombieManager.addDynamicZombie(zombie: miniZombie3)
-        
-        let cameraMan = NonplayerCharacter(nonPlayerCharacterType: .Hitman, andName: "CameraMan")
-        cameraMan.move(toParent: worldNode)
-        cameraMan.position = CGPoint(x: -100, y: -250.00)
-        cameraMan.setTargetPictureString()
-        
     }
     
     func loadGameControls(){
@@ -605,16 +621,29 @@ class GameScene: BaseScene{
         let xPos = -UIScreen.main.bounds.size.width*0.1
         let yPos = UIScreen.main.bounds.size.height*0.36
         hudNode.position = CGPoint(x: xPos, y: yPos)
-
+        
+        
+        
+        HUDManager.sharedManager.updateBulletCount(withUnits: 30)
+        HUDManager.sharedManager.updateHealthCount(withUnits: 15)
         
     }
    
     func addHUDNodeForSavedGame(){
         
+        print("Now adding HUD...HUD loading level is at \(hudLoadingLevel)")
+        hudNode.move(toParent: overlayNode)
+        hudNode.zPosition = 35
+        
+        let xPos = -UIScreen.main.bounds.size.width*0.1
+        let yPos = UIScreen.main.bounds.size.height*0.36
+        hudNode.position = CGPoint(x: xPos, y: yPos)
+        
+        
+        
         HUDManager.sharedManager.updateBulletCount(withUnits: self.player.getCurrentHealth())
         HUDManager.sharedManager.updateHealthCount(withUnits: self.player.getNumberOfBulletsFired())
         
-        addHUDNode()
         
    
       
@@ -784,16 +813,11 @@ class GameScene: BaseScene{
         case .Level10:
             return {
                 
-                guard let zombieTracker = self.mustKillZombieTrackerDelegate else {
-                    fatalError("Error: found nil while attempting to unwrap the must kill zombie tracker delegate")
-                }
-                
-                return zombieTracker.getNumberOfUnkilledZombies() <= 0
+                return self.zombiesKilled > 20
                 
             }
         }
         
-        return nil
     }
 
     

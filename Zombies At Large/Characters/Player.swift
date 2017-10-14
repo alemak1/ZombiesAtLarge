@@ -214,6 +214,19 @@ class Player: Shooter{
     
     //MARK:     ********* HELPER FUNCTIONS
     
+    func addZombieDetectorLight(){
+        
+    
+        let lightNode = SKLightNode()
+        lightNode.categoryBitMask = ColliderType.Enemy.rawValue
+        lightNode.falloff = 2.0
+        lightNode.lightColor = UIColor.green
+        lightNode.shadowColor = UIColor.green
+        lightNode.ambientColor = UIColor(displayP3Red: 10.0/255.0, green: 200.0/255.0, blue: 100.0/255.0, alpha: 1.0)
+        self.addChild(lightNode)
+        
+    }
+    
     override var configureBulletBitmasks: ((inout SKPhysicsBody) -> Void)?{
         
         return {(bulletPB: inout SKPhysicsBody) in

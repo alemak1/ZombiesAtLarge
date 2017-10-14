@@ -21,6 +21,7 @@ struct ZombieConfiguration: Saveable{
     var isActive: Bool
     var isMustKill: Bool
     var currentModeRawValue: Int64
+    var specialType: Int64
 }
 
 enum ZombieType: String{
@@ -68,13 +69,14 @@ class Zombie: Shooter{
     
     
     var isMustKill: Bool = false
-
+    var specialType: Int = 0
+    
     func getZombieConfiguration() -> ZombieConfiguration {
         
         let zombieModeRawValue = Int64(self.currentMode.rawValue)
         let zombieTypeRawValue = self.zombieType.rawValue
         
-        return ZombieConfiguration(position: self.position, zombieTypeRawValue: zombieTypeRawValue, currentHealth: Int64(self.currentHealth), isDamaged: self.isDamaged, frameCount: self.frameCount, shootingFrameCount: self.shootingFrameCount, isActive: self.isActive, isMustKill: self.isMustKill, currentModeRawValue: zombieModeRawValue)
+        return ZombieConfiguration(position: self.position, zombieTypeRawValue: zombieTypeRawValue, currentHealth: Int64(self.currentHealth), isDamaged: self.isDamaged, frameCount: self.frameCount, shootingFrameCount: self.shootingFrameCount, isActive: self.isActive, isMustKill: self.isMustKill, currentModeRawValue: zombieModeRawValue, specialType: Int64(self.specialType))
     }
     
     
@@ -83,7 +85,7 @@ class Zombie: Shooter{
         let zombieModeRawValue = Int64(self.currentMode.rawValue)
         let zombieTypeRawValue = self.zombieType.rawValue
         
-        return ZombieConfiguration(position: self.position, zombieTypeRawValue: zombieTypeRawValue, currentHealth: Int64(self.currentHealth), isDamaged: self.isDamaged, frameCount: self.frameCount, shootingFrameCount: self.shootingFrameCount, isActive: self.isActive, isMustKill: self.isMustKill, currentModeRawValue: zombieModeRawValue)
+        return ZombieConfiguration(position: self.position, zombieTypeRawValue: zombieTypeRawValue, currentHealth: Int64(self.currentHealth), isDamaged: self.isDamaged, frameCount: self.frameCount, shootingFrameCount: self.shootingFrameCount, isActive: self.isActive, isMustKill: self.isMustKill, currentModeRawValue: zombieModeRawValue, specialType: Int64(self.specialType))
 
     }
     

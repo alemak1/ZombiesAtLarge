@@ -1,15 +1,10 @@
 
-finish doing the 5 new levels
-make sure text is size properly
+finish doing the 5 new levels - test all levels and make sure they work
 make sure images can be found for all collectibles
 make item details can be viewed from collection viewer
-improve must kill zombies
-make sure that must kill zombie can be restored - zombie snapshot should restore the must kill zombies
-add sticky banners to bottom of table
-make sure game stats can be seen at the end
 maybe add background musi- add sound
-app icon
 make sure images have all sizes available
+-------------------------------
 
 New to save mustKillZombies and rescueCharacters in savedGame
 var hasBeenRescued: Bool

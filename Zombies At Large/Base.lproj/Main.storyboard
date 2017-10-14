@@ -483,7 +483,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="299.66666666666669"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ofy-Vz-wxF">
-                                            <rect key="frame" x="56.999999999999986" y="48" width="165.66666666666663" height="45"/>
+                                            <rect key="frame" x="57" y="48" width="124.33333333333334" height="45"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Game Level">
                                                     <attributes>
@@ -494,34 +494,34 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUJ-5t-sXg">
-                                            <rect key="frame" x="232.66666666666669" y="48" width="124.00000000000006" height="45"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="iUJ-5t-sXg">
+                                            <rect key="frame" x="211.33333333333331" y="48" width="123.99999999999994" height="45"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Date">
                                                     <attributes>
                                                         <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="24" name="Didot"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        <font key="NSFont" size="18" name="Didot"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gh-7N-yrS">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="3Gh-7N-yrS">
                                             <rect key="frame" x="57" y="113" width="207" height="120"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Mission Description">
                                                     <attributes>
                                                         <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <font key="NSFont" size="18" name="Didot"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XcZ-Mh-E8d">
-                                            <rect key="frame" x="302" y="143" width="60" height="60"/>
+                                            <rect key="frame" x="274" y="143" width="60" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="XcZ-Mh-E8d" secondAttribute="height" multiplier="1:1" id="ECS-wB-fDd"/>
                                             </constraints>
@@ -537,9 +537,9 @@
                                         <constraint firstItem="ofy-Vz-wxF" firstAttribute="leading" secondItem="f5G-gC-YMh" secondAttribute="leading" constant="57" id="7AM-Z1-mzf"/>
                                         <constraint firstItem="3Gh-7N-yrS" firstAttribute="leading" secondItem="ofy-Vz-wxF" secondAttribute="leading" id="8Y3-bm-o2C"/>
                                         <constraint firstItem="3Gh-7N-yrS" firstAttribute="width" secondItem="f5G-gC-YMh" secondAttribute="width" multiplier="0.5" id="BUd-S3-JbC"/>
-                                        <constraint firstItem="ofy-Vz-wxF" firstAttribute="width" secondItem="f5G-gC-YMh" secondAttribute="width" multiplier="0.4" id="DYg-St-JpV"/>
+                                        <constraint firstItem="ofy-Vz-wxF" firstAttribute="width" secondItem="f5G-gC-YMh" secondAttribute="width" multiplier="0.3" id="DYg-St-JpV"/>
                                         <constraint firstItem="GbJ-kf-heo" firstAttribute="top" secondItem="f5G-gC-YMh" secondAttribute="top" id="EO5-Le-xkR"/>
-                                        <constraint firstItem="XcZ-Mh-E8d" firstAttribute="leading" secondItem="3Gh-7N-yrS" secondAttribute="trailing" constant="38" id="HLg-fc-RC7"/>
+                                        <constraint firstItem="XcZ-Mh-E8d" firstAttribute="leading" secondItem="3Gh-7N-yrS" secondAttribute="trailing" constant="10" id="HLg-fc-RC7"/>
                                         <constraint firstItem="iUJ-5t-sXg" firstAttribute="centerY" secondItem="ofy-Vz-wxF" secondAttribute="centerY" id="PMf-TL-FRv"/>
                                         <constraint firstAttribute="trailing" secondItem="GbJ-kf-heo" secondAttribute="trailing" id="XVC-Kd-qNl"/>
                                         <constraint firstItem="ofy-Vz-wxF" firstAttribute="top" secondItem="f5G-gC-YMh" secondAttribute="top" constant="48" id="bbF-6f-75J"/>
@@ -548,7 +548,7 @@
                                         <constraint firstAttribute="bottom" secondItem="GbJ-kf-heo" secondAttribute="bottom" id="hR8-jR-1fc"/>
                                         <constraint firstItem="XcZ-Mh-E8d" firstAttribute="centerY" secondItem="3Gh-7N-yrS" secondAttribute="centerY" id="lli-4P-cKc"/>
                                         <constraint firstItem="3Gh-7N-yrS" firstAttribute="height" secondItem="f5G-gC-YMh" secondAttribute="height" multiplier="0.4" id="ucc-Mg-23T"/>
-                                        <constraint firstItem="iUJ-5t-sXg" firstAttribute="leading" secondItem="ofy-Vz-wxF" secondAttribute="trailing" constant="10" id="vKz-X4-2bI"/>
+                                        <constraint firstItem="iUJ-5t-sXg" firstAttribute="leading" secondItem="ofy-Vz-wxF" secondAttribute="trailing" constant="30" id="vKz-X4-2bI"/>
                                         <constraint firstItem="GbJ-kf-heo" firstAttribute="leading" secondItem="f5G-gC-YMh" secondAttribute="leading" id="vgM-xb-gIn"/>
                                         <constraint firstItem="iUJ-5t-sXg" firstAttribute="height" secondItem="ofy-Vz-wxF" secondAttribute="height" id="x1r-VG-Mrj"/>
                                     </constraints>
@@ -1265,7 +1265,7 @@
                                             <constraint firstAttribute="width" secondItem="GMw-TR-vaD" secondAttribute="height" multiplier="1:1" id="jhT-Bs-8Eh"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="6Zy-1x-36v">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6Zy-1x-36v">
                                         <rect key="frame" x="205.66666666666669" y="17.333333333333343" width="145.00000000000006" height="73.666666666666657"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Item Name">
@@ -1389,7 +1389,7 @@
                                             <constraint firstAttribute="width" secondItem="aau-bQ-J1g" secondAttribute="height" multiplier="1:1" id="UHR-SH-Qad"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="DWe-WC-D5x">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DWe-WC-D5x">
                                         <rect key="frame" x="205.66666666666669" y="16.666666666666686" width="145.00000000000006" height="73.333333333333314"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Item Name">
@@ -1681,7 +1681,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="199.66666666666666"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zka-C9-UZu">
-                                            <rect key="frame" x="59.999999999999986" y="40" width="165.66666666666663" height="20"/>
+                                            <rect key="frame" x="45" y="40" width="165.66666666666666" height="20"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Level 1">
                                                     <attributes>
@@ -1694,7 +1694,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aN5-bj-uMH">
-                                            <rect key="frame" x="59.999999999999986" y="110" width="165.66666666666663" height="20"/>
+                                            <rect key="frame" x="45" y="110" width="165.66666666666666" height="20"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Zombies Killed: ">
                                                     <attributes>
@@ -1707,7 +1707,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8eU-nX-zX0">
-                                            <rect key="frame" x="59.999999999999986" y="80" width="165.66666666666663" height="20"/>
+                                            <rect key="frame" x="45" y="80" width="165.66666666666666" height="20"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Bullets Fired: ">
                                                     <attributes>
@@ -1720,7 +1720,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zJa-NV-hVO">
-                                            <rect key="frame" x="205.66666666666669" y="80" width="165.66666666666669" height="20"/>
+                                            <rect key="frame" x="190.66666666666669" y="80" width="165.66666666666669" height="20"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Number of Collectibles:">
                                                     <attributes>
@@ -1733,7 +1733,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="U1P-ak-6BU">
-                                            <rect key="frame" x="205.66666666666669" y="110" width="165.66666666666669" height="20"/>
+                                            <rect key="frame" x="190.66666666666669" y="110" width="165.66666666666669" height="20"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Total Value of Collectibles:">
                                                     <attributes>
@@ -1746,7 +1746,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ioB-yb-jl4">
-                                            <rect key="frame" x="205.66666666666669" y="40.666666666666664" width="165.66666666666669" height="20"/>
+                                            <rect key="frame" x="190.66666666666669" y="40" width="165.66666666666669" height="20"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Date:">
                                                     <attributes>
@@ -1773,7 +1773,7 @@
                                         <constraint firstAttribute="bottom" secondItem="fqM-zx-Awe" secondAttribute="bottom" id="Z6W-9w-51c"/>
                                         <constraint firstItem="8eU-nX-zX0" firstAttribute="width" secondItem="zka-C9-UZu" secondAttribute="width" id="ZQ7-K6-los"/>
                                         <constraint firstItem="zJa-NV-hVO" firstAttribute="leading" secondItem="ioB-yb-jl4" secondAttribute="leading" id="bd4-Ms-U1v"/>
-                                        <constraint firstItem="zka-C9-UZu" firstAttribute="leading" secondItem="v3Z-7X-tU9" secondAttribute="leading" constant="60" id="btL-W1-ymK"/>
+                                        <constraint firstItem="zka-C9-UZu" firstAttribute="leading" secondItem="v3Z-7X-tU9" secondAttribute="leading" constant="45" id="btL-W1-ymK"/>
                                         <constraint firstItem="zJa-NV-hVO" firstAttribute="centerY" secondItem="8eU-nX-zX0" secondAttribute="centerY" id="c0k-Cz-lHN"/>
                                         <constraint firstItem="zka-C9-UZu" firstAttribute="height" secondItem="v3Z-7X-tU9" secondAttribute="height" multiplier="0.1" id="fTr-xu-kgQ"/>
                                         <constraint firstItem="8eU-nX-zX0" firstAttribute="height" secondItem="zka-C9-UZu" secondAttribute="height" id="faa-yZ-ssb"/>

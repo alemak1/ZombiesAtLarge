@@ -132,7 +132,8 @@ class GameSaver{
                 zSnapshot.position = zombieConfig.position as NSObject
                 zSnapshot.shootingFrameCount = zombieConfig.shootingFrameCount
                 zSnapshot.zombieTypeRawValue = zombieConfig.zombieTypeRawValue
-            
+                zSnapshot.specialType = zombieConfig.specialType
+                
             zSnapshot.zombieSnapshotGroup = zg
             }
             
@@ -195,6 +196,7 @@ class GameSaver{
             zombieSnapshot.currentModeRawValue = mustKillZombie.currentModeRawValue
             zombieSnapshot.zombieTypeRawValue = mustKillZombie.zombieTypeRawValue
             zombieSnapshot.position = mustKillZombie.position as NSObject
+            zombieSnapshot.specialType = mustKillZombie.specialType
             
             mustKillZombieSnapshots.insert(zombieSnapshot)
             

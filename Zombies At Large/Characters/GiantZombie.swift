@@ -17,35 +17,40 @@ class GiantZombie: Zombie,Updateable{
     var gravityNode: SKFieldNode?
     
     
-    
     override func hasBeenActivated() -> Bool {
         return false
     }
     
-    convenience init(zombieType: ZombieType, scale: CGFloat = 1.00, startingHealth: Int = 1) {
+    convenience init(zombieType: ZombieType, scale: CGFloat = 3.00, startingHealth: Int = 1) {
         
         
         let defaultTexture = zombieType.getDefaultTexture()
+        
         
         self.init(texture: defaultTexture, color: .clear, size: defaultTexture.size())
         
         configurePhysicsProperties(withTexture: defaultTexture, andWithSize: defaultTexture.size())
         
+        self.specialType = 1
         self.zombieType = zombieType
         self.currentHealth = startingHealth
         
-        /**
+    
         self.gravityNode = SKFieldNode.radialGravityField()
         self.gravityNode!.physicsBody?.categoryBitMask = ColliderType.RepulsionField.categoryMask
         self.gravityNode!.minimumRadius = 0.0
+        self.gravityNode?.falloff = 1.00
         self.gravityNode!.isEnabled = true
         addChild(gravityNode!)
-         **/
+     
  
         
         self.xScale *= scale
         self.yScale *= scale
         
+        let zombieRed = UIColor(displayP3Red: 200.0/255.0, green: 100.0/255.0, blue: 10.0/255.0, alpha: 0.5)
+
+        run(SKAction.colorize(with: zombieRed, colorBlendFactor: 1.00, duration: 0.10))
     }
     
     
@@ -60,12 +65,14 @@ class GiantZombie: Zombie,Updateable{
         
         if(movementFrameCount > updateInterval){
             
-            
-            self.physicsBody?.applyAngularImpulse(0.20)
-
             if let gravityNode = self.gravityNode{
-                
+                gravityNode.isEnabled = !gravityNode.isEnabled
             }
+            
+            self.physicsBody?.applyAngularImpulse(0.50)
+
+           
+            
             movementFrameCount = 0
 
         }
