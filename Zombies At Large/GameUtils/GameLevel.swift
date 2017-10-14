@@ -162,7 +162,7 @@ enum GameLevel: Int{
         case .Level3:
             return .GreenWoman
         case .Level6:
-            return .Survivor2
+            return .Survivor1
         default:
             return .GreenWoman
         }
