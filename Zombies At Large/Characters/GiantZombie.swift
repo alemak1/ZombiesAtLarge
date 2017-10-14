@@ -40,7 +40,7 @@ class GiantZombie: Zombie,Updateable{
         self.gravityNode!.physicsBody?.categoryBitMask = ColliderType.RepulsionField.categoryMask
         self.gravityNode!.minimumRadius = 0.0
         self.gravityNode?.falloff = 1.00
-        self.gravityNode!.isEnabled = true
+        self.gravityNode!.isEnabled = false
         addChild(gravityNode!)
      
  
@@ -66,7 +66,7 @@ class GiantZombie: Zombie,Updateable{
         if(movementFrameCount > updateInterval){
             
             if let gravityNode = self.gravityNode{
-                gravityNode.isEnabled = !gravityNode.isEnabled
+               // gravityNode.isEnabled = !gravityNode.isEnabled
             }
             
             self.physicsBody?.applyAngularImpulse(0.50)
