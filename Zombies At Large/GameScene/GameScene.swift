@@ -100,13 +100,7 @@ class GameScene: BaseScene{
 
     var safetyZone: SKSpriteNode?
     
-    var destinationZone: SKSpriteNode?{
-        if self.currentGameLevel == .Level8{
-            return CollectibleSprite(collectibleType: .LEDMonitorWide)
-        } else {
-            return nil
-        }
-    }
+    var destinationZone: SKSpriteNode?
 
     var cameraMissionPrompt: SKSpriteNode?
     

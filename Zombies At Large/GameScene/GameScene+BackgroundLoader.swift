@@ -19,7 +19,27 @@ extension GameScene{
         addBlackCorridors()
         addWoodfloors()
         addSafetyZone()
+        addDestinationZone()
         
+    }
+    
+    func addDestinationZone(){
+        
+        guard let destinationZone = SKScene(fileNamed: self.currentGameLevel.getSKSceneFilename())?.childNode(withName: "DestinationZone") as? SKSpriteNode else {
+            
+            print("Warning: either there is no safety zone for this game level or the safety zone could not be found")
+            return
+            
+        }
+        
+        
+        self.destinationZone = destinationZone
+        
+        if self.destinationZone != nil{
+            self.destinationZone!.name = "DestinationZone"
+            self.destinationZone!.move(toParent: worldNode)
+            
+        }
     }
     
     
