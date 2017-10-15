@@ -296,9 +296,7 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
         becomeFirstResponder()
         
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(showGameSavedConfirmation(notification:)), name: Notification.Name.GetDidSaveGameNotification(), object: nil)
-        
+      
         
         /**
         NotificationCenter.default.addObserver(self, selector: #selector(showActivityIndicator(notification:)), name: Notification.Name.GetDidRequestGameRestartNotification(), object: nil)
@@ -330,6 +328,22 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     }
  
      **/
+    
+    @objc func resumeGame(notification: Notification?){
+        
+        if let gameScene = self.currentGameScene{
+            gameScene.isPaused = false
+            
+            showAlertController(title: "Game Saved!", message: "Your Game Session was saved while the app was inactive or resigned to the background", buttonTitle: "Ok", buttonHandler: nil, completion: nil)
+        }
+    }
+    
+    @objc func pauseGame(notification: Notification?){
+        if let gameScene = self.currentGameScene{
+            gameScene.isPaused = true
+            gameScene.gameSaver.saveGame()
+        }
+    }
     
     @objc func showGameSavedConfirmation(notification: Notification?){
         self.showAlertController(title: "Game Saved!", message: "Game Session for Level \(self.currentGameScene!.currentGameLevel.rawValue) has been saved!", buttonTitle: "Okay", buttonHandler: nil, completion: nil)
@@ -471,6 +485,42 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
+        
+        
+        let removeActivityIndicator = {
+            
+            if let menuViewController = self.presentingViewController as? MainMenuController{
+                
+                menuViewController.activityIndicatorView.stopAnimating()
+                
+                menuViewController.activityIndicatorViewCenterYConstraint.constant = -1500
+                menuViewController.gameStartOptionsBottomConstraint.constant = 0
+                
+            }
+            
+            
+            if let levelChoiceController = self.presentingViewController as? LevelChoiceViewController{
+                
+                levelChoiceController.removeActivityIndicator()
+                
+            }
+        }
+    
+        self.currentGameScene?.gameSaver.saveGame()
+        self.currentGameScene?.isPaused = true
+        self.currentGameScene = nil
+        self.skView.removeFromSuperview()
+        
+        self.dismiss(animated: true, completion:{
+            
+            removeActivityIndicator()
+
+            self.showAlertController(title: "Memory Overload", message: "Game quit to due to memory overload.  Go to 'Load Saved Game' to restart where you left off.", buttonTitle: "Okay", buttonHandler: nil, completion: nil)
+        })
+        
+        
+        
+
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -487,6 +537,13 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
         
         NotificationCenter.default.addObserver(self, selector: #selector(dismissCurrentViewController(notification:)), name: Notification.Name.GetDidRequestBackToMainMenuNotification(), object: nil)
     
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showGameSavedConfirmation(notification:)), name: Notification.Name.GetDidSaveGameNotification(), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(resumeGame(notification:)), name: Notification.Name.GetDidRequestResumeNotification(), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(pauseGame(notification:)), name: Notification.Name.GetDidRequestPauseNotification(), object: nil)
+
         
     }
     

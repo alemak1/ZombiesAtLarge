@@ -64,7 +64,7 @@ class NonplayerCharacter: SKSpriteNode{
         
         switch coreMLModel {
         case .Resnet50:
-            self.activeModel = try? VNCoreMLModel(for: Resnet50().model)
+            //self.activeModel = try? VNCoreMLModel(for: Resnet50().model)
             break
         }
     }

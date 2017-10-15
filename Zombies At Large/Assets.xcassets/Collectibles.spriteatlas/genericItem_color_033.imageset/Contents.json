@@ -7,10 +7,12 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "openbookred@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "openbookred@3x.png",
       "scale" : "3x"
     }
   ],

@@ -29,7 +29,20 @@ extension Notification.Name{
     static let didRequestGameRestartNotification = "didRequestGameRestartNotification"
     static let didFinishRestartingGameNotification = "didFinishRestartingGameNotification"
     static let didRequestNextLevelNotification = "didRequestNextLevelNotification"
+    static let didRequestPauseNotification = "didRequestPauseNotification"
+    static let didRequestResumeNotification = "didRequestResumeNotification"
+
+    static func GetDidRequestResumeNotification() -> Notification.Name{
+        
+        return self.init(Notification.Name.didRequestResumeNotification)
+        
+    }
     
+    static func GetDidRequestPauseNotification() -> Notification.Name{
+        
+        return self.init(Notification.Name.didRequestPauseNotification)
+        
+    }
     
     static func GetDidRequestNextLevelNotification() -> Notification.Name{
         

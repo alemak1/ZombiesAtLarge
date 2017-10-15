@@ -29,6 +29,15 @@ import CoreData
 
 class GameScene: BaseScene{
     
+    /** Background Music **/
+    
+    var bgAudioNode: SKAudioNode{
+        
+        let filename = self.currentGameLevel.getBackgroundMusicFileName()
+        
+        return SKAudioNode(fileNamed: filename)
+    }
+    
         
     //MARK: Reference to saved game object used to load a previously saved level
 
@@ -244,13 +253,20 @@ class GameScene: BaseScene{
     
     }
     
+    
+    override func sceneDidLoad() {
+        super.sceneDidLoad()
+        
+    }
+
+    
     override func didMove(to view: SKView) {
        super.didMove(to: view)
         
         /** If the Game Scene has not been loaded from a saved game, then initialize it from scratch **/
         
-
-       
+      
+        
         if(self.savedGame == nil){
 
             loadMissionPanel()
@@ -292,6 +308,11 @@ class GameScene: BaseScene{
         }
      
         
+        bgAudioNode.move(toParent: self)
+        bgAudioNode.run(SKAction.play())
+        
+
+       
         
     }
     

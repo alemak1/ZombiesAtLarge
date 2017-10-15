@@ -15,8 +15,8 @@ extension GameScene{
     
     func loadBackground(){
         
-        addGrassBackgrounds()
         addBlackCorridors()
+        addGrassBackgrounds()
         addWoodfloors()
         addSafetyZone()
         addDestinationZone()
@@ -259,7 +259,7 @@ extension GameScene{
             newZombie.position = zombiePos
             newZombie.isMustKill = false
             newZombie.move(toParent: worldNode)
-            zombieManager.addLatentZombie(zombie: newZombie)
+        
             
         }
     }

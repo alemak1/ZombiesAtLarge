@@ -281,7 +281,32 @@ enum GameLevel: Int{
     
   
     
-    
+    func getBackgroundMusicFileName()->String{
+        switch self {
+        case .Level1:
+            return "Retro Mystic.mp3"
+        case .Level2:
+            return "Retro Comedy.mp3"
+        case .Level3:
+            return "Retro Reggae.mp3"
+        case .Level4:
+            return "Retro Beat.mp3"
+        case .Level5:
+            return "Retro Polka.mp3"
+        case .Level6:
+            return "Retro Mystic.mp3"
+        case .Level7:
+            return "Retro Comedy.mp3"
+        case .Level8:
+            return "Retro Beat.mp3"
+        case .Level9:
+            return "Retro Comedy.mp3"
+        case .Level10:
+            return "Retro Mystic.mp3"
+        default:
+            return "Retro Mystic.mp3"
+        }
+    }
   
     
     

@@ -31,6 +31,11 @@
 		BD373EFE1F8CCAA30011A962 /* ZombieSnapshot+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD373EF61F8CCAA30011A962 /* ZombieSnapshot+CoreDataProperties.swift */; };
 		BD373EFF1F8CCAA30011A962 /* CollectibleSpriteSnapshotGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD373EF71F8CCAA30011A962 /* CollectibleSpriteSnapshotGroup+CoreDataClass.swift */; };
 		BD373F001F8CCAA30011A962 /* CollectibleSpriteSnapshot+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD373EF81F8CCAA30011A962 /* CollectibleSpriteSnapshot+CoreDataClass.swift */; };
+		BD374A241F9384D50056DE38 /* Retro Mystic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BD374A1F1F9384AD0056DE38 /* Retro Mystic.mp3 */; };
+		BD374A251F9384D80056DE38 /* Retro Comedy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BD374A201F9384B30056DE38 /* Retro Comedy.mp3 */; };
+		BD374A261F9384DB0056DE38 /* Retro Reggae.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BD374A221F9384C40056DE38 /* Retro Reggae.mp3 */; };
+		BD374A271F9384DE0056DE38 /* Retro Polka.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BD374A231F9384CC0056DE38 /* Retro Polka.mp3 */; };
+		BD374A281F9384E00056DE38 /* Retro Beat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BD374A211F9384BB0056DE38 /* Retro Beat.mp3 */; };
 		BD395A791F66FF0200684AB9 /* OilCan.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD395A781F66FF0200684AB9 /* OilCan.swift */; };
 		BD395A7F1F67078D00684AB9 /* explosion1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A7E1F67078500684AB9 /* explosion1.wav */; };
 		BD395A801F67079000684AB9 /* explosion2.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD395A7D1F67078500684AB9 /* explosion2.wav */; };
@@ -95,7 +100,6 @@
 		BD41D5361F7E21380093CDA8 /* GameLevelStatTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41D5351F7E21380093CDA8 /* GameLevelStatTracker.swift */; };
 		BD41D5411F7E255D0093CDA8 /* GameLevelStatReview+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41D53F1F7E255D0093CDA8 /* GameLevelStatReview+CoreDataClass.swift */; };
 		BD41D5421F7E255D0093CDA8 /* GameLevelStatReview+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41D5401F7E255D0093CDA8 /* GameLevelStatReview+CoreDataProperties.swift */; };
-		BD42A8D91F83CF74008773C1 /* Resnet50.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = BD42A8D71F83CF3F008773C1 /* Resnet50.mlmodel */; };
 		BD42A8DB1F83D145008773C1 /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD42A8DA1F83D145008773C1 /* Classification.swift */; };
 		BD42A8DD1F83D3B1008773C1 /* RandomObjectStringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD42A8DC1F83D3B1008773C1 /* RandomObjectStringGenerator.swift */; };
 		BD42C6481F7E53830030588F /* PlayerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD42C6471F7E53830030588F /* PlayerProfileViewController.swift */; };
@@ -230,6 +234,11 @@
 		BD373EF61F8CCAA30011A962 /* ZombieSnapshot+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ZombieSnapshot+CoreDataProperties.swift"; path = "/Users/yongrenwang/Desktop/Zombies At Large/ZombieSnapshot+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		BD373EF71F8CCAA30011A962 /* CollectibleSpriteSnapshotGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CollectibleSpriteSnapshotGroup+CoreDataClass.swift"; path = "/Users/yongrenwang/Desktop/Zombies At Large/CollectibleSpriteSnapshotGroup+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		BD373EF81F8CCAA30011A962 /* CollectibleSpriteSnapshot+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CollectibleSpriteSnapshot+CoreDataClass.swift"; path = "/Users/yongrenwang/Desktop/Zombies At Large/CollectibleSpriteSnapshot+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		BD374A1F1F9384AD0056DE38 /* Retro Mystic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Retro Mystic.mp3"; sourceTree = "<group>"; };
+		BD374A201F9384B30056DE38 /* Retro Comedy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Retro Comedy.mp3"; sourceTree = "<group>"; };
+		BD374A211F9384BB0056DE38 /* Retro Beat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Retro Beat.mp3"; sourceTree = "<group>"; };
+		BD374A221F9384C40056DE38 /* Retro Reggae.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Retro Reggae.mp3"; sourceTree = "<group>"; };
+		BD374A231F9384CC0056DE38 /* Retro Polka.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Retro Polka.mp3"; sourceTree = "<group>"; };
 		BD395A781F66FF0200684AB9 /* OilCan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OilCan.swift; sourceTree = "<group>"; };
 		BD395A7A1F67078500684AB9 /* explosion3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion3.wav; sourceTree = "<group>"; };
 		BD395A7B1F67078500684AB9 /* explosion5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion5.wav; sourceTree = "<group>"; };
@@ -307,7 +316,6 @@
 		BD41D5351F7E21380093CDA8 /* GameLevelStatTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelStatTracker.swift; sourceTree = "<group>"; };
 		BD41D53F1F7E255D0093CDA8 /* GameLevelStatReview+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameLevelStatReview+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BD41D5401F7E255D0093CDA8 /* GameLevelStatReview+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameLevelStatReview+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		BD42A8D71F83CF3F008773C1 /* Resnet50.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Resnet50.mlmodel; sourceTree = "<group>"; };
 		BD42A8DA1F83D145008773C1 /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
 		BD42A8DC1F83D3B1008773C1 /* RandomObjectStringGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomObjectStringGenerator.swift; sourceTree = "<group>"; };
 		BD42C6471F7E53830030588F /* PlayerProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfileViewController.swift; sourceTree = "<group>"; };
@@ -493,7 +501,7 @@
 		BD3961951F5970940060CDB4 /* Zombies At Large */ = {
 			isa = PBXGroup;
 			children = (
-				BD42A8D51F83CF16008773C1 /* CoreModel */,
+				BD42A8D51F83CF16008773C1 /* MusicLoops */,
 				BD34D5831F83960900A6DFD5 /* GameSaver */,
 				BD82A56C1F80DF670073BD85 /* BaseScene */,
 				BD9B10361F7F50B600C9A71E /* WordGameViewController */,
@@ -574,12 +582,17 @@
 			path = PlayerStats;
 			sourceTree = "<group>";
 		};
-		BD42A8D51F83CF16008773C1 /* CoreModel */ = {
+		BD42A8D51F83CF16008773C1 /* MusicLoops */ = {
 			isa = PBXGroup;
 			children = (
-				BD42A8D71F83CF3F008773C1 /* Resnet50.mlmodel */,
+				BD374A1F1F9384AD0056DE38 /* Retro Mystic.mp3 */,
+				BD374A201F9384B30056DE38 /* Retro Comedy.mp3 */,
+				BD374A221F9384C40056DE38 /* Retro Reggae.mp3 */,
+				BD374A231F9384CC0056DE38 /* Retro Polka.mp3 */,
+				BD374A211F9384BB0056DE38 /* Retro Beat.mp3 */,
 			);
-			path = CoreModel;
+			name = MusicLoops;
+			path = BackgroundMusics;
 			sourceTree = "<group>";
 		};
 		BD42C6461F7E53700030588F /* OtherViewController */ = {
@@ -912,7 +925,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD39FCFA1F68ED1400209FFD /* coin4.wav in Resources */,
+				BD374A261F9384DB0056DE38 /* Retro Reggae.mp3 in Resources */,
+				BD374A241F9384D50056DE38 /* Retro Mystic.mp3 in Resources */,
 				BD5E86F51F906600005F9D12 /* backgrounds8.sks in Resources */,
+				BD374A281F9384E00056DE38 /* Retro Beat.mp3 in Resources */,
 				BD5E86F91F906617005F9D12 /* backgrounds10.sks in Resources */,
 				BD395A821F67079700684AB9 /* explosion4.wav in Resources */,
 				BD395A871F6707AE00684AB9 /* killHim.wav in Resources */,
@@ -938,6 +954,8 @@
 				BD39FCF81F68ED0F00209FFD /* coin1.wav in Resources */,
 				BD3D72AB1F6E928A00E442C2 /* missionAccomplished.wav in Resources */,
 				BD3961A71F5970940060CDB4 /* LaunchScreen.storyboard in Resources */,
+				BD374A251F9384D80056DE38 /* Retro Comedy.mp3 in Resources */,
+				BD374A271F9384DE0056DE38 /* Retro Polka.mp3 in Resources */,
 				BD395A861F6707AB00684AB9 /* killHer.wav in Resources */,
 				BD3961CF1F59785C0060CDB4 /* user_interface.sks in Resources */,
 				BD9659CC1F761EB5009A7F0B /* backgrounds3.sks in Resources */,
@@ -1136,7 +1154,6 @@
 				BD9B103C1F7F597E00C9A71E /* ResourceLoader.swift in Sources */,
 				BD373F001F8CCAA30011A962 /* CollectibleSpriteSnapshot+CoreDataClass.swift in Sources */,
 				BDAF397E1F6E748400A164C9 /* SafetyZone.swift in Sources */,
-				BD42A8D91F83CF74008773C1 /* Resnet50.mlmodel in Sources */,
 				BDE9FB091F66B12C0056B66E /* ImageFilterObject.swift in Sources */,
 				BD3A51721F693DA800B01850 /* UIPanelGenerator.swift in Sources */,
 				BD47216A1F87CDA3008A06E7 /* PlayerProfileViewController+HelperFunctions.swift in Sources */,
