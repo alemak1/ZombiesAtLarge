@@ -173,7 +173,7 @@ enum GameLevel: Int{
         case .Level1:
             return 6
         case .Level2:
-            return 3
+            return 6
         case .Level6:
             return 15
         default:

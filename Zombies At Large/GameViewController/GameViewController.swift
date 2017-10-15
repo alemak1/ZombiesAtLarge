@@ -16,7 +16,8 @@ import GameplayKit
 
 class GameViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UINavigationControllerDelegate {
     
-  
+    @IBOutlet weak var itemDescription: UILabel!
+    
     var savedGame: SavedGame?
     
     var selectedGameLevel: GameLevel?
@@ -82,8 +83,24 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     @IBOutlet weak var itemDetailWindow: UIView!
     
     @IBAction func showItemDetailInformation(_ sender: UIButton) {
+    
+        if let currentIdx = self.currentlySelectedItem, let collectibleType = collectibleManager?.getCollectibleAtIndex(index: currentIdx)?.getCollectibleType(){
+            
+            let collectibleDetailInfo = collectibleType.getDetailInformation()
+            let collectibleName = collectibleType.getCollectibleName()
+            
+            
+            let alertController = UIAlertController(title: collectibleName, message: collectibleDetailInfo, preferredStyle: .alert)
+            
+            let okay = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alertController.addAction(okay)
+            
+            present(alertController, animated: true, completion: nil)
+            
+         
+        }
         
-        self.showItemDetailInformation()
+        showAlertController(title: "", message: "", buttonTitle: "", buttonHandler: nil, completion: nil)
     }
     
 
@@ -201,7 +218,8 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-       
+       itemDescription.isHidden = false
+        itemDescription.isEnabled = false
     }
     
     
