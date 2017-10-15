@@ -504,7 +504,6 @@
 				BD47350E1F6A8D0900D91819 /* SKSFiles */,
 				BD5899311F67FC2C00A13DD2 /* OtherGameObjects */,
 				BD5899301F67FBEF00A13DD2 /* Collectibles */,
-				BD58992F1F67FBE400A13DD2 /* GameUtils */,
 				BD58992E1F67FBC600A13DD2 /* Characters */,
 				BD5143271F62E7F300294559 /* Sounds */,
 				BD3961D01F598A940060CDB4 /* BackgroundMusic */,
@@ -543,6 +542,7 @@
 		BD3961D01F598A940060CDB4 /* BackgroundMusic */ = {
 			isa = PBXGroup;
 			children = (
+				BD58992F1F67FBE400A13DD2 /* GameUtils */,
 				BD3961D21F598B290060CDB4 /* Sad Town.mp3 */,
 				BD3961D51F598B470060CDB4 /* Sad Descent.mp3 */,
 				BD3961D11F598ADF0060CDB4 /* Polka Train.mp3 */,

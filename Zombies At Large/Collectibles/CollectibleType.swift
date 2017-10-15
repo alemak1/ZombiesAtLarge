@@ -109,9 +109,7 @@ enum CollectibleType: Int{
         .Grenade,
         .Syringe,
         .SilverBullet,
-        .BeakerRed,
-        .PowerDrill,
-        .Bomb,
+        .BeakerRed
        
     ]
     
@@ -167,12 +165,17 @@ enum CollectibleType: Int{
     func getDetailInformation() -> String{
         
         switch self {
-        case .CD:
-            return "This is a CD"
-        case .ClosedBook:
-            return "This is a closed book"
+        case .Syringe:
+            return "Activating the syringe will make the player temporarily invulnerable to zombie bullets."
+        case .BeakerRed:
+            return "Activating the red beaker will make the player temporarily invisible to zombies"
+        case .SilverBullet:
+            return "Activate the silver bullet to enable the player to shoot bullets through walls."
+        case .Grenade:
+            return "Activate the grenade and then shake the screen.  This will cause all zombies currently in pursuit of the player to be destroyed."
+
         default:
-            return "No information available for this item"
+            return "\(self.getCollectibleName()) has percent metal content of \(self.getPercentMetalContentPerUnit()) per unti and per unit value of \(self.getMonetaryUnitValue()). It cannot be activated"
         }
     }
   
@@ -381,38 +384,148 @@ enum CollectibleType: Int{
     
     public func getCollectibleName() -> String{
         switch self{
+        case .Axe:
+            return "Axe"
+        case .Bandaid:
+            return "Bandaid"
+        case .BeakerRed:
+            return "Red Beaker"
+        case .Blender:
+            return "Blender"
+        case .Bone:
+            return "Bone"
+        case .Bottle:
+            return "Bottle"
+        case .Briefcase:
+            return "Briefcase"
+        case .CD:
+            return "CD"
+        case .Cellphone1,.Cellphone2:
+            return "Cell Phone"
+        case .Chisel:
+            return "Chisel"
+        case .Clipboard:
+            return "Clipboard"
+        case .Coffee:
+            return "Coffee"
+        case .CoffeeMaker:
+            return "Coffee Maker"
+        case .ComputerTowerBeige,.ComputerTowerGrey:
+            return "Computer Tower"
+        case .Cutter:
+            return "Box Cutter"
+        case .DoubleWrench:
+            return "Double-Ended Wrench"
+        case .FeatherPen:
+            return "Feather Pen"
+        case .Flashlight:
+            return "Flash Light"
         case .Camera:
             return "Camera"
+        case .FlaskGreen:
+            return "Green Flask"
+        case .Fork:
+            return "Fork"
+        case .FountainPenBlue, .FountainPenRed:
+            return "Fountain Pen"
+        case .FryingPan:
+            return "Frying Pan"
+        case .Headphones:
+            return "Headphones"
+        case .IDTag:
+            return "ID Tag"
+        case .InkBottle:
+            return "Ink Bottle"
+        case .iPhone:
+            return "iPhone"
+        case .iPod:
+            return "iPod"
+        case .Joystick1,.Joystick2:
+            return "Joystick"
+        case .Keys1,.Keys2:
+            return "Keys"
+        case .Knife:
+            return "Knife"
+        case .Labtop1,.Labtop2:
+            return "Labtop"
+        case .LEDMonitor:
+            return "LED Monitor"
+        case .LEDMonitorWide:
+            return "Wide LED Monitor"
+        case .MedKit:
+            return "MedKit"
+        case .LockingWrench:
+            return "Locking Wrench"
+        case .MotherBoard:
+            return "MotherBoard"
+        case .NintendoController:
+            return "Nintendo Controller"
+        case .Pepper:
+            return "Pepper"
+        case .Pliers:
+            return "Pliers"
+        case .PowerDrill:
+            return "Power Drill"
+        case .Pen:
+            return "Ballpoint Pen"
+        case .Pencil:
+            return "Pencil"
+        case .RAMStick1,.RAMStick2,.RAMStick3:
+            return "RAM Stick"
+        case .RedPills:
+            return "Red Pills"
+        case .RollingBrush:
+            return "Roller Brush"
+        case .Salt:
+            return "Salt"
+        case .Saw:
+            return "Saw"
+        case .Wrench:
+            return "Wrench"
+        case .Toothbrush:
+            return "Tooth Brush"
+        case .Tongs:
+            return "Tongs"
+        case .Toaster:
+            return "Toaster"
+        case .TestTubes:
+            return "Test Tubes"
+        case .Tack:
+            return "Tack"
+        case .Syringe:
+            return "Syringe"
+        case .Stethoscope:
+            return "Stethoscope"
+        case .SteeringWheel:
+            return "Steering Wheel"
+        case .Spoon:
+            return "Spoon"
+        case .SocketWrench:
+            return "Socket Wrench"
+        case .Shovel:
+            return "Shovel"
+        case .Screw:
+            return "Screw"
+        case .SegaController:
+            return "Sega Controller"
+        case .Scraper:
+            return "Scraper"
+        case .Sander:
+            return "Sander"
         case .Grenade:
             return "Grenade"
         case .SilverBullet:
             return "Silver Bullet"
-        case .PowerDrill:
-            return "PowerDrill"
         case .PaintBrush:
             return "Paintbrush"
-        case .Saw:
-            return "Saw"
         case .ClosedBook:
-            return "ClosedBook"
-        case .FeatherPen:
-            return "FeatherPen"
-        case .BeakerRed:
-            return "Red Beaker"
-        case .FlaskGreen:
-            return "Green Flask"
-        case .FountainPenBlue:
-            return "Blue Fountain Pen"
-        case .FountainPenRed:
-            return "Red Fountain Pen"
-        case .Clipboard:
-            return "Clipboard"
+            return "Book"
         case .Microscope:
             return "Microscope"
         case .CompassPointB,.CompassPointD:
             return "Map Location"
         case .RedEnvelope1,.RedEnvelope2:
-            return "RedEnvelope"
+            return "Red Envelope"
         case .RiceBowl1,.RiceBowl2:
             return "RiceBowl"
         case .Bullet1,.Bullet2:
@@ -420,7 +533,7 @@ enum CollectibleType: Int{
         case .Bomb:
             return "Bomb"
         default:
-            return "Some Collecible Item"
+            return "Collecible Item"
         }
     }
     
