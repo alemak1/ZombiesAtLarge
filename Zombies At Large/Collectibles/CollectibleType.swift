@@ -175,7 +175,7 @@ enum CollectibleType: Int{
             return "Activate the grenade and then shake the screen.  This will cause all zombies currently in pursuit of the player to be destroyed."
 
         default:
-            return "\(self.getCollectibleName()) has percent metal content of \(self.getPercentMetalContentPerUnit()) per unti and per unit value of \(self.getMonetaryUnitValue()). It cannot be activated"
+            return "\(self.getCollectibleName()) has percent metal content of \(self.getPercentMetalContentPerUnit()) per unit and per unit value of \(self.getMonetaryUnitValue()). It cannot be activated"
         }
     }
   
@@ -518,6 +518,8 @@ enum CollectibleType: Int{
             return "Silver Bullet"
         case .PaintBrush:
             return "Paintbrush"
+        case .Microphone:
+            return "Microphone"
         case .ClosedBook:
             return "Book"
         case .Microscope:
