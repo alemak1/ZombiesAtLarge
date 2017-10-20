@@ -42,7 +42,7 @@ enum GameLevel: Int{
         case .Level1:
             return "Help scientists cure the zombie virus.  Find all the microscopes."
         case .Level2:
-            return "Save all of the retired baby-boomer grandmas. Only they remember how the infection started"
+            return "Save all of the grandmas. Only they remember how the infection started"
         case .Level3:
             return "Zombie anti-virus researchers need to build a lab. Obtain total metal content of over 200 kg."
         case .Level4:
@@ -56,11 +56,11 @@ enum GameLevel: Int{
         case .Level8:
             return "You have found the memory cards. Now quickly go to the research station."
         case .Level9:
-            return "The zombie virus has been cured. Find and collect all of the red pills."
+            return "The zombie virus has been cured. Find and collect all of the antivirus tablets."
         case .Level10:
             return "The zombie virus is mutating. Kill at least 20 zombies to ensure the virus is gone."
-        default:
-            return "Kill the zombies!"
+       
+            
         }
     }
    
@@ -207,6 +207,16 @@ enum GameLevel: Int{
             return #imageLiteral(resourceName: "level4")
         case .Level5:
             return #imageLiteral(resourceName: "level5")
+        case .Level6:
+            return #imageLiteral(resourceName: "level6_thumbnail")
+        case .Level7:
+            return #imageLiteral(resourceName: "level7_thumbnail2")
+        case .Level8:
+            return #imageLiteral(resourceName: "level8_thumbnail")
+        case .Level9:
+            return #imageLiteral(resourceName: "level9_thumbnail")
+        case .Level10:
+            return #imageLiteral(resourceName: "level10_thumbnail")
         default:
             return #imageLiteral(resourceName: "defaultLevelThumbnail")
         }
@@ -224,8 +234,8 @@ enum GameLevel: Int{
                     "the Zombie virus."
                     )
         case .Level2:
-            return ("Save all of","the retired",
-                    "baby-boomer grandmas.",
+            return ("Save all of","the grandmas.",
+                    "They need help.",
                     "Only they remember",
                     "how the infection started")
         case .Level3:
@@ -267,7 +277,7 @@ enum GameLevel: Int{
                     "has been cured.",
                     "Find and collect",
                     "all of the",
-                    "red pills.")
+                    "antivirus tablets.")
         case .Level10:
             return ("The zombie virus",
                     "is mutating.",

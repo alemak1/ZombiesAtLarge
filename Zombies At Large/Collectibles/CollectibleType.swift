@@ -186,11 +186,11 @@ enum CollectibleType: Int{
         
         var finalStr: String = String()
         
-        if(self.rawValue > 100){
+        if(self.rawValue >= 100){
             
             finalStr = baseStr.appending("\(self.rawValue)")
 
-        } else if(self.rawValue > 10){
+        } else if(self.rawValue >= 10){
             
             finalStr = baseStr.appending("0\(self.rawValue)")
             

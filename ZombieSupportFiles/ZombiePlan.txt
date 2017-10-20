@@ -1,0 +1,19 @@
+Missions:
+
+(1)	Find microscope to help a scientist study the virus that causes human beings to 	turn into zombies
+(2) 	Mission: collect enough objects to reach certain metal content, trade for enough 	money, etc.  Include characters that want to purchase certain items (tools, 	 	electronics, metals, etc…)
+(3)	Points on a compass - player collects map locations, which together form an image 	that the player must guess in order to pass level
+
+(4)	CoreML - use must take images so as to satisfy a demand for a photo
+(5) 	Fake ID - user must collect zombie eyes and mouth to create a false ID (use 		CoreImage class)
+
+(6) Robot levels - kill robot’s central processor to win
+	- use synthetic voice audio 
+
+(7)
+
+Player can use flashlight (with attach light node) to find hidden objects (when flashlight is turned on, screen is darkened; use flashlight to find hidden items). 
+
+Grenade - shake the phone, destroy all zombies in nearby area
+
+Some bodies are added as subsides to oil can; shooting oil can then results in all the nearby zombies (i.e. sub-zombies) being destroyed along with the oil can)

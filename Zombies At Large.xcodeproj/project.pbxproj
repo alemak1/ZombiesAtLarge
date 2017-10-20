@@ -508,7 +508,6 @@
 				BD42C6461F7E53700030588F /* OtherViewController */,
 				BD41D5321F7E20F10093CDA8 /* PlayerStats */,
 				BD45E3DD1F7D4086001C6853 /* GameViewController */,
-				BD5803971F6BA1670086BBA6 /* GameScene */,
 				BD47350E1F6A8D0900D91819 /* SKSFiles */,
 				BD5899311F67FC2C00A13DD2 /* OtherGameObjects */,
 				BD5899301F67FBEF00A13DD2 /* Collectibles */,
@@ -516,9 +515,9 @@
 				BD5143271F62E7F300294559 /* Sounds */,
 				BD3961D01F598A940060CDB4 /* BackgroundMusic */,
 				BD3961961F5970940060CDB4 /* AppDelegate.swift */,
-				BD3961A01F5970940060CDB4 /* Main.storyboard */,
 				BD3961A31F5970940060CDB4 /* Assets.xcassets */,
 				BD3961A51F5970940060CDB4 /* LaunchScreen.storyboard */,
+				BD3961A01F5970940060CDB4 /* Main.storyboard */,
 				BD3961A81F5970940060CDB4 /* Info.plist */,
 				BD3A51691F692D5D00B01850 /* Talkable.swift */,
 				BDEB6F5B1F698309000B3B22 /* Plan */,
@@ -620,6 +619,7 @@
 		BD45E3DD1F7D4086001C6853 /* GameViewController */ = {
 			isa = PBXGroup;
 			children = (
+				BD5803971F6BA1670086BBA6 /* GameScene */,
 				BD33F3311F84877A00E94337 /* GameViewNavigationController.swift */,
 				BD45E3DB1F7D403A001C6853 /* GameViewController+GameplayUI.swift */,
 				BD39619E1F5970940060CDB4 /* GameViewController.swift */,

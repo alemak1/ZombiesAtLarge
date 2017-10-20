@@ -61,13 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         **/
      
-        //deletePlayers()
-       // deleteSavedGames()
-       // deleteGameLevelStats()
         
-        
-        showSavedGameInfo()
-    
         GADMobileAds.configure(withApplicationID: "ca-app-pub-3595969991114166~1431909202")
 
         return true
