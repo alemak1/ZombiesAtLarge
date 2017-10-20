@@ -18,6 +18,9 @@ class MainMenuController: UIViewController{
     
     @IBOutlet weak var activityIndicatorViewCenterYConstraint: NSLayoutConstraint!
     
+    
+    @IBOutlet weak var gameStartOptionsCenterYConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var gameStartOptionsBottomConstraint: NSLayoutConstraint!
     
     /** Unwind segue - allows user to return from CreateProfile and LoadProfile view controller to the profile options view controller **/
@@ -110,7 +113,7 @@ class MainMenuController: UIViewController{
     func showActivityIndicator(){
         
         self.activityIndicatorViewCenterYConstraint.constant += 1500
-        self.gameStartOptionsBottomConstraint.constant += 1000
+        self.gameStartOptionsBottomConstraint.constant += 1500
         
         self.activityIndicatorView.startAnimating()
         
@@ -120,6 +123,8 @@ class MainMenuController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.gameStartOptionsCenterYConstraint.constant = -50
+
         
 
     }
@@ -128,6 +133,7 @@ class MainMenuController: UIViewController{
         super.viewWillAppear(animated)
         
         self.playerProfileOptionsWindow.alpha = 1.0
+
     }
     
     override func viewDidLoad() {
@@ -136,7 +142,7 @@ class MainMenuController: UIViewController{
         self.activityIndicatorViewCenterYConstraint.constant = -1500
         
         self.gameStartOptionsCenterXConstraint.constant = 2000
-        
+        self.gameStartOptionsCenterYConstraint.constant = -50
         self.view.layoutIfNeeded()
         
         self.playerProfileOptionsWindow.alpha = 0.0
@@ -185,6 +191,7 @@ class MainMenuController: UIViewController{
         if let gameViewController  = self.presentedViewController as? GameViewController{
             
             gameViewController.dismiss(animated: true, completion: nil)
+            self.gameStartOptionsCenterYConstraint.constant = -50
 
         } else {
             

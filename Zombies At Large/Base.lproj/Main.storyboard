@@ -284,57 +284,11 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="face_zombie" translatesAutoresizingMaskIntoConstraints="NO" id="BlQ-zr-Ec1">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5R-m6-p4c" userLabel="GameStartOptions">
-                                <rect key="frame" x="0.0" y="57" width="320" height="454.5"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJk-Zn-8Jz">
-                                        <rect key="frame" x="10" y="120" width="300" height="100"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <state key="normal" title="Load Saved Game" backgroundImage="redBox300w100h"/>
-                                        <connections>
-                                            <segue destination="KZH-Xv-pZo" kind="show" identifier="loadSavedGameSegue" id="aLT-Qd-8DK"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BI-oO-j3Y">
-                                        <rect key="frame" x="10" y="10" width="300" height="100"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <state key="normal" title="Start Game" backgroundImage="redBox300w100h"/>
-                                        <connections>
-                                            <action selector="startGame:" destination="Rgt-Wl-ATN" eventType="touchUpInside" id="qg6-ON-n8l"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dS2-jd-ATC" userLabel="backToProfileOptions">
-                                        <rect key="frame" x="110" y="404.5" width="100" height="100"/>
-                                        <state key="normal" backgroundImage="flatDark23"/>
-                                        <connections>
-                                            <action selector="showPlayerProfileOptions:" destination="Rgt-Wl-ATN" eventType="touchUpInside" id="dL6-6x-w7F"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpj-3R-uo1">
-                                        <rect key="frame" x="10" y="230" width="300" height="100"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <state key="normal" title="Choose a Level" backgroundImage="redBox300w100h"/>
-                                        <connections>
-                                            <segue destination="Nh6-JH-2t7" kind="show" identifier="loadLevelSelectorSegue" id="tZE-2i-0LV"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="dS2-jd-ATC" firstAttribute="centerX" secondItem="A5R-m6-p4c" secondAttribute="centerX" id="ERU-Bd-mmX"/>
-                                    <constraint firstItem="RJk-Zn-8Jz" firstAttribute="top" secondItem="1BI-oO-j3Y" secondAttribute="bottom" constant="10" id="JCb-CA-JxO"/>
-                                    <constraint firstItem="1BI-oO-j3Y" firstAttribute="centerX" secondItem="A5R-m6-p4c" secondAttribute="centerX" id="RDB-Gd-PUS"/>
-                                    <constraint firstItem="RJk-Zn-8Jz" firstAttribute="centerX" secondItem="A5R-m6-p4c" secondAttribute="centerX" id="UO0-SD-ryn"/>
-                                    <constraint firstAttribute="bottom" secondItem="dS2-jd-ATC" secondAttribute="bottom" constant="-50" id="cKb-4f-9Kz"/>
-                                    <constraint firstItem="Zpj-3R-uo1" firstAttribute="top" secondItem="RJk-Zn-8Jz" secondAttribute="bottom" constant="10" id="nIf-6z-H8p"/>
-                                    <constraint firstItem="1BI-oO-j3Y" firstAttribute="top" secondItem="A5R-m6-p4c" secondAttribute="top" constant="10" id="pfG-s4-cBO"/>
-                                    <constraint firstItem="Zpj-3R-uo1" firstAttribute="centerX" secondItem="A5R-m6-p4c" secondAttribute="centerX" id="rFo-5J-Eor"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VzP-F4-dEW" userLabel="PlayerProfileOptions">
-                                <rect key="frame" x="0.0" y="57" width="320" height="454.5"/>
+                                <rect key="frame" x="0.0" y="57.5" width="320" height="454"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jrx-Mx-Okm">
-                                        <rect key="frame" x="10" y="110" width="300" height="100"/>
+                                        <rect key="frame" x="10" y="105" width="300" height="100"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Select Profile" backgroundImage="redBox300w100h"/>
                                         <connections>
@@ -350,7 +304,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="whH-kW-Jdx">
-                                        <rect key="frame" x="110" y="404.5" width="100" height="100"/>
+                                        <rect key="frame" x="110" y="394" width="100" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="XRr-mS-AfT"/>
                                             <constraint firstAttribute="height" constant="100" id="dr2-lR-Hx0"/>
@@ -363,7 +317,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WPZ-Rr-EbR">
-                                        <rect key="frame" x="10" y="220" width="300" height="100"/>
+                                        <rect key="frame" x="10" y="210" width="300" height="100"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="See More Games" backgroundImage="redBox300w100h"/>
                                         <connections>
@@ -371,7 +325,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkF-9E-mM8">
-                                        <rect key="frame" x="97" y="388.5" width="126" height="56"/>
+                                        <rect key="frame" x="97" y="458" width="126" height="56"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Start Game">
                                                 <attributes>
@@ -390,11 +344,57 @@
                                     <constraint firstItem="jrx-Mx-Okm" firstAttribute="centerX" secondItem="VzP-F4-dEW" secondAttribute="centerX" id="RZB-Le-qM4"/>
                                     <constraint firstItem="WPZ-Rr-EbR" firstAttribute="centerX" secondItem="VzP-F4-dEW" secondAttribute="centerX" id="Sfc-i6-eA9"/>
                                     <constraint firstItem="bkF-9E-mM8" firstAttribute="centerX" secondItem="whH-kW-Jdx" secondAttribute="centerX" id="XLy-0U-dOp"/>
-                                    <constraint firstItem="jrx-Mx-Okm" firstAttribute="top" secondItem="TuG-za-DCC" secondAttribute="bottom" constant="10" id="aSl-kQ-zuh"/>
-                                    <constraint firstItem="whH-kW-Jdx" firstAttribute="top" secondItem="bkF-9E-mM8" secondAttribute="bottom" constant="-40" id="fpD-1h-JgM"/>
-                                    <constraint firstAttribute="bottom" secondItem="whH-kW-Jdx" secondAttribute="bottom" constant="-50" id="gXw-mt-nl9"/>
+                                    <constraint firstItem="jrx-Mx-Okm" firstAttribute="top" secondItem="TuG-za-DCC" secondAttribute="bottom" constant="5" id="aSl-kQ-zuh"/>
+                                    <constraint firstItem="whH-kW-Jdx" firstAttribute="top" secondItem="bkF-9E-mM8" secondAttribute="bottom" constant="-120" id="fpD-1h-JgM"/>
+                                    <constraint firstAttribute="bottom" secondItem="whH-kW-Jdx" secondAttribute="bottom" constant="-40" id="gXw-mt-nl9"/>
                                     <constraint firstItem="TuG-za-DCC" firstAttribute="centerX" secondItem="VzP-F4-dEW" secondAttribute="centerX" id="oOd-Cq-yut"/>
-                                    <constraint firstItem="WPZ-Rr-EbR" firstAttribute="top" secondItem="jrx-Mx-Okm" secondAttribute="bottom" constant="10" id="tge-J7-nwJ"/>
+                                    <constraint firstItem="WPZ-Rr-EbR" firstAttribute="top" secondItem="jrx-Mx-Okm" secondAttribute="bottom" constant="5" id="tge-J7-nwJ"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5R-m6-p4c" userLabel="GameStartOptions">
+                                <rect key="frame" x="0.0" y="37" width="320" height="454.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJk-Zn-8Jz">
+                                        <rect key="frame" x="10" y="105" width="300" height="100"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal" title="Load Saved Game" backgroundImage="redBox300w100h"/>
+                                        <connections>
+                                            <segue destination="KZH-Xv-pZo" kind="show" identifier="loadSavedGameSegue" id="aLT-Qd-8DK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BI-oO-j3Y">
+                                        <rect key="frame" x="10" y="0.0" width="300" height="100"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal" title="Start Game" backgroundImage="redBox300w100h"/>
+                                        <connections>
+                                            <action selector="startGame:" destination="Rgt-Wl-ATN" eventType="touchUpInside" id="qg6-ON-n8l"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dS2-jd-ATC" userLabel="backToProfileOptions">
+                                        <rect key="frame" x="110" y="394.5" width="100" height="100"/>
+                                        <state key="normal" backgroundImage="flatDark23"/>
+                                        <connections>
+                                            <action selector="showPlayerProfileOptions:" destination="Rgt-Wl-ATN" eventType="touchUpInside" id="dL6-6x-w7F"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpj-3R-uo1">
+                                        <rect key="frame" x="10" y="210" width="300" height="100"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal" title="Choose a Level" backgroundImage="redBox300w100h"/>
+                                        <connections>
+                                            <segue destination="Nh6-JH-2t7" kind="show" identifier="loadLevelSelectorSegue" id="tZE-2i-0LV"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="dS2-jd-ATC" firstAttribute="centerX" secondItem="A5R-m6-p4c" secondAttribute="centerX" id="ERU-Bd-mmX"/>
+                                    <constraint firstItem="RJk-Zn-8Jz" firstAttribute="top" secondItem="1BI-oO-j3Y" secondAttribute="bottom" constant="5" id="JCb-CA-JxO"/>
+                                    <constraint firstItem="1BI-oO-j3Y" firstAttribute="centerX" secondItem="A5R-m6-p4c" secondAttribute="centerX" id="RDB-Gd-PUS"/>
+                                    <constraint firstItem="RJk-Zn-8Jz" firstAttribute="centerX" secondItem="A5R-m6-p4c" secondAttribute="centerX" id="UO0-SD-ryn"/>
+                                    <constraint firstAttribute="bottom" secondItem="dS2-jd-ATC" secondAttribute="bottom" constant="-40" id="cKb-4f-9Kz"/>
+                                    <constraint firstItem="Zpj-3R-uo1" firstAttribute="top" secondItem="RJk-Zn-8Jz" secondAttribute="bottom" constant="5" id="nIf-6z-H8p"/>
+                                    <constraint firstItem="1BI-oO-j3Y" firstAttribute="top" secondItem="A5R-m6-p4c" secondAttribute="top" id="pfG-s4-cBO"/>
+                                    <constraint firstItem="Zpj-3R-uo1" firstAttribute="centerX" secondItem="A5R-m6-p4c" secondAttribute="centerX" id="rFo-5J-Eor"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g09-Es-c1k">
@@ -430,7 +430,6 @@
                         <constraints>
                             <constraint firstItem="g09-Es-c1k" firstAttribute="centerY" secondItem="aY2-mQ-U4n" secondAttribute="centerY" id="0ja-DR-c7G"/>
                             <constraint firstItem="dS2-jd-ATC" firstAttribute="height" secondItem="whH-kW-Jdx" secondAttribute="height" id="1eE-gV-eBu"/>
-                            <constraint firstItem="A5R-m6-p4c" firstAttribute="height" secondItem="aY2-mQ-U4n" secondAttribute="height" multiplier="0.8" id="475-IV-g4V"/>
                             <constraint firstItem="g09-Es-c1k" firstAttribute="width" secondItem="aY2-mQ-U4n" secondAttribute="width" multiplier="0.7" id="5ne-Ej-jCN"/>
                             <constraint firstItem="CZC-UG-Pg7" firstAttribute="trailing" secondItem="BlQ-zr-Ec1" secondAttribute="trailing" id="84t-bm-ugZ"/>
                             <constraint firstItem="dS2-jd-ATC" firstAttribute="width" secondItem="whH-kW-Jdx" secondAttribute="width" id="8HE-2q-vxR"/>
@@ -442,10 +441,11 @@
                             <constraint firstItem="VzP-F4-dEW" firstAttribute="width" secondItem="A5R-m6-p4c" secondAttribute="width" id="Gpe-ZD-TLm"/>
                             <constraint firstItem="BlQ-zr-Ec1" firstAttribute="leading" secondItem="CZC-UG-Pg7" secondAttribute="leading" id="GyO-w3-cLm"/>
                             <constraint firstItem="VzP-F4-dEW" firstAttribute="centerX" secondItem="aY2-mQ-U4n" secondAttribute="centerX" id="OQM-Q1-gC3"/>
+                            <constraint firstItem="CZC-UG-Pg7" firstAttribute="bottom" secondItem="A5R-m6-p4c" secondAttribute="bottom" constant="76.5" id="TnY-Fg-ZKk"/>
                             <constraint firstItem="g09-Es-c1k" firstAttribute="centerX" secondItem="aY2-mQ-U4n" secondAttribute="centerX" id="lcY-Ao-le1"/>
-                            <constraint firstItem="CZC-UG-Pg7" firstAttribute="bottom" secondItem="A5R-m6-p4c" secondAttribute="bottom" constant="56.5" id="mUv-e7-Vh4"/>
                             <constraint firstItem="BlQ-zr-Ec1" firstAttribute="top" secondItem="CZC-UG-Pg7" secondAttribute="top" id="mqo-z0-1QC"/>
-                            <constraint firstItem="A5R-m6-p4c" firstAttribute="centerY" secondItem="aY2-mQ-U4n" secondAttribute="centerY" id="rZt-jA-6NN"/>
+                            <constraint firstItem="A5R-m6-p4c" firstAttribute="height" secondItem="aY2-mQ-U4n" secondAttribute="height" multiplier="0.8" id="mwI-SB-rHa"/>
+                            <constraint firstItem="A5R-m6-p4c" firstAttribute="centerY" secondItem="aY2-mQ-U4n" secondAttribute="centerY" constant="-20" id="rZt-jA-6NN"/>
                             <constraint firstItem="A5R-m6-p4c" firstAttribute="width" secondItem="aY2-mQ-U4n" secondAttribute="width" id="t5K-Ef-BIx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CZC-UG-Pg7"/>
@@ -453,8 +453,9 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="WV0-50-xHo" id="O16-4o-YHQ"/>
                         <outlet property="activityIndicatorViewCenterYConstraint" destination="0ja-DR-c7G" id="4Ax-AB-e94"/>
-                        <outlet property="gameStartOptionsBottomConstraint" destination="mUv-e7-Vh4" id="LLV-7g-hf3"/>
+                        <outlet property="gameStartOptionsBottomConstraint" destination="TnY-Fg-ZKk" id="7TS-6F-gsl"/>
                         <outlet property="gameStartOptionsCenterXConstraint" destination="FqQ-dg-G2T" id="I37-jS-fH1"/>
+                        <outlet property="gameStartOptionsCenterYConstraint" destination="rZt-jA-6NN" id="8VA-X1-G6c"/>
                         <outlet property="playerProfileOptionsWindow" destination="VzP-F4-dEW" id="cgU-wp-yru"/>
                         <outlet property="profileOptionsCenterXConstraint" destination="OQM-Q1-gC3" id="9cU-fU-Br2"/>
                         <segue destination="2oo-jy-2Gw" kind="show" identifier="startMissionPlaySegue" id="Pbr-M0-xdb"/>
@@ -1213,7 +1214,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mg5-9E-tRR">
-                                <rect key="frame" x="129" y="30" width="192" height="28.5"/>
+                                <rect key="frame" x="168" y="30" width="144" height="28.5"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -1465,7 +1466,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ITl-C2-Fkb">
-                                <rect key="frame" x="23.5" y="30" width="95.5" height="57.5"/>
+                                <rect key="frame" x="56.5" y="30" width="86.5" height="57.5"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Enter a player name">
                                         <attributes>
@@ -1478,7 +1479,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nep-KT-z3e">
-                                <rect key="frame" x="129.5" y="68.5" width="191.5" height="29"/>
+                                <rect key="frame" x="168.5" y="68.5" width="143.5" height="29"/>
                                 <state key="normal" backgroundImage="red_button11">
                                     <attributedString key="attributedTitle">
                                         <fragment content="Submit">
@@ -1494,7 +1495,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bjk-0P-64W" userLabel="ChooseAvatar">
-                                <rect key="frame" x="23.5" y="131.5" width="124.5" height="25"/>
+                                <rect key="frame" x="56.5" y="131.5" width="104" height="25"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Choose avatar:">
                                         <attributes>
@@ -1510,13 +1511,13 @@
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Nw8-tz-dB4" firstAttribute="width" secondItem="5jK-MD-WRj" secondAttribute="width" id="2om-NR-Jze"/>
-                            <constraint firstItem="bjk-0P-64W" firstAttribute="width" secondItem="ITl-C2-Fkb" secondAttribute="width" multiplier="1.3" id="3bF-Sg-aXT"/>
+                            <constraint firstItem="bjk-0P-64W" firstAttribute="width" secondItem="ITl-C2-Fkb" secondAttribute="width" multiplier="1.2" id="3bF-Sg-aXT"/>
                             <constraint firstItem="j6u-N1-fev" firstAttribute="top" secondItem="aUZ-YL-3Q9" secondAttribute="bottom" constant="10" id="4XX-Cb-dfs"/>
                             <constraint firstItem="xfV-uS-qqx" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" id="5XT-Hv-M3l"/>
                             <constraint firstItem="nep-KT-z3e" firstAttribute="centerX" secondItem="mg5-9E-tRR" secondAttribute="centerX" id="5r2-4A-MGr"/>
                             <constraint firstItem="wdV-aU-5U3" firstAttribute="centerY" secondItem="5jK-MD-WRj" secondAttribute="centerY" id="8FN-CY-Gx7"/>
                             <constraint firstItem="AHK-pa-vTH" firstAttribute="height" secondItem="j6u-N1-fev" secondAttribute="height" id="95f-ut-jCU"/>
-                            <constraint firstItem="ITl-C2-Fkb" firstAttribute="width" secondItem="mg5-9E-tRR" secondAttribute="width" multiplier="0.5" id="9n0-nj-P2a"/>
+                            <constraint firstItem="ITl-C2-Fkb" firstAttribute="width" secondItem="mg5-9E-tRR" secondAttribute="width" multiplier="0.6" id="9n0-nj-P2a"/>
                             <constraint firstItem="Nw8-tz-dB4" firstAttribute="height" secondItem="5jK-MD-WRj" secondAttribute="height" id="A3f-O1-Tan"/>
                             <constraint firstItem="mg5-9E-tRR" firstAttribute="height" secondItem="tz4-u3-fRs" secondAttribute="height" multiplier="0.05" id="AOf-U6-jEN"/>
                             <constraint firstItem="aUZ-YL-3Q9" firstAttribute="height" secondItem="tz4-u3-fRs" secondAttribute="height" multiplier="0.13" id="AYB-OY-8pZ"/>
@@ -1530,7 +1531,7 @@
                             <constraint firstItem="WrZ-m5-eOL" firstAttribute="centerX" secondItem="McH-kb-hDk" secondAttribute="centerX" id="LXB-VA-KCR"/>
                             <constraint firstItem="aUZ-YL-3Q9" firstAttribute="width" secondItem="tz4-u3-fRs" secondAttribute="width" id="LXW-m7-fQA"/>
                             <constraint firstItem="xfV-uS-qqx" firstAttribute="width" secondItem="tz4-u3-fRs" secondAttribute="width" id="Lsj-LK-am7"/>
-                            <constraint firstItem="mg5-9E-tRR" firstAttribute="leading" secondItem="ITl-C2-Fkb" secondAttribute="trailing" constant="10" id="Mf7-7W-VAy"/>
+                            <constraint firstItem="mg5-9E-tRR" firstAttribute="leading" secondItem="ITl-C2-Fkb" secondAttribute="trailing" constant="25" id="Mf7-7W-VAy"/>
                             <constraint firstItem="McH-kb-hDk" firstAttribute="trailing" secondItem="QD4-Sv-HFy" secondAttribute="trailing" constant="20" id="NUh-yT-cmQ"/>
                             <constraint firstItem="AHK-pa-vTH" firstAttribute="centerY" secondItem="j6u-N1-fev" secondAttribute="centerY" id="Njc-k6-PSo"/>
                             <constraint firstItem="Nw8-tz-dB4" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" id="QTz-7W-cdj"/>
@@ -1541,13 +1542,13 @@
                             <constraint firstItem="5jK-MD-WRj" firstAttribute="top" secondItem="j6u-N1-fev" secondAttribute="bottom" constant="30" id="aEO-Ra-mra"/>
                             <constraint firstItem="5jK-MD-WRj" firstAttribute="centerX" secondItem="McH-kb-hDk" secondAttribute="centerX" id="aX4-p1-DaX"/>
                             <constraint firstItem="AHK-pa-vTH" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" id="atP-2s-nSB"/>
-                            <constraint firstItem="mg5-9E-tRR" firstAttribute="width" secondItem="tz4-u3-fRs" secondAttribute="width" multiplier="0.6" id="b01-zM-yfE"/>
+                            <constraint firstItem="mg5-9E-tRR" firstAttribute="width" secondItem="tz4-u3-fRs" secondAttribute="width" multiplier="0.45" id="b01-zM-yfE"/>
                             <constraint firstItem="bjk-0P-64W" firstAttribute="centerY" secondItem="aUZ-YL-3Q9" secondAttribute="centerY" id="c5g-cC-SF0"/>
                             <constraint firstItem="nep-KT-z3e" firstAttribute="width" secondItem="mg5-9E-tRR" secondAttribute="width" id="cow-0n-mqu"/>
                             <constraint firstItem="ITl-C2-Fkb" firstAttribute="top" secondItem="mg5-9E-tRR" secondAttribute="top" id="czj-S6-3cD"/>
                             <constraint firstItem="j6u-N1-fev" firstAttribute="centerX" secondItem="McH-kb-hDk" secondAttribute="centerX" id="est-aB-IQb"/>
                             <constraint firstItem="nep-KT-z3e" firstAttribute="top" secondItem="mg5-9E-tRR" secondAttribute="bottom" constant="10" id="g6b-AH-C5X"/>
-                            <constraint firstItem="mg5-9E-tRR" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" constant="65" id="gBn-EQ-qCn"/>
+                            <constraint firstItem="mg5-9E-tRR" firstAttribute="centerX" secondItem="tz4-u3-fRs" secondAttribute="centerX" constant="80" id="gBn-EQ-qCn"/>
                             <constraint firstItem="bjk-0P-64W" firstAttribute="leading" secondItem="ITl-C2-Fkb" secondAttribute="leading" id="hMD-vM-jtb"/>
                             <constraint firstItem="nep-KT-z3e" firstAttribute="height" secondItem="mg5-9E-tRR" secondAttribute="height" id="i7E-IS-wHy"/>
                             <constraint firstItem="xfV-uS-qqx" firstAttribute="centerY" secondItem="j6u-N1-fev" secondAttribute="centerY" id="qc6-Ug-11i"/>

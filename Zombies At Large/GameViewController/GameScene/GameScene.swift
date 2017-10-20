@@ -589,9 +589,14 @@ class GameScene: BaseScene{
     }
     
     func loadGameControls(){
+        
+       
+        
+        
         let xPosControls = UIScreen.main.bounds.width*0.37
         let yPosControls = -UIScreen.main.bounds.height*0.43
 
+        
         let point = CGPoint(x: xPosControls, y: yPosControls)
         loadControls(atPosition: point)
         
@@ -684,10 +689,27 @@ class GameScene: BaseScene{
         hudNode.move(toParent: overlayNode)
         hudNode.zPosition = 35
         
-        let xPos = -UIScreen.main.bounds.size.width*0.1
-        let yPos = UIScreen.main.bounds.size.height*0.33
-        hudNode.position = CGPoint(x: xPos, y: yPos)
         
+        var xPos = -UIScreen.main.bounds.size.width*0.1
+        var yPos = UIScreen.main.bounds.size.height*0.33
+        
+        
+        let traitCollection = UIScreen.main.traitCollection
+        let vertSizeClass = traitCollection.verticalSizeClass
+        let horizontalSizeClass = traitCollection.horizontalSizeClass
+        
+        if(vertSizeClass == .regular && horizontalSizeClass == .regular){
+            
+            xPos = -UIScreen.main.bounds.width*0.3
+            yPos = UIScreen.main.bounds.height*0.4
+            hudNode.position = CGPoint(x: xPos, y: yPos)
+            
+            
+        } else {
+            
+            hudNode.position = CGPoint(x: xPos, y: yPos)
+            
+        }
         
         
         HUDManager.sharedManager.updateBulletCount(withUnits: 30)
@@ -701,12 +723,27 @@ class GameScene: BaseScene{
         hudNode.move(toParent: overlayNode)
         hudNode.zPosition = 35
         
-        let xPos = -UIScreen.main.bounds.size.width*0.1
-        let yPos = UIScreen.main.bounds.size.height*0.33
-        hudNode.position = CGPoint(x: xPos, y: yPos)
+        var xPos = -UIScreen.main.bounds.size.width*0.1
+        var yPos = UIScreen.main.bounds.size.height*0.33
         
         
+        let traitCollection = UIScreen.main.traitCollection
+        let vertSizeClass = traitCollection.verticalSizeClass
+        let horizontalSizeClass = traitCollection.horizontalSizeClass
         
+        if(vertSizeClass == .regular && horizontalSizeClass == .regular){
+            xPos = -UIScreen.main.bounds.width*0.3
+            yPos = UIScreen.main.bounds.height*0.4
+            hudNode.position = CGPoint(x: xPos, y: yPos)
+            
+            
+        } else {
+            
+            hudNode.position = CGPoint(x: xPos, y: yPos)
+
+        }
+        
+
         HUDManager.sharedManager.updateBulletCount(withUnits: self.player.getCurrentHealth())
         HUDManager.sharedManager.updateHealthCount(withUnits: self.player.getNumberOfBulletsFired())
         

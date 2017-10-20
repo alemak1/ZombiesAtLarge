@@ -556,7 +556,8 @@ class GameViewController: UIViewController, UICollectionViewDelegate,UICollectio
                 menuViewController.activityIndicatorView.stopAnimating()
                 
                 menuViewController.activityIndicatorViewCenterYConstraint.constant = -1500
-                menuViewController.gameStartOptionsBottomConstraint.constant = 0
+                menuViewController.gameStartOptionsBottomConstraint.constant = 76.5
+                menuViewController.gameStartOptionsCenterYConstraint.constant = -50
                 
             }
             
